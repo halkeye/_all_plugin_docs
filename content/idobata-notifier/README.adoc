@@ -1,0 +1,18 @@
+[[IdobataNotifier-IdobataNotifierPlugin]]
+== Idobata Notifier Plugin
+
+[.confluence-embedded-file-wrapper]#image:docs/images/スクリーンショット_2014-05-20_15.33.20.png[image]#
+
+[[IdobataNotifier-Install]]
+== Install
+
+[.confluence-embedded-file-wrapper]#image:docs/images/スクリーンショット_2014-05-20_15.39.16.png[image]#
+
+[[IdobataNotifier-Configuration]]
+== Configuration
+
+This Plugin uses *Generic hook* (not Jenkins hook).
+
+[.confluence-embedded-file-wrapper]#image:docs/images/スクリーンショット_2014-05-20_15.48.16.png[image]#
+
+[.confluence-embedded-file-wrapper]#image:docs/images/スクリーンショット_2014-05-20_15.29.50.png[image]#

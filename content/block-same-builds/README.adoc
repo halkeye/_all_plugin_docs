@@ -1,0 +1,13 @@
+A plugin for Jenkins CI that blocks the running builds with the same
+configured parameters.
+
+*Screenshots*
+
+Job configuration
+
+[.confluence-embedded-file-wrapper]#image:docs/images/parameters.png[image]#
+
+ +
+How it works
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/works.png[image,width=800]#

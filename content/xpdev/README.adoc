@@ -1,0 +1,23 @@
+This plugin let you configure a web hook on http://xp-dev.com/ hosted
+repositories to trigger jenkins builds.
+
+[[XP-Devplugin-Usage]]
+== Usage
+
+Edit your repository configuration http://xp-dev.com/sc/edit/<id> and
+set the webhook-url as
+http://jenkins/xpdev-webhook[http://JENKINS/xpdev-webhook]
+
+[[XP-Devplugin-TODO]]
+== TODO
+
+Use http://docs.xp-dev.com/api/[XP-Dev API] to automatically register
+the webhook, the same way the github plugin does.
+
+[[XP-Devplugin-History]]
+== History
+
+[[XP-Devplugin-1.0(June26,2012)]]
+=== 1.0 (June 26, 2012)
+
+* initial code base

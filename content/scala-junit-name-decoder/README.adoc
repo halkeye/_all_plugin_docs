@@ -1,0 +1,21 @@
+This plugin displays JUnit test names for Scala classes as they appear
+in source, eg "some$u0020test" becomes "some test".
+
+[[ScalaJUnitNameDecoderPlugin-Screenshot]]
+== Screenshot
+
+Before:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/without_plugin.png[image]#
+
+After:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/with_plugin.png[image]#
+
+[[ScalaJUnitNameDecoderPlugin-ChangeLog]]
+== Change Log
+
+[[ScalaJUnitNameDecoderPlugin-Version1.0(May23,2013)]]
+=== Version 1.0 (May 23, 2013)
+
+* Initial release

@@ -1,0 +1,7 @@
+ +
+
+This plugins integrate Jenkins with Tuleap Git service. It provides auto
+discovery of repositories and branches to create corresponding jobs if
+Jenkinsfiles are found.
+
+More to come...

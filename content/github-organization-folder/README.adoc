@@ -1,0 +1,69 @@
+[.conf-macro .output-inline]##*Obsolete* plugin. May be removed after
+you have upgraded to 1.6.## +
+
+Changelog
+
+[[GitHubOrganizationFolderPlugin-Version1.6(Jan16,2017)]]
+== Version 1.6 (Jan 16, 2017)
+
+* image:docs/images/warning.svg[(warning)]
+  Please read https://jenkins.io/blog/2017/01/17/scm-api-2/[this Blog
+Post] before upgrading
+* image:docs/images/information.svg[(info)]
+  Tombstone release that will migrate configuration and data from
+previous releases of the plugin.
+* Once you have upgraded to this plugin, you can safely uninstall this
+plugin after a full re-index of all org folders and multi-branch
+projects.
+* *There will be no more releases of this plugin*
+
+[[GitHubOrganizationFolderPlugin-Version1.6-beta-1(Dec16,2016)]]
+== Version 1.6-beta-1 (Dec 16, 2016)
+
+* Available from the experimental update center
+* Tombstone release that will migrate configuration and data from
+previous releases of the plugin.
+* Once you have upgraded to this plugin, you can safely uninstall this
+plugin after a full re-index of all org folders and multi-branch
+projects.
+* There will be one more release of this plugin, i.e. a tombstone for
+the regular update center
+
+[[GitHubOrganizationFolderPlugin-Version1.5(Sep07,2016)]]
+== Version 1.5 (Sep 07, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-31155[JENKINS-31155]
+Added a dynamic external library loader matching
+`+@Library('github.com/owner/repo')+` syntax.
+
+[[GitHubOrganizationFolderPlugin-Version1.4(Jul28,2016)]]
+== Version 1.4 (Jul 28, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-34692[JENKINS-34692]
+Incorrect link for pull requests.
+* Unconfirmed failure to clean up some state after an exception.
+
+[[GitHubOrganizationFolderPlugin-Version1.3(Apr18,2016)]]
+== Version 1.3 (Apr 18, 2016)
+
+* https://github.com/jenkinsci/github-organization-folder-plugin/pull/9[Upgraded]
+the main dependencies: `+github-branch-source+`, `+cloudbees-folder+`
+and `+workflow-multibranch+`.
+
+[[GitHubOrganizationFolderPlugin-Version1.2(Mar14,2016)]]
+== Version 1.2 (Mar 14, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-33480[JENKINS-33480]
+`+NullPointerException+` when configuring an organization folder.
+* Now requires Jenkins core 1.642.1 or newer, since its Pipeline 1.15
+dependency was already doing the same.
+
+[[GitHubOrganizationFolderPlugin-Version1.1(Mar10,2016)]]
+== Version 1.1 (Mar 10, 2016)
+
+* Updated the dependency to refer to a released version
+
+[[GitHubOrganizationFolderPlugin-Version1.0(Mar8,2016)]]
+== Version 1.0 (Mar 8, 2016)
+
+* First release

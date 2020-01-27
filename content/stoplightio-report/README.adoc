@@ -1,0 +1,113 @@
+[[StoplightIOReportPlugin-Summary]]
+== Summary
+
+Publish report and statistics after Stoplight/Scenario execution through
+Prism.
+
+See
+https://help.stoplight.io/scenarios/conducting-scenarios-outside-of-stoplight/running-scenarios
+
+This Jenkins plugin is used as "Post Built Action".
+
+[[StoplightIOReportPlugin-Features]]
+=== Features
+
+* Graphical representation based on Google Chart
+* Integration in Jenkins menus
+* Support of new Jenkins Pipeline (since 2.1.0)
+* Manage Prism Console LOG and JSON format
+
+[[StoplightIOReportPlugin-Usage]]
+== [.anchor]#Usage#
+
+[[StoplightIOReportPlugin-Build]]
+=== Build
+
+[source,syntaxhighlighter-pre]
+----
+mvn package
+----
+
+[[StoplightIOReportPlugin-Installation]]
+=== Installation
+
+The plugin can be install with the differents methods described in the
+Jenkins documentation
+: https://wiki.jenkins-ci.org/display/JENKINS/Plugins#Plugins-Howtoinstallplugins[Jenkins
+Plugins - How to install plugins]
+
+[[StoplightIOReportPlugin-Configuration]]
+=== Configuration
+
+The plugin is able to parse either JSON format or standard output of
+Prism (compliant with prism-2.0.0-alpha.7). Choose "Jenkins default
+console" or "File".
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://github.com/jenkinsci/stoplightio-report-plugin/raw/master/doc/configuration.png[image,width=455,height=206]#
+
+[[StoplightIOReportPlugin-UseinJenkinsPipeline]]
+=== Use in Jenkins Pipeline
+
+This plugin is compliant with new Jenkins Pipeline.
+
+You can use the Snipper Generator or this fragment :
+
+[source,syntaxhighlighter-pre]
+----
+...
+...
+post {
+    always {
+        // Choose one of these options
+
+        //publishStoplight consoleOrFile: 'console'
+        publishStoplight consoleOrFile: 'file', resultFile: "${env.WORKSPACE}/prism.log"   // Use double-quote to have env variables replacement
+    }
+}        
+----
+
+(Tested with Jenkins 2.60.2)
+
+[[StoplightIOReportPlugin-JobMainPage:trend]]
+=== Job Main Page : trend
+
+ +
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://github.com/jenkinsci/stoplightio-report-plugin/raw/master/doc/homepage.png[image,height=400]#
+
+ +
+
+[[StoplightIOReportPlugin-JobMainPage:history]]
+=== [.anchor]#Job Main Page : history#
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://github.com/jenkinsci/stoplightio-report-plugin/raw/master/doc/reports_history.png[image,height=400]#
+
+[[StoplightIOReportPlugin-ReportBuild]]
+=== [.anchor]#Report Build#
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://github.com/jenkinsci/stoplightio-report-plugin/raw/master/doc/report_details.png[image,width=431,height=400]#
+
+[[StoplightIOReportPlugin-Notes]]
+== [.anchor]#Notes#
+
+Thanks to http://stoplight.io/[Stoplight.io] team.
+
+[[StoplightIOReportPlugin-RevisionHistory]]
+== [.anchor]#Revision History#
+
+2.2.3 : Fix a major regression.
+
+2.2.2 : Fix an issue causing a "Too many open files" error on the
+Jenkins server when running a lot of jobs.
+
+2.2.1 : Adding support for Jenkins master/slave configuration
+
+2.2.0 : Licensing under Apache v2.0
+
+2.1.0 : Add support of Jenkins Pipeline (brought with Jenkins 2)
+
+2.0.3 : Fix for icons path
+
+2.0.2 : First public version
+
+< 2.0.2 : Not published

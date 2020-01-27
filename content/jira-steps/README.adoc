@@ -1,0 +1,21 @@
+[.conf-macro .output-inline]#Jenkins Pipeline Steps for integration with
+https://www.atlassian.com/software/jira[JIRA]# +
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/JIRA_Steps.png[image,width=200]#
+
+More information about this plugin is available
+https://jenkinsci.github.io/jira-steps-plugin/[here].
+
+Quick links:
+
+* https://jenkinsci.github.io/jira-steps-plugin/index.html[Get Started]
+* https://jenkinsci.github.io/jira-steps-plugin/install.html[Installation]
+* https://jenkinsci.github.io/jira-steps-plugin/config.html[Configuration]
+* https://jenkinsci.github.io/jira-steps-plugin/jira_get_component.html[Pipeline
+Steps]
+* https://jenkinsci.github.io/jira-steps-plugin/contributing.html[Contribution]
+
+[[JIRAStepsPlugin-Changelog]]
+== Changelog
+
+* Refer to the
+https://jenkinsci.github.io/jira-steps-plugin/changelog/[Changelog].

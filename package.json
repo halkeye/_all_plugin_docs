@@ -1,0 +1,17 @@
+{
+  "name": "all_plugin_docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gavin Mogan <npm@gavinmogan.com> (https://www.gavinmogan.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "axios-retry": "^3.1.2",
+    "mkdirp": "^1.0.3",
+    "unzipper": "^0.10.7"
+  }
+}

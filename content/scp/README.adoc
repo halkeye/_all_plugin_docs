@@ -1,0 +1,100 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2017-10-23/[Insecure credential
+storage and transmission]
+
+This plugin uploads build artifacts to repository sites using SCP (SSH)
+protocol. First you should define SCP hosts on hudson global config
+page. After that you can refer to this hosts using select list. See
+picture for global config:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/scp-1.jpg[image]#
+
+After entering username/password automatic logon check is performed to
+see if you entered it correctly. +
+Root repository path must exist before you can reference it and should
+be accessible by user who do publish of files.
+
+'''''
+
+Then per job you can enable publishing of build artifacts:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/scp-2.jpg[image]#
+
+_Source_ points to files which will be uploaded. You can use ant
+includes syntax, eg. folder/dist/*.jar. Path is constructed from
+workspace root. +
+Note that you cannot point files outside the _workspace_ directory. For
+example providing: `+../myfile.txt+` won't work... +
+_Destination_ points to destination folder on remote site. It will be
+created if doesn't exists and relative to root repository path. +
+You can define multiple blocks of source/destination pairs.
+
+[[SCPplugin-ChangeLog]]
+== Change Log
+
+[[SCPplugin-Version1.9(?)]]
+=== Version 1.9 ( ? )
+
+* More verbose site name.
+(https://issues.jenkins-ci.org/browse/JENKINS-7257[JENKINS-7257])
+
+[[SCPplugin-Version1.8(Jan6,2011)]]
+=== Version 1.8 (Jan 6, 2011)
+
+* Added "Keep Hierarchy" option.
+(https://issues.jenkins-ci.org/browse/JENKINS-8170[JENKINS-8170])
+
+[[SCPplugin-Version1.7(Oct19,2010)]]
+=== Version 1.7 (Oct 19, 2010)
+
+* i18n & l10n(ja)
+(https://issues.jenkins-ci.org/browse/JENKINS-8109[JENKINS-8109])
+
+[[SCPplugin-Version1.6(Feb2,2010)]]
+=== Version 1.6 (Feb 2, 2010)
+
+* Update code for more recent Hudson
+
+[[SCPplugin-Version1.5.2(Nov12,2008)]]
+=== Version 1.5.2 (Nov 12, 2008)
+
+* Fix for
+https://issues.jenkins-ci.org/browse/JENKINS-2609[JENKINS-2609]: version
+1.5.1 of the SCP plugin is broken for "password only" authentication
+
+[[SCPplugin-Version1.5.1]]
+=== Version 1.5.1
+
+* Enhancement, support for public key authentication
+(https://issues.jenkins-ci.org/browse/JENKINS-1269[JENKINS-1269])
+* Enhancement, works now with Maven2 jobs
+(https://issues.jenkins-ci.org/browse/JENKINS-1845[JENKINS-1845])
+
+[[SCPplugin-Version1.5]]
+=== Version 1.5
+
+* Improved error diagnosis when the specified file pattern didn't match
+anything.
+
+[[SCPplugin-Version1.4(2008/07/23)]]
+=== Version 1.4 (2008/07/23)
+
+* fixed NPE
+(https://issues.jenkins-ci.org/browse/JENKINS-1269[JENKINS-1269])
+
+[[SCPplugin-Version1.3]]
+=== Version 1.3
+
+* fixed bug with subdirectories creation
+
+[[SCPplugin-Version1.2]]
+=== Version 1.2
+
+* Updated to work with Hudson 1.159
+(https://issues.jenkins-ci.org/browse/JENKINS-1054[JENKINS-1054])

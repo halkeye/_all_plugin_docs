@@ -1,0 +1,19 @@
+The plugin brings automatic open source management to Jenkins users.
+
+[[WhitesourcePlugin-Jenkinsplugindocumentation]]
+== [.confluence-embedded-file-wrapper]#image:docs/images/Logo_250x60.png[image]# *Jenkins plugin documentation*
+
+ +
+White Source helps you manage the usage of open source libraries in your
+projects. For more information about the service please visit the
+http://www.whitesourcesoftware.com/[home page].
+
+ 
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+Configuration and usage instructions along with any other information
+about the plugin can be found in
+the https://whitesource.atlassian.net/wiki/spaces/WD/pages/34111596/Jenkins+Plugin[online
+documentation].

@@ -1,0 +1,21 @@
+ +
+
+Discover your smart http://lifx.co/[LIFX] lightbulbs on the network and
+use them as a build notifier.
+
+Just install the plugin and be prepared to be surprised.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/Screen_Shot_2014-07-14_at_7.17.09_pm.png[image]#
+
+[[LIFXnotifierplugin-Colorsconfiguration]]
+== Colors configuration
+
+[.confluence-embedded-file-wrapper]#image:https://github.com/vgaidarji/lifx-notifier-plugin/blob/master/screenshots/plugin_configuration.png?raw=true[image]#
+
+[[LIFXnotifierplugin-Changelog]]
+== Changelog
+
+[[LIFXnotifierplugin-0.3.0(Nov292016)]]
+=== 0.3.0 (Nov 29 2016)
+
+* Add possibility to configure colors (in progress, success/failure)

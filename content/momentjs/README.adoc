@@ -1,0 +1,16 @@
+Moment.js Plugin
+
+ +
+ +
+
+*NOTE*: *This is a UI support plugin. It should not be installed
+directly.* Plugins that use it will auto-install it.
+
+See https://github.com/jenkinsci/js-libs/tree/master/momentjs[GitHub
+documentation for more details].
+
+[[Moment.js-ChangeLog]]
+== Change Log
+
+[[Moment.js-Version1.0(Sept15,2015)]]
+=== Version 1.0 (Sept 15, 2015)

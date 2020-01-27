@@ -1,0 +1,84 @@
+[.conf-macro .output-inline]##
+
+This plugin supports extended configuration for triggering downstream
+builds:
+
+* trigger build only if downstream job has SCM changes
+* trigger build if upstream build result is better/equal/worse than any
+given result (SUCCESS, UNSTABLE, FAILURE, ABORTED)
+* for Matrix (alias multi-configuration) jobs you can decide which part
+of the job should trigger the downstream job: parent only,
+configurations only or both
+
+[[Downstream-ExtPlugin-Changelog]]
+== Changelog
+
+[[Downstream-ExtPlugin-Version1.8]]
+=== Version 1.8
+
+* Fixed incompatibility with newer Jenkins versions
+https://issues.jenkins-ci.org/browse/JENKINS-16917[JENKINS-16917]
+
+[[Downstream-ExtPlugin-Version1.7]]
+=== Version 1.7
+
+* Improved to work with hierarchical projects, such as folders plugin
+* Build dowsntreams only when this job itself is triggered via SCM
+change (https://github.com/jenkinsci/downstream-ext-plugin/pull/1[pull
+#1])
+
+[[Downstream-ExtPlugin-Version1.6]]
+=== Version 1.6
+
+* fixed: (this time for real - well I certainly hope so): upstream build
+can block if downstream uses a SCM which 'locks' the workspace (e.g. CVS
+or Perforce)
+[http://issues.jenkins-ci.org/browse/JENKINS-5406[JENKINS-5406]]
+* added: you can now configure wich part of a matrix job (parent,
+configuration, both) should trigger a downstream build
+[http://issues.jenkins-ci.org/browse/JENKINS-6049[JENKINS-6049]**]**
+
+[[Downstream-ExtPlugin-Version1.5]]
+=== Version 1.5
+
+* fixed again (hope the fix works this time): upstream build can block
+if downstream uses a SCM which 'locks' the workspace (e.g. CVS or
+Perforce)
+[http://issues.jenkins-ci.org/browse/JENKINS-5406[JENKINS-5406] ]
+
+[[Downstream-ExtPlugin-Version1.4]]
+=== Version 1.4
+
+* fixed: upstream build can block if downstream uses a SCM which 'locks'
+the workspace (e.g. CVS or Perforce)
+[http://issues.jenkins-ci.org/browse/JENKINS-5406[JENKINS-5406] ]
+* fixed: workaround for matrix build not being triggered since 1.2
+[http://issues.jenkins-ci.org/browse/JENKINS-5508[JENKINS-5508]**]**
+
+[[Downstream-ExtPlugin-Version1.3]]
+=== Version 1.3
+
+* allow triggering for aborted jobs
+[http://issues.jenkins-ci.org/browse/JENKINS-5215[JENKINS-5215]]
+* allow triggering if build result is _exactly equal_ or _equal or
+under_ the specified threshold
+[http://issues.jenkins-ci.org/browse/JENKINS-5215[JENKINS-5215]]
+
+[[Downstream-ExtPlugin-Version1.2(requiresHudson1.341orhigher)]]
+=== Version 1.2 (_requires Hudson 1.341 or higher_)
+
+* show dependency to downstream jobs in build overview page (uses
+enhancements done to job dependency management introduced in Hudson
+1.341)
+
+[[Downstream-ExtPlugin-Version1.1(requiresHudson1.321orhigher)]]
+=== Version 1.1 (_requires Hudson 1.321 or higher_)
+
+* allow triggering of downstream job if upstream's build result was
+_failure._
+
+[[Downstream-ExtPlugin-Version1.0]]
+=== Version 1.0
+
+* initial release. Optionally, restrict triggering to downstream jobs
+with SCM changes. +

@@ -1,0 +1,19 @@
+[[DockerSwarmPlugin-Summary]]
+== Summary
+
+This plugin allows to add a Docker Swarm as a cloud agent provider. This
+allows to dynamically spin up single use Jenkins agents inside the
+Docker Swarm from a given Docker image
+
+[[DockerSwarmPlugin-Documentation]]
+=== Documentation
+
+Please refer to documentation in the
+https://github.com/jenkinsci/docker-swarm-plugin[GitHub repository].
+
+[[DockerSwarmPlugin-Releases]]
+=== Releases
+
+See the
+https://github.com/jenkinsci/docker-swarm-plugin/releases[releases in
+GitHub] for the latest version and the changelog.

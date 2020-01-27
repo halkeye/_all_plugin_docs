@@ -1,0 +1,15 @@
+ 
+
+ 
+
+[.confluence-embedded-file-wrapper]#image:docs/images/logo.png[image]#
+
+ 
+
+The Incapptic Connect Uploader Plugin is a Jenkins plugin that allows
+app developers to automatically upload binary files of your apps (*.ipa,
+*.apk files) to the https://incapptic.com/[incapptic Connect] platform.
+Incapptic Connect is an app release management and deployment automation
+platform that enables companies to simplify the process of releasing
+mobile apps. For more information please feel free to contact us
+at contact@incapptic.com!

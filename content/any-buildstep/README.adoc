@@ -1,0 +1,42 @@
+https://wiki.jenkins-ci.org/display/JENKINS/Any+Build+Step+Plugin#AnyBuildStepPlugin-features[Features] +
+https://wiki.jenkins-ci.org/display/JENKINS/Any+Build+Step+Plugin#AnyBuildStepPlugin-changelog[Change
+log]
+
+[#AnyBuildStepPlugin-features .confluence-anchor-link .conf-macro .output-inline]#
+#
+
+[[AnyBuildStepPlugin-Features]]
+== Features
+
+* Use publishers as a Build Step (via the
+https://wiki.jenkins-ci.org/display/JENKINS/Conditional+BuildStep+Plugin[Conditional
+BuildStep Plugin])
+* Use builders during the Post-build Actions (via the
+https://wiki.jenkins-ci.org/display/JENKINS/Flexible+Publish+Plugin[Flexible
+Publish Plugin])
+* Adds a global configuration option for the Flexible Publish and
+Conditional BuildStep Plugins to enable all build steps to be made
+available to them.
+
+[#AnyBuildStepPlugin-changelog .confluence-anchor-link .conf-macro .output-inline]#
+#
+
+[[AnyBuildStepPlugin-Changelog]]
+== Change log
+
+[[AnyBuildStepPlugin-0.1(14/11/2011)]]
+=== 0.1 (14/11/2011)
+
+* Initial release
+
+Questions, Comments, Bugs and Feature Requests
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+Please post questions or comments about this plugin to the
+http://jenkins-ci.org/content/mailing-lists[Jenkins User mailing
+list]. +
+To report a bug or request an enhancement to this plugin please
+http://issues.jenkins-ci.org/browse/JENKINS/component/16136[create a
+ticket in JIRA].

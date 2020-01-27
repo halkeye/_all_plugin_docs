@@ -1,0 +1,6 @@
+[[KubernetesClientAPIPlugin-KubernetesClientAPIPlugin]]
+== Kubernetes Client API Plugin
+
+This plugin exposes the
+https://github.com/jenkinsci/kubernetes-client-api-plugin[Kuberenetes
+Client API] to other Jenkins plugins.

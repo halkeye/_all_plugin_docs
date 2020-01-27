@@ -1,0 +1,20 @@
+[[SurroundSCMPlugin-SeapineSurroundSCMPlug-in]]
+== Seapine Surround SCM Plug-in
+
+[.conf-macro .output-inline]#This plug-in integrates
+https://www.perforce.com/products/surround-scm[Surround SCM] for source
+control with Jenkins.#
+
+[[SurroundSCMPlugin-Installingandusingtheplug-in]]
+=== Installing and using the plug-in
+
+See the
+http://www.seapine.com/knowledgebase/index.php?View=entry&EntryID=761[Seapine
+knowledgebase] for information about integration requirements and
+installing, configuring, and using the plug-in.
+
+[[SurroundSCMPlugin-Troubleshooting]]
+=== Troubleshooting
+
+Contact mailto:support@seapine.com[Seapine support] for troubleshooting
+help or to report issues or feature requests.

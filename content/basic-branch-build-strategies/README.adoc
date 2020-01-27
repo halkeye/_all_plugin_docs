@@ -1,0 +1,11 @@
+Basic branch build strategies for use with Branch API based projects.
+
+[[BasicBranchBuildStrategiesPlugin-Documentation]]
+== Documentation
+
+See https://github.com/jenkinsci/basic-branch-build-strategies-plugin/tree/master/docs[here]
+
+[[BasicBranchBuildStrategiesPlugin-Changelog]]
+== Changelog
+
+See https://github.com/jenkinsci/basic-branch-build-strategies-plugin/blob/master/CHANGES.adoc[here]

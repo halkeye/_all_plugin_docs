@@ -1,0 +1,32 @@
+ 
+
+ [.conf-macro .output-inline]#This plugin adds the function to
+automatically notify completion to Slack to all jobs.# 
+
+[[GlobalSlackNotifierPlugin-Setup]]
+== Setup
+
+. Setup https://github.com/jenkinsci/slack-plugin[Slack Plugin]
+. Setup Global Slack Messages in Global Configuration
+. {blank}
++
+[source,tw-data-text,tw-ta,tw-text-medium]
+----
+Any build notifies slack completion without any job configuration 
+----
+
+[[GlobalSlackNotifierPlugin-GlobalSlackMessages]]
+=== Global Slack Messages
+
+. Set XXXMessage
+. Check notify on build XXX
+. Set channel notifying, if necessary.(Default channel is Slack Plugin's
+Channel)
+
+* XXX is build result
+
+[.confluence-embedded-file-wrapper]#image:https://github.com/jenkinsci/global-slack-notifier-plugin/raw/master/img/globalslackmessage.png[image]#
+
+ 
+
+ 

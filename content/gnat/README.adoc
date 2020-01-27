@@ -1,0 +1,136 @@
+ [.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View GNAT https://plugins.jenkins.io/gnat[on the plugin site] for more
+information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]##
+
+*This plugin is up for adoption.* Want to help improve this plugin?
+https://wiki.jenkins-ci.org/display/JENKINS/Adopt+a+Plugin[Click here to
+learn more]!
+
+ +
+[.conf-macro .output-inline]#This plugin makes it possible to integrate
+http://www.adacore.com/home/products/gnatpro/toolsuite/tool_partners/[Gnat]
+features for Ada languages in Jenkins.# +
+ +
+
+[[GnatPlugin-Changelog]]
+== Changelog
+
+[[GnatPlugin-1.0(inprogess)]]
+=== 1.0 (in progess)
+
+* Adding the support of grpbuild +
+* Adding the support of grpclean
+
+[[GnatPlugin-Release0.14(October11,2012)]]
+=== Release 0.14 (October 11, 2012)
+
+* Move publishers to gnat builders
+
+[[GnatPlugin-Release0.13(February14,2012)]]
+=== Release 0.13 (February 14, 2012)
+
+* Update to xunit 1.39 +
+* Remove aunit support (AUnit is only available through the xUnit
+plugin)
+
+[[GnatPlugin-Release0.12(May15,2011)]]
+=== Release 0.12 (May 15, 2011)
+
+* Upgrade to xUnit 1.17 +
+* Built for Jenkins 1.410 +
+* Changed packaging procedure
+
+[[GnatPlugin-Release0.11.2(April01,2011)]]
+=== Release 0.11.2 (April 01, 2011)
+
+* Upgraded to
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit] 1.16.2
+
+[[GnatPlugin-Release0.11.1(March06,2011)]]
+=== Release 0.11.1 (March 06, 2011)
+
+* Fixed Maven metadata for Jenkins
+
+[[GnatPlugin-Release0.11(March06,2011)]]
+=== Release 0.11 (March 06, 2011)
+
+* Upgraded to Jenkins metadata 1.399 +
+* Upgraded to
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit] 1.16.1
+
+[[GnatPlugin-Release0.10(December15,2010)]]
+=== Release 0.10 (December 15, 2010)
+
+* Upgraded to
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit] 1.13
+
+[[GnatPlugin-Release0.9(October11,2010)]]
+=== Release 0.9 (October 11, 2010)
+
+* Upgraded to
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit] 1.9
+
+[[GnatPlugin-Release0.8(September07,2010)]]
+=== Release 0.8 (September 07, 2010)
+
+* Upgraded to
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit] 1.8
+
+[[GnatPlugin-Release0.7(August29,2010)]]
+=== Release 0.7 (August 29, 2010)
+
+* Upgraded its
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit]
+dependency to 0.7
+
+[[GnatPlugin-Release0.6(July12,2010)]]
+=== Release 0.6 (July 12, 2010)
+
+* Upgraded to
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit] 1.4
+
+[[GnatPlugin-Release0.5(July12,2010)]]
+=== Release 0.5 (July 12, 2010)
+
+* Upgraded to
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit] 1.3
+
+[[GnatPlugin-Release0.4(July09,2010)]]
+=== Release 0.4 (July 09, 2010)
+
+* Upgraded to
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit] 1.1
+
+[[GnatPlugin-Release0.3]]
+=== Release 0.3
+
+* Technical release (No new features)
+
+[[GnatPlugin-Release0.2.2(March,26,2010)]]
+=== Release 0.2.2 (March, 26, 2010)
+
+* Upgraded to xUnit 0.6.1
+
+[[GnatPlugin-Release0.2.1(December10,2009)]]
+=== Release 0.2.1 (December 10, 2009)
+
+* Fixed bug when you launch gnatchek tool on Windows.
+
+[[GnatPlugin-Release0.2(November15,2009)]]
+=== Release 0.2 (November 15, 2009)
+
+* Added the support of AUnit XML results. +
+The plugin extends the
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit plugin].
+
+[[GnatPlugin-Release0.1(April14,2009)]]
+=== Release 0.1 (April 14, 2009)
+
+* Initial Release

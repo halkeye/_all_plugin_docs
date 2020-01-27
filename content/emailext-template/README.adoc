@@ -1,0 +1,93 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View Email Extension Template
+https://plugins.jenkins.io/emailext-template[on the plugin site] for
+more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2018-09-25/#SECURITY-1125[CSRF
+vulnerability]
+
+This plugin allows you to configure templates for email-ext that can be
+reused across multiple jobs.
+
+[[Email-extTemplatePlugin-Checkoutandbuild]]
+== Check out and build
+
+How to check out the source and build:
+
+* git clone git@github.com:jenkinsci/emailext-template-plugin.git
+* cd emailext-template-plugin
+* mvn clean install
+
+[[Email-extTemplatePlugin-OpenIssues]]
+== Open Issues
+
+[[refresh-module--61177433]]
+[[refresh--61177433]][[jira-issues--61177433]]
+T
+
+Key
+
+Summary
+
+Assignee
+
+Reporter
+
+P
+
+Status
+
+Resolution
+
+Created
+
+Updated
+
+Due
+
+[.refresh-action-group]# #
+
+[[refresh-issues-loading--61177433]]
+[.aui-icon .aui-icon-wait]#Loading...#
+
+[#refresh-issues-button--61177433]##
+[#refresh-issues-link--61177433]#Refresh#
+[#error-message--61177433 .error-message .hidden]# #
+
+[[Email-extTemplatePlugin-VersionHistory]]
+== Version History
+
+[[Email-extTemplatePlugin-1.1(September25,2018)]]
+=== 1.1 (September 25, 2018)
+
+* https://jenkins.io/security/advisory/2018-09-25/#SECURITY-1125[Fix
+security issue]
+
+[[Email-extTemplatePlugin-0.4(May20,2015)]]
+=== 0.4 (May 20, 2015)
+
+* Updated pom with wiki information and generated release
+
+[[Email-extTemplatePlugin-0.3(November16,2014)]]
+=== 0.3 (November 16, 2014)
+
+* Fixed issue that the were not displayed correctly in the job
+configuration (https://issues.jenkins-ci.org/browse/JENKINS-22933[issue
+#22933])
+* Fixed issue where templates were not saved to disk after edit
+(https://issues.jenkins-ci.org/browse/JENKINS-23866[issue #23866])
+
+[[Email-extTemplatePlugin-0.2(May26,2014)]]
+=== 0.2 (May 26, 2014)
+
+* Initial release

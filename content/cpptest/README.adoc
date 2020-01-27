@@ -1,0 +1,143 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]##
+
+*This plugin is up for adoption.* Want to help improve this plugin?
+https://wiki.jenkins-ci.org/display/JENKINS/Adopt+a+Plugin[Click here to
+learn more]!
+
+[.conf-macro .output-inline]# #
+
+This plugin allows you publish
+http://www.parasoft.com/jsp/products/home.jsp?product=Wizard&[Parasoft
+C++test] test results.
+
+This plugin makes it possible to import Parasoft C++test reports from
+each build into Hudson so they are displayed with a trend graph and
+details about which tests that failed.
+
+ +
+
+[[CpptestPlugin-KnownProblems]]
+== Known Problems
+
+The followings are known problems and improvements for static analysis
+report of Cpptest plugin v.0.9. +
+(some of them were fixed by ahebert, thanks!)
+
+* (middle) _Flow analysis result_ (Bug Detective of C++test) are ignored
+** *FlowViol* elements should be processed similarly to StdViol
+* (middle) _Suppressed warnings_ are also counted as warnings
+** StdViol and FlowViol elements which have *@supp="true"* should be
+ignored
+* (minor) _help.html_ of job configuration is not shown
+* (minor) __Link to target source file__s from Cpptest report web page
+may be lost
+** How other plugins supported by static-core can find correct source
+path?
+* (improvement) hopefully,  the metrics below should be also output, so
+that 'no warning' means  to be really happy to you !
+** _the total number of rules_
+** _the total number of suppressed warnings_
+* (minor) _The number of warnings_ reported by Cpptest plugin is often
+less than that of C++test native report.
+** It seems to be because C++test reports multiple warnings of the same
+kind in the same line, for example, +
+C++test reports multiple warnings of 'non-ascii tab character' against
+every TAB in the same line.
+
+[[CpptestPlugin-Changelog]]
+== Changelog
+
+[[CpptestPlugin-Version0.14]]
+=== Version 0.14
+
+* Fix https://issues.jenkins-ci.org/browse/JENKINS-29088[JENKINS-29088]
+- Fix 404 on trends configuration link
+
+[[CpptestPlugin-Version0.13.1(May20,2014)]]
+=== Version 0.13.1 (May 20, 2014)
+
+* Fix bug on configuration save
+
+[[CpptestPlugin-Version0.13(May07,2014)]]
+=== Version 0.13 (May 07, 2014)
+
+* Add Cpptest 9.0+ support
+
+[[CpptestPlugin-Version0.12(March02,2014)]]
+=== Version 0.12 (March 02, 2014)
+
+* Fix https://issues.jenkins-ci.org/browse/JENKINS-18727[JENKINS-18727]
+- The cppTest 9.5 xml output doesn't match the current parser rule
+
+[[CpptestPlugin-Version0.11(August29,2013)]]
+=== Version 0.11 (August 29, 2013)
+
+* Fix : 
+
+* (middle) _Flow analysis result_ (Bug Detective of C++test) are ignored
+** *FlowViol* elements are processed similarly to StdViol
+* (middle) _Suppressed warnings_ are also counted as warnings
+** StdViol and FlowViol elements which have *@supp="true"* are ignored
+* (middle) _Met analysis result_ (Metrics of C++test) are ignored
+** *MetViol* elements are processed similarly to StdViol
+
+[[CpptestPlugin-Version0.10(July31.2013)]]
+=== Version 0.10 (July 31. 2013)
+
+* For BugDetective use and extends violation of static analysis
+(StdViol)
+
+[[CpptestPlugin-Version0.9(May29,2011)]]
+=== Version 0.9 (May 29, 2011)
+
+* Upgraded to Jenkins 1.410 +
+* Upgraded to
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit] 1.17
+
+[[CpptestPlugin-Version0.8(October11,2010)]]
+=== Version 0.8 (October 11, 2010)
+
+* Upgraded to
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit] 1.9
+
+[[CpptestPlugin-Version0.7(September07,2010)]]
+=== Version 0.7 (September 07, 2010)
+
+* Upgraded to
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit] 1.8
+
+[[CpptestPlugin-Version0.6(July12,2010)]]
+=== Version 0.6 (July 12, 2010)
+
+* Upgraded to
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit] 1.4
+
+[[CpptestPlugin-Release0.5(July09,2010)]]
+=== Release 0.5 (July 09, 2010)
+
+* Upgraded to
+https://wiki.jenkins-ci.org/display/JENKINS/xUnit+Plugin[xUnit] 1.1
+
+[[CpptestPlugin-Release0.4(April24,2010)]]
+=== Release 0.4 (April 24, 2010)
+
+* Added static analysis part (Thanks to N. Q. Huy)
+
+[[CpptestPlugin-Release0.3(February26,2010)]]
+=== Release 0.3 (February 26,2010)
+
+* Upgraded to xUnit 0.6.1
+
+[[CpptestPlugin-Release0.2(November24,2009)]]
+=== Release 0.2 (November 24, 2009)
+
+* Upgraded to xUnit 0.4 +
+* [Internal improvement] Added Unit Tests for robustest +
+* [Internal improvement] Externalized labels
+
+[[CpptestPlugin-Release0.1(October05,2009)]]
+=== Release 0.1 (October 05, 2009)
+
+* Added C and C++ Testing

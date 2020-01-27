@@ -1,0 +1,18 @@
+[.conf-macro .output-inline]#This plugin allows to post build
+notifications to a http://chat.google.com/[Google Chat Messenger]
+groups.# 
+
+[[GoogleChatNotificationPlugin-Documentation]]
+== Documentation
+
+[.conf-macro .output-inline]#Follow the instructions on
+the https://github.com/jenkinsci/google-chat-notification-plugin[Google
+Chat Notification Plugin GitHub
+page]https://github.com/jenkinsci/google-chat-notification-plugin[].
+ They work great.# 
+
+[[GoogleChatNotificationPlugin-ChangeLog]]
+== Change Log
+
+Also on
+https://github.com/jenkinsci/google-chat-notification-plugin/blob/master/CHANGELOG.md[GitHub].

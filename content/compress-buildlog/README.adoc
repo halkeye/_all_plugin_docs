@@ -1,0 +1,90 @@
+[[CompressBuildLogPlugin-About]]
+== About
+
+The Compress Build Log Plugin allows to configure jobs to have their
+build logs compressed. For a long time, Jenkins has supported showing
+gzipped build logs on the UI and through its APIs, but had no facility
+to compress build logs. This plugin implements that.
+
+[[CompressBuildLogPlugin-Configuringbuildlogcompression]]
+== Configuring build log compression
+
+In a job configuration, check "Compress Build Log" and save. You're
+done! From then on, when builds finish, their build log will be
+compressed to a `+log.gz+` file, after which the original `+log+` file
+will be removed. Jenkins will transparently access the `+log.gz+` file
+when the build log is viewed or downloaded.
+
+[[CompressBuildLogPlugin-PipelineCompatibility]]
+== Pipeline Compatibility
+
+From version 1.1, the Compress Build Log Plugin supports compressing
+full pipeline build logs.
+
+Note: https://plugins.jenkins.io/workflow-job[Pipeline: Job] plugin
+prior to version 2.26 stored per-step build logs. This plugin does not
+support compressing these, only the main log file. As of version 2.26
+there is now only 1 log file for pipeline jobs.
+
+It can be configured either through the UI, or by
+adding `+compressBuildLog()+` to the `+properties()+` defined in the
+Pipeline DSL or Jenkinsfile.
+
+Changes effective immediately
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+Due to how this plugin is implemented, the change to the property will
+be effective immediately, so that the current build's log will be
+compressed after it completes. This is different from some other
+properties that only take effect for subsequent builds (e.g. defining
+build parameters).
+
+[[CompressBuildLogPlugin-KnownIssues]]
+== Known Issues
+
+Some plugins may assume that the build log is a text file and just
+append to it. If that happens after this plugin rewrites the build log,
+the `+log.gz+` file will contain invalid contents. Examples:
+
+[.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-24171[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-24171] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#
+
+As of Pipeline: Job plugin version 2.26, this plugin appears to be
+broken
+
+[.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-54678[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-54678] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#
+
+[[CompressBuildLogPlugin-Changelog]]
+== Changelog
+
+[[CompressBuildLogPlugin-Version1.2(2017-08-14)]]
+=== Version 1.2 (2017-08-14)
+
+* *Requires Jenkins 2.7.4*
+* Add support for compressing full Pipeline build logs (but not per-step
+logs)
+* Add `+compressBuildLog()+` symbol for use in Pipeline DSL
+* Add support for compressing the logs of matrix configuration builds
+(i.e. those doing the actual work)
+
+[[CompressBuildLogPlugin-Version1.1–releasewasskipped]]
+=== Version 1.1 – release was skipped
+
+[[CompressBuildLogPlugin-Version1.0(2014-10-13)]]
+=== Version 1.0 (2014-10-13)
+
+* Initial release to address the request
+[.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-2551[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-2551] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#

@@ -1,0 +1,67 @@
+Defines a dummy agent launcher and elastic cloud that really runs
+everything on localhost. Just for testing.
+
+[[MockAgentPlugin-Changelog]]
+== Changelog
+
+[[MockAgentPlugin-Version1.13(Sep112018)]]
+=== Version 1.13 (Sep 11 2018)
+
+* Better support
+for https://wiki.jenkins.io/display/JENKINS/Configuration+as+Code+Plugin[Configuration
+as Code Plugin].
+
+[[MockAgentPlugin-Version1.12(Mar132018)]]
+=== Version 1.12 (Mar 13 2018)
+
+* Remove connection overhead unless pauses were explicitly requested,
+bringing performance in line with local JNLP agents or a simple local
+command launcher.
+
+[[MockAgentPlugin-Version1.11(Oct102017)]]
+=== Version 1.11 (Oct 10 2017)
+
+* Enable the plugin to work in a version of Jenkins using a snapshot
+version of Remoting.
+
+[[MockAgentPlugin-Version1.10(Sep092016)]]
+=== Version 1.10 (Sep 09 2016)
+
+* Allow the mock cloud to use non-one-shot agents with one executor
+apiece.
+
+[[MockAgentPlugin-Version1.9(May192016)]]
+=== Version 1.9 (May 19 2016)
+
+* Log launch time of agents.
+
+[[MockAgentPlugin-Version1.8(Aug042015)]]
+=== Version 1.8 (Aug 04 2015)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-25090[JENKINS-25090]
+Fixes related to durable tasks.
+
+[[MockAgentPlugin-Version1.6(Sep242014)]]
+=== Version 1.6 (Sep 24 2014)
+
+* Integrating mock cloud with
+https://wiki.jenkins.io/display/JENKINS/Durable+Task+Plugin[Durable Task
+Plugin]: such tasks can now resume on a mock cloud slave, even using the
+one-shot retention strategy.
+
+[[MockAgentPlugin-Version1.5(Sep172014)]]
+=== Version 1.5 (Sep 17 2014)
+
+* Mock cloud slaves will now use a “one-shot” retention strategy when
+the number of executors is set to 1.
+
+[[MockAgentPlugin-Version1.4(Feb192014)]]
+=== Version 1.4 (Feb 19 2014)
+
+* Added a mock cloud.
+* Maybe added/restored Java 5/6 compatibility.
+
+[[MockAgentPlugin-Version1.2/1.3(Nov212013)]]
+=== Version 1.2/1.3 (Nov 21 2013)
+
+* Added a whole mock slave as a convenience.

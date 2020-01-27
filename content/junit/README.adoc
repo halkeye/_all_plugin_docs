@@ -1,0 +1,359 @@
+Allows JUnit-format test results to be
+published.[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View JUnit https://plugins.jenkins.io/junit[on the plugin site] for
+more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2018-09-25/#SECURITY-1101[CSRF
+vulnerability]
+* https://jenkins.io/security/advisory/2018-02-05/[XML External Entity
+(XXE) processing vulnerability]
+
+The JUnit plugin provides a publisher that consumes XML test reports
+generated during the builds and provides some graphical visualization of
+the historical test results (see
+https://wiki.jenkins-ci.org/display/JENKINS/JUnit+graph[JUnit graph] for
+a sample) as well as a web UI for viewing test reports, tracking
+failures, and so on. Jenkins understands the JUnit test report XML
+format (which is also used by TestNG). When this option is configured,
+Jenkins can provide useful information about test results, such as
+trends.
+
+This functionality was part of the Jenkins Core until it was split out
+to this plugin in version in 1.577.
+
+[[JUnitPlugin-Configuration]]
+== Configuration
+
+The JUnit publisher is configured at the job level by adding a *Publish
+JUnit test result report* post build action. The configuration
+parameters include:
+
+* *Test report XMLs*: Specify the path to JUnit XML files in the
+http://ant.apache.org/manual/Types/fileset.html[Ant glob syntax], such
+as `+**/build/test-reports/*.xml+`. Be sure not to include any
+non-report files into this pattern. You can specify multiple patterns of
+files separated by commas. The base directory of the fileset is the
+workspace root.
+* *Retain long standard output/error*: If checked, any standard output
+or error from a test suite will be retained in the test results after
+the build completes. (This refers only to additional messages printed to
+console, not to a failure stack trace). Such output is always kept if
+the test failed, but by default lengthy output from passing tests is
+truncated to save space. Check this option if you need to see every log
+message from even passing tests, but beware that Jenkins's memory
+consumption can substantially increase as a result, even if you never
+look at the test results!
+* *Health report amplification factor*: The amplification factor to
+apply to test failures when computing the test result contribution to
+the build health score. The default factor is 1.0. A factor of 0.0 will
+disable the test result contribution to build health score, and, as an
+example, a factor of 0.5 means that 10% of tests failing will score 95%
+health. The factor is persisted with the build results, so changes will
+only be reflected in new builds.
+* *Allow empty results*: If checked, the default behavior of failing a
+build on missing test result files or empty test results is changed to
+not affect the status of the build. Please note that this setting make
+it harder to spot misconfigured jobs or build failures where the test
+tool does not exit with an error code when not producing test report
+files.
+
+[[JUnitPlugin-Changelog]]
+== Changelog
+
+[[JUnitPlugin-Version1.28(May142019)]]
+=== Version 1.28 (May 14 2019)
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+This plugin now requires Jenkins 2.138.4 or newer.
+
+* https://issues.jenkins-ci.org/browse/JENKINS-31660[JENKINS-31660] - Do
+not load attempt to load test history for skipped tests. This fixes some
+cases where a `+StackOverflowError+`  was being thrown.
+* https://issues.jenkins-ci.org/browse/JENKINS-39203[JENKINS-39203] -
+Use a new API provided by Pipeline API Plugin version 2.34 to identify
+the `+junit+`  step as the source of an unstable build when tests fail.
+** *Note:* In order for stage-related results to be visualized
+differently in Blue Ocean, you must update Pipeline: Graph Analysis
+Plugin to version 1.10 or newer.
+
+[[JUnitPlugin-Version1.27(Feb82019)]]
+=== Version 1.27 (Feb 8 2019)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-42438[JENKINS-42438] -
+Correctly report test duration for classes.
+* https://github.com/jenkinsci/junit-plugin/pull/114[PR 114] - If a
+skipped test does not have an explicit message, compute one using the
+available information in the XML document.
+
+[[JUnitPlugin-Version1.26.1(Sep252018)]]
+=== Version 1.26.1 (Sep 25 2018)
+
+* Fix an error causing `+NullPointerException+` to be thrown in version
+1.26 of this plugin.
+
+[[JUnitPlugin-Version1.26(Sep252018)]]
+=== Version 1.26 (Sep 25 2018)
+
+* https://jenkins.io/security/advisory/2018-09-25/#SECURITY-1101[Fix
+security issue]
+
+[[JUnitPlugin-Version1.25(Sep122018)]]
+=== Version 1.25 (Sep 12 2018)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-53365[JENKINS-53365] -
+Fix plugin dependencies
+
+[[JUnitPlugin-Version1.24(Feb52018)]]
+=== Version 1.24 (Feb 5 2018)
+
+* https://jenkins.io/security/advisory/2018-02-05/[Fix security issue]
+
+[[JUnitPlugin-Version1.23(Nov272017)]]
+=== Version 1.23 (Nov 27 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-48178[JENKINS-48178] -
+Set run result in `+junit+` step rather
+than `+getContext().setResult(...)+`
+* https://issues.jenkins-ci.org/browse/JENKINS-48196[JENKINS-48196] -
+Remove redundant `+parallel+` branch names from `+CaseResult+` display
+name when appropriate.
+
+[[JUnitPlugin-Version1.22.2(Nov152017)]]
+=== Version 1.22.2 (Nov 15 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-48020[JENKINS-48020] -
+Get rid of warnings spam in logs and add stage info to failed tests
+list.
+
+[[JUnitPlugin-Version1.22.1(Nov142017)]]
+=== Version 1.22.1 (Nov 14 2017)
+
+* Fixing `+junit+` step on masters without `+pipeline-stage-step+`
+installed.
+
+[[JUnitPlugin-Version1.22(Nov142017)]]
+=== Version 1.22 (Nov 14 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-37598[JENKINS-37598] -
+Fix aggregation issues for multiple files containing cases for the same
+suite
+* https://issues.jenkins-ci.org/browse/JENKINS-27395[JENKINS-27395] -
+Distinguish test reports filed in different stages and parallel branches
+in Pipeline.
+* https://github.com/jenkinsci/junit-plugin/pull/84[PR #84] - Prevent
+unsafe cast to `+TestResult+`
+* https://github.com/jenkinsci/junit-plugin/pull/82[PR #82] - Enable
+population of `+errorDetails+` for unit testing purposes
+
+[[JUnitPlugin-Version1.21(Aug42017)]]
+=== Version 1.21 (Aug 4 2017)
+
+* https://github.com/jenkinsci/junit-plugin/pull/65[PR #65]:
+[.js-issue-title]#Do not register `+XMLEntityResolver+` as a global
+extension#
+* [.js-issue-title]##https://github.com/jenkinsci/junit-plugin/pull/69[PR
+#69]: [.js-issue-title]#Fix a file descriptor
+leak###[.js-issue-title]##[.js-issue-title]# +
+###
+* [.js-issue-title]#[.js-issue-title]##[.js-issue-title]#https://github.com/jenkinsci/junit-plugin/pull/71[PR
+#71]: ###Expose test data publicly#
+
+* [.js-issue-title]##[.js-issue-title]#https://github.com/jenkinsci/junit-plugin/pull/77[PR
+#77]###[.js-issue-title]##[.js-issue-title]#: Improve test results table
+readability +
+###
+
+[[JUnitPlugin-Version1.20(Feb132017)]]
+=== Version 1.20 (Feb 13 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-41134[JENKINS-41134]
+Incorrect reporting of multiple test results in some cases using
+Pipeline.
+* https://issues.jenkins-ci.org/browse/JENKINS-29736[JENKINS-29736]
+Incorrect vertical axis values in test duration graph.
+
+[[JUnitPlugin-Version1.19(Oct172016)]]
+=== Version 1.19 (Oct 17 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-32148[JENKINS-32148] Highlight
+test result lines on hover.
+* https://github.com/jenkinsci/junit-plugin/pull/49[PR #49] Do not bury
+'AllowEmptyResults' configuration option in Advanced.
+* https://github.com/jenkinsci/junit-plugin/pull/56[PR #56] Add '<' and
+'>' as unsafe URI characters.
+
+[[JUnitPlugin-Version1.18(Aug082016;1.16&1.17werebotched)]]
+=== Version 1.18 (Aug 08 2016; 1.16 & 1.17 were botched)
+
+* Symbol added in 1.15 did not work in Jenkins 1.x.
+
+[[JUnitPlugin-Version1.15(Jul122016)]]
+=== Version 1.15 (Jul 12 2016)
+
+* Integrate `+Symbol+` annotation.
+
+[[JUnitPlugin-Version1.14(Jul52016)]]
+=== Version 1.14 (Jul 5 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-28784[JENKINS-28784] make
+`+TestDataPublisher+` work in Pipeline.
+* https://github.com/jenkinsci/junit-plugin/pull/46[PR #46] Option to
+cap, or at least log, number of iterations of
+AbstractTestResultAction.buildDataSet.
+* https://github.com/jenkinsci/junit-plugin/pull/45[PR #45] Prevent
+wrapping for test name table cell.
+
+[[JUnitPlugin-Version1.13(May12016)]]
+=== Version 1.13 (May 1 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-34407[JENKINS-34407]
+Parse time correctly in SuiteResult.
+
+[[JUnitPlugin-Version1.12(Apr202016)]]
+=== Version 1.12 (Apr 20 2016)
+
+* https://github.com/jenkinsci/junit-plugin/pull/36[PR #36] Resolve
+occurrences of Sonar rule "UselessParenthesesCheck - Useless parentheses
+around expressions should be removed to prevent any misunderstanding"
+(see
+https://dev.eclipse.org/sonar/rules/show/squid:UselessParenthesesCheck[this])
+* https://github.com/jenkinsci/junit-plugin/pull/35[PR #35] Testsuite
+duration may be parsed from time attr.
+* https://issues.jenkins-ci.org/browse/JENKINS-33343[JENKINS-33343]
+Upgrade to parent POM 2.x
+
+[[JUnitPlugin-Version1.11(Feb252016)]]
+=== Version 1.11 (Feb 25 2016)
+
+* Testsuite duration can be retrieved from its time attribute if it
+exists
+* Remove the glitch symbol in the JUnitResultArchiver configuration
+
+[[JUnitPlugin-Version1.10(Dec102015)]]
+=== Version 1.10 (Dec 10 2015)
+
+* image:docs/images/information.svg[(info)]
+https://issues.jenkins-ci.org/browse/JENKINS-12815[JENKINS-12815] Added
+Job Configuration Option allowing to NOT fail JUnit Report publish when
+no xml report files
+* image:docs/images/information.svg[(info)]
+https://github.com/jenkinsci/junit-plugin/pull/23[PR #23] Remove
+ambiguity between empty and unreadable files
+* image:docs/images/add.svg[(plus)]
+https://github.com/jenkinsci/junit-plugin/pull/24[PR #24] Add API
+allowing to access passed and skipped tests
+
+[[JUnitPlugin-Version1.9(Sep32015)]]
+=== Version 1.9 (Sep 3 2015)
+
+* Export TestActions on the TestObject to make them accessible via the
+REST API
+* https://issues.jenkins-ci.org/browse/JENKINS-24352[JENKINS-24352]
+JUnit test result table wrapping duration text
+
+[[JUnitPlugin-Version1.8(Jul292015)]]
+=== Version 1.8 (Jul 29 2015)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-29613[JENKINS-29613]
+Failure summary jumps to the top of the page when expanded/collapsed.
+
+[[JUnitPlugin-Version1.7(Jul172015)]]
+=== Version 1.7 (Jul 17 2015)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-29383[JENKINS-29383]
+Failure summary does not work when special chars are present in path.
+Introduced
+https://issues.jenkins-ci.org/browse/JENKINS-29613[JENKINS-29613].
+
+[[JUnitPlugin-Version1.6(May012015)]]
+=== Version 1.6 (May 01 2015)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-26077[JENKINS-26077]
+Duplicated result links when using the xUnit plugin.
+* https://issues.jenkins-ci.org/browse/JENKINS-27974[JENKINS-27974]
+Unusable URL produced when `+classname+` field in results was empty.
+
+[[JUnitPlugin-Version1.5(Mar112015)]]
+=== Version 1.5 (Mar 11 2015)
+
+* Trim stdio even on failing tests, just to a 100× larger cutoff.
+* Diagnostics for an infinite loop.
+* Corrected help text.
+* Japanese translation edits.
+
+[[JUnitPlugin-Version1.4(Feb042015)]]
+=== Version 1.4 (Feb 04 2015)
+
+* NPE not known to affect actual usage but blocking tests of
+https://issues.jenkins-ci.org/browse/JENKINS-25446[JENKINS-25446].
+
+[[JUnitPlugin-Version1.3(Dec032014)(requires1.580.1+)]]
+=== Version 1.3 (Dec 03 2014) (requires 1.580.1+)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-25573[JENKINS-25573]
+Health score factor did not work.
+* Repeated archiving fix in 1.2-beta-2 did not work on slaves.
+* https://issues.jenkins-ci.org/browse/JENKINS-24580[JENKINS-24580]
+Older and newer links were swapped in the display.
+
+[[JUnitPlugin-Version1.2(Nov062014)]]
+=== Version 1.2 (Nov 06 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-24006[JENKINS-24006]
+Failed to save health scale factor.
+
+[[JUnitPlugin-Version1.2-beta-4(Nov042014)]]
+=== Version 1.2-beta-4 (Nov 04 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-25375[JENKINS-25375]
+Restore deprecated method override for binary compatibility.
+
+[[JUnitPlugin-Version1.2-beta-3(Oct252014)]]
+=== Version 1.2-beta-3 (Oct 25 2014)
+
+* Moving a forgotten file from core.
+* https://issues.jenkins-ci.org/browse/JENKINS-25280[JENKINS-25280]
+Added `+fullDisplayName+` needed by
+https://wiki.jenkins-ci.org/display/JENKINS/Cucumber+Test+Result+Plugin[Cucumber
+Test Result Plugin].
+
+[[JUnitPlugin-Version1.2-beta-2(Oct202014)]]
+=== Version 1.2-beta-2 (Oct 20 2014)
+
+* Permit the archive step to be run multiple times on the same build,
+aggregating results. (Applicable from workflows, not from normal usage
+as a publisher in a freestyle project.)
+* Some configuration fields could not be set in 1.2-beta-1.
+* Typos in some text, and German localization fixes.
+* Do not show form validation errors when used from a non-freestyle
+context.
+* Ignore a noisy AccessDeniedException when listing jobs.
+
+[[JUnitPlugin-Version1.2-beta-1(Aug252014)]]
+=== Version 1.2-beta-1 (Aug 25 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-23713[JENKINS-23713]
+Taking advantage of APIs in 1.577+.
+
+[[JUnitPlugin-Version1.1(Aug252014)]]
+=== Version 1.1 (Aug 25 2014)
+
+* Marked as dependent on 1.577, so 1.575/1.576 users should not install
+it.
+
+[[JUnitPlugin-Version1.0(Aug112014)]]
+=== Version 1.0 (Aug 11 2014)
+
+Initial version after split.

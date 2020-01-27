@@ -1,0 +1,761 @@
+[.conf-macro .output-inline]##This plugin analyzes the causes of failed
+builds and presents the causes on the build page. It does this by using
+a knowledge base of build failure causes that is built up from
+scratch. +
+Saving statistics about failure causes is also
+possible.##[.conf-macro .output-inline]## ##
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2019-12-17/#SECURITY-1651[CSRF
+vulnerability and missing permission check allow ReDoS]
+* https://jenkins.io/security/advisory/2016-06-20/[Cross-site scripting
+vulnerability]
+
+[[BuildFailureAnalyzer-Knowledgebase]]
+== Knowledge base
+
+The plugin comes with an empty knowledge base of failure causes.
+Populating this knowledge base is done by using the link "Failure Cause
+Management". +
+The link is shown only if the permission UpdateCauses is set for the
+current user. Press "Create new" and add a name and a description for
+the Failure Cause. +
+The description should contain the reason why this build failed as well
+as possible solutions for the build failure.
+
+One or more optional categories can be added as a whitespace-separated
+list. These categories are only used for the statistics part of the
+plugin. +
+Add one or more Indications by pressing "Add Indication". By default,
+only one type of Indication exists, a "Build Log Indication". +
+Plugin developers can add new Indication types and more are planned to
+be added to the plugin itself. +
+The Build Log Indication searches through the build log, one line at a
+time, for a regular expression.
+
+It uses Pattern.match, so the regular expression needs to match should
+be as follows
+
+[width="100%",cols="50%,50%",options="header",]
+|===
+|Match type | +
+|Single line |.*some words in the middle of a line.*
+|Multi line |some words here(.*\s)and some words here
+|===
+
+[.confluence-embedded-file-wrapper]#image:docs/images/bfa-newfailurecause.png[image]# +
+_Adding new failure causes and indications to the knowledge base._
+
+From version 1.3.1 of the plugin, regular expressions can be tested on
+the Failure Cause Management page, in two different ways:
+
+* Writing a text in the text field shown above and testing against that.
+* Writing a URL to a build log in the text field. The plugin then runs
+through the log trying to match the regexp.
+
+When accessing the Failure Cause Management page from a build, the URL
+will be added to the text field automatically.
+
+The plugin comes with two ways of saving the knowledge base:
+
+* Local knowledge base. Saves the knowledge base in memory and
+serializes it as an xml file on the local Jenkins server (i.e. the
+"standard" Jenkins way of saving information).
+* MongoDB knowledge base. Saves the knowledge base in a Mongo database.
+This can be used to share the +
+same knowledge base between servers. The knowledge base is still cached
+locally in-memory to avoid unnecessary database accesses. +
+Plugin developers can add new knowledge base types.
+
+[[BuildFailureAnalyzer-Buildlogscanning]]
+== Build log scanning
+
+All builds on the server that are non-successful (aborted, failed,
+unstable) will be scanned for all failure causes.  +
+If an indication is found, the description will be put directly on the
+build page, with a link to the matching line in the build log. +
+If no cause is found, a text stating this will be shown. The text is
+configurable on the main configuration page of the server. +
+[.confluence-embedded-file-wrapper]#image:docs/images/bfa-buildpage.PNG[image]# +
+_The build page when the build failure analyzer has found a failure
+cause._
+
+[.confluence-embedded-file-wrapper]#image:docs/images/bfa-buildlog.PNG[image]# +
+_The build log with the matching line marked in red._
+
+[[BuildFailureAnalyzer-Statistics]]
+== Statistics
+
+If MongoDB or some knowledge base type that supports statistics is used,
+statistics will be saved to that database. The same information +
+that is shown on the build page is saved to the database.
+
+[[BuildFailureAnalyzer-Administrativesettings]]
+== Administrative settings
+
+On the configure system page in Jenkins, under Build failure analyzer,
+some new settings are available:
+
+* Enabled - since the plugin scans all failed builds, we felt the need
+to be able to disable the scanning. Uncheck to disable.
+* Text when no failure causes are found - text to show for failed builds
+whose failure cause is not found in the knowledge base.
+* Storage type - Jenkins Local or Mongo DB, as described above. For
+Mongo DB, configuration details to fill in are as follows: Host, Port,
+Database name, Username and Password for the Database, Enable Statistics
+logging (described above).
+* Convert knowledge base - If this check box is checked when the
+configuration is saved and a change has been made to the knowledge base
+settings, the data from the old knowledge base will be added to the new
+one. Note that duplicates could appear this way, so make sure that you
+untick this check box if you for example just have changed the username
+or password, or if you want to start with a clean knowledgebase.
+* Send notifications to Gerrit-Trigger-plugin - if enabled, will send
+the text for the found failure cause via the gerrit-trigger-plugin to
+Gerrit.
+* Concurrent scans - To speed up the scanning, each build will get a
+threadpool of this number of threads, with each thread handling one
+indication. For a small system, 3 is usually enough.
+
+[[BuildFailureAnalyzer-TokenMacrointegration]]
+== Token Macro integration
+
+[[BuildFailureAnalyzer-Usage:]]
+=== Usage:
+
+$\{BUILD_FAILURE_ANALYZER, includeTitle=true, includeIndications=true,
+useHtmlFormat=true, noFailureText="Sometext"}
+
+....
+....
+
+[[BuildFailureAnalyzer-Parameters(=default):]]
+=== Parameters (=default):
+
+* *includeTitle (=true)* -- When true, the "Identified problems:" title
+will appear over the causes.
+* *includeIndications (=true)* -- When true, the indication numbers and
+links into the console log are included in the token replacement text.
+* *useHtmlFormat (=false)* -- When true, the replacement will be an HTML
+snippet.
+* *wrapWidth (=0)* -- Wrap long lines at this width. If wrapWidth is 0,
+the text isn't wrapped. Only applies if useHtmlFormat == false.
+* *noFailureText (="")* -- Text to provide if there are no found
+failures
+
+[[BuildFailureAnalyzer-TokenmacroinJenkinsPipelineDSL:]]
+=== Token macro in Jenkins Pipeline DSL:
+
+....
+node {
+   def buildFailure = tm('${BUILD_FAILURE_ANALYZER}')
+}
+....
+
+[[BuildFailureAnalyzer-Placeholdersindescription]]
+== Placeholders in description
+
+Replace description placeholders from captured expressions in found
+indications
+
+Substitutions may be made within the description with placeholders of
+the form *$\{I,G}*, where *I* is the indication number and *G* is the
+captured group within the indication expression. e.g., *$\{1,1}* would
+be replaced with the first indication's first captured group and
+*$\{1,2}* would be replaced with the first indication's second captured
+group.
+
+[[BuildFailureAnalyzer-Tips&Tricks]]
+== Tips & Tricks
+
+[[BuildFailureAnalyzer-AggregatestatisticstoGraphite]]
+=== Aggregate statistics to Graphite
+
+If you are using the MongoDB KnowledgeBase, you can use these scripts in
+a cron job to aggregate the statistics into Graphite. Note that they
+only work on mongo 2.x node js driver
+
+* https://gist.github.com/rsandell/9484345[Known vs Unknown Failures per
+hour]
+* https://gist.github.com/rsandell/9484534[Failure Categories per hour]
+
+[[BuildFailureAnalyzer-Knownbugs]]
+=== Known bugs
+
+A full list
+of https://issues.jenkins-ci.org/issues/?jql=component%20%3D%20build-failure-analyzer-plugin%20and%20resolution%20is%20empty%20order%20by%20updated%20desc[open
+bugs raised against build-failure-analyzer] component..
+
+[[refresh-module--1488636069]]
+[[refresh--1488636069]][[jira-issues--1488636069]]
+Key
+
+Summary
+
+T
+
+Created
+
+Updated
+
+Assignee
+
+Reporter
+
+P
+
+Status
+
+[.refresh-action-group]# #
+
+[[refresh-issues-loading--1488636069]]
+[.aui-icon .aui-icon-wait]#Loading...#
+
+[#refresh-issues-button--1488636069]##
+[#refresh-issues-link--1488636069]#Refresh#
+[#error-message--1488636069 .error-message .hidden]# #
+
+[[BuildFailureAnalyzer-ChangeLog]]
+== Change Log
+
+[[BuildFailureAnalyzer-From1.23.1thechangelogisonGitHubreleases]]
+=== From 1.23.1 the change log is on https://github.com/jenkinsci/build-failure-analyzer-plugin/releases[GitHub releases]
+
+[[BuildFailureAnalyzer-Version1.23.0(releasedAug23,2019)]]
+=== Version 1.23.0 (released Aug 23, 2019)
+
+* Update jackson from 2.9.3/2.9.7 to 2.9.9 CVE-2019-12086
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/99[Pull
+#99])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-47027[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-47027] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  Fix umlauts
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/109[Pull
+#109])
+* New feature: fallback causes
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/108[Pull
+#108])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-22026[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-22026] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  New DownstreamBuildFinder using build-cache-plugin
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/107[Pull
+#107])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-54439[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-54439] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  - https://jenkins.io/projects/jcasc/[JCasC] compatibility
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/97[Pull
+#97])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-42755[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-42755] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+# - Missing pipeline logs
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/103[Pull
+#103])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-54840[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-54840] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  - Stop calling get log file
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/106[Pull
+#106])
+* Upgrade parent pom and checkstyle
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/98[Pull
+#98])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-57812[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-57812] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  - Fix test connection
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/102[Pull
+#102])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-55110[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-55110] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  - Fix deserialisation for mongo
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/105[Pull
+#105])
+
+[[BuildFailureAnalyzer-Version1.23.0-beta-1(releasedJun28,2019)]]
+=== Version 1.23.0-beta-1 (released Jun 28, 2019)
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-54439[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-54439] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  - https://jenkins.io/projects/jcasc/[JCasC] compatibility
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/97[Pull
+#97])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-42755[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-42755] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+# - Missing pipeline logs
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/103[Pull
+#103])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-54840[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-54840] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  - Stop calling get log file
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/106[Pull
+#106])
+* Upgrade parent pom and checkstyle
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/98[Pull
+#98])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-57812[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-57812] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  - Fix test connection
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/102[Pull
+#102])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-55110[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-55110] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  - Fix deserialisation for mongo
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/105[Pull
+#105])
+
+[[BuildFailureAnalyzer-Version1.22.0(releasedFeb15,2019)]]
+=== Version 1.22.0 (released Feb 15, 2019)
+
+* Add empty check to password
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/95[Pull
+#95]) _(Mongo Client regression)_
+* Add support for Token Macro `+tm+` pipeline step
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/94[Pull
+#94])
+
+[[BuildFailureAnalyzer-Version1.21.0(releasedDec6,2018)]]
+=== Version 1.21.0 (released Dec 6, 2018)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-47882[JENKINS-47882],
+https://issues.jenkins-ci.org/browse/JENKINS-45315[JENKINS-45315]),
+https://issues.jenkins-ci.org/browse/JENKINS-49140[JENKINS-49140] -
+Upgrade mongo client to 3.x and jackson to 2.x
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/89[Pull
+#89])
+* https://issues.jenkins-ci.org/browse/JENKINS-54839[JENKINS-54839],
+https://issues.jenkins-ci.org/browse/JENKINS-54839[JENKINS-54839]) -
+Make match text work for PRs in multibranch github pipeline
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/93[Pull
+#93])
+*  Allow markup in no identified problems message
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/92[Pull
+#92])
+*  Escape regex special chars in project full name
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/88[Pull
+#88])
+* https://issues.jenkins-ci.org/browse/JENKINS-52860[JENKINS-52860] -
+Remove flow dependency
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/91[Pull
+#91])
+* https://issues.jenkins-ci.org/browse/JENKINS-54439[JENKINS-54439] -
+Upgrade Jenkins baseline
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/90[Pull
+#90])
+
+ +
+
+[[BuildFailureAnalyzer-Version1.20.0(releasedJun14,2018)]]
+=== Version 1.20.0 (released Jun 14, 2018)
+
+* Moved to a slightly more modern minimum Jenkins core version (2.7.3)
+(Pull
+https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/81[#81],
+https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/83[#83])
+* Display HTML for cause description in matrix
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/84[Pull
+#84])
+* Improve support sorting "Never" on cause management page
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/86[Pull
+#86])
+
+[[BuildFailureAnalyzer-Version1.19.1(releasedJan8,2018)]]
+=== Version 1.19.1 (released Jan 8, 2018)
+
+* Clarification of documentation
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/69[Pull
+#69],
+https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/70[#70], https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/71[#71])
+* Fixed a possible startup
+error (https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/80[Pull
+#80])
+
+[[BuildFailureAnalyzer-Version1.19.0(releasedMay5,2017)]]
+=== Version 1.19.0 (released May 5, 2017)
+
+* Use fixed pool size, parse all single line matchers in one thread
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/57[Pull
+#57])
+
+[[BuildFailureAnalyzer-Version1.18.1(releasedMar7,2017)]]
+=== Version 1.18.1 (released Mar 7, 2017)
+
+* Corrected JSON structure of RabbitMQ message
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/66[Pull
+#66])
+
+[[BuildFailureAnalyzer-Version1.18.0(releasedFeb17,2017)]]
+=== Version 1.18.0 (released Feb 17, 2017)
+
+* Added a FailureCauseProvider for the MQ Notifier plugin
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/64[Pull
+#64])
+* https://issues.jenkins-ci.org/browse/JENKINS-41279[JENKINS-41279] Fixed
+broken div wrapping
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/63[Pull
+#63])
+* Better feedback to Gerrit when no FailureCauses are found for a build
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/61[Pull
+#61])
+
+[[BuildFailureAnalyzer-Version1.17.2(releasedOct21,2016)]]
+=== Version 1.17.2 (released Oct 21, 2016)
+
+* JSON Serialization fix for MultiLineBuildLogIndication
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/59[Pull
+#59])
+* Performance fix for MultiLineBuildLogIndication
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/59[Pull
+#59])
+* Line break fix
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/58[Pull
+#58])
+
+[[BuildFailureAnalyzer-Version1.17.1(releasedSep5,2016)]]
+=== Version 1.17.1 (released Sep 5, 2016)
+
+* Fix Gerrit feedback for nested builds
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/56[Pull
+#56])
+* Introduced and separated out Renderer for report formatting
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/55[Pull
+#55])
+* Escape single quote correctly
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/54[PR
+#54])
+
+[[BuildFailureAnalyzer-Version1.17.0(releasedAug17,2016)]]
+=== Version 1.17.0 (released Aug 17, 2016)
+
+* Add configurable limit for log size to be scanned.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/53[Pull
+#53])
+
+[[BuildFailureAnalyzer-Version1.16.0(releasedJun20,2016)]]
+=== Version 1.16.0 (released Jun 20, 2016)
+
+* Refactored "Scan on demand" a.k. "Scan Options" page to fix an
+https://wiki.jenkins-ci.org/display/SECURITY/Jenkins+Security+Advisory+2016-06-20[XSS
+vulnerability] and increase it's performance.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/commit/df74f8c013defe7f0844ed72930273e1df68a6c3[#df74f8c])
+
+[[BuildFailureAnalyzer-Version1.15.0(releasedApr19,2016)]]
+=== Version 1.15.0 (released Apr 19, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-27123[JENKINS-27123]
+Support for
+https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Plugin[Pipeline
+Plugin] and other non abstract builds.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/52[Pull
+#52])
+
+[[BuildFailureAnalyzer-Version1.14.0(releasedApr5,2016)]]
+=== Version 1.14.0 (released Apr 5, 2016)
+
+* Code quality fixes (Pulls:
+https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/43[#43],
+https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/44[#44],
+https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/45[#45],
+https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/46[#46],
+https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/47[#47],
+https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/48[#48],
+https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/49[#49])
+* Turned off auto-refresh on the cause management page.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/50[Pull
+#50])
+* Added option to ignore aborted builds.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/51[Pull
+#51])
+
+[[BuildFailureAnalyzer-Version1.13.5(releasedFeb17,2016)]]
+=== Version 1.13.5 (released Feb 17, 2016)
+
+* Added build.displayName to stored statistics.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/42[Pull
+#42])
+
+[[BuildFailureAnalyzer-Version1.13.4(releasedFeb5,2016)]]
+=== Version 1.13.4 (released Feb 5, 2016)
+
+* Some minor formatting fixes in UI strings.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/40[Pull
+#40])
+* Scanning-threads now gets the name of the indication and pattern
+currently being scanned for, for easier thread dump analysis.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/41[Pull
+#41])
+
+[[BuildFailureAnalyzer-Version1.13.3(releasedJan5,2016)]]
+=== Version 1.13.3 (released Jan 5, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-25396[JENKINS-25396]
+Prevent a breakage involving build-flow plugin.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/39[Pull
+#39])
+
+[[BuildFailureAnalyzer-Version1.13.2(releasedNov25,2015)]]
+=== Version 1.13.2 (released Nov 25, 2015)
+
+* Fixed a issue when testing expressions on build logs located in
+folders.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/36[Pull
+#36])
+
+[[BuildFailureAnalyzer-Version1.13.1(releasedSept25,2015)]]
+=== Version 1.13.1 (released Sept 25, 2015)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-30643[JENKINS-30643].
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/38[Pull
+#38])
+* Small UI text fix
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/37[Pull
+#37])
+
+[[BuildFailureAnalyzer-Version1.13.0(releasedApr10,2015)]]
+=== Version 1.13.0 (released Apr 10, 2015)
+
+* Add to build log if a known cause was found.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/35[Pull
+#35])
+* Noting https://github.com/jenkinsci/jenkins/pull/1596.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/34[Pull
+# 34])
+* Make error message readable on List View.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/33[Pull
+#33])
+
+[[BuildFailureAnalyzer-Version1.12.1(releasedJan16,2015)]]
+=== Version 1.12.1 (released Jan 16, 2015)
+
+* Found downstream builds fix.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/27[Pull
+#27])
+
+[[BuildFailureAnalyzer-Version1.12.0(releasedJan15,2015)]]
+=== Version 1.12.0 (released Jan 15, 2015)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-24434[JENKINS-24434] fix
+trim() usage.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/29[Pull
+#29])
+* Configurable anonymous access to the list of failure causes.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/31[Pull
+#31])
+* Having the token expand into some text when no failure cause is
+identified.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/32[Pull
+#32])
+
+[[BuildFailureAnalyzer-Version1.11.0(releasedNov27,2014)]]
+=== Version 1.11.0 (released Nov 27, 2014)
+
+* Failed Tests can be shown as failure causes, _but not counted in the
+statistics_
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/25[Pull
+#25])
+* [UI] Added space between indication links.
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/26[Pull
+#26])
+
+[[BuildFailureAnalyzer-Version1.10.3(releasedOct13,2014)]]
+=== Version 1.10.3 (released Oct 13, 2014)
+
+* One more fix for icons not correctly displayed
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/24[Pull
+#24])
+
+[[BuildFailureAnalyzer-Version1.10.2(releasedOct7,2014)]]
+=== Version 1.10.2 (released Oct 7, 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-23409[JENKINS-23409] Fixed
+correctly exporting FailureCauseDisplayData to the Http Api
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/commit/96bf0efc5c7c766aba902e0e9afb336fd8608d48[Commit
+#96bf0ef])
+
+[[BuildFailureAnalyzer-Version1.10.1(releasedSep30,2014)]]
+=== Version 1.10.1 (released Sep 30, 2014)
+
+* Fixed an issue reading a property from MongoDB
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/commit/f3626c5abbef57d57b3a8830022bc06133cbe6c3[Commit
+#f3626c5])
+
+[[BuildFailureAnalyzer-Version1.10.0(releasedSep19,2014)]]
+=== Version 1.10.0 (released Sep 19, 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-24059[JENKINS-24059]
+Fixed NullPointerException on missing downstream project
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/23[pull
+#23])
+* Added Modifications + LastOccurred as admin fields
+* Placeholders in description
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/20[pull
+#20])
+* https://issues.jenkins-ci.org/browse/JENKINS-17658[JENKINS-17658]
+BUILD_FAILURE_ANALYZER TokenMacro
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/22[pull
+#22])
+
+[[BuildFailureAnalyzer-Version1.9.1(releasedJun25,2014)]]
+=== Version 1.9.1 (released Jun 25, 2014)
+
+* "Failure Scan Options" is not hidden for users without build or
+configure permissions, it also hides when scanning is turned off.
+
+[[BuildFailureAnalyzer-Version1.9.0(releasedJun18,2014)]]
+=== Version 1.9.0 (released Jun 18, 2014)
+
+* Statistics upstream link - added upstream link info to statistics.
+* https://issues.jenkins-ci.org/browse/JENKINS-18518[JENKINS-18518] Red
+highlights not showing when clicking on indications
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/21[pull
+#21])
+* BuildFlow Dependencies And Nested Failure Causes in Gerrit
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/18[pull
+#18])
+* Address multiline "Match Text" failure
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/17[pull
+#17])
+
+[[BuildFailureAnalyzer-Version1.8.1(releasedMay22,2014)]]
+=== Version 1.8.1 (released May 22, 2014)
+
+* Address NPE in getNotScannedBuilds()
+(https://github.com/jenkinsci/build-failure-analyzer-plugin/pull/16[pull
+#16])
+
+[[BuildFailureAnalyzer-Version1.8.0(releasedMay19,2014)]]
+=== Version 1.8.0 (released May 19, 2014)
+
+* Project page shows last build failure cause
+* Failure Cause Management link hidden for projects with disabled
+scanning
+
+[[BuildFailureAnalyzer-Version1.7.0(releasedApr1,2014)]]
+=== Version 1.7.0 (released Apr 1, 2014)
+
+* Multi line build log indications
+* Optionally store statistics about successful builds
+
+[[BuildFailureAnalyzer-Version1.6.0(releasedMar10,2014)]]
+=== Version 1.6.0 (released Mar 10, 2014)
+
+* Ability to re-scan non scanned builds (for new installations) and all
+builds for a project
+* Graphs on projects, slaves and master(s) if using a statistics logging
+enabled knowledge base (like the MongoDB Knowledge base)
+* Shows failure causes from downstream builds directly on the upstream
+build page.
+* ListView column showing the failure cause of the last build, if there
+is one.
+
+[[BuildFailureAnalyzer-Version1.5.1(releasedNov19,2013)]]
+=== Version 1.5.1 (released Nov 19, 2013)
+
+* Fixed an XSS vulnerability
+
+[[BuildFailureAnalyzer-Version1.5.0(releasedApr24,2013)]]
+=== Version 1.5.0 (released Apr 24, 2013)
+
+[[BuildFailureAnalyzer-NewFeatures]]
+==== New Features
+
+* The found failure cause is exposed to the REST Api (jobX/1/api).
+
+[[BuildFailureAnalyzer-Version1.4.1(releasedMar14,2013)]]
+=== Version 1.4.1 (released Mar 14, 2013)
+
+[[BuildFailureAnalyzer-Bugsfixed]]
+==== Bugs fixed
+
+* https://issues.jenkins-ci.org/browse/JENKINS-16868[JENKINS-16868] Icons
+are not displayed with a reverse proxy
+
+[[BuildFailureAnalyzer-Version1.4.0(releasedFeb15,2013)]]
+=== Version 1.4.0 (released Feb 15, 2013)
+
+[[BuildFailureAnalyzer-NewFeatures.1]]
+==== New Features
+
+* Possibility to test regexps on a build log
+
+[[BuildFailureAnalyzer-Bugsfixed.1]]
+==== Bugs fixed
+
+* Log annotation bugfixes.
+* https://issues.jenkins-ci.org/browse/JENKINS-15948[JENKINS-15948] Build
+Failure Analyzer icons aren't displayed if Jenkins isn't installed at
+root context.(again)
+* https://issues.jenkins-ci.org/browse/JENKINS-15926[JENKINS-15926] Build
+Failure Analyzer with Timestamper output ugly.(again)
+* https://issues.jenkins-ci.org/browse/JENKINS-16596[JENKINS-16596] Repeat/double
+loggin issue due to Build failure Analyzer.
+* https://issues.jenkins-ci.org/browse/JENKINS-16104[JENKINS-16104] Build
+Failure Analyzer: Ugly output from plugin.
+* NPE fix when a slave is taken offline during a build.
+* Fix for internal serialization of matrix aggregated indications.
+* Small UI fix in failure cause management page.
+
+[[BuildFailureAnalyzer-Version1.3.0(releasedDec06,2012)]]
+=== Version 1.3.0 (released Dec 06, 2012)
+
+[[BuildFailureAnalyzer-NewFeatures.2]]
+==== New Features
+
+* Possibility to test regexp on a line of text when editing
+BuildLogIndications
+* Output from Build Failure Analyzer shown in normal console.
+
+[[BuildFailureAnalyzer-Bugsfixed.2]]
+==== Bugs fixed
+
+* https://issues.jenkins-ci.org/browse/JENKINS-15986[JENKINS-15986] Cannot
+save job configuration pages on Jenkins 1.463 or newer.
+* https://issues.jenkins-ci.org/browse/JENKINS-15948[JENKINS-15948] Build
+Failure Analyzer icons aren't displayed if Jenkins isn't installed at
+root context.
+* https://issues.jenkins-ci.org/browse/JENKINS-15926[JENKINS-15926] Build
+Failure Analyzer with Timestamper output ugly.
+
+[[BuildFailureAnalyzer-Other]]
+==== Other
+
+* Updated Gerrit Trigger optional dependency: 2.7.0
+
+[[BuildFailureAnalyzer-Version1.2.0(releasedNov22,2012)]]
+=== Version 1.2.0 (released Nov 22, 2012)
+
+Initial Release
+
+[[BuildFailureAnalyzer-Knownissues]]
+==== Known issues
+
+*Breaks Job configuration pages on Jenkins 1.463 or newer* +
+The problem we have seen is when loading configuration pages. We don't
+have a registered descriptor for our notifier, +
+hence, when the hetero-list for the post build actions is generated, an
+Exception is thrown.

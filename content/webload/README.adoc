@@ -1,0 +1,66 @@
+This plugin allows Jenkins to execute http://www.radview.com/[RadView
+WebLOAD] Console Load sessions and WebLOAD Analytics report generation.
+
+[[WebLOADPlugin-AboutthisPlugin]]
+== About this Plugin
+
+This plugin allows you to trigger a WebLOAD Console load-test, and
+generate reports using WebLOAD Analytics. The plugin is intended to be
+used with WebLOAD version 10.1 and up.
+
+[[WebLOADPlugin-InstallationNotes]]
+== Installation Notes
+
+. Install a full installation of WebLOAD on the machine that will run
+the WebLOAD jobs (this is either the master, or better, a slave).
+. The Load-Generator (if used) do not require any special set-up
+. If running Jenkins as a Service, make sure it running using a normal
+user, and not the Local System Account
+
+[[WebLOADPlugin-UserGuide]]
+== User Guide
+
+[[WebLOADPlugin-Setupajob-executealoadsession]]
+=== Set up a job - execute a load session
+
+. Install a full installation of WebLOAD on the machine running the job
+(this is either the master, or better, a slave)
+. Go to the Jenkins Server home page.
+. Click the *New Job* link or select an existing job.
+. Enter a Job name (for a new job).
+. Select *Build a free-style software project* and click *OK*.
+. In the Project Configuration section scroll down to
+the *Build* section.
+. Expand the *Add build* *step* drop-down and select *Execute WebLOAD
+Load Session*
+. Set the *Template File* - create this file in WebLOAD Console - it
+defines which scripts to run, on which load-generators and what is the
+load session schedule
+. Set the *Load Session File* - this is where the results will be saved.
+It is recommended you use the build-number parameter, to differentiate
+between the runs, for example,  my_result_$\{BUILD_NUMBER}.ls
+
+[[WebLOADPlugin-Setupajob-generateAnalyticsreport]]
+=== Set up a job - generate Analytics report
+
+Follow the steps above to create a new Job, or more commonly, add
+another build step to the previous Job.*
+
+. Expand the *Add build* *step* drop-down and select *Generate WebLOAD
+Analytics Report*
+. Set *Input Load Session File* to the .ls file (normally, this will be
+the name set in step 9 above)
+. Set *Output format* to the desired report format, normally HTML or
+PDF. You can also use JUNIT to create an xml report that can be used in
+conjunction with Jenkins's *Publish JUnit Test Result report* Post Build
+action.
+. Set *Portfolio Name* to define which templates will be included in the
+report. By default the *Summary Portfolio* is used. The *Regression
+Portfolio* is recommended when using *Compare to previous builds* is
+used.
+. Set *Report name*. Used as the report title and also the output
+filename
+. Set *Compare to previous builds* to compare the current run to the
+specified number of previous builds.
+. Set *Compare to sessions* to a path of a baseline .ls session file to
+compare to (or a comma-separated list of such files)

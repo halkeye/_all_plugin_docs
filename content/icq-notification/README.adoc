@@ -1,0 +1,13 @@
+[source,conf-macro,output-inline]
+----
+The plugin allows to send Jenkins notifications to ICQ
+----
+
+[[ICQNotificationPlugin-Usage]]
+== Usage
+
+* Create your own bot by sending the /newbot command to
+https://icq.com/people/70001[MegaBot] and follow the instructions
+* Specify your bot token in Jenkins system configuration
+* Add a build step and/or a post build action
+* Fill the message and recipients

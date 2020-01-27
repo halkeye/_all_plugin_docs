@@ -1,0 +1,56 @@
+PubSub Light Plugin
+
+https://github.com/jenkinsci/pubsub-light-module[See GitHub
+documentation for more details].
+
+[[PubSubLightPlugin-ChangeLog]]
+== Change Log
+
+[[PubSubLightPlugin-Version1.13(Aug16,2019)]]
+=== Version 1.13 (Aug 16, 2019)
+
+* Add convenient method to restart bus.
+* use holder singleton pattern to avoid multiple creating issue
+
+[[PubSubLightPlugin-Version1.12(Jul18,2017)]]
+=== Version 1.12 (Jul 18, 2017)
+
+* Roll forward, fixing regression discovered in 1.9/1.10.
+
+[[PubSubLightPlugin-Version1.11(Jul13,2017)]]
+=== Version 1.11 (Jul 13, 2017)
+
+* Rollback to 1.8 due to regression discovered in 1.9/1.10.
+
+[[PubSubLightPlugin-Version1.10(Jul7,2017)]]
+=== Version 1.10 (Jul 7, 2017)
+
+* job_run_artifact_fingerprinting event
+
+[[PubSubLightPlugin-Version1.9(Jul6,2017)]]
+=== Version 1.9 (Jul 6, 2017)
+
+* jenkins_instance_id and jenkins_instance_url event properties
+
+[[PubSubLightPlugin-Version1.8(May8,2017)]]
+=== Version 1.8 (May 8, 2017)
+
+* Folder indexing events.
+* Added AbstractChannelSubscriber
+
+[[PubSubLightPlugin-Version1.7(Feb8,2017)]]
+=== Version 1.7 (Feb 8, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-41832[JENKINS-41832]: Fix
+out-of-control thread spin causing machines to melt.
+
+[[PubSubLightPlugin-Version1.6(Jan26,2017)]]
+=== Version 1.6 (Jan 26, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-41487[JENKINS-41487]:
+Getting the plugin to appear in the Update Centre.
+
+[[PubSubLightPlugin-Version1.5(Jan26,2017)]]
+=== Version 1.5 (Jan 26, 2017)
+
+* First release as a HPI. Used to be a jenkins-module.

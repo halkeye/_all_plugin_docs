@@ -1,0 +1,40 @@
+[.conf-macro .output-inline]#This plugin allow one to deploy build
+artifacts to a http://packagedrone.org/[Package Drone] drone instance of
+version 0.11.5+#
+
+Package Drone Version
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+This plugin requires a Package Drone instance of at least version
+0.11.5.
+
+[[PackageDronePlugin-Providedmetadata]]
+== Provided meta data
+
+During the uploda process the following meta data will be stored with
+each artifact as "provided metadata":
+
+[width="100%",cols="50%,50%",options="header",]
+|===
+|namespace:key |Description
+|jenkins:buildId |The build ID of the Jenkins build
+|jenkins:buildNumber + |The build number of the Jenkins build +
+|jenkins:jobName + |The name of the job +
+|jenkins:buildUrl + |The URL to the build job +
+|===
+
+[[PackageDronePlugin-Foundanissue?]]
+== Found an issue?
+
+Please report it
+https://github.com/ctron/package-drone-jenkins/issues[on Github].
+
+If you know how to fix it I am gladly accepting pull requests ;-)
+
+[[PackageDronePlugin-EclipsePublicLicense]]
+== Eclipse Public License
+
+This plugin is licensed under the Eclipse Public License v1.0.
+https://www.eclipse.org/legal/epl-v10.html

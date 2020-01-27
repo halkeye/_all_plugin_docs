@@ -1,0 +1,576 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2017-10-11/[Maven plugin bundles
+commons-httpclient library vulnerable to man-in-the-middle attacks]
+* https://jenkins.io/security/advisory/2019-07-31/#SECURITY-713[Sensitive
+values in module build logs not masked]
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]#
+#
+
+*[.confluence-embedded-file-wrapper .image-right-wrapper .confluence-embedded-manual-size]##image:docs/images/hn.png[image,height=150]##Maven
+jobs and Java versions compatibility* : Because java serialized classes
+are exchanged between Jenkins master and Maven Jobs it is required that
+the JVM used to launch Maven is superior or equal to the version of Java
+for which Jenkins Master is built for.
+
+* Jenkins >= 1.520 requires Java 6 thus Maven jobs must be launched with
+Java >= 6.
+* Jenkins >= 1.612 requires Java 7 thus Maven jobs must be launched with
+Java >= 7.
+* Jenkins >= 2.54 requires Java 8 thus Maven jobs must be launched with
+Java >= 8.
+
+See also
+https://issues.jenkins-ci.org/browse/JENKINS-18403[JENKINS-18403],
+https://issues.jenkins-ci.org/browse/JENKINS-28294[JENKINS-28294]
+
+*If Jenkins detects that you are trying to use a JDK older than the
+master prerequisite, it automatically reconfigure your build to use the
+JDK on which your agent is running.* It displays in your build logs a
+message like :
+
+[source,syntaxhighlighter-pre]
+----
+ERROR: ================================================================================
+ERROR: Invalid project setup: hudson/maven/AbstractMavenProcessFactory$ConfigureOriginalJDK : Unsupported major.minor version 51.0
+ERROR: [JENKINS-18403][JENKINS-28294] JDK 'j6' not supported to run Maven projects.
+ERROR: Maven projects have to be launched with a Java version greater or equal to the minimum version required by the master.
+ERROR: Use the Maven JDK Toolchains (plugin) to build your maven project with an older JDK.
+ERROR: Retrying with slave Java and setting compile/test properties to point to /Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/.
+ERROR: ================================================================================
+----
+
+*But due to the remoting upgrade in Jenkins 2.27+ this workaround
+doesn't work anymore if your agent or maven job is using Java < 7 -
+https://issues.jenkins-ci.org/browse/JENKINS-40990[JENKINS-40990]
+(Because remoting is compiled for Java 7)*
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+Known issues are listed
+https://issues.jenkins-ci.org/issues/?jql=project%20%3D%20JENKINS%20AND%20status%20in%20(Open%2C%20%22In%20Progress%22%2C%20Reopened)%20AND%20component%20%3D%20%27maven-plugin%27[in
+Jira].
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+Historically this plugin was released alongside Jenkins core releases.
+Since version 2.0 this plugin is released separately, but still bundled
+with Jenkins - though not always the newest version of the plugin might
+be bundled.
+
+This plugin provides an advanced integration for Maven 2/3 projects.
+
+Even if Jenkins provides natively a Maven builder to use a build step in
+classical Jenkins jobs (freestyle, ...) this plugin provides a more
+advanced integration with specific a specific job type providing uniq
+features like:
+
+* Automatic configuration of reporting plugins (Junit, Findbugs, ...)
+* Automatic triggering across jobs based on SNAPSHOTs published/consumed
+* Incremental build - only build changed modules
+* Build modules in parallel on multiple executors/nodes
+* Post build deployment of binaries only if the project succeeded and
+all tests passed
+* ...
+
+See
+https://wiki.jenkins.io/display/JENKINS/Building+a+maven2+project[Building
+a maven2 project] for more information on how to use this.
+
+*Environment Variables*
+
+This plugin exposes variables found from the project's POM (as of
+version 2.1):
+
+* POM_DISPLAYNAME
+* POM_VERSION
+* POM_GROUPID
+* POM_ARTIFACTID
+* POM_PACKAGING
+
+And many others features provided by Jenkins plugins ecosystem
+
+[[MavenProjectPlugin-ReleaseNotes]]
+== Release Notes
+
+[[MavenProjectPlugin-Version3.4(July31st,2019)]]
+=== Version 3.4 (July 31st, 2019)
+
+* https://jenkins.io/security/advisory/2019-07-31/#SECURITY-713[Fix
+security issue]
+
+[[MavenProjectPlugin-Version3.3(June14th,2019)]]
+=== Version 3.3 (June 14th, 2019)
+
+* image:docs/images/check.svg[(tick)] Fixed: maven-plugin
+random socket leak, leading to threads leak on slave and master
+(https://issues.jenkins-ci.org/browse/JENKINS-57119[JENKINS-57119])
+* image:docs/images/check.svg[(tick)] Fixed: http://java.io/[java.io].NotSerializableException:
+The calling thread Thread has no associated
+channel (https://issues.jenkins-ci.org/browse/JENKINS-57244[JENKINS-57244])
+* image:docs/images/check.svg[(tick)] Fixed: Upgrade
+maven embedder from 3.1.0 to at least
+3.5.4 (https://issues.jenkins-ci.org/browse/JENKINS-54530[JENKINS-54530])
+
+[[MavenProjectPlugin-Version3.2(November30th,2018)]]
+=== Version 3.2 (November 30th, 2018)
+
+* image:docs/images/check.svg[(tick)] Fixed:
+remove anonymous classes
+(https://issues.jenkins-ci.org/browse/JENKINS-53481[JENKINS-53481])
+
+[[MavenProjectPlugin-Version3.1.2(March27th,2018)]]
+=== Version 3.1.2 (March 27th, 2018)
+
+* image:docs/images/check.svg[(tick)] Fixed:
+JEP-200 failure to serialize Notifier, used when <ciManagement>
+specifies email configuration. ( 
+[.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-50251[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-50251] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  ) - Take 2 - fix a potential NPE
+
+[[MavenProjectPlugin-Version3.1.1(March25th,2018)]]
+=== Version 3.1.1 (March 25th, 2018)
+
+* image:docs/images/check.svg[(tick)] Fixed:
+JEP-200 failure to serialize Notifier, used when <ciManagement>
+specifies email configuration. ( 
+[.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-50251[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-50251] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  )
+
+[[MavenProjectPlugin-Version3.1(January24th,2018)]]
+=== Version 3.1 (January 24th, 2018)
+
+* image:docs/images/check.svg[(tick)] Fixed: the
+perform method should be passing the loop-variable 'moduleBuild' to
+tdp.getTestData (
+https://github.com/jenkinsci/maven-plugin/pull/12[PR#12] )
+* image:docs/images/check.svg[(tick)] Fixed: UnsupportedOperationException:
+Refusing to marshal
+org.apache.maven.artifact.versioning.DefaultArtifactVersion for security
+reasons ( [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-49089[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-49089] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  )
+* image:docs/images/check.svg[(tick)] Fixed: Forbid
+nested references to model objects ( 
+[.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-45892[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-45892] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  )
+* image:docs/images/information.svg[(info)] Internal: Update
+to Apache HttpComponents Client API 4.5.3-2.1
+* image:docs/images/information.svg[(info)] Internal: Update
+Lib Maven Embedder to 3.13
+* Includes: https://github.com/jenkinsci/maven-plugin/pull/12[PR#12], https://github.com/jenkinsci/maven-plugin/pull/105[PR#105], https://github.com/jenkinsci/maven-plugin/pull/106[PR#106], https://github.com/jenkinsci/maven-plugin/pull/108[PR#108], https://github.com/jenkinsci/maven-plugin/pull/109[PR#109], https://github.com/jenkinsci/maven-plugin/pull/111[PR#111], https://github.com/jenkinsci/maven-plugin/pull/112[PR#112]
+
+[[MavenProjectPlugin-Version3.0(October6th,2017)]]
+=== Version 3.0 (October 6th, 2017)
+
+* image:docs/images/check.svg[(tick)] Fixed: Global
+environment variables are not being resolved in Email Notification
+Recipients list for maven 2/3
+projects (https://issues.jenkins-ci.org/browse/JENKINS-13277[JENKINS-13277])
+* image:docs/images/check.svg[(tick)] Fixed: Allow
+to automatically trigger jobs when a project import the
+dependencyManagement of another
+(https://issues.jenkins-ci.org/browse/JENKINS-15883[JENKINS-15883])
+* image:docs/images/information.svg[(info)] Internal: Update
+HttpClient and use the client
+from https://wiki.jenkins.io/display/JENKINS/Apache+HttpComponents+Client+4.x+API+Plugin[Apache
+HttpComponents Client 4.x API
+Plugin] (https://issues.jenkins-ci.org/browse/JENKINS-46053[JENKINS-46053],
+https://issues.jenkins-ci.org/browse/JENKINS-46210[JENKINS-46210])
+* image:docs/images/information.svg[(info)] Internal:
+Use the JSch library from
+the https://wiki.jenkins.io/display/JENKINS/JSch+Plugin[JSch Plugin]
+* image:docs/images/information.svg[(info)] Internal: Fix
+Parent
+POM (https://issues.jenkins-ci.org/browse/JENKINS-45271[JENKINS-45271])
+* image:docs/images/information.svg[(info)] Internal: Maven
+Plugin uses obsolete maven methods
+(https://issues.jenkins-ci.org/browse/JENKINS-46148[JENKINS-46148]) +
+* image:docs/images/check.svg[(tick)] Stop
+bundling libraries, which are provided by the core (e.g. Guava)
+** Note that some of the changes may lead to compatibility issues in the
+plugiin dependencies
+
+[[MavenProjectPlugin-Version2.17(July10,2017)]]
+=== Version 2.17 (July 10, 2017)
+
+* image:docs/images/check.svg[(tick)] Fixed: Maven
+version detection fails on same agent with
+'java.lang.IllegalStateException: zip file closed' exception. +
+Update the Maven Embedder Lib to 3.12.1 :
+** https://issues.jenkins-ci.org/browse/JENKINS-42549[JENKINS-42549] -
+Prevent file access errors in `+JARUrlConnection+` due to the parallel
+reading of JAR resources
+in `+MavenEmbedderUtils#getMavenVersion()+` (regression in 3.12)
+** https://issues.jenkins-ci.org/browse/JENKINS-40621[JENKINS-40621] -
+Prevent leaked file descriptors when
+invoking `+MavenEmbedderUtils#getMavenVersion()+`(https://github.com/jenkinsci/lib-jenkins-maven-embedder/pull/5[PR
+#5])
+* image:docs/images/information.svg[(info)] Update:
+Update plugin description in the plugin manager ( Maven plugin is not
+being installed by default starting from Jenkins 2 )
+( https://github.com/jenkinsci/maven-plugin/pull/99[PR#99] )
+* image:docs/images/information.svg[(info)] Update: Remove
+the message about jenkinsci-users ML (
+https://github.com/jenkinsci/maven-plugin/pull/97[PR#97] )
+
+[[MavenProjectPlugin-Version2.16(June08,2017)]]
+=== Version 2.16 (June 08, 2017)
+
+* image:docs/images/check.svg[(tick)] Fixed:
+Support of Maven 3.5 (due to non backward compatible change in Apache
+Maven 3.5) (
+https://issues.jenkins-ci.org/browse/JENKINS-43446[JENKINS-43446])
+* image:docs/images/check.svg[(tick)] Fixed:
+fix typo in image sources
+(https://issues.jenkins-ci.org/browse/JENKINS-42833[JENKINS-42833])
+
+[[MavenProjectPlugin-Version2.15.1(Feb16,2017)]]
+=== Version 2.15.1 (Feb 16, 2017)
+
+* image:docs/images/check.svg[(tick)]
+Fixed: Maven projects using Maven 3.0.x don't show annotations in
+console log since 2.44 / 2.32.2 (
+https://issues.jenkins-ci.org/browse/JENKINS-41636[JENKINS-41636],
+SECURITY-382 )
+* image:docs/images/check.svg[(tick)]
+Fixed: Prevent leaked file descriptors when invoking
+`+MavenEmbedderUtils#getMavenVersion()+` (
+https://issues.jenkins-ci.org/browse/JENKINS-40621[JENKINS-40621] )
+* image:docs/images/check.svg[(tick)]
+Fixed: NullPointerException when Jenkins uses by error the Maven 3.2.x
+launcher with a project using Maven 3.3.x (
+https://issues.jenkins-ci.org/browse/JENKINS-41761[JENKINS-41761] )
+* image:docs/images/check.svg[(tick)]
+Fixed: StackOverflowError when parsing Maven POM (
+https://issues.jenkins-ci.org/browse/JENKINS-41697[JENKINS-41697],
+https://issues.jenkins-ci.org/browse/JENKINS-42183[JENKINS-42183] ). It
+seems to impact only users of Jenkins >= LTS 2.32.1 (and thus probably
+users of weekly releases >= 2.28 where guice was upgraded to version 4.0
+final)
+* image:docs/images/information.svg[(info)]
+Update: Use Apache Maven Owl logo instead of the Apache Feather ( We
+don't have the rights ) (
+https://issues.jenkins-ci.org/browse/JENKINS-38960[JENKINS-38960] )
+* image:docs/images/information.svg[(info)]
+Internal: Fix tests for Jenkins 2, use a minimum set of permalinks
+instead of a fixed set (
+https://issues.jenkins-ci.org/browse/JENKINS-40949[JENKINS-40949] )
+* image:docs/images/information.svg[(info)]
+Internal: Update dependencies
+** Do not bundle Guice (we pick it up from core).
+** Update Sonatype Aether `+0.9.0.M2+` to Eclipse Aether `+1.1.0+`
+** Update Apache Wagon `+2.4+` to `+2.12+` which solves various issues
+(like SNI support -
+https://issues.jenkins-ci.org/browse/JENKINS-40903[JENKINS-40903],
+https://issues.jenkins-ci.org/browse/JENKINS-38738[JENKINS-38738] ) to
+download dependencies in `+Parsing POM+` or upload artifacts from the
+post build deployment task.
+** Internal: Upgrade lib-jenkins-maven-embedder `+3.11+` to `+3.12+`
+
+[[MavenProjectPlugin-Version2.15(Feb16,2017)]]
+=== Version 2.15 (Feb 16, 2017)
+
+Release failed .... thx repo.jenkins-ci.org
+
+[[MavenProjectPlugin-Version2.14(Oct18,2016)]]
+=== Version 2.14 (Oct 18, 2016)
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]#
+#
+
+Requires now Jenkins >= 1.625.3 and Java >= 7
+
+* image:docs/images/check.svg[(tick)]
+Fixed: Failed maven builds using -T are showing up as Aborted (
+https://issues.jenkins-ci.org/browse/JENKINS-24832[JENKINS-24832] )
+* image:docs/images/check.svg[(tick)]
+Fixed: Apache Maven 3.3 support and toolchains integration (
+https://issues.jenkins-ci.org/browse/JENKINS-28629[JENKINS-28629],
+https://issues.jenkins-ci.org/browse/JENKINS-28420[JENKINS-28420] )
+* image:docs/images/check.svg[(tick)]
+Fixed: Option "Schedule build when some upstream has no successful
+builds" is never saved (
+https://issues.jenkins-ci.org/browse/JENKINS-37937[JENKINS-37937] )
+* image:docs/images/check.svg[(tick)]
+Fixed: With Jenkins 2.x Maven configuration screen is linking to the
+wrong configuration page when you have no maven installation configured
+( https://issues.jenkins-ci.org/browse/JENKINS-38923[JENKINS-38923],
+https://issues.jenkins-ci.org/browse/JENKINS-36068[JENKINS-36068],
+https://issues.jenkins-ci.org/browse/JENKINS-34743[JENKINS-34743] )
+* image:docs/images/check.svg[(tick)]
+Fixed: Release builds should not trigger downstream projects (
+https://issues.jenkins-ci.org/browse/JENKINS-34789[JENKINS-34789] )
+* image:docs/images/check.svg[(tick)]
+Fixed: Redeploy publisher must reuse global maven settings from the
+slave (
+https://issues.jenkins-ci.org/browse/JENKINS-27161[JENKINS-27161] )
+* image:docs/images/check.svg[(tick)]
+Fixed: Misleading "JDK 5 not supported with Maven" error with Jenkins >=
+1.612 and JDK 6 (
+https://issues.jenkins-ci.org/browse/JENKINS-28294[JENKINS-28294] )
+* image:docs/images/add.svg[(plus)]
+New: Automatically detect tests from
+com.simpligility.maven.plugins:android-maven-plugin:internal-integration-test
+* image:docs/images/information.svg[(info)]
+Update: NL translation for MavenProbeAction.DisplayName
+* image:docs/images/information.svg[(info)]
+Internal: Remove usage of IOException2
+* image:docs/images/information.svg[(info)]
+Internal: Upgrade Sisu to 0.3.3 (
+https://issues.jenkins-ci.org/browse/JENKINS-38736[JENKINS-38736] )
+
+[[MavenProjectPlugin-Version2.13(May19,2016)]]
+=== Version 2.13 (May 19, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-31162[JENKINS-31162] New
+item categorization and dynamic choice offering
+* https://issues.jenkins-ci.org/browse/JENKINS-33387[JENKINS-33387]
+Transient actions aren't displayed in Maven Jobs
+* https://issues.jenkins-ci.org/browse/JENKINS-31258[JENKINS-31258]
+Jenkins Maven plug-in ignores JUnit-format test results from unknown
+Maven plug-ins
+* https://issues.jenkins-ci.org/browse/JENKINS-31524[JENKINS-31524]
+SurefireArchiver ignores updated results when multiple testing plug-ins
+use the same reports directory (See
+https://wiki.jenkins.io/display/JENKINS/Building+a+maven2+project[Building
+a maven2 project] - Maven Surefire Test Results)
+* https://issues.jenkins-ci.org/browse/JENKINS-28147[JENKINS-28147]
+Perform Environment tearDown if BuildWrapper fails
+* https://issues.jenkins-ci.org/browse/JENKINS-7010[JENKINS-7010] Maven
+settings configured at Maven job level aren't used inside the promotion
+step
+* https://issues.jenkins-ci.org/browse/JENKINS-4428[JENKINS-4428]
+MavenProbeAction exposes password parameters
+* https://issues.jenkins-ci.org/browse/JENKINS-32635[JENKINS-32635] New
+option ignoreUnsuccessfulUpstreams. If checked, Jenkins will schedule
+build even if some upstream project has no successful builds. If not
+checked, Jenkins will not schedule build when some SNAPSHOT if any other
+upstream project has no successful builds on this Jenkins.
+
+[[MavenProjectPlugin-Version2.12.1(Oct01,2015)]]
+=== Version 2.12.1 (Oct 01, 2015)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-22252[JENKINS-22252]
+Reverting fix for
+https://issues.jenkins-ci.org/browse/JENKINS-26947[JENKINS-26947] due to
+serious regression (`+IllegalAccessError+` on
+`+AbstractMapBasedMultimap+`).
+
+[[MavenProjectPlugin-Version2.12(Aug27,2015)]]
+=== Version 2.12 (Aug 27, 2015)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-26947[JENKINS-26947]
+Forcibly terminate Maven remoting channel when upstream channel is
+closed.
+* https://issues.jenkins-ci.org/browse/JENKINS-21746[JENKINS-21746]
+Introduced `+TcpSocketHostLocator+` extension point. Using newer
+interceptors library.
+
+[[MavenProjectPlugin-Version2.11(Aug07,2015)]]
+=== Version 2.11 (Aug 07, 2015)
+
+This version requires Jenkins 1.580.1 or later.
+
+* https://issues.jenkins-ci.org/browse/JENKINS-25272[JENKINS-25272]
+Update https://issues.jenkins-ci.org/browse/JENKINS-18403[JENKINS-18403]
+workaround for newer Jenkins versions: allow projects to be built using
+JDK 5.
+* https://issues.jenkins-ci.org/browse/JENKINS-25625[JENKINS-25625]
+Simplified dependencies for development from other plugins.
+
+[[MavenProjectPlugin-Version2.10(Jun08,2015)]]
+=== Version 2.10 (Jun 08, 2015)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-25406[JENKINS-25406]
+Error running Maven builds including static analysis on new core under
+some conditions.
+* Improved logging of incremental build behavior.
+
+[[MavenProjectPlugin-Version2.9(March18,2015)]]
+=== Version 2.9 (March 18, 2015)
+
+* nothing special :-) see commits logs
+
+[[MavenProjectPlugin-Version2.8(Nov21,2014)]]
+=== Version 2.8 (Nov 21, 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-25691[issue
+#25691] Redeploy link is displayed to Anonymous users with read only
+permissions for a job
+
+[[MavenProjectPlugin-Version2.7(Oct10,2014)]]
+=== Version 2.7 (Oct 10, 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-11964[issue
+#11964] Cannot build a single module in a Maven multi-module job with
+Maven 3
+* https://issues.jenkins-ci.org/browse/JENKINS-11078[issue
+#11078] NullPointerException in
+hudson.maven.Maven3Builder$MavenExecutionListener.recordProjectStarted
+* https://issues.jenkins-ci.org/browse/JENKINS-20884[issue
+#20884] Variable expansion in maven goals
+* https://issues.jenkins-ci.org/browse/JENKINS-21903[issue
+#21903] Unless the user has requested to block when upstream is
+building, do not skip triggering a downstream build just because an
+upstream is building.
+* https://issues.jenkins-ci.org/browse/JENKINS-4861[issue #4861] Use
+newer version of transitive plexus-utils dependency that allows to
+correctly deploy artifacts using scpexe.
+* https://issues.jenkins-ci.org/browse/JENKINS-24282[issue #24282] Use
+noun phrases for new items
+* run a full build if build was triggered by upstream (snapshot
+dependency)
+* translation updates
+
+[[MavenProjectPlugin-Version2.6(Aug112014)]]
+=== Version 2.6 (Aug 11 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-23263[JENKINS-23263] Code
+change to prepare for split of JUnit plugin from core.
+* Better diagnostic logging in case dependency graph calculation fails.
+* https://issues.jenkins-ci.org/browse/JENKINS-23686[JENKINS-23686] New
+reverse build trigger (1.560+) made to work with a Maven project
+downstream.
+* Improved checkbox appearance in configuration UI.
+
+[[MavenProjectPlugin-Version2.5(Jul112014)]]
+=== Version 2.5 (Jul 11 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-23098[JENKINS-23098]
+Deadlocks when running builds with `+-T+` (concurrency).
+
+[[MavenProjectPlugin-Version2.4(Jul032014)]]
+=== Version 2.4 (Jul 03 2014)
+
+* Better handle errors from `+MavenReporter.postExecute+`.
+* Incorrect root element for module `+config.xml+` files.
+* Handling new names for SOAPUI extension.
+* https://issues.jenkins-ci.org/browse/JENKINS-11333[JENKINS-11333]
+Allow users to disable automatic fingerprinting, but add in explicit
+fingerprinting if desired.
+* Improved consistency of labels.
+* Localization and help fixes.
+* https://issues.jenkins-ci.org/browse/JENKINS-21014[JENKINS-21014]
+Include verify lifecycle in upstream candidate calculation.
+
+[[MavenProjectPlugin-Version2.3(Apr302014)]]
+=== Version 2.3 (Apr 30 2014)
+
+* Fixed: Sites for nested Maven multi-modules projects deeper than one
+level are archived flat
+https://issues.jenkins-ci.org/browse/JENKINS-22673[issue #22673]
+* Fixed: NPE while loading jobs
+https://issues.jenkins-ci.org/browse/JENKINS-22647[issue #22647]
+
+[[MavenProjectPlugin-Version2.2(Apr32014)]]
+=== Version 2.2 (Apr 3 2014)
+
+* Fixed: significant improvements in the Maven build performance
+https://issues.jenkins-ci.org/browse/JENKINS-22354[JENKINS-22354]
+* Fixed: NullPointerException during parsing POM
+https://issues.jenkins-ci.org/browse/JENKINS-21279[JENKINS-21279]
+* Fixed: maven.build.timestamp.format is not obeyed in maven buids
+https://issues.jenkins-ci.org/browse/JENKINS-9693[JENKINS-9693]
+* New: Expose project actions of pre- and post- builders
+https://issues.jenkins-ci.org/browse/JENKINS-20506[JENKINS-20506]
+* New: Use a pop-up dialog instead of extra page for confirmation if
+user wants to delete all disabled maven modules.
+(https://github.com/jenkinsci/maven-plugin/pull/17[pull request # 17])
+
+[[MavenProjectPlugin-Version2.1(Dec172013);requires1.538+]]
+=== Version 2.1 (Dec 17 2013); requires 1.538+
+
+* Fixed: don't save per-job MAVEN_OPTS if they're the same as the global
+ones https://issues.jenkins-ci.org/browse/JENKINS-13926[JENKINS-13926]
+* New: Expose Maven properties (e.g. GAV) as environment variables
+https://issues.jenkins-ci.org/browse/JENKINS-18272[JENKINS-18272]
+* Fixed: Abort module build when maven build is aborted
+https://issues.jenkins-ci.org/browse/JENKINS-19801[JENKINS-19801]
+* Fixed: Show aggregated failures same way Matrix build does
+https://issues.jenkins-ci.org/browse/JENKINS-19884[JENKINS-19884]
+* Fixed: Maven plugin sends email to 'null'
+adress https://issues.jenkins-ci.org/browse/JENKINS-20209[JENKINS-20209]
+* Fixed: provide better error message if maven_home isn't set
+https://issues.jenkins-ci.org/browse/JENKINS-20385[JENKINS-20385]
+* Fixed: call postBuild after module build completion
+https://issues.jenkins-ci.org/browse/JENKINS-20487[JENKINS-20487]
+* Fixed: Hacks used by MavenMailer to load config.jelly from plain
+Mailer broke in mailer 1.6
+https://issues.jenkins-ci.org/browse/JENKINS-21045[JENKINS-21045]
+* New: support for play2-maven-plugin
+
+[[MavenProjectPlugin-Version2.0.4(Jul032014)]]
+=== Version 2.0.4 (Jul 03 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-11333[JENKINS-11333]
+Allow users to disable automatic fingerprinting, but add in explicit
+fingerprinting if desired.
+
+[[MavenProjectPlugin-Version2.0.3(Jan28,2014)]]
+=== Version 2.0.3 (Jan 28, 2014)
+
+* Fixed regression in 2.0.2 that RedeployPublisher would delete
+artifacts from the build after running.
+
+[[MavenProjectPlugin-Version2.0.2(Jan23,2014)]]
+=== Version 2.0.2 (Jan 23, 2014)
+
+* Temporary file leak when using
+https://wiki.jenkins.io/display/JENKINS/Cloudbees+Deployer+Plugin[Cloudbees
+Deployer Plugin]
+
+[[MavenProjectPlugin-Version2.0.1(Jan04,2014)]]
+=== Version 2.0.1 (Jan 04, 2014)
+
+* Fixed: don't save per-job MAVEN_OPTS if they're the same as the global
+ones https://issues.jenkins-ci.org/browse/JENKINS-13926[JENKINS-13926]
+* New: Expose Maven properties (e.g. GAV) as environment variables
+https://issues.jenkins-ci.org/browse/JENKINS-18272[JENKINS-18272]
+* Fixed: Show aggregated failures same way Matrix build does
+https://issues.jenkins-ci.org/browse/JENKINS-19884[JENKINS-19884]
+* Fixed: Maven plugin sends email to 'null'
+adress https://issues.jenkins-ci.org/browse/JENKINS-20209[JENKINS-20209]
+* Fixed: provide better error message if maven_home isn't set
+https://issues.jenkins-ci.org/browse/JENKINS-20385[JENKINS-20385]
+* Fixed: call postBuild after module build completion
+https://issues.jenkins-ci.org/browse/JENKINS-20487[JENKINS-20487]
+* Fixed: Hacks used by MavenMailer to load config.jelly from plain
+Mailer broke in mailer 1.6
+https://issues.jenkins-ci.org/browse/JENKINS-21045[JENKINS-21045]
+* New: support for play2-maven-plugin
+
+[[MavenProjectPlugin-Version2.0(Oct22,2013)]]
+=== Version 2.0 (Oct 22, 2013)
+
+* Fixed: no errors logged in Jenkins' console if build failed
+(https://issues.jenkins-ci.org/browse/JENKINS-19352[JENKINS-19352])
+* Fixed: too verbose logging in Maven builds
+(https://issues.jenkins-ci.org/browse/JENKINS-19396[JENKINS-19396])
+* New: support notifications via the ciManagement section of the POM
+(https://issues.jenkins-ci.org/browse/JENKINS-1201[JENKINS-1201],
+https://issues.jenkins-ci.org/browse/JENKINS-6421[JENKINS-6421])
+* Fixed: build may fail if master and slave use different VM types
+(https://issues.jenkins-ci.org/browse/JENKINS-19978[JENKINS-19978])
+* Fixed: Set the correct status of a maven build, in case that one
+module has test failures and other module don't compile
+(https://issues.jenkins-ci.org/browse/JENKINS-16522[JENKINS-16522])

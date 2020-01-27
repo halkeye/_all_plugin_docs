@@ -1,0 +1,10 @@
+This https://github.com/jenkinsci/google-storage-plugin[Google Cloud
+Storage Plugin] provides functionality to communicate with
+https://cloud.google.com/storage/[Google Cloud Storage], as build steps,
+post-build steps, or pipeline steps.
+
+ +
+
+Consult
+the https://github.com/jenkinsci/google-storage-plugin[google-storage-plugin] repository
+on GitHub for documentation.

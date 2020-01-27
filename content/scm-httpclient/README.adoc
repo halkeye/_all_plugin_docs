@@ -1,0 +1,57 @@
+ This plugin stores the scm changes and job build message as http
+request body to trigger service.
+
+* Introduction
+* How it works?
+* Usage
+
+[[SCMHttpClientPlugin-Introduction]]
+== Introduction
+
+The simple way to read the job build message, including the scm
+changeSets and job build message, which is used to trigger other
+service.
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+*Only `Git` and `Svn` based projects are supported.*
+
+[[SCMHttpClientPlugin-Howitworks?]]
+== How it works?
+
+While your job runs the plugin reads your build workspace to retrieve
+the build message via compare last with previous build SCM revision
+diffs. the diff are stored and use like $(AFFECTED__PATH),
+$(JOB__BUILD_MESSAGE).
+
+[[SCMHttpClientPlugin-Usage]]
+== Usage
+
+Install this plugin via the Jenkins plugin manager.
+
+After installation just activate the post build action named SCM
+HttpClient.
+
+configuration:
+
+[.confluence-embedded-file-wrapper]#image:https://i.imgur.com/4s3LJYC.jpg[image]#
+
+print on console:
+
+[.confluence-embedded-file-wrapper]#image:https://i.imgur.com/BbHqhaK.jpg[image]#
+
+[[SCMHttpClientPlugin-Versionhistory]]
+== Version history
+
+[[SCMHttpClientPlugin-Version1.0(February26,2019)]]
+=== Version 1.0 (February 26, 2019)
+
+* Initial release
+
+[[SCMHttpClientPlugin-Version1.1(June18,2019)]]
+=== Version 1.1 (June 18, 2019)
+
+* added Authorization for request
+
+ +

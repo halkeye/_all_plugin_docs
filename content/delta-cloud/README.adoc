@@ -1,0 +1,36 @@
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+This plugin as well as the Deltacloud API project is *abandoned*,
+
+[.conf-macro .output-inline]#This plugin allows to use
+http://incubator.apache.org/deltacloud/[Delta Cloud API] for
+provisioning new slaves and therefore allows you to decouple your
+Jenkins instance from cloud provider#
+
+*Credits:* Kohsuke and his
+https://wiki.jenkins-ci.org/display/JENKINS/Amazon+EC2+Plugin[EC2
+plug-in], a lot of thing were inspired by this plug-in
+
+[[DeltaCloudAPIplugin-Configuration]]
+== Configuration
+
+TBD
+
+[[DeltaCloudAPIplugin-Usage]]
+== Usage
+
+TBD
+
+[[DeltaCloudAPIplugin-Changelog]]
+== Changelog
+
+[[DeltaCloudAPIplugin-Release1.0.1(2011-09-20)]]
+=== Release 1.0.1 (2011-09-20)
+
+* Fixed pom.xml
+
+[[DeltaCloudAPIplugin-Release1.0(2011-09-19)]]
+=== Release 1.0 (2011-09-19)
+
+* Initial release

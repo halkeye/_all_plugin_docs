@@ -1,0 +1,47 @@
+Adds the Pipeline step ‘stage’ to delineate portions of a build.A
+component of
+https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Plugin[Pipeline
+Plugin].
+
+[[PipelineStageStepPlugin-Changelog]]
+== Changelog
+
+[[PipelineStageStepPlugin-2.3(Nov2,2017)]]
+=== 2.3 (Nov 2, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-44456[JENKINS-44456] -
+Expose stage name as an environment variable.
+
+[[PipelineStageStepPlugin-2.2(Aug30,2016)]]
+=== 2.2 (Aug 30, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-26107[JENKINS-26107]
+`+stage+` now takes a block argument; the old syntax, interspersed with
+other statements, is deprecated.
+** You must also update the
+https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Stage+View+Plugin[Pipeline
+Stage View Plugin] to 2.0+ to see block-syntax stages at all. Nested
+stages are currently displayed linearly.
+** The `+concurrency+` parameter is also deprecated; use `+lock+` from
+the
+https://wiki.jenkins-ci.org/display/JENKINS/Lockable+Resources+Plugin[Lockable
+Resources Plugin], and/or `+milestone+` from the
+https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Milestone+Step+Plugin[Pipeline
+Milestone Step Plugin].
+
+[[PipelineStageStepPlugin-2.1(May03,2016)]]
+=== 2.1 (May 03, 2016)
+
+* Now preventing `+stage+` from being used inside a `+parallel+` branch,
+which was never supported.
+* Downgrading an assertion error to a warning.
+
+[[PipelineStageStepPlugin-2.0(Apr05,2016)]]
+=== 2.0 (Apr 05, 2016)
+
+* First release under per-plugin versioning scheme. See
+https://github.com/jenkinsci/workflow-plugin/blob/82e7defa37c05c5f004f1ba01c93df61ea7868a5/CHANGES.md[1.x
+changelog] for earlier releases.
+* Includes the `+stage+` step formerly in
+https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Supporting+APIs+Plugin[Pipeline
+Supporting APIs Plugin].

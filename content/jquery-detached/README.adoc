@@ -1,0 +1,20 @@
+Module bundles for jQuery and jQuery UI.
+
+ +
+ +
+
+*NOTE: This is a UI support plugin. It should not be installed
+directly.* Plugins that use it will auto-install it.
+
+See
+https://github.com/jenkinsci/js-libs/tree/master/jquery-detached[GitHub
+documentation for more details].
+
+[[jQueryDetachedPlugin-ChangeLog]]
+== Change Log
+
+[[jQueryDetachedPlugin-Version1.1.1(Nov6,2015)]]
+=== Version 1.1.1 (Nov 6, 2015)
+
+[[jQueryDetachedPlugin-Version1.1(Sept15,2015)]]
+=== Version 1.1 (Sept 15, 2015)

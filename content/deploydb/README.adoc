@@ -1,0 +1,26 @@
+[.conf-macro .output-inline]#Triggers builds based on incoming
+http://hackers.lookout.com/deploydb/[DeployDB] webhooks, and reports the
+results back to DeployDB.#
+
+[[DeployDBPlugin-Setup]]
+== Setup
+
+For now, please refer to the
+https://github.com/lookout/deploydb-jenkins-plugin#readme[README] on
+GitHub.
+
+[[DeployDBPlugin-Sourcecode]]
+== Source code
+
+Note: this plugin isn't hosted by the "jenkinsci" organisation on
+GitHub, but the infobox above does not make it possible to specify
+this. +
+See: https://github.com/lookout/deploydb-jenkins-plugin
+
+[[DeployDBPlugin-Versionhistory]]
+== Version history
+
+[[DeployDBPlugin-Version0.1(April2,2015)]]
+=== Version 0.1 (April 2, 2015)
+
+* Initial release

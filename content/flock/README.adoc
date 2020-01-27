@@ -1,0 +1,10 @@
+This plugin will provide build status notifications to Flock messenger. 
+
+[[FlockPlugin-Installation]]
+== Installation
+
+. Go to 'Manage Jenkins' from the Jenkins homepage.
+. Navigate to `+Manage Plugins+`
+. Change the tab to`+ Available+`
+. Search for`+ Flock+`
+. Check the box next to install.

@@ -1,0 +1,52 @@
+This plugin copies change log data to a later build when a build is
+deleted.Whenever builds are deleted the change log data is lost too. If
+you save some builds with "keep forever" you only retain the change log
+of that particular build, but not other interim builds that have been
+deleted. This plugin watches for deleted builds and copies the change
+log data to the next existing build. It adds links to view the old
+change log data in the build page sidebar and in the changes view for
+projects/builds.
+
+[[ChangeLogHistoryPlugin-Changelog]]
+== Changelog
+
+[[ChangeLogHistoryPlugin-Version1.7(Oct24,2017)]]
+=== Version 1.7 (Oct 24, 2017)
+
+* https://github.com/jenkinsci/changelog-history-plugin/pull/1[[PR-1]] Don't
+accumulate changelog entries on oldest build.
+
+[[ChangeLogHistoryPlugin-Version1.6(Aug17,2016)]]
+=== Version 1.6 (Aug 17, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-37131[[JENKINS-37131]] Wrong
+SVN plugin version dependency.
+* https://issues.jenkins-ci.org/browse/JENKINS-37473[[JENKINS-37473]] Upgrade
+plugin pom to 2.13. 
+
+[[ChangeLogHistoryPlugin-Version1.4(Jun22,2016)]]
+=== Version 1.4 (Jun 22, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-34795[[JENKINS-34795]] You
+must override the newer overload of annotate.
+
+[[ChangeLogHistoryPlugin-Version1.3(Mar29,2011)]]
+=== Version 1.3 (Mar 29, 2011)
+
+* Update for Jenkins.
+
+[[ChangeLogHistoryPlugin-Version1.2(Jan17,2011)]]
+=== Version 1.2 (Jan 17, 2011)
+
+* Added Japanese translation.
+
+[[ChangeLogHistoryPlugin-Version1.1(Aug19,2009)]]
+=== Version 1.1 (Aug 19, 2009)
+
+* Add "More change log history" links in changes view for
+projects/builds.
+
+[[ChangeLogHistoryPlugin-Version1.0(Mar6,2009)]]
+=== Version 1.0 (Mar 6, 2009)
+
+* Initial release.

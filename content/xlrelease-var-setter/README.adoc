@@ -1,0 +1,145 @@
+[[XLReleaseVariablesSetterPlugin-Summary]]
+== Summary
+
+XL Release Variables Setter is a plugin that permits to set variables
+values into a running release.
+
+This plugin uses native
+https://docs.xebialabs.com/xl-release/6.2.x/rest-api/[XL Release REST
+Api] ( https://xebialabs.com/[** Xebialabs] https://xebialabs.com/[*©*]
+) to communicate with.
+
+[[XLReleaseVariablesSetterPlugin-Installation]]
+== Installation
+
+The plugin can be install with the differents methods described in the
+Jenkins documentation
+: https://wiki.jenkins-ci.org/display/JENKINS/Plugins#Plugins-Howtoinstallplugins[Jenkins
+Plugins - How to install plugins]
+
+[[XLReleaseVariablesSetterPlugin-Usage]]
+== Usage
+
+[[XLReleaseVariablesSetterPlugin-prerequisites]]
+=== prerequisites
+
+[[XLReleaseVariablesSetterPlugin-JenkinsEnvironment]]
+==== Jenkins Environment
+
+If your Jenkins server is behind a HTTP Proxy, the plugin is checking
+its configuration first.
+
+You can check or define it from this way : _Manage Jenkins_ -> _Manage
+Plugins_ -> _Advanced_ tab
+
+ 
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/Capture_du_2017-06-01_10-10-49.png[image]#
+
+[[XLReleaseVariablesSetterPlugin-XLReleaseEnvironment]]
+==== XL Release Environment
+
+Assuming your Jenkins server is already defined in XL Release ( _Shared
+Configuration_ -> _Jenkins : Server_ ), in a template, define a variable
+with an empty value, and uncheck _required_ :
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/Capture_du_2017-06-01_10-39-26.png[image]#
+
+Then, in a step configured as a Jenkins Job, add a Job Parameter for
+carrying the release Id :
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/Capture_du_2017-06-01_10-44-06.png[image]#
+
+[[XLReleaseVariablesSetterPlugin-GlobalConfiguration]]
+=== Global Configuration
+
+This section permits to define any parameters needed to access to a XL
+Release server
+
+_Manage Jenkins_ -> _Configure System_
+
+ 
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/Capture_du_2017-06-01_10-16-10.png[image]#
+
+* XL-Release Hostname  : The host name of your XL-Release server
+* XL-Release Port           : The port number of your XL-Release server
+* XL-Release User          : The user used to connect to the Xl-Release
+server
+* XL-Release Password  : The password associated to the user used to
+connect to the Xl-Release server
+
+ 
+
+Before saving parameters, use the _Test Connection_ button to validate
+the configuration.
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/Capture_du_2017-06-01_10-20-53.png[image]#
+
+[[XLReleaseVariablesSetterPlugin-JenkinsJobConfiguration]]
+=== Jenkins Job Configuration
+
+Add a String parameter, that have the same name as the variable name
+defined in XL Release, to catch the release id.
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/Capture_du_2017-06-01_10-53-11.png[image]#
+
+[[XLReleaseVariablesSetterPlugin-JenkinsStepConfiguration]]
+=== Jenkins Step Configuration
+
+If the global configuration is done and all is correct, then in a
+free-style project you can see the item *XL-Release Var Setter* in the
+list build step.
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/Capture_du_2017-06-01_10-25-28.png[image]#
+
+ 
+
+To configure the job step, you need to set this parameters :
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/Capture_du_2017-06-01_10-49-58.png[image]#
+
+* XL-Release Id : The Jenkins variable, defined as a string parameter,
+valued by XL Release.
+* XL-Release Variable Name : The XL Release variable name (without $
+character) you want to be updated in XL Release.
+* Jenkins Variable Name : The name of the Jenkins Variable, that the
+value herits from previous steps, to be send to XL Release.
+* Debug mode : Check for verbose logs.
+
+Simple example of a job ( using the
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] ) :
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/Capture_du_2017-06-01_11-03-14.png[image]#
+
+[[XLReleaseVariablesSetterPlugin-Execution]]
+=== Execution
+
+When the job is launched, you can follow the interactions between
+Jenkins and XL Release in the console. If you have checked the debug
+mode, the outputs are more verbose.
+
+If the job have a problem, the console shows the stacktrace.
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/Capture_du_2017-06-01_11-07-15.png[image]#
+
+[[XLReleaseVariablesSetterPlugin-Development]]
+== Development
+
+_TODO_
+
+[[XLReleaseVariablesSetterPlugin-License]]
+== License
+
+_TODO_
+
+[[XLReleaseVariablesSetterPlugin-VersionHistory]]
+== Version History
+
+[[XLReleaseVariablesSetterPlugin-0.1to0.4(2017-06-13)]]
+=== 0.1 to 0.4 (2017-06-13)
+
+_Minor changes since the first release (v0.1) to match Jenkins workflow
+requirements. +
+_

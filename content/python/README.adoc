@@ -1,0 +1,17 @@
+Adds the ability to execute python scripts as build steps. Other than
+that, this plugin works pretty much like the standard shell script
+support.
+
+[[PythonPlugin-ChangeLog]]
+== Change Log
+
+[[PythonPlugin-Version1.1(Feb10,2010)]]
+=== Version 1.1 (Feb 10, 2010)
+
+* Update code for more recent Hudson
+
+[[PythonPlugin-Version1.0(Jul13,2009)]]
+=== Version 1.0 (Jul 13, 2009)
+
+* Initial version, supplied via leosoto in
+https://issues.jenkins-ci.org/browse/JENKINS-3888[JENKINS-3888]

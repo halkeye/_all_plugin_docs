@@ -1,0 +1,14 @@
+`+{jenkins-plugin-info:cryptomove}+` 
+
+The CrytpoMove Key Vault Jenkins plugin sources your keys and secrets
+stored on CryptoMove and runs a command with your keys and secrets
+available as environment variables with the name and value. +
+ +
+The plugin has three inputs:
+
+* `command` - the command you want to run with your CryptoMove keys
+sourced as environment variables.
+* `token` - the authentication token from CryptoMove you want to use.
+All of the keys that the token provides read access to will be sourced
+as environment variables.
+* `email` - the email of the CryptoMove user who owns the token

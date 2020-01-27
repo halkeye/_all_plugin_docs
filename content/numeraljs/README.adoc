@@ -1,0 +1,16 @@
+Numeral.js Plugin
+
+ +
+ +
+
+*NOTE*: *This is a UI support plugin. It should not be installed
+directly.* Plugins that use it will auto-install it.
+
+See https://github.com/jenkinsci/js-libs/tree/master/numeraljs[GitHub
+documentation for more details].
+
+[[Numeral.js-ChangeLog]]
+== Change Log
+
+[[Numeral.js-Version1.0(Nov23,2015)]]
+=== Version 1.0 (Nov 23, 2015)

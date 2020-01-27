@@ -1,0 +1,209 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]##
+
+*This plugin is up for adoption.* Looking for a new maintainer
+https://wiki.jenkins-ci.org/display/JENKINS/Adopt+a+Plugin[Click here to
+learn more]!
+
+[.conf-macro .output-inline]#This plugin allows you to publish
+http://www.nunit.org/[NUnit] test results.#
+
+ +
+
+This plugin makes it possible to import NUnit reports from each build
+into Jenkins so they are displayed with a trend graph and details about
+which tests that failed.
+
+[[NUnitPlugin-Changelog]]
+== Changelog
+
+[[NUnitPlugin-Version0.22(November17,2017)]]
+=== Version 0.22 (November 17, 2017)
+
+* Fix issue with parameterized test names
+(https://issues.jenkins-ci.org/browse/JENKINS-5674[JENKINS-5674]
+thanks https://github.com/timotei[timotei])
+* Show inconclusive tests as skipped (thanks
+https://github.com/2improveIT[2improveIT])
+* Fix test names not showing up in the correct namespace
+(https://issues.jenkins-ci.org/browse/JENKINS-13471[JENKINS-13471])
+* Added ability to set health scale factor
+(https://issues.jenkins-ci.org/browse/JENKINS-23484[JENKINS-23484])
+
+[[NUnitPlugin-Version0.21(July12,2017)]]
+=== Version 0.21 (July 12, 2017)
+
+* Added explicit LICENSE file
+(https://issues.jenkins-ci.org/browse/JENKINS-44811[JENKINS-44811])
+* Fixed issue with filenames becoming too long
+(https://issues.jenkins-ci.org/browse/JENKINS-44527[JENKINS-44527])
+* Fixed issue with invalid characters in XML
+(https://issues.jenkins-ci.org/browse/JENKINS-17521[JENKINS-17521])
+
+[[NUnitPlugin-Version0.20(May3,2017)]]
+=== Version 0.20 (May 3, 2017)
+
+* Fix issue when nunit xml file has a BOM
+(https://issues.jenkins-ci.org/browse/JENKINS-33493[JENKINS-33493])
+
+[[NUnitPlugin-Version0.19(April27,2017)]]
+=== Version 0.19 (April 27, 2017)
+
+* Add support for NUnit3 output files
+(https://issues.jenkins-ci.org/browse/JENKINS-27618[JENKINS-27618])
+* Added easier usage for pipeline
+(https://issues.jenkins-ci.org/browse/JENKINS-27906[JENKINS-27906])
+** You can now use 'nunit' as the step instead of step()
+* Fix issue with exception if there are no tests
+(https://issues.jenkins-ci.org/browse/JENKINS-34452[JENKINS-34452])
+* Fixed issue with failIfNoResults
+(https://issues.jenkins-ci.org/browse/JENKINS-42967[JENKINS-42967])
+
+[[NUnitPlugin-Version0.18(August26,2016)]]
+=== Version 0.18 (August 26,2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-27618[JENKINS-27618]:
+Workflow support for NUnit plugin (via pull request
+https://github.com/jenkinsci/nunit-plugin/pull/11[#11])
+* Bumped up Jenkins parent to 1.580.1
+* Added junit-plugin-1.13 as dependency
+
+[[NUnitPlugin-Version0.17(June06,2015)]]
+=== Version 0.17 (June 06, 2015)
+
+* https://github.com/jenkinsci/nunit-plugin/pull/10[Pull Request #10]
+ thanks to @mbektchiev
+
+[[NUnitPlugin-Version0.16(July24,2014)]]
+=== Version 0.16 (July 24, 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-14864[JENKINS-14864]
+- NUnit Plugin 0.14 - won't merge multiple xmls (merged pull
+request https://github.com/jenkinsci/nunit-plugin/pull/7[#7], thanks
+to https://github.com/akoeplinger[@akoeplinger])
+* https://issues.jenkins-ci.org/browse/JENKINS-18642[JENKINS-18642]
+- Job build is marked as failed if NUnit test result contains only
+ignored tests (merged pull
+request https://github.com/jenkinsci/nunit-plugin/pull/6[#6], thanks to
+https://github.com/bartensud[@bartensud])
+
+[[NUnitPlugin-Version0.15(August26,2013)]]
+=== Version 0.15 (August 26, 2013)
+
+* JENKINS-9965 - Nunit plugin does not display graph when fingerprinting
+is used on the xml report
+
+[[NUnitPlugin-Version0.14(May06,2011)]]
+=== Version 0.14 (May 06, 2011)
+
+* Fixed a problem when creating temporay JUnit files. This fixes a
+problem that the NUnit plugin could lose several parameterized NUnit
+tests (https://issues.jenkins-ci.org/browse/JENKINS-9246[JENKINS-9246])
+
+[[NUnitPlugin-Version0.13(Mar15,2011)]]
+=== Version 0.13 (Mar 15, 2011)
+
+* Fixed so parameterized NUnit tests are now shown properly with their
+names. (https://issues.jenkins-ci.org/browse/JENKINS-5674[JENKINS-5674])
+* Fixed so NUnit tests that have the same namespace and class names are
+reported separately. Before it would just use one of the duplicated
+NUnit tests.
+
+[[NUnitPlugin-Version0.12(Mar11,2011)]]
+=== Version 0.12 (Mar 11, 2011)
+
+* Fixed so ignored test cases are shown as skipped in the UI, before it
+was only showing the number of skipped issues.
+(https://issues.jenkins-ci.org/browse/JENKINS-6353[JENKINS-6353])
+
+[[NUnitPlugin-Version0.11(Feb14,2011)]]
+=== Version 0.11 (Feb 14, 2011)
+
+* Update link in help
+
+[[NUnitPlugin-Version0.10(Mar18,2010)]]
+=== Version 0.10 (Mar 18, 2010)
+
+* Plugin no longer throws a File exception when test case names contain
+<>|?* characters.
+(https://issues.jenkins-ci.org/browse/JENKINS-5673[JENKINS-5673])
+
+[[NUnitPlugin-Version0.9(Jan31,2010)]]
+=== Version 0.9 (Jan 31, 2010)
+
+* Update code for more recent Hudson
+
+[[NUnitPlugin-Version0.8(Apr13,2009)]]
+=== Version 0.8 (Apr 13, 2009)
+
+* Re-inserted the dropped exception strings. Note, that this version
+requires Hudson 1.298
+(https://issues.jenkins-ci.org/browse/JENKINS-3427[JENKINS-3427])
+
+[[NUnitPlugin-Version0.7]]
+=== Version 0.7
+
+* Removed dependency of maven plugin, this will fix the issue not being
+able to use the plugin with Hudson 1.296
+(https://issues.jenkins-ci.org/browse/JENKINS-3427[JENKINS-3427])
+
+[[NUnitPlugin-Version0.6]]
+=== Version 0.6
+
+* Plugin now merges JUnit and NUnit test results into one test report
+(https://issues.jenkins-ci.org/browse/JENKINS-1091[JENKINS-1091])
+* NUnit file report pattern can not cope with spaces in paths
+(https://issues.jenkins-ci.org/browse/JENKINS-1175[JENKINS-1175])
+
+[[NUnitPlugin-Version0.5]]
+=== Version 0.5
+
+* Fixed so the plugin works on a remote agent
+* More error tolerant XSL transformation
+(https://issues.jenkins-ci.org/browse/JENKINS-1077[JENKINS-1077])
+
+[[NUnitPlugin-Version0.4]]
+=== Version 0.4
+
+* Removed exception throwing when no test reports could be found
+
+[[NUnitPlugin-Version0.3]]
+=== Version 0.3
+
+* Fixed so the plugin calls the correct method in JUnit archiver.
+(https://issues.jenkins-ci.org/browse/JENKINS-1016[JENKINS-1016])
+* Made sure that NUnit record archiver runs before other notification
+plugins (https://issues.jenkins-ci.org/browse/JENKINS-947[JENKINS-947])
+* Fixed so the number of skipped tests in the NUnit report is copied to
+the JUnit reports.
+
+[[NUnitPlugin-Version0.2.3]]
+=== Version 0.2.3
+
+* Fixed a problem when removing the temporary JUnit reports that
+occurred on windows.
+
+[[NUnitPlugin-Version0.2.2]]
+=== Version 0.2.2
+
+* Removes the transformed JUnit reports after they have been recorded by
+the JUnitArchiver
+
+[[NUnitPlugin-Version0.2.1]]
+=== Version 0.2.1
+
+* Splits the transformed JUnit file in code instead of using the
+<redirect> feature in Xalan. (Fixes
+https://issues.jenkins-ci.org/browse/JENKINS-892[JENKINS-892])
+
+[[NUnitPlugin-Version0.2]]
+=== Version 0.2
+
+* Splits the NUnit report file into several JUnit files to fix the
+problem that the file name is shown instead of the namespaces.
+
+[[NUnitPlugin-Version0.1]]
+=== Version 0.1
+
+* First version

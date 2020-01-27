@@ -1,0 +1,45 @@
+Captures Adobe Flash Player logs during a Hudson build in order to save
+them as build artifacts. Useful to debug unit tests or integration
+tests.
+
+[[FlashLogPlugin-Description]]
+== Description
+
+This plugin hooks up to the location where Flash Player is storing the
+logs and records only what has been logged during a Jenkins build.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/flashlog_artifact.jpg[image]#
+
+Clicking on flashlog.txt will give you the logs:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/flashlog_text.jpg[image]#
+
+Note
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+Make sure you install the
+http://www.adobe.com/support/flashplayer/downloads.html[debugger version
+of the Flash Player], otherwise Flash Player won't log anything.
+
+[[FlashLogPlugin-Pluginconfigurationoptions]]
+== Plugin configuration options
+
+[[FlashLogPlugin-Atjoblevel]]
+=== At job level
+
+[.confluence-embedded-file-wrapper]#image:docs/images/flashlog_job_configuration.jpg[image]#
+
+[[FlashLogPlugin-Atnodelevel]]
+=== At node level
+
+In very rare cases in which the plugin might not identify the exact
+location where Flash is recording the logs, you can define a custom path
+to the flashlog.txt file. +
+[.confluence-embedded-file-wrapper]#image:docs/images/flashlog_global_flashlog_config.jpg[image]#
+
+And you can also opt not to save the logs for some nodes, even if the
+project is configured to save the logs.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/flashlog_global_disablenode.jpg[image]#

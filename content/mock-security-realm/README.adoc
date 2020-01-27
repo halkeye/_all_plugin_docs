@@ -1,0 +1,23 @@
+Defines an insecure “security realm” only good for testing/demoing other
+parts of the system, such as authorization strategy.
+
+[[MockSecurityRealmPlugin-Changelog]]
+== Changelog
+
+[[MockSecurityRealmPlugin-Version1.4(2019-10-07)]]
+=== Version 1.4 (2019-10-07)
+
+* metadata updates
+
+[[MockSecurityRealmPlugin-Version1.3(Oct16,2015)]]
+=== Version 1.3 (Oct 16, 2015)
+
+* Actually use the IdStrategy
+
+[[MockSecurityRealmPlugin-Version1.2(Nov18,2014)(1.580.1+)]]
+=== Version 1.2 (Nov 18, 2014) (1.580.1+)
+
+* Configurable comparison strategies for user and group names. Default
+is case-insensitive.
+* https://issues.jenkins-ci.org/browse/JENKINS-21371[JENKINS-21371]
+Enumerate members of a group.

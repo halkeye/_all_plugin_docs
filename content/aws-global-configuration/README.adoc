@@ -1,0 +1,40 @@
+A library plugin used to define common global configuration UI for
+Amazon Web Services.
+
+[[AWSGlobalConfigurationPlugin-Changelog]]
+== Changelog
+
+[[AWSGlobalConfigurationPlugin-1.3]]
+=== 1.3
+
+*2019-03-27*
+
+* Metadata changes for `+plugin-compat-tester+`.
+
+[[AWSGlobalConfigurationPlugin-1.2]]
+=== 1.2
+
+*2019-02-19*
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-56004[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-56004] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#
+
+[[AWSGlobalConfigurationPlugin-1.1]]
+=== 1.1
+
+*2018-11-09*
+
+* API changes to specify an explicit `+credentialsId+`.
+* `+CredentialsAwsGlobalConfiguration.sessionCredentialsFromInstanceProfile+` could
+throw a `+NullPointerException+` when passed a builder without
+associated credentials.
+
+[[AWSGlobalConfigurationPlugin-1.0]]
+=== 1.0
+
+*2018 Jul 17*
+
+Initial release.

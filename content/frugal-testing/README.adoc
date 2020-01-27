@@ -1,0 +1,47 @@
+This plugin allows you to run load tests on
+https://frugaltesting.com/[Frugal Testing] from Jenkins.
+
+ +
+
+*PLUGIN INFORMATION*
+
+View Frugal Testing Plugin on the https://blog.frugaltesting.com/[plugin
+site] for more information.
+
+ +
+
+*PRESENTATION*
+
+Use this plugin to execute automatic load test scripts. Test results are
+downloaded automatically as JMeter JTL files on your local machine.
+
+ +
+
+*PREREQUISITES*
+
+Frugal Testing Jenkins plugin requires:
+
+* Jenkins 2.150.3 or later,
+* A Frugal Testing account. You can create one
+https://www.frugaltesting.com/login[here] if you haven't any.
+
+ +
+
+*DOCUMENTATION*
+
+The complete documentation and guide on using the plugin can be found on
+our https://blog.frugaltesting.com/[plugin] page.
+
+ +
+
+*CHANGE LOG*
+
+[[FrugalTestingplugin-Version1.0(22June2019)]]
+== *Version 1.0 (22 June 2019)*
+
+* Initial release
+
+[[FrugalTestingplugin-Version1.1(8July2019)]]
+== *Version 1.1 (8 July 2019)*
+
+* APIs updated +

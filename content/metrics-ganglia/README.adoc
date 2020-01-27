@@ -1,0 +1,10 @@
+[[MetricsGangliaPlugin-MetricsGangliaPlugin]]
+== Metrics Ganglia Plugin
+
+[[MetricsGangliaPlugin-VersionHistory]]
+=== Version History
+
+[[MetricsGangliaPlugin-Version3.0(19thMarch2014)]]
+==== Version 3.0 (19th March 2014)
+
+* Initial release

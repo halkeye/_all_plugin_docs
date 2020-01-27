@@ -1,0 +1,146 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-08-07/#SECURITY-142[Stored
+XSS vulnerability]
+
+https://wiki.jenkins-ci.org/display/JENKINS/PegDown+Formatter+Plugin#PegDownFormatterPlugin-features[Features] +
+https://wiki.jenkins-ci.org/display/JENKINS/PegDown+Formatter+Plugin#PegDownFormatterPlugin-compatibility[Compatibility] +
+https://wiki.jenkins-ci.org/display/JENKINS/PegDown+Formatter+Plugin#PegDownFormatterPlugin-install[Install] +
+https://wiki.jenkins-ci.org/display/JENKINS/PegDown+Formatter+Plugin#PegDownFormatterPlugin-configuration[Configure] +
+https://wiki.jenkins-ci.org/display/JENKINS/PegDown+Formatter+Plugin#PegDownFormatterPlugin-changelog[Change
+log]
+
+[#PegDownFormatterPlugin-features .confluence-anchor-link .conf-macro .output-inline]#
+#
+
+[[PegDownFormatterPlugin-Features]]
+== Features
+
+* Use https://github.com/sirthias/pegdown[PegDown] to format
+http://daringfireball.net/projects/markdown/basics[Markdown] syntax in
+descriptions in Jenkins, eg, view, job, build, the system message, etc.
+* Disable HTML to prevent XSS
+* Enable/ disable all of the PegDown extensions
+
+[#PegDownFormatterPlugin-compatibility .confluence-anchor-link .conf-macro .output-inline]#
+#
+
+[[PegDownFormatterPlugin-Compatibility]]
+== Compatibility
+
+This plugin is compatible with any version of *Jenkins* (1.396+)
+
+[#PegDownFormatterPlugin-install .confluence-anchor-link .conf-macro .output-inline]#
+#
+
+[[PegDownFormatterPlugin-Install]]
+== Install
+
+This plugin can be installed from the Plugin Manager (Manage Jenkins >
+Manage Plugins) under "User Interface".
+
+To install manually, download the latest plugin from
+http://mirrors.jenkins-ci.org/plugins/pegdown-formatter/ and use the
+Upload Plugin option in the Advanced tab of the Plugin Manager.
+
+[#PegDownFormatterPlugin-configuration .confluence-anchor-link .conf-macro .output-inline]#
+#
+
+[[PegDownFormatterPlugin-Configure]]
+== Configure
+
+In Manage Jenkins -> Configure Global Security, select "Enable
+security". +
+Next to Markup Formatter, select "PegDown" from the drop down list.
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+To ensure that Jenkins does not lose configuration when you return to
+the Configure System page, make sure that you select one of the Security
+Realms. +
+To leave Jenkins "open" select "Jenkins's own user database" and "Anyone
+can do anything" under Authorization.
+
+[[PegDownFormatterPlugin-SUPPRESS_ALL_HTML]]
+=== SUPPRESS_ALL_HTML
+
+Select this option to strip HTML from the description fields
+
+[[PegDownFormatterPlugin-Advancedoptions]]
+=== Advanced options
+
+Clicking on the Advanced button will reveal the following extensions
+which can be enabled/disabled individually.
+
+[[PegDownFormatterPlugin-ABBREVIATIONS]]
+==== ABBREVIATIONS
+
+[[PegDownFormatterPlugin-AUTOLINKS]]
+==== AUTOLINKS
+
+[[PegDownFormatterPlugin-DEFINITIONS]]
+==== DEFINITIONS
+
+[[PegDownFormatterPlugin-FENCED_CODE_BLOCKS]]
+==== FENCED_CODE_BLOCKS
+
+[[PegDownFormatterPlugin-HARDWRAPS]]
+==== HARDWRAPS
+
+[[PegDownFormatterPlugin-NO_FOLLOW_LINKS]]
+==== NO_FOLLOW_LINKS
+
+[[PegDownFormatterPlugin-SMARTYPANTS]]
+==== SMARTYPANTS
+
+[[PegDownFormatterPlugin-TABLES]]
+==== TABLES
+
+See the https://github.com/sirthias/pegdown[PegDown GitHub page] for
+details of these extensions.
+
+[#PegDownFormatterPlugin-changelog .confluence-anchor-link .conf-macro .output-inline]#
+#
+
+[[PegDownFormatterPlugin-Changelog]]
+== Change log
+
+[[PegDownFormatterPlugin-1.3(09/04/2012)]]
+=== 1.3 (09/04/2012)
+
+* Enable the plugin to work with Jenkins 1.455 onwards
+https://issues.jenkins-ci.org/browse/JENKINS-13111[JENKINS-13111]
+
+[[PegDownFormatterPlugin-1.2(04/08/2011)]]
+=== 1.2 (04/08/2011)
+
+* HTML syntax highlighting disabled when SUPPRESS_ALL_HTML is selected
+(in Jenkins 1.425+)
+
+[[PegDownFormatterPlugin-1.1(26/07/2011)]]
+=== 1.1 (26/07/2011)
+
+* Added the ABBREVIATIONS extension option
+
+[[PegDownFormatterPlugin-1.0(26/07/2011)]]
+=== 1.0 (26/07/2011)
+
+* Initial release
+
+Questions, Comments, Bugs and Feature Requests
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+Please post questions or comments about this plugin to the
+http://jenkins-ci.org/content/mailing-lists[Jenkins User mailing
+list]. +
+To report a bug or request an enhancement to this plugin please
+http://issues.jenkins-ci.org/browse/JENKINS/component/15899[create a
+ticket in JIRA].

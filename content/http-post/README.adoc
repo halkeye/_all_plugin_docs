@@ -1,0 +1,24 @@
+This plugin will allow you to publish the artifacts via HTTP POST to an
+URL.
+
+[[HTTPPOSTPlugin-Changelog]]
+== Changelog
+
+[[HTTPPOSTPlugin-Version1.2(Nov25,2014)]]
+=== Version 1.2 (Nov 25, 2014)
+
+* Increased connect timeout to 30 seconds.
+* Increased read timeout to 60 seconds.
+* Updated OkHttp to 2.1.0.
+* Decreased lowest compatible Jenkins release from 1.574 to 1.480.
+
+[[HTTPPOSTPlugin-Version1.1(Aug12,2014)]]
+=== Version 1.1 (Aug 12, 2014)
+
+* Add _FileName_ to _Content-Disposition_ for each FormData part.
+* Fixed time measurement.
+
+[[HTTPPOSTPlugin-Version1.0(Aug07,2014)]]
+=== Version 1.0 (Aug 07, 2014)
+
+* Initial version.

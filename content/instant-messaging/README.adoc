@@ -1,0 +1,492 @@
+This plugin provides generic support for build notifications and a 'bot'
+via instant messaging protocols.This plugin itself is of no use for end
+users. Please use one of the derived plugins like the
+https://wiki.jenkins-ci.org/display/JENKINS/Jabber+Plugin[Jabber] or the
+https://wiki.jenkins-ci.org/display/JENKINS/IRC+Plugin[IRC] plugin!
+
+[[InstantMessagingPlugin-PluginsthatUseInstantMessagingPlugin]]
+== Plugins that Use Instant Messaging Plugin
+
+* {blank}
++
+[.icon .aui-icon .content-type-page]#Page:#
++
+https://wiki.jenkins-ci.org/display/JENKINS/IRC+Plugin[IRC Plugin]
+[.smalltext]#— This plugin enables Jenkins to send build notífications
+via IRC and lets you interact with Jenkins via an IRC bot. Note that you
+also need to install the
+http://wiki.jenkins-ci.org/display/HUDSON/Instant+Messaging+Plugin[instant-messaging
+plugin] .#
+* {blank}
++
+[.icon .aui-icon .content-type-page]#Page:#
++
+https://wiki.jenkins-ci.org/display/JENKINS/Skype+Plugin[Skype Plugin]
+[.smalltext]#— Integrates Jenkins with Skype for instant messaging.
+Requires extra manual installation steps!!! #
+
+Note that you also need to install the
+http://wiki.jenkins-ci.org/display/JENKINS/Instant+Messaging+Plugin[instant-messaging
+plugin].
+* {blank}
++
+[.icon .aui-icon .content-type-page]#Page:#
++
+https://wiki.jenkins-ci.org/display/JENKINS/Jabber+Plugin[Jabber Plugin]
+[.smalltext]#— Integrates Jenkins with the Jabber/XMPP instant messaging
+protocol. Note that you also need to install the
+http://wiki.jenkins-ci.org/display/JENKINS/Instant+Messaging+Plugin[instant-messaging
+plugin].#
+* {blank}
++
+[.icon .aui-icon .content-type-page]#Page:#
++
+https://wiki.jenkins-ci.org/display/JENKINS/GCM+Notification+Plugin[GCM
+Notification Plugin] [.smalltext]#— Sends build notifications to Android
+devices using the Google Cloud Messaging (GCM) service.#
+
+[[InstantMessagingPlugin-Features]]
+== Features
+
+[[InstantMessagingPlugin-BuildNotifications]]
+=== Build Notifications
+
+You can configure _per job_ to get notifications for finished or started
+builds (optional). Notifications can be send to chatrooms or individual
+users (aka. private messages in IRC).
+
+You can choose from a number of _strategies_ for which build outcomes
+notification will be send:
+
+* *all*
+* *failure* - notifications for failed and unstable builds
+* *failure and fixed* - notifications for failed, unstable builds and
+the first fixed build after that
+* *change* - sends notification every time the build outcome changes
+(e.g. from stable to unstable)
+
+[[InstantMessagingPlugin-Notifyculpritsandfixers]]
+==== Notify culprits and fixers
+
+If your job is build from a SCM,  you can choose to notify:
+
+* users who *broke* the build i.e. commiters to the first failed or
+unstable build
+* *culprits* from a previous build i.e. commiters to a previous
+failed/unstable build and the current build is still failing/unstable
+* *fixers* i.e. commiters to the first stable build after a
+failed/unstable build
+* *upstream committers*: see below
+
+[[InstantMessagingPlugin-Notifyingupstreamcommitters]]
+===== Notifying upstream committers
+
+For this feature to work you need to _fingerprint_ your build artifacts.
+For Maven jobs this should work out-of-the-box. For other job types see
+the
+https://wiki.jenkins-ci.org/display/JENKINS/Blame+Upstream+Committers+Plugin[Blame
+Upstream Committers plugin] for how to configure it (haven't tried it
+myself yet, though)
+
+The following happens if this option is enabled:
+
+If a build fails and there are no committers to the job itself the IM
+plugin looks for committers to upstream builds. If there are any, all of
+them are notified. If there are no committers to the immediate upstream
+builds, the plugin looks one level higher and notifies possible
+committers there. And so on, if needed.
+
+[[InstantMessagingPlugin-Notifyaboutbuildstart]]
+==== Notify about build start
+
+In freestyle and similar legacy jobs, the post-build action from a
+protocol plugin such as an "IRC Notification" has a checkbox to also
+"Notify on build starts".
+
+Equivalent effect can be achieved in a pipeline with an explicit step at
+an early stage, e.g. `+ircNotify notifyOnStart:true+` - this may be
+changed in the future.
+
+[[InstantMessagingPlugin-Managejobsviaa'bot']]
+=== Manage jobs via a 'bot'
+
+You can control various features of jobs via a _bot_. To do so you can
+send _commands_ to it within a chatroom (or as private messages).
+
+To execute a _command_ send the command and its parameters send it to
+the bot in chatroom (or as a private message) and prefix it with the
+_command prefix_ which is configured in the global configuration.
+
+For example to schedule a build for the _My project_ job if the prefix
+is *!* send:
+
+[source,syntaxhighlighter-pre]
+----
+!build 'My project'
+----
+
+Most commands can be invoked on a single job, all jobs in a view or all
+configured jobs. Notable commands are:
+
+* *status:* displays the status of the build i.e. last build result and
+last successful build
+* *health:* displays the build health as computed from the last build
+results, test results, (compiler warnings, findbugs warnings, ...)
+* *build:* schedules a new build of a job
+* *abort:* aborts a currently running build
+* *currentlyBuilding* (or *cb*): list the jobs that are actively in
+progress, with optional regex filtering of output; you can also pass
+a *`+@+`* argument to get URLs to the build's console log in the chat
+* *queue* (or *q*): list the jobs that are actively in progress, with
+optional regex filtering of output
+* *help:* gets a list of all available commands
+
+[[InstantMessagingPlugin-Regexsupportinbotcommands]]
+== Regex support in bot commands
+
+The `+currentlyBuilding+` (`+cb+`) and `+queue+` (`+q+`) commands now
+support an optional argument to apply regular expression filters to the
+lines they would output, and count and report hits compared to the full
+job lists.
+
+The key argument for this is `+~+` and the rest of the argument string
+is assumed to be the regular expression (note however that whitespace
+between tokens of the argument string is converted during argument
+processing; for clarity it would be preferable to pass a single-token
+argument with `+\s++` in positions where whitespace matches are
+expected).
+
+For example, to see any "OVA"-related builds in IRC I would type:
+
+[source,syntaxhighlighter-pre]
+----
+(15:07:34) developer: jenkins: cb @ ~ OVA
+(15:07:34) jenkins: (notice) Currently building (10 items total, of which 1 items matched the filter):
+(15:07:34) jenkins: (notice) - NOTE: got @ argument for currentlyBuilding: will add URLs to reported strings
+(15:07:35) jenkins: (notice) - NOTE: got ~ filtering argument for currentlyBuilding: applying regex filter to reported strings: OVA
+(15:07:35) jenkins: (notice) - ova-build-machine-1#0: build-OVA-image #5939 @ https://jenkins.localdomain/job/build-OVA-image/5939/console (Elapsed time: 1 min 0 sec, Estimated remaining time: 3 min 58 sec)
+----
+
+Beside ordinarily matching what is _present_ in a line, this can be used
+with "negative lookups" for matching lines that _do not contain_ certain
+patterns. Certain know-how applies to such expressions:
+
+* To negative-match the whole string from start, use a caret, e.g.: 
++
+[source,syntaxhighlighter-pre]
+----
+cb ~ ^(?!master)
+----
++
+to skip jobs running on nodes whose name starts with (or equals)
+`+master+`. Without the caret it did not work.
+
+* For matching inside a job name, the `+.*+` must be also inside the
+lookahead pattern: 
++
+[source,syntaxhighlighter-pre]
+----
+cb ~ ^(?!.*rescan)
+----
++
+would list only jobs whose IM report line does NOT include `+rescan+`.
+
+[[InstantMessagingPlugin-Issues/Gotchas]]
+== Issues/Gotchas
+
+* This plugin serializes all builds for a job which is configured with
+the _Execute concurrent builds_ option. Means: build n will never finish
+before build n+1. Build n+1 will always wait until n finishes - even if
+n+1 would have finished long before n. This is required because the
+plugin needs to determine the build result trend  (e.g. for FIXED, STILL
+FAILING, STILL UNSTABLE) for the notifications.
+* Pipeline support for start-of-build notifications currently requires a
+special syntax, detailed elsewhere in this article.
+
+[[InstantMessagingPlugin-Changelog]]
+== Changelog
+
+[[InstantMessagingPlugin-Version1.38(2019-08-09)]]
+=== Version 1.38 (2019-08-09)
+
+https://github.com/jenkinsci/instant-messaging-plugin/compare/instant-messaging-1.37...jenkinsci:instant-messaging-1.38
+
+* Updated the POM for Java 8 requirement and workflow-job build
+dependency
+* Lots of cleanup for "checkstyle" warnings, and a few other cleanups,
+to ease the codebase maintenance and make future PRs cleaner on CI
+* Updated the README (CI build badge, description, nuances on regex in
+bot commands)
+* Ported optional regular expression filtering of output into the
+`+queue+` bot command
+* Shorter outputs when `+currentlyBuilding+` and `+queue+` commands have
+nothing to filter and show (less spam on IM channel)
+* Added support for a `+customMessage+` (primarily intended to be used
+from pipeline steps in protocol plugins like IRCbot) that sends out to
+specified (or default) targets the provided custom message, instead of
+build started/completed notifications
+* Added support for build-start notifications from a pipeline step (e.g.
+`+ircNotify notifyOnStart:true+`) which is intended as a *temporary*
+solution to the problem of not having support for an IM-specific
+`+options{...}+` setting in pipelines yet, and so reporting "NOT BUILT"
+(completion-notification mode) if there was no verdict yet
+
+[[InstantMessagingPlugin-Version1.37(2019-08-06)]]
+=== Version 1.37 (2019-08-06)
+
+https://github.com/jenkinsci/instant-messaging-plugin/compare/instant-messaging-1.36...jenkinsci:instant-messaging-1.37
+
+* Updated instant-messaging-parent-plugin version needed for this plugin
+(refers to modern versions of maven repository, etc.)
+* Clean up of complaints from findbugs to make the code better and
+releasing possible
+* (Note: there are still some checkstyle warnings to be fixed later,
+they were not blockers for a release procedure)
+
+[[InstantMessagingPlugin-Version1.36(2019-08-02)]]
+=== Version 1.36 (2019-08-02)
+
+https://github.com/jenkinsci/instant-messaging-plugin/compare/instant-messaging-1.35...jenkinsci:instant-messaging-1.36
+
+* (Not really released all the way to Update center, just tagged)
+* Lots of style (whitespace consistency, some javadoc markup) cleanup in
+the source code
+* Updated Jenkins core version needed for the plugin
+* Added foundations for pipeline support (for ability to add steps
+implementations in protocol plugins like Jabber and IRC):
+** https://github.com/jenkinsci/instant-messaging-plugin/pull/16
+[.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-36826[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-36826] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#
+* Added a Jenkinsfile to build the plugin itself on CI
+* Extended the `+cb+`  (`+currentlyBuilding+`) bot command with:
+** a counter of running jobs: part of
+https://github.com/jenkinsci/instant-messaging-plugin/pull/18 
+[.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-55538[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-55538] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  
+** optional abilities to filter the reported lines by a regular
+expression: part of
+https://github.com/jenkinsci/instant-messaging-plugin/pull/20 
+[.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-55755[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-55755] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  
+** optional abilities to display an URL to the running build's console
+log: part of
+https://github.com/jenkinsci/instant-messaging-plugin/pull/20 and
+https://github.com/jenkinsci/instant-messaging-plugin/pull/23
+* Extended the `+build+` bot command with better integration of IM
+username and the Jenkins username, permissions check, etc.:
+** https://github.com/jenkinsci/instant-messaging-plugin/pull/19 
+[.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-55757[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-55757] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#
+** https://github.com/jenkinsci/instant-messaging-plugin/pull/21
+[.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-55760[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-55760] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#
+* Extended the `+queue+` bot command with a counter of waiting
+jobs: part of
+https://github.com/jenkinsci/instant-messaging-plugin/pull/18
+
+[[InstantMessagingPlugin-Version1.35(2015-05-12)]]
+=== Version 1.35 (2015-05-12)
+
+https://github.com/jenkinsci/instant-messaging-plugin/compare/instant-messaging-1.34...jenkinsci:instant-messaging-1.35
+
+* Internal optimizations and improvements
+* De-facto the last release for 4 further years...
+
+[[InstantMessagingPlugin-Version1.34(2015-03-14)]]
+=== Version 1.34 (2015-03-14)
+
+* *Require Java 7*. From this version on Java 7 is required to run the
+plugin. This is in line with Jenkins requiring Java 7 in newer versions,
+too.
+* Fixed: plugin prevents proper shutdown of Jenkins
+(https://issues.jenkins-ci.org/browse/JENKINS-27359[JENKINS-27359])
+
+[[InstantMessagingPlugin-Version1.30(August30th,2014)]]
+=== Version 1.30 (August 30th, 2014)
+
+* Fixed incompability with Jenkins 1.577+
+
+[[InstantMessagingPlugin-Version1.29(June8th,2014)]]
+=== Version 1.29 (June 8th, 2014)
+
+* Fix spurious NPE if previous build is still running
+(https://issues.jenkins-ci.org/browse/JENKINS-23315[JENKINS-23315])
+
+[[InstantMessagingPlugin-Version1.28(October17th2013)]]
+=== Version 1.28 (October 17th 2013)
+
+* Links to failed tests need to be URL encoded
+(https://issues.jenkins-ci.org/browse/JENKINS-19944[JENKINS-19944])
+
+[[InstantMessagingPlugin-Version1.26(August,10th2013)]]
+=== Version 1.26 (August, 10th 2013)
+
+* Added support to address jobs by display name in bot commands
+(https://issues.jenkins-ci.org/browse/JENKINS-17565[JENKINS-17565])
+* Support default values of parameters
+(https://issues.jenkins-ci.org/browse/JENKINS-19140[JENKINS-19140])
+* Support all 'simple' parameter types (boolean, string password, run,
+...)
+
+[[InstantMessagingPlugin-Version1.25(January,1st2013)]]
+=== Version 1.25 (January, 1st 2013)
+
+* Added missing permission checks for abort and comment bot commands
+(https://issues.jenkins-ci.org/browse/JENKINS-16232[JENKINS-16232])
+
+[[InstantMessagingPlugin-Version1.23,1.24]]
+=== Version 1.23, 1.24
+
+No user visible changes.
+
+[[InstantMessagingPlugin-Version1.22]]
+=== Version 1.22
+
+* Fixed an incompatibility between Jabber and IRC plugin
+(https://issues.jenkins-ci.org/browse/JENKINS-10589[JENKINS-10589])
+* Store passwords scrambled in config files to prevent accidental
+exposure
+(https://issues.jenkins-ci.org/browse/JENKINS-13607[JENKINS-13607])
+
+[[InstantMessagingPlugin-Version1.21]]
+=== Version 1.21
+
+* Support authentication in Jenkins with non-password credentials
+https://issues.jenkins-ci.org/browse/JENKINS-11562[JENKINS-11562]
+* New configuration option to disable all commands for the bot in chat
+rooms https://issues.jenkins-ci.org/browse/JENKINS-11606[JENKINS-11606]
+
+[[InstantMessagingPlugin-Version1.20]]
+=== Version 1.20
+
+* Support custom build names like those set via the
+https://wiki.jenkins-ci.org/display/JENKINS/Build+Name+Setter+Plugin[Build
+Name Setter plugin].
+https://issues.jenkins-ci.org/browse/JENKINS-11419[JENKINS-11419]
+
+[[InstantMessagingPlugin-Version1.19]]
+=== Version 1.19
+
+* fixed: number of notifications for Matrix jobs doesn't work
+https://issues.jenkins-ci.org/browse/JENKINS-8923[JENKINS-8923]
+
+[[InstantMessagingPlugin-Version1.18]]
+=== Version 1.18
+
+* new chat notifier to print summary + build parameters
+* other minor changes
+
+[[InstantMessagingPlugin-Version1.17]]
+=== Version 1.17
+
+* Fixed: permissions didn't apply for the build and userstat bot
+commands https://issues.jenkins-ci.org/browse/JENKINS-9694[JENKINS-9694]
+
+[[InstantMessagingPlugin-Version1.16]]
+=== Version 1.16
+
+* added new bot command to show the currently building jobs
+https://issues.jenkins-ci.org/browse/JENKINS-9560[JENKINS-9560]
+
+[[InstantMessagingPlugin-Version1.15]]
+=== Version 1.15
+
+* added option to configure the number of notifications for Matrix jobs:
+only for parent, only for configurations, both
+https://issues.jenkins-ci.org/browse/JENKINS-8923[JENKINS-8923]
+
+[[InstantMessagingPlugin-Version1.14]]
+=== Version 1.14
+
+* improvement: don't send 'oh no, you've broken ...' notifications for
+builds which have improved from FAILURE to UNSTABLE
+https://issues.jenkins-ci.org/browse/JENKINS-9942[JENKINS-9942]
+* improved notification of upstream committers - i.e. notifies all
+upstream committers since the previous successful build
+* fixed other minor issues
+
+[[InstantMessagingPlugin-Version1.13]]
+=== Version 1.13
+
+* fixed: NoSuchMethodError when running with newer Hudson versions (>=
+1.343) http://issues.jenkins-ci.org/browse/JENKINS-8113[JENKINS-8113]
+
+[[InstantMessagingPlugin-Version1.12]]
+=== Version 1.12
+
+* fixed: NoSuchMethodError when running with newer Hudson versions (>>
+1.327) http://issues.jenkins-ci.org/browse/JENKINS-8113[JENKINS-8113]
+(didn't work)
+
+[[InstantMessagingPlugin-Versions1.11]]
+=== Versions 1.11
+
+* new feature: new chat notifier which prints the failing tests, too
+http://issues.jenkins-ci.org/browse/JENKINS-7035[JENKINS-7035]
+
+[[InstantMessagingPlugin-Version1.10]]
+=== Version 1.10
+
+* improvement: bot commands are now extensible and open for other
+plugins (see class BotCommand).
+* improvement: added an extension point to customize the message the bot
+sends to chats for notification (see class BuildToChatNotifier).
+
+[[InstantMessagingPlugin-Version1.9]]
+=== Version 1.9
+
+* fixed: disconnects (and no reconnects) when changing the global config
+(https://issues.jenkins-ci.org/browse/JENKINS-6993[JENKINS-6993])
+* improved behaviour when plugin is disabled. I.e. doesn't log
+unnecessary stuff.
+* fixed: plugins configure option not visible
+http://issues.jenkins-ci.org/browse/JENKINS-5978[JENKINS-5978]
+http://issues.jenkins-ci.org/browse/JENKINS-5233[JENKINS-5233]
+
+[[InstantMessagingPlugin-Version1.8]]
+=== Version 1.8
+
+* fixed: _notify upstream commiter_ would have notified committers of
+'old' builds
+(http://issues.jenkins-ci.org/browse/JENKINS-6712[JENKINS-6712] )
+* improvement: print useful project names for matrix jobs
+(http://issues.jenkins-ci.org/browse/JENKINS-6560[JENKINS-6560] )
+* fixed: don't delay Hudson startup
+(http://issues.jenkins-ci.org/browse/JENKINS-4346[JENKINS-4346] )
+* feature: _userstat_ command for bot
+(http://issues.jenkins-ci.org/browse/JENKINS-6147[JENKINS-6147] )
+* fixed: don't count offline computer for the executors count
+(http://issues.jenkins-ci.org/browse/JENKINS-6387[JENKINS-6387] )
+
+[[InstantMessagingPlugin-Version1.7]]
+=== Version 1.7
+
+* allow to pass build parameters with the _build_ command
+(http://issues.jenkins-ci.org/browse/JENKINS-5058[JENKINS-5058] )
+
+[[InstantMessagingPlugin-Version1.5]]
+=== Version 1.5
+
+* internal restructuring to support password-protected chatrooms in
+ircbot
+
+[[InstantMessagingPlugin-Version1.4]]
+=== Version 1.4
+
+* new option to inform upstream committers
+(http://issues.jenkins-ci.org/browse/JENKINS-4629[JENKINS-4629] )

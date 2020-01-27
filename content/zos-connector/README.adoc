@@ -1,0 +1,225 @@
+IBM z/OS Connector is a plugin which lets you connect your Jenkins to
+z/OS.[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View IBM z/OS Connector https://plugins.jenkins.io/zos-connector[on the
+plugin site] for more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2018-06-25/#SECURITY-950[Password
+stored in plain text]
+
+https://ci.jenkins.io/job/Plugins/job/zos-connector-plugin/job/master/[ +
+[.confluence-embedded-file-wrapper]#image:https://ci.jenkins.io/buildStatus/icon?job=Plugins/zos-connector-plugin/master[Build
+Status]#]
+
+About
+
+This plugin provides its functions via FTP connection to IBM z/OS LPAR.
+You can configure your SCLM project on z/OS and then check for the
+changes via Jenkins.
+
+Features include:
+
+* Submission of user JCL job (with optional log collected upon finish)
+
+* Introduction of SCLM as SCM for your projects allowing to checkout
+SCLM changes
+** The ability to build SCLM projects currently can be performed
+_only_ via 'Submit zOS Job' build action
+
+Version differences
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+Kindly back up your JCL texts before upgrading to version 2.0.0. +
+The 2.0 release uses text files instead of plaintext input, so old jobs
+will become obsolete.
+
+[[IBMzOSConnector-Configuration]]
+== Configuration
+
+JESINTERFACELEVEL differences
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+Job Name *must* be configured accordingly to your FTP server
+configuration:
+
+* If JESINTERFACELEVEL=1 is configured, *only* a job named USERIDx
+(USERID - your z/OS user ID, x - strictly 1 character) can be processed
+correctly (when you are waiting for the job to end).
+* If JESINTERFACELEVEL=2 is configured, no additional considerations are
+required.
+
+[[IBMzOSConnector-Changelog]]
+== Change log
+
+[[IBMzOSConnector-Version2.3.2]]
+=== Version 2.3.2
+
+* image:docs/images/error.svg[(error)] Fix
+NPE if FTP failed to list files (closed socket, etc.)
+
+[[IBMzOSConnector-Version2.3.1]]
+=== Version 2.3.1
+
+* image:docs/images/error.svg[(error)] Regression
+from 2.3.0: JESINTERFACELEVEL=2 had problems with job listing and didn't
+check for RC
+(https://issues.jenkins-ci.org/browse/JENKINS-57549[JENKINS-57549])
+
+[[IBMzOSConnector-Version2.3.0]]
+=== Version 2.3.0
+
+* image:docs/images/error.svg[(error)] Fix
+JESINTERFACELEVEL=1
+inconsistencies (https://issues.jenkins-ci.org/browse/JENKINS-56976[JENKINS-56976])
+* image:docs/images/warning.svg[(warning)] Don't
+do too many reconnects (regression from 2.2.0)
+* image:docs/images/lightbulb_on.svg[(lightbulb)] Plugin
+can now handle RC in JESINTERFACELEVEL=1 (but you need to check that
+correct level is used in Jenkins job config)
+
+[[IBMzOSConnector-Version2.2.0]]
+=== Version 2.2.0
+
+* image:docs/images/warning.svg[(warning)] Logout
+of the FTP server as soon as single request is performed. +
+This will result in increased number of connect → login → logout →
+disconnect sequences, but should also make plugin more stable.
+
+[[IBMzOSConnector-Version2.1.0]]
+=== Version 2.1.0
+
+* image:docs/images/warning.svg[(warning)] Environment
+variables are once again expanded before job submission
+(https://issues.jenkins-ci.org/browse/JENKINS-55609[JENKINS-55609])
+
+[[IBMzOSConnector-Version2.0.1]]
+=== Version 2.0.1
+
+* image:docs/images/error.svg[(error)] Fix
+false positive error message if not waiting on job completion
+(https://issues.jenkins-ci.org/browse/JENKINS-54574[JENKINS-54574])
+
+[[IBMzOSConnector-Version2.0.0]]
+=== Version 2.0.0
+
+* image:docs/images/lightbulb_on.svg[(lightbulb)] Use
+credentials instead of username-password pair
+* image:docs/images/lightbulb_on.svg[(lightbulb)] Use
+text file with JCL code instead of plaintext field (if you need to track
+SCLM in the same job - consider using Multiple SCMs plugin)
+
+[[IBMzOSConnector-Version1.2.6.1]]
+=== Version 1.2.6.1
+
+* image:docs/images/lightbulb_on.svg[(lightbulb)] Option
+to print JES job log
+
+[[IBMzOSConnector-Version1.2.6]]
+=== Version 1.2.6
+
+* image:docs/images/lightbulb_on.svg[(lightbulb)] Update
+failure logic for slow JES initiators
+
+[[IBMzOSConnector-Version1.2.5]]
+=== Version 1.2.5
+
+* image:docs/images/warning.svg[(warning)] Use
+Jenkins 2+
+
+* image:docs/images/lightbulb_on.svg[(lightbulb)] Add
+Pipeline support (kudo's
+to https://wiki.jenkins-ci.org/display/~robert_obuch[Unknown User
+(robert_obuch)])
+(https://issues.jenkins-ci.org/browse/JENKINS-44974[JENKINS-44974])
+
+[[IBMzOSConnector-Version1.2.4.1]]
+=== Version 1.2.4.1
+
+* image:docs/images/warning.svg[(warning)]
+Add notification about incompatibility since 1.2.4.
+
+[[IBMzOSConnector-Version1.2.4]]
+=== Version 1.2.4
+
+* image:docs/images/lightbulb_on.svg[(lightbulb)]
+Provide different messages into the build log based on the job
+completion code
+(https://issues.jenkins-ci.org/browse/JENKINS-31837[JENKINS-31837])
+
+[[IBMzOSConnector-Version1.2.3]]
+=== Version 1.2.3
+
+* image:docs/images/error.svg[(error)]
+  JESINTERFACELEVEL=1 output changes and configuration corrections.
+
+[[IBMzOSConnector-Version1.2.2]]
+=== Version 1.2.2
+
+* image:docs/images/add.svg[(plus)]
+  JESINTERFACELEVEL=1 support.
+
+[[IBMzOSConnector-Version1.2.1]]
+=== Version 1.2.1
+
+* Dummy release
+
+[[IBMzOSConnector-Version1.2.0.2]]
+=== Version 1.2.0.2
+
+* image:docs/images/add.svg[(plus)]
+  Add initial wait before listing jobs in JES
+(https://issues.jenkins-ci.org/browse/JENKINS-31757[JENKINS-31757])
+
+[[IBMzOSConnector-Version1.2.0.1]]
+=== Version 1.2.0.1
+
+* image:docs/images/error.svg[(error)]
+  Add error message if job is not listed while waiting for its execution
+to end (possible problem with JESINTERFACELEVEL=1).
+
+[[IBMzOSConnector-Version1.2.0]]
+=== Version 1.2.0
+
+* image:docs/images/add.svg[(plus)]
+  Add JobName to output log file name. Change log file naming
+convention.
+
+[[IBMzOSConnector-Version1.1.1]]
+=== Version 1.1.1
+
+* image:docs/images/add.svg[(plus)]
+  Add environment variables expansion for "Submit z/OS job" build step.
+Add loggers.
+
+[[IBMzOSConnector-Version1.1.0]]
+=== Version 1.1.0
+
+* image:docs/images/add.svg[(plus)]
+  Add MaxCC papameter to 'Submit z/OS job' build step
+(https://issues.jenkins-ci.org/browse/JENKINS-29214[JENKINS-29214])
+
+[[IBMzOSConnector-Version1.0.4]]
+=== Version 1.0.4
+
+* image:docs/images/add.svg[(plus)]
+  Add support for 'RC unknown'.
+
+[[IBMzOSConnector-Version1.0.3]]
+=== Version 1.0.3
+
+* image:docs/images/add.svg[(plus)]
+  Fix
+for https://issues.jenkins-ci.org/browse/JENKINS-29173[JENKINS-29173].

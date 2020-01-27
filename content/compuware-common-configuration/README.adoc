@@ -1,0 +1,130 @@
+[[CompuwareCommonConfigurationPlugin-Overview]]
+== Overview
+
+The Compuware Common Configuration provides configuration settings that
+are shared by other Compuware Jenkins plugins.
+
+[[CompuwareCommonConfigurationPlugin-Prerequisites]]
+== Prerequisites
+
+ +
+The following are required to use this plugin:
+
+* Jenkins
+* Jenkins Credentials Plugin
+
+[[CompuwareCommonConfigurationPlugin-ProductAssistance]]
+== Product Assistance
+
+Compuware provides assistance for customers with its documentation, the
+FrontLine support web site, and telephone customer support.
+
+[[CompuwareCommonConfigurationPlugin-FrontLineSupportWebSite]]
+=== FrontLine Support Web Site
+
+You can access online information for Compuware products via our
+FrontLine support site
+at https://go.compuware.com/[https://go.compuware.com]. FrontLine
+provides access to critical information about your Compuware products.
+You can review frequently asked questions, read or download
+documentation, access product fixes, or e-mail your questions or
+comments. The first time you access FrontLine, you must register and
+obtain a password. Registration is free.
+
+Compuware also offers User Communities, online forums to collaborate,
+network, and exchange best practices with other Compuware solution users
+worldwide. Go to http://groups.compuware.com/ to join.
+
+[[CompuwareCommonConfigurationPlugin-ContactingCustomerSupport]]
+=== Contacting Customer Support
+
+At Compuware, we strive to make our products and documentation the best
+in the industry. Feedback from our customers helps us maintain our
+quality standards. If you need support services, please obtain the
+following information before calling Compuware's 24-hour telephone
+support:
+
+* The name, release number, and build number of your product. This
+information is displayed in the **About **dialog box.
+* Installation information including installed options, whether the
+product uses local or network databases, whether it is installed in the
+default directories, whether it is a standalone or network installation,
+and whether it is a client or server installation.
+* Environment information, such as the operating system and release on
+which the product is installed, memory, hardware and network
+specification, and the names and releases of other applications that
+were running when the problem occurred.
+* The location of the problem within the running application and the
+user actions taken before the problem occurred.
+* The exact application, licensing, or operating system error messages,
+if any.
+
+You can contact Compuware in one of the following ways:
+
+[[CompuwareCommonConfigurationPlugin-Phone]]
+==== Phone
+
+* USA and Canada: 1-800-538-7822 or 1-313-227-5444.
+* All other countries: Contact your local Compuware office. Contact
+information is available
+at https://go.compuware.com/[https://go.compuware.com].
+
+[[CompuwareCommonConfigurationPlugin-Web]]
+==== Web
+
+You can report issues via FrontLine.
+
+Note: Please report all high-priority issues by phone.
+
+[[CompuwareCommonConfigurationPlugin-Mail]]
+==== Mail
+
+Customer Support +
+Compuware Corporation +
+One Campus Martius +
+Detroit, MI 48226-5099
+
+[[CompuwareCommonConfigurationPlugin-CorporateWebSite]]
+=== Corporate Web Site
+
+To access Compuware's site on the Web, go
+to https://www.compuware.com/[https://www.compuware.com]. The Compuware
+site provides a variety of product and support information. 
+
+[[CompuwareCommonConfigurationPlugin-ChangeLog]]
+== Change Log
+
+[[CompuwareCommonConfigurationPlugin-Version1.0.9]]
+=== Version 1.0.9
+
+* Corrected issue where the link in Manage connections is not generated
+correctly
+
+[[CompuwareCommonConfigurationPlugin-Version1.0.8]]
+=== Version 1.0.8
+
+* Corrected CLI version checking that was causing conflict with older
+versions of dependent plugins.
+
+[[CompuwareCommonConfigurationPlugin-Version1.0.7]]
+=== Version 1.0.7
+
+* Added encryption protocol selection to a host connection.
+
+[[CompuwareCommonConfigurationPlugin-Version1.0.6]]
+=== Version 1.0.6
+
+* Fixed help for for the CES URL field.
+
+[[CompuwareCommonConfigurationPlugin-Version1.0.3]]
+=== Version 1.0.3
+
+* Added the CES URL field to specify a URL for Compuware Enterprise
+Services (CES). This URL is used by other Compuware plugins that
+leverage REST APIs hosted by CES, for example Compuware‘s ISPW.
+
+[[CompuwareCommonConfigurationPlugin-Version1.0.0]]
+=== Version 1.0.0
+
+* Moved host connection information to this common plugin to be used by
+all Compuware plugins. 

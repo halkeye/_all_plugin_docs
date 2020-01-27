@@ -1,0 +1,118 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-12-17/#SECURITY-1592[Stored
+XSS vulnerability]
+
+Full screen dashboard view featuring job history, build queue, and
+current status of jobs and nodes.
+
+[[MissionControlPlugin-Settingup]]
+== Setting up
+
+Open any Jenkins view, click *+* tab, select *Mission Control* view
+type, change UI settings if needed and click *OK*.
+
+_Note:_ If Build History section is empty, reload Jenkins configuration
+(*Manage Jenkins* -> *Reload Configuration from Disk*).
+
+[[MissionControlPlugin-Screenshot]]
+== Screenshot
+
+[.confluence-embedded-file-wrapper .image-center-wrapper .confluence-embedded-manual-size]#image:https://raw.githubusercontent.com/jenkinsci/mission-control-view-plugin/screenshots/Fullscreen.png[image,scaledwidth=85.0%,scaledwidth=85.0%]#
+
+[[MissionControlPlugin-Changelog]]
+== Changelog
+
+[[MissionControlPlugin-0.9.15(September17,2019)]]
+=== 0.9.15 (September 17, 2019)
+
+* Merged
+https://github.com/jenkinsci/mission-control-view-plugin/pull/7[pull
+request #7] by https://github.com/roel0[roel0] - Add links to jobs and
+builds
+
+[[MissionControlPlugin-0.9.14(July20,2018)]]
+=== 0.9.14 (July 20, 2018)
+
+* Add links to job status buttons
+
+[[MissionControlPlugin-0.9.13(October24,2017)]]
+=== 0.9.13 (October 24, 2017)
+
+* Filter jobs by full name (folder and job names)
+(https://issues.jenkins-ci.org/browse/JENKINS-47527[JENKINS-47527])
+
+[[MissionControlPlugin-0.9.12(July27,2017)]]
+=== 0.9.12 (July 27, 2017)
+
+* Merged https://github.com/jenkinsci/mission-control-view-plugin/pull/6[pull
+request #6] by https://github.com/jnutzman[jnutzman] - Change filter to
+look in full job name instead of the base name
+
+[[MissionControlPlugin-0.9.11(July13,2017)]]
+=== 0.9.11 (July 13, 2017)
+
+* Merged https://github.com/jenkinsci/mission-control-view-plugin/pull/5[pull
+request #5] by https://github.com/jaggs6[jaggs6] - Fix incorrect display
+of jobs with names containing URL special characters
+
+[[MissionControlPlugin-0.9.10(May31,2017)]]
+=== 0.9.10 (May 31, 2017)
+
+* Merged https://github.com/jenkinsci/mission-control-view-plugin/pull/4[pull
+request #4] by https://github.com/willdeberry[willdeberry] - Add options
+to filter Build History and Job Status individually
+
+[[MissionControlPlugin-0.9.9(February13,2017)]]
+=== 0.9.9 (February 13, 2017)
+
+* Merged
+https://github.com/jenkinsci/mission-control-view-plugin/pull/3[pull
+request #3] by https://github.com/willdeberry[willdeberry] - Add hide
+options for each section
+
+[[MissionControlPlugin-0.9.8(November24,2016)]]
+=== 0.9.8 (November 24, 2016)
+
+* Display disabled jobs in grey color
+
+[[MissionControlPlugin-0.9.7(October18,2016)]]
+=== 0.9.7 (October 18, 2016)
+
+* Merged
+https://github.com/jenkinsci/mission-control-view-plugin/pull/1[pull
+request #1] by https://github.com/SamDeBlock[SamDeBlock] - Better name
+for jobs in job status name list
+
+[[MissionControlPlugin-0.9.2(August11,2016)]]
+=== 0.9.2 (August 11, 2016)
+
+* Add job filtering feature
+(https://issues.jenkins-ci.org/browse/JENKINS-34373[JENKINS-34373] and
+https://issues.jenkins-ci.org/browse/JENKINS-37179[JENKINS-37179])
+
+[[MissionControlPlugin-0.9.0(May3,2016)]]
+=== 0.9.0 (May 3, 2016)
+
+* Display nodes as buttons
+* Add links to node buttons
+
+[[MissionControlPlugin-0.8.3(January7,2016)]]
+=== 0.8.3 (January 7, 2016)
+
+* Add UI controls (font size, button and table row height, grid ratio,
+number of records to show in build history and build queue)
+* Add support for
+https://wiki.jenkins-ci.org/display/JENKINS/CloudBees+Folders+Plugin[CloudBees
+Folders plugin]
+* Fix incorrect formatting of month and day in dates
+
+[[MissionControlPlugin-0.8.2(December28,2015)]]
+=== 0.8.2 (December 28, 2015)
+
+* Initial release

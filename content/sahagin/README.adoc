@@ -1,0 +1,17 @@
+This plugin generates
+https://github.com/SahaginOrg/sahagin-java[Sahagin] HTML report from
+https://github.com/SahaginOrg/sahagin-java[Sahagin] test output data and
+attaches it to build.
+
+[[SahaginPlugin-WhatisSahagin?]]
+== What is Sahagin ?
+
+Sahagin is HTML report tool mainly for WebDriver test result. +
+For more detail, visit
+https://github.com/SahaginOrg/sahagin-java[Sahagin web page].
+
+[[SahaginPlugin-InstallationandUsage]]
+== Installation and Usage
+
+See
+https://github.com/SahaginOrg/sahagin-java/wiki/Getting-started#6-set-up-jenkins-plug-in[here].

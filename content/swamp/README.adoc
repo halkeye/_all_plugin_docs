@@ -1,0 +1,414 @@
+Enables Jenkins to send and receive SWAMP assessments during a build
+
+[[SWAMPPlugin-Introduction]]
+== Introduction
+
+This plugin allows you to submit SWAMP assessments during Jenkins
+builds. +
+The SWAMP assessment will use open source static analysis tools to test
+your source code for vulnerabilities and flaws. +
+For more information on the SWAMP, visit
+https://continuousassurance.org/[https://continuousassurance.org] +
+For more information on Jenkins, visit https://jenkins.io/
+
+[[SWAMPPlugin-Features]]
+== Features
+
+* Uploading Packages and Assessments to the SWAMP +
+** Configurable to meet many languages, tools, and build systems
+* Receive graphical feedback +
+** Graphs generated to show bug progression over builds
+** Visually see the bugs in your code
+* Configurable with SWAMP-In-A-Box
+** Set the URL provided by your administrator in the Global
+Configurations page
+* All results are also view-able online through our website
+** Tools like CodeDX are at your disposal there
+* More information available on https://continuousassurance.org/
+
+[[SWAMPPlugin-Potentialupcomingfeatures]]
+=== Potential upcoming features
+
+* Send emails containing assessment results
+* More graphs to view your data differently
+
+[[SWAMPPlugin-Requirements]]
+== Requirements
+
+      A SWAMP account on . mir-swamp or a swamp-in-a-box instance.
+
+[[SWAMPPlugin-Jenkins]]
+=== Jenkins
+
+Not tested in Jenkins
+https://jenkins.io/changelog-stable#v1.651.3[version 1.651.3] or lower.
+
+[[SWAMPPlugin-SWAMPaccount]]
+=== SWAMP account
+
+To upload results, you must create an account at
+https://www.mir-swamp.org/
+
+We suggest that you create an Application Password for use with Jenkins,
+since this account will be attached to all jobs within this instance of
+Jenkins.
+
+[[SWAMPPlugin-Pleasenote]]
+=== Please note
+
+* For support issues, please go to https://www.mir-swamp.org/#contact,
+or email us at support@continuousassurance.org
+
+[[SWAMPPlugin-Setup]]
+== Setup
+
+[[SWAMPPlugin-InstallthePlugin]]
+=== Install the Plugin
+
+Install this plugin via the Jenkins plugin manager.
+
+This can be done through the configurations as follows:
+
+. Go to *Jenkins → Manage Jenkins* *→ Manage Plugins*
+. Click on the *Available* tab
+. Enter "SWAMP" in the search bar
+. Check the *install* checkbox next to the SWAMP Plugin
+. Click the *download now and install after restart* button
+
+[[SWAMPPlugin-UpdatethePlugin]]
+=== Update the Plugin
+
+. Go to** Jenkins → Manage Jenkins→ Manage Plugins**
+. Click the *Updates* tab
+. Enter "SWAMP" in the search bar
+. Check the *install* checkbox next to the SWAMP Plugin
+. Click the *download now and install after restart* button +
+ +
+
+[[SWAMPPlugin-Warning:Reconfigurationrequiredifupdatingfrom1.0.xor1.1.xversionsto1.2.xorhigher.]]
+===== Warning: Reconfiguration required if updating from 1.0.x or 1.1.x versions to 1.2.x or higher.
+
+Starting 1.2.0, SWAMP plugin uses credentials API to store SWAMP
+credentials in Jenkins. If you are updating from 1.0.x or 1.1.x versions
+to 1.2.x or higher, re-configuration of the SWAMP plugin is required.
+Please re-configure the plugin at Manage Jenkins → Configure
+System → SWAMP.
+
+[[SWAMPPlugin-Warning:ResetSWAMPcredentialsifupdatingfrom1.0.xor1.1.xversionsto1.2.xorhigher.]]
+=== Warning: Reset SWAMP credentials if updating from 1.0.x or 1.1.x versions to 1.2.x or higher.
+
+When a 1.0.x or 1.1.x version of the SWAMP Jenkins plugin is run on a
+Jenkins server where the installation directory is readable by others,
+it is possible for an attacker with access to another account on the
+same host to determine the user's SWAMP application password or
+SWAMP username and password. If you are using an SWAMP Application
+Password in Jenkins, please discard it and get a new application
+password. If you are using SWAMP username/password in Jenkins, please
+reset your password. 
+
+[[SWAMPPlugin-JenkinspluginwithSwamp-In-The-Box(SiB)instances]]
+=== Jenkins plugin with Swamp-In-The-Box (SiB) instances
+
+If you are using an SiB instance that uses a __self-signed__ SSL/TLS
+certificate then, the SWAMP Jenkins plugin will fail to communicate with
+that SiB instance. The reason being Java’s security model by default
+does not allow communicating with a web-service that has a self-signed
+SSL/TLS certificate. To overcome this restriction, the web-service’s
+self-signed SSL/TLS certificate has to be added to the Java
+installation’s __default keystore__ on the machine that is running the
+Jenkins server. The following are the instructions on how to do it:
+
+. Access the SiB from the web-browser and download the SiB’s self-signed
+certificate by following these instruction
+here: https://www.thesslstore.com/blog/how-to-view-ssl-certificate-details-in-chrome-56/
+. Run the following commands to add the self-signed certificate to the
+Java installation’s keystore (on the machine that is running the Jenkins
+server):
+
+. {blank}
+.. Change the present working directory to your Java installtion
+directory ($JAVA_HOME) + `+jre/lib/security/+`.  +
++
+....
+ cd $JAVA_HOME/jre/lib/security
+....
+.. Create a backup copy of the `+cacerts+` file +
++
+....
+ sudo cp cacrets cacrets.original 
+....
+.. Add the certificate to the keystore (Assuming here that the
+self-signed certificate is stored on the desktop
+as http://www.sib-swamp.org.cer/[www.sib-swamp.org.cer])
++
+....
+ sudo keytool -importcert -alias sib-name -file ~/Desktop/www.sib-swamp.org.cer -keystore $PWD/cacerts
+....
+
+[[SWAMPPlugin-ConfiguretheSWAMPJenkinsPlugin]]
+=== Configure the SWAMP Jenkins Plugin
+
+The SWAMP Jenkins Plugin must be configured before use. +
+This configuration is modified on the following web interface:
+
+* Go to** Jenkins → Manage Jenkins→ Configure System**
+* In the *SWAMP* Section and enter the following:
+
+[width="100%",cols="29%,71%",options="header",]
+|===
+|Parameter |Description
+|*SWAMP URL* a|
+URL of SWAMP web site. +
+The default is the SWAMP public instance at
+https://swa-csaweb-pd-01.mir-swamp.org/[https://www.mir-swamp.org]. +
+ 
+
+[.underline]#*NOTE*#: If you are using SWAMP-in-a-Box, contact your
+administrator for the URL to use.
+
+|*SWAMP Credentials* a|
+Select the _credentials_ for SWAMP from the drop-down list.
+
+If SWAMP credentials are not in the list, Add Credentials by clicking
+on *Add* button and choosing Jenkins (Jenkins Credentials Provider).
+
+In the Add Credentials page:
+
+{empty}1. Choose a *Domain* to store SWAMP credentials. This is
+optional, default is Global Credentials (unrestricted). Users can create
+a domain to group credentials by going to
+**Jenkins → ***Credentials* and selecting *Add Domain* in
+theJenkins drop-down list.
+
+{empty}2. For **Kind**, Select Username with password from the drop-
+down list.
+
+{empty}3. For **Scope**, choose Global. +
+4. Enter SWAMP username and password in the
+*Username* and *Password* text boxes.
+
+{empty}3. In the *Description* textbox, enter _SWAMP_ or any string that
+lets you distinguish SWAMP credentials.
+
+{empty}4. Leave the *ID* text-box empty. +
+5. _Save_ the credentials by clicking on the *Add* button.
+
+NOTE: If you use third party credential such as github to log into SWAMP
+then, create and use a SWAMP Application Password.
+
+|*Test Connection* |Use this button to _validate_ the credentials and
+URL that you have entered
+
+|*Default Project* |The default project to be used for each upload +
+Can be modified in build settings
+
+|*Verbose Mode* |Provide extra output for status updates and error
+checking
+|===
+
+[[SWAMPPlugin-ConfigureaJob]]
+=== Configure a Job +
+ +
+
+* Go to your Jenkins URL in a web browser
+* Click on the project link that you want to assess with the SWAMP
+* Click on the _Configure_ link for the project on the left side
+* Scroll to the *Post Build Actions* section (or click the _Post Build
+Actions_ tab)
+* Click the _Add Post Build Action_ button and select "*Swamp
+Assessment*"
+* In the SWAMP Assessment section, fill out the data as follows:
+
+Parameter
+
+Description
+
+*Package Settings*
+
+Package Directory
+
+If your source code for your package is located in a subdirectory, enter
+it here.
+
+Package Name
+
+Enter the name of your package here. This is the name that will be used
+in the SWAMP UI.
+
+Package Version
+
+Enter the version string of your package. Every build should have a
+unique version String. The following macros may be used
+
+ +
+
+[cols=",",]
+|===
+|$build |unique Jenkins build id
+|$date |current date
+|$git |most recent git commit id
+|$svn |most recent svn commit id
+|===
+
+ +
+
+If you do not update the version number each build (either using any of
+the above options or manually updating the version) then submissions
+will have the same version and be difficult to destinguish in the user
+interface.
+
+Package Language
+
+The language that your package uses.
+
+*Build Settings*
+
+Build System
+
+Select the build system your project uses.
+
+Build Directory
+
+Enter a value if your software needs to build in different directory
+than the _Package Directory_. The directory is relative this the
+_Package Directory_
+
+Build File
+
+Leave blank if using a standard build file name for the select _Build
+System_ (i.e. _build.xml_ for Ant, _pom.xml_ for Maven, _Makefile_ for
+Make) Enter a value if the build file is using a non standard name. The
+name is relative to the _Build Directory_.
+
+Build Target
+
+If building your package requires a special build target, enter it here,
+otherwise leave blank
+
+Build Command
+
+If your package requires a non-standard build command, enter it here,
+otherwise leave blank and the command will be determined by the _Build
+System_.
+
+Build Options
+
+If your package requires options to passed to the build command, enter
+it here (e.g. `+--verbose --setInt 1+`), otherwise leave blank. Add
+multiple options separated by spaces as usual.
+
+Configuration Command
+
+If your package requires a configuration command, enter it here. If left
+blank, the configuration will be called without a command.
+
+Configuration Options
+
+If your package requires configuration options, enter them here
+similarly to the build options.
+
+Clean Command
+
+Enter the command to clean your build. Leave blank to use the
+`+[build-system] clean+`
+
+*Assessment Settings*
+
+Project Name
+
+The name of the project to use in the SWAMP.
+
+*Click _Add_ to configure the Tool and Platforms to use:*
+
+Tool
+
+Select the tool you would like to use for this assessment.
+
+Platform
+
+Select the platform you would like to use for this assessment.
+
+*Output Settings*
+
+Assessment Output Directory
+
+Places the output of the assessments from the SWAMP in this directory
+from the workspace.
+
+ +
+
+[[SWAMPPlugin-Feedbackwanted]]
+=== Feedback wanted
+
+Any suggestions to make the plugin better?
+
+Comments about what tools are more useful than others?
+
+Additional graphs you think would be useful?
+
+Let us know at support@continuousassurance.org!
+
+[[SWAMPPlugin-Troubleshooting]]
+== Troubleshooting
+
+The plugin should send back various error messages about why your
+package/assessments were not submitted. +
+The SWAMP should have more detailed information on any assessment
+failure if you go to the viewer.
+
+If neither of these options are sufficient, go to our contact page at
+https://www.mir-swamp.org/#contact, or email us at
+support@continuousassurance.org.
+
+[[SWAMPPlugin-Frequentlyaskedquestions]]
+== Frequently asked questions
+
+[#SWAMPPlugin-flavours .confluence-anchor-link .conf-macro .output-inline]#
+#
+
+[[SWAMPPlugin-Versionhistory]]
+== Version history
+
+[[SWAMPPlugin-Version1.2.0]]
+=== Version 1.2.0
+
+The plugin now uses
+uses https://wiki.jenkins.io/display/JENKINS/Credentials+Plugin[Credentials
+API] to store SWAMP credentials in a more secure manner.
+
+After upgrading users have to re-enter their SWAMP credentials
+at _Jenkins Home page_ -> _Manage Jenkins_ -> _Configure System_, in
+the _SWAMP_ section
+
+[[SWAMPPlugin-Version1.1.2]]
+=== Version 1.1.2
+
+Fixes a vulnerability that allows an attacker with an account on the
+same host to impersonate the user’s SWAMP identity and gain access their
+SWAMP account. For each successful attack, the attacker will be able to
+impersonate the user for a maximum time period of two days.
+
+[[SWAMPPlugin-Version1.1.1]]
+=== Version 1.1.1
+
+Works with HTTP/HTTPS proxies
+
+[[SWAMPPlugin-Version1.0.6]]
+=== Version 1.0.6
+
+Works on windows
+
+[[SWAMPPlugin-Version1.0.1]]
+=== Version 1.0.1
+
+* Fixed incompatibility with SWAMP-In-A-Box, now functions as intended
+
+[[SWAMPPlugin-Version1.0.0]]
+=== Version 1.0.0
+
+* Fixed tool list not displaying
+
+[[SWAMPPlugin-Version0.7.8]]
+=== Version 0.7.8
+
+* Initial release

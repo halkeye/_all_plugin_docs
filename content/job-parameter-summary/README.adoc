@@ -1,0 +1,4 @@
+Display job parameter summary on main job page to facilitate job
+administration.
+
+[.confluence-embedded-file-wrapper .image-right-wrapper]#image:docs/images/job-parameter-summary.png[image]#

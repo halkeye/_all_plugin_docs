@@ -1,0 +1,61 @@
+[.conf-macro .output-inline]##
+
+[[BlazeMeterPlugin-Summary]]
+== Summary
+
+This plugin allows you to load test your site using
+http://blazemeter.com/[BlazeMeter]. Jenkins will show a report generated
+by the test. +
+It includes the feature of setting the final build status as good,
+unstable or failed, based on the reported error percentage, and response
+time.
+
+[[BlazeMeterPlugin-Installation&usage]]
+== Installation & usage
+
+....
+Please, refer to plugin's wiki for further instructions. 
+....
+
+[[BlazeMeterPlugin-Features]]
+== Features
+
+- support https://jenkins.io/doc/book/pipeline/[pipeline];
+
+- support https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin[Job
+DSL];
+
+- support remote agents;
+
+- can download JUnit report after finishing test;
+
+- can download JTL report after finishing test;
+
+- can push JMeter properties for test;
+
+- can push notes for test report;
+
+- logs communication with BlazeMeter server to separate log file (this
+may simplify issue investigation) - <WORKSPACE>/<build #>/http-log;
+
+- supports proxy server using built-in Jenkins functionality (Manage
+Jenkins -> Manage Plugins -> Advanced);
+
+[[BlazeMeterPlugin-Changelog]]
+== https://github.com/Blazemeter/blazemeter-jenkins-plugin/blob/master/CHANGELOG.md[Changelog] +
+https://guide.blazemeter.com/hc/en-us/articles/206732669-BlazeMeter-s-Jenkins-Plugin-A-Guide[]
+
+[[BlazeMeterPlugin-Usingpipeline]]
+== https://github.com/Blazemeter/blazemeter-jenkins-plugin/blob/master/usingPipeline.md[Using pipeline]
+
+[[BlazeMeterPlugin-UsingJobDSL]]
+== https://github.com/Blazemeter/blazemeter-jenkins-plugin/blob/master/usingDSL.md[Using Job DSL]
+
+[[BlazeMeterPlugin-Downloadlatestversion]]
+== https://plugins.jenkins.io/BlazeMeterJenkinsPlugin[Download latest version]
+
+....
+ 
+....
+
+ 

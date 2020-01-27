@@ -1,0 +1,127 @@
+This is a simple disk usage plugin that calculates disk usage while
+limiting the performance impact on the Jenkins master.
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+To avoid consuming too many I/O resources, the directory traversal
+process is throttled and should not be able to consume more than half
+available IO.
+
+The original
+https://wiki.jenkins-ci.org/display/JENKINS/Disk+Usage+Plugin[Disk Usage
+plugin] offers many more features, however it consumes many more
+resources and in some instances can prevent the Jenkins master from
+operating correctly
+
+This plugin:
+
+* uses Java 7 NIO directory walker API to calculate the size of jobs and
+1st level directories under `+$JENKINS_HOME+`
+* throttle the directory scan to help prevent the load average from
+climbing too high
+* a refresh of usage data is automatically launched when you display the
+screen and they are older than 15 minutes
+* a refresh of usage data can be also manually requested, but only one
+at a time will occur
+
+To use this plugin visit the `+Manage Jenkins+` -> `+Disk usage+` page.
+
+[[CloudBeesSimpleDiskUsagePlugin-History]]
+== History
+
+[[CloudBeesSimpleDiskUsagePlugin-0.9(2017-08-03)]]
+=== 0.9 (2017-08-03)
+
+* image:docs/images/information.svg[(info)]  Postpone
+disk usage update after Jenkins is fully up
+(https://issues.jenkins-ci.org/browse/JENKINS-45943[JENKINS-45943])https://issues.jenkins-ci.org/browse/JENKINS-44646[]
+
+[[CloudBeesSimpleDiskUsagePlugin-0.8(2017-06-06)]]
+=== 0.8 (2017-06-06)
+
+* image:docs/images/information.svg[(info)] 
+Reduce scan impact on filesystem freeze
+(https://issues.jenkins-ci.org/browse/JENKINS-44646[JENKINS-44646])
+
+[[CloudBeesSimpleDiskUsagePlugin-0.7(2017-05-24)]]
+=== 0.7 (2017-05-24)
+
+* image:docs/images/information.svg[(info)]
+Rewrite the low level code to use Java 7 NIO directory walker. The
+plugin does not rely on du command anymore and works everywhere now.
+(https://issues.jenkins-ci.org/browse/JENKINS-44445[JENKINS-44445])
+
+[[CloudBeesSimpleDiskUsagePlugin-0.6(2017-05-24)]]
+=== 0.6 (2017-05-24)
+
+Not released, had permission issue during publication
+
+[[CloudBeesSimpleDiskUsagePlugin-0.5(2015-10-05)]]
+=== 0.5 (2015-10-05)
+
+* image:docs/images/error.svg[(error)]
+`+du+` wasn't correctly launched using `+ionice+`
+* image:docs/images/error.svg[(error)]
+Don't let `+du+` processes run for more than 20 seconds for a period of
+time. The periodic task will retry to compute directory size next time
+it gets scheduled. By that time, we assume that OS system cache will
+hold more inode entries to complete faster.
+* image:docs/images/information.svg[(info)]
+Use the the system property
+`+com.cloudbees.simplediskusage.QuickDiskUsagePlugin.command+` to
+override the `+du+` command
+
+[[CloudBeesSimpleDiskUsagePlugin-0.4(2015-09-25)]]
+=== 0.4 (2015-09-25)
+
+* image:docs/images/error.svg[(error)]
+Plugin is too verbose
+(https://issues.jenkins-ci.org/browse/JENKINS-30279[JENKINS-30279])
+* image:docs/images/error.svg[(error)]
+When a refresh of data is manually triggered, it is processed 2 times
+(https://issues.jenkins-ci.org/browse/JENKINS-30631[JENKINS-30631])
+* image:docs/images/information.svg[(info)]
+When a refresh of data is manually triggered, the screen displays
+nothing
+(https://issues.jenkins-ci.org/browse/JENKINS-30633[JENKINS-30633])
+* image:docs/images/information.svg[(info)]
+List JENKINS_HOME and its first level sub directories disk usages
+(https://issues.jenkins-ci.org/browse/JENKINS-30311[JENKINS-30311])
+* image:docs/images/information.svg[(info)]
+Computes data when Jenkins is up and stores them across restarts
+(https://issues.jenkins-ci.org/browse/JENKINS-30635[JENKINS-30635])
+* image:docs/images/information.svg[(info)]
+Improve messages about data status
+(https://issues.jenkins-ci.org/browse/JENKINS-30636[JENKINS-30636])
+* image:docs/images/information.svg[(info)]
+Allow auto-refresh on disk usage screens
+(https://issues.jenkins-ci.org/browse/JENKINS-30637[JENKINS-30637])
+* image:docs/images/information.svg[(info)]
+Increase the refresh period from 3 to 15 minutes
+(https://issues.jenkins-ci.org/browse/JENKINS-30638[JENKINS-30638]) +
++ various UI and code improvements
+
+[[CloudBeesSimpleDiskUsagePlugin-0.3(2015-08-06)]]
+=== 0.3 (2015-08-06)
+
+* image:docs/images/information.svg[(info)]
+Display disk usage of `java.io.tmpdir`
+(https://issues.jenkins-ci.org/browse/JENKINS-29516[JENKINS-29516])
+* image:docs/images/information.svg[(info)]
+The plugin identifier was renamed from cloudbees-disk-usage-simple to
+cloudbees-disk-usage-simple-plugin. You will have to uninstall the 0.1
+version and install the 0.2 from the update center.
+* image:docs/images/error.svg[(error)]
+Improve message displayed when statistics aren't yet available
+
+[[CloudBeesSimpleDiskUsagePlugin-0.2]]
+=== 0.2
+
+Trashed
+image:docs/images/smile.svg[(smile)]
+
+[[CloudBeesSimpleDiskUsagePlugin-0.1]]
+=== 0.1
+
+Initial release

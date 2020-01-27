@@ -1,0 +1,37 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-955[Credentials
+stored in plain text]
+
+[.conf-macro .output-inline]#Allows users to upload build artifacts to a
+https://minio.io/[Minio] server# +
+
+[[MinioStoragePlugin-PluginConfiguration]]
+== Plugin Configuration
+
+* Navigate to Manage Jenkins >> Configure System >> Minio upload
+configuration. Enter the Minio server URL, AccessKey and SecretKey
+(available during Minio server installation) and click _Save_.
+* Then configure project specific details. Open the Jenkins project
+whose build artifacts you want to upload to Minio. Click _Configure_ on
+the left menu bar. In the next page, you'll find a new Post-build Action
+called _Upload build artifacts to Minio server_. Select the post build
+action and enter the relevant details in the document.
+* Now, all the artifacts as matching the entry under the Source field
+will be uploaded to your Minio server once a build is completed. +
+
+[[MinioStoragePlugin-Makingyourbuildartifactspublic]]
+== Making your build artifacts public
+
+You can make your build artifacts public by making your Minio bucket
+public. You can follow this guide to do so:
+https://github.com/minio/mc/blob/master/docs/minio-client-complete-guide.md#command-policy---manage-bucket-policies[Minio
+Client Policy Guide]. You can also share files in your bucket via
+Pre-signed URLs.
+http://docs.aws.amazon.com/AmazonS3/latest/dev/ShareObjectPreSignedURL.html[Pre-signed
+URL Guide]

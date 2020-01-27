@@ -1,0 +1,82 @@
+[.conf-macro .output-inline]#This step allows a pipeline job to notify a
+status for any GitHub commit.#
+
+Intended for jobs that want to notify GitHub of any desired event with
+complete control over the notification content. Including context,
+status or target url.
+
+[[PipelineGithubnotifyStepPlugin-Introduction]]
+== Introduction
+
+This plugin provides the _githubnotify_ build step, this step can be
+used to create a status in Github.
+
+The available parameters are:
+
+____
+* _credentialsId_: The id of the github's credentials to use, must be of
+type UsernameAndPassword. *Make sure the credentials have write access,
+as https://developer.github.com/v3/repos/statuses/[stated by doc] _Users
+with push access can create commit statuses for a given ref_*
+* _status_: The status to send, one of SUCCESS, FAILURE, ERROR or
+PENDING
+* _description_: The description that will appear at the notification
+* _context_: The notifications context, GH uses the context to
+diferentiate notifications (optional, jenkins/githubnotify is used by
+default)
+* _sha_: The sha that identifies the commit to notify status
+* _repo_: The repo that ows the commit we want to notify
+* _account_: The account that owns the repository
+* _gitApiUrl_: GitHub's Enterprise instance API url (optional,
+https://api.github.com/[https://api.github.com] is used by default)
+* _targetUrl_: The targetUrl for the notification
++
+[source,syntaxhighlighter-pre]
+----
+githubNotify account: 'raul-arabaolaza', context: 'Final Test', credentialsId: 'raul-github',
+    description: 'This is an example', repo: 'acceptance-test-harness', sha: '0b5936eb903d439ac0c0bf84940d73128d5e9487'
+    , status: 'SUCCESS', targetUrl: 'http://www.cloudbees.com'
+----
++
+Aditionally the step is able to infer most of this data when running
+from a pipeline multibranch job, in that the call is greatly simplified:
+____
+
+[source,syntaxhighlighter-pre]
+----
+githubNotify context: 'Notification key', description: 'This is a shorted example',  status: 'SUCCESS'
+----
+
+Please go to the
+https://github.com/jenkinsci/pipeline-githubnotify-step-plugin[README]
+of the plugin to find more details about how the inferring process works
+and when you cann use it 
+
+[[PipelineGithubnotifyStepPlugin-Changelog]]
+== Changelog
+
+[[PipelineGithubnotifyStepPlugin-Version1.0.3(2017-08-16)]]
+=== Version 1.0.3 (2017-08-16)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-43370[JENKINS-43370] The
+step now is able to use a proxy if defined. (Thanks to Markus Heberling
+for the fix)
+
+[[PipelineGithubnotifyStepPlugin-Version1.0.2(2016-04-09)]]
+=== Version 1.0.2 (2016-04-09)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-42955[JENKINS-42955] The
+step now uses the scan credentials over the checkout credentials for
+inferring
+
+[[PipelineGithubnotifyStepPlugin-Version1.0.1(2016-12-24)]]
+=== Version 1.0.1 (2016-12-24)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-40422[JENKINS-40422] The
+step now uses the scan credentials over the checkout credentials for
+inferring
+
+[[PipelineGithubnotifyStepPlugin-Version1.0.0(2016-11-30)]]
+=== Version 1.0.0 (2016-11-30)
+
+* Initial version

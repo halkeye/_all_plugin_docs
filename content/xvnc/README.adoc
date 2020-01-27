@@ -1,0 +1,172 @@
+This plugin lets you run an
+http://www.hep.phy.cam.ac.uk/vnc_docs/xvnc.html[Xvnc] session during a
+build. This is handy if your build includes UI testing that needs a
+display available.
+
+Each build using the plugin gets its own display allocated from a free
+list, by default starting with :10 and ending with :99. +
+(The $DISPLAY environment variable is set for the build by the
+plugin.) +
+Thus you can freely run builds on multiple executors without fear of
+interference.
+
+If there is some problem starting a display server with a given number,
+that number will be blacklisted +
+for the remainder of the Hudson session and the plugin will try ten more
+times before giving up. +
+This is commonly due to stale locks that did not get cleaned up
+properly. +
+There is also an option to clean up locks when starting the first
+Xvnc-enabled build in a given session. +
+You can record your vnc session
+with https://wiki.jenkins-ci.org/display/JENKINS/VncRecorder+Plugin[VncRecorder
+Plugin].
+
+Note: you must have started the vncserver at least one time before you
+use it with hudson. This is to create a password. Otherwise Jenkins
+fails.
+http://blog.dahanne.net/2011/07/18/run-ui-tests-on-a-headless-jenkins-hudson-continuous-integration-server-running-ubuntu/[This
+blog post] describes how.
+
+If you are running Windows you probably do not want this plugin.
+http://forgetfulprogrammer.wordpress.com/2011/09/21/netbeans-gui-tests-on-jenkins-windows/[This
+blog post] offers an alternative suggestion.
+
+[[XvncPlugin-VersionHistory]]
+== Version History
+
+[[XvncPlugin-Version1.24(Jul222015)]]
+=== Version 1.24 (Jul 22 2015)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-36845[JENKINS-36845]:
+ConcurrentModificationException when using Xvnc plugin on Pipeline.
+
+[[XvncPlugin-Version1.23(Aug282015)]]
+=== Version 1.23 (Aug 28 2015)
+
+* A small bugfix when overwriting the XAUTHORITY env var during vnc
+setup retry.
+* A workaround for
+https://issues.jenkins-ci.org/browse/JENKINS-19139[JENKINS-19139] where
+the xautority file is placed in the slave fs root if the build's
+workspace contains a space, or in tmp if that also contains a space.
+
+[[XvncPlugin-Version1.22(Jun102015)]]
+=== Version 1.22 (Jun 10 2015)
+
+* Requires 1.609.1+.
+* https://issues.jenkins-ci.org/browse/JENKINS-26477[JENKINS-26477]
+Workflow plugin support.
+
+[[XvncPlugin-Version1.20(Nov122014)]]
+=== Version 1.20 (Nov 12 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-25424[JENKINS-25424] Exception
+when editing nodes
+
+[[XvncPlugin-Version1.19(skipped)]]
+=== Version 1.19 (skipped)
+
+[[XvncPlugin-Version1.18(Oct152014)]]
+=== Version 1.18 (Oct 15 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-24773[JENKINS-24773] Allocated
+and blacklisted display number are shared accross all slaves
+
+[[XvncPlugin-Version1.17(Mar162014)]]
+=== Version 1.17 (Mar 16 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-22105[JENKINS-22105] Client
+is not authorized to connect to Server. +
+This will reintroduce the problem with spaces in job names. To avoid
+that bug:
+** avoid using spaces in job names, or
+** fix the vncserver script: add qoutes around the xauthority filename
+when xauth is called, or
+** turn off per job xauthority file generation.
+
+[[XvncPlugin-Version1.16(Mar52014)]]
+=== Version 1.16 (Mar 5 2014)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-19139[JENKINS-19139] Xvnc
+plugin fails if the job has a space in the name
+* https://issues.jenkins-ci.org/browse/JENKINS-18108[JENKINS-18108] "Unrecognized
+option: UI" in v1.14
+
+[[XvncPlugin-Version1.14(Apr102013)]]
+=== Version 1.14 (Apr 10 2013)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-17280[JENKINS-17280]
+Display number out of bounds, no way to reset
+* https://issues.jenkins-ci.org/browse/JENKINS-17550[JENKINS-17550] Xvnc
+plugin tries to use already allocated displays
+
+[[XvncPlugin-Version1.13(Apr92013)]]
+=== Version 1.13 (Apr 9 2013)
+
+* Automatic clearing of blacklist when run out of available ports
+
+[[XvncPlugin-Version1.12(Apr42013)]]
+=== Version 1.12 (Apr 4 2013)
+
+* Changed the configurable base display number to a configurable range
+of display numbers.
+* Randomly retry ten times to find a working display number before
+giving up.
+* https://issues.jenkins-ci.org/browse/JENKINS-16879[JENKINS-16879] More
+robust display detection needed - builds fail when many builds require
+Xvnc
+
+[[XvncPlugin-Version1.11(Jan142012)]]
+=== Version 1.11 (Jan 14 2012)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-8670[JENKINS-8670] Bind
+vncserver to localhost for enhanced security.
+
+[[XvncPlugin-Version1.10(Jul192010)]]
+=== Version 1.10 (Jul 19 2010)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-3285[JENKINS-3285] Option
+to clean up stale locks & processes.
+* https://issues.jenkins-ci.org/browse/JENKINS-3680[JENKINS-3680] Do not
+run `+vncserver -kill+` in workspace directory.
+
+[[XvncPlugin-Version1.9(Jun212010)]]
+=== Version 1.9 (Jun 21 2010)
+
+* Added a mechanism to exclude Xvnc execution on specific nodes
+* Added an option to skip Xvnc execution on all Windows machines
+
+[[XvncPlugin-Version1.8(Jan92010)]]
+=== Version 1.8 (Jan 9 2010)
+
+* Ensure screenshot is taken when selected
+* Update code for more recent Hudson
+
+[[XvncPlugin-Version1.7(Apr152009)]]
+=== Version 1.7 (Apr 15 2009)
+
+* Retry several times before giving up on attempt to get a display,
+blacklisting displays each time.
+
+[[XvncPlugin-Version1.6(Apr142009)]]
+=== Version 1.6 (Apr 14 2009)
+
+* If the user forgot to put `+:$DISPLAY_NUMBER+` in the command line,
+issue a warning
+(http://www.nabble.com/one-moe-vnc-issue-td19141343.html[report])
+* Better help.
+* Updated to new form validation style.
+
+[[XvncPlugin-Version1.5(August11,2008)]]
+=== Version 1.5 (August 11, 2008)
+
+* Can be configured to take a screenshot of the X session upon build
+completion. These screenshots are treated as build artifacts. This
+functionality requires http://www.imagemagick.org/[Imagemagick]
+
+[[XvncPlugin-Version1.4]]
+=== Version 1.4
+
+* Updated to work with the latest Hudson
+http://www.nabble.com/BuildWrapper-plugin-support-for-m2-jobs--tt16728753.html[patch]

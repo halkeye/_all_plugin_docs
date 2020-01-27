@@ -1,0 +1,10 @@
+[[MetricsGraphitePlugin-MetricsGraphitePlugin]]
+== Metrics Graphite Plugin +
+
+[[MetricsGraphitePlugin-VersionHistory]]
+=== Version History
+
+[[MetricsGraphitePlugin-Version3.0(19thMarch2014)]]
+==== Version 3.0 (19th March 2014) +
+
+* Initial release +

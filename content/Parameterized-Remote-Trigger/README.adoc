@@ -1,0 +1,284 @@
+A plugin for Jenkins CI that gives you the ability to trigger
+parameterized builds on a *remote* Jenkins server as part of your build.
+
+Similar to
+the https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin], but for remote servers.
+
+This is done by calling the /buildWithParameters URL on the remote
+server. (or the /build URL, if you don't specify any parameters)
+
+This plugin also has support for build authorization tokens (as
+defined https://wiki.jenkins-ci.org/display/JENKINS/Quick+and+Simple+Security[here] ),
+and plays nicely with these other guys:
+
+* https://wiki.jenkins-ci.org/display/JENKINS/Build+Token+Root+Plugin[Build
+Token Root Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin[Credentials
+Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin[Token
+Macro Plugin]
+
+[[ParameterizedRemoteTriggerPlugin-Screenshots]]
+== Screenshots
+
+System configuration option
+
+[.confluence-embedded-file-wrapper]#image:https://raw.github.com/jenkinsci/parameterized-remote-trigger-plugin/master/screenshots/1-system-settings.png[image]#
+
+ +
+
+System configuration (via script)
+
+'''''
+
+ +
+
+....
+import jenkins.model.Jenkins
+import org.jenkinsci.plugins.ParameterizedRemoteTrigger.RemoteBuildConfiguration
+import org.jenkinsci.plugins.ParameterizedRemoteTrigger.RemoteJenkinsServer
+import org.jenkinsci.plugins.ParameterizedRemoteTrigger.auth2.CredentialsAuth;
+
+// get Jenkins instance
+Jenkins jenkins = Jenkins.getInstance();
+
+def auth = new CredentialsAuth();
+auth.setCredentials("credential.id")
+
+def remoteJenkinsServer = new RemoteJenkinsServer();
+remoteJenkinsServer.setDisplayName("instance.name");
+remoteJenkinsServer.setAddress("instance.url");
+remoteJenkinsServer.setAuth2(auth);
+....
+
+....
+def descriptor = jenkins.getDescriptorByType(RemoteBuildConfiguration.DescriptorImpl.class);
+descriptor.setRemoteSites(remoteJenkinsServer);
+
+jenkins.save()
+....
+
+ +
+
+'''''
+
+ +
+
+Job setup options
+
+[.confluence-embedded-file-wrapper]#image:https://raw.github.com/jenkinsci/parameterized-remote-trigger-plugin/master/screenshots/2-build-configuration-1.png[image]#
+
+[.confluence-embedded-file-wrapper]#image:https://raw.github.com/jenkinsci/parameterized-remote-trigger-plugin/master/screenshots/3-build-configuration-2.png[image]#
+
+[[ParameterizedRemoteTriggerPlugin-Change-log]]
+== Change-log 
+
+[[ParameterizedRemoteTriggerPlugin-3.0.9(Aug17th,2019)]]
+=== 3.0.9 (Aug 17th, 2019)
+
+New feature
+
+* None
+
+Improvement
+
+* Stream output rather than dump it all out at the end
+(https://github.com/jenkinsci/parameterized-remote-trigger-plugin/commit/a625e4b7df875a11a2e8310c2aee781e61626f06[a625e4b])
+* Added the ability to trust untrusted certificates
+(https://github.com/jenkinsci/parameterized-remote-trigger-plugin/commit/08ec3ec779839716fd080f93de03a9432f6c05fe[08ec3ec])
+
+Bug fixes
+
+* None
+
+[[ParameterizedRemoteTriggerPlugin-3.0.8(Mar27th,2019)]]
+=== 3.0.8 (Mar 27th, 2019)
+
+New feature
+
+* None
+
+Improvement
+
+* Java doc refinement: Handle.getBuildStatus, Handle.updateBuildStatus
+(https://github.com/jenkinsci/parameterized-remote-trigger-plugin/commit/541365a0740f1e5b17f2615076249c4da33c34bc[541365a])
+* Extend POST timeout & avoid re-POST after timeout
+(https://github.com/jenkinsci/parameterized-remote-trigger-plugin/commit/97de437b98bec1cd9d46b78047886809c1e110d2[97de437])
+* Handle proxy host to avoid fail in subsequent requests
+(https://github.com/jenkinsci/parameterized-remote-trigger-plugin/commit/285d6573107789f3480d5a7fbc726d94a93cb917[285d657])
+
+Bug fixes
+
+* None
+
+[[ParameterizedRemoteTriggerPlugin-3.0.7(Dec9th,2018)]]
+=== 3.0.7 (Dec 9th, 2018)
+
+New feature
+
+* None
+
+Improvement
+
+* None
+
+Bug fixes
+
+* https://issues.jenkins-ci.org/browse/JENKINS-55038[JENKINS-55038] 
+
+[[ParameterizedRemoteTriggerPlugin-3.0.6(Sep19th,2018)]]
+=== 3.0.6 (Sep 19th, 2018)
+
+New feature
+
+* Disable remote trigger job step instead of removing it
+
+Improvement
+
+* None
+
+Bug fixes
+
+* https://issues.jenkins-ci.org/browse/JENKINS-52810[JENKINS-52810]
+
+[[ParameterizedRemoteTriggerPlugin-3.0.5(Aug20th,2018)]]
+=== 3.0.5 (Aug 20th, 2018)
+
+New feature
+
+* None
+
+Improvement
+
+* None
+
+Bug fixes
+
+* https://github.com/jenkinsci/parameterized-remote-trigger-plugin/pull/46[PR
+#46]
+* https://issues.jenkins-ci.org/browse/JENKINS-53125[JENKINS-53125]
+
+[[ParameterizedRemoteTriggerPlugin-3.0.4(Jul30th,2018)]]
+=== 3.0.4 (Jul 30th, 2018)
+
+New feature
+
+* {blank}
++
+Support to abort remote job
+
+Improvement
+
+* None
+
+Bug fixes
+
+* https://github.com/jenkinsci/parameterized-remote-trigger-plugin/pull/45[PR
+#45]
+
+[[ParameterizedRemoteTriggerPlugin-3.0.3(Jul23th,2018)]]
+=== 3.0.3 (Jul 23th, 2018)
+
+New feature
+
+* None
+
+Improvement
+
+* Add concurrent connection restriction to prevent remote servers from
+blocking
+* Add job info. & crumb cache to reduce the dummy inquiries when
+parallel triggering +
+ +
+
+Bug fixes
+
+* https://issues.jenkins-ci.org/browse/JENKINS-52673[JENKINS-52673]
+
+ +
+
+Important change
+
+* jdk version must be at least v1.8
+
+[[ParameterizedRemoteTriggerPlugin-3.0.2(Jul18th,2018)]]
+=== 3.0.2 (Jul 18th, 2018)
+
+New feature
+
+* None +
+ +
+
+Improvement
+
+* HTTP utility reorganized
+** post with form-data
+
+Bug fixes
+
+* Fix parameters are too long (HTTP status 414)
+
+[[ParameterizedRemoteTriggerPlugin-3.0.1(Jul10th,2018)]]
+=== 3.0.1 (Jul 10th, 2018)
+
+New feature
+
+* Support triggering remote jobs via Jenkins proxy +
+ +
+
+Improvement
+
+* code refinement
+
+Bug fixes
+
+* [JENKINS-47919 ]( [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-47919[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-47919] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+# ) (clarified & fixed)
+
+[[ParameterizedRemoteTriggerPlugin-3.0.0(May17th,2018)]]
+=== 3.0.0 (May 17th, 2018)
+
+New feature
+
+* Pipeline support
+
+https://github.com/jenkinsci/parameterized-remote-trigger-plugin/blob/master/CHANGELOG.md#improvement[ 
+   Improvement]
+
+* https://issues.jenkins-ci.org/browse/JENKINS-24240[JENKINS-24240]
+* https://issues.jenkins-ci.org/browse/JENKINS-29219[JENKINS-29219]
+* https://issues.jenkins-ci.org/browse/JENKINS-29220[JENKINS-29220]
+* https://issues.jenkins-ci.org/browse/JENKINS-29222[JENKINS-29222]
+
+https://github.com/jenkinsci/parameterized-remote-trigger-plugin/blob/master/CHANGELOG.md#bug-fixes[ 
+   Bug fixes]
+
+* https://issues.jenkins-ci.org/browse/JENKINS-29381[JENKINS-29381]
+* https://issues.jenkins-ci.org/browse/JENKINS-30962[JENKINS-30962]
+* https://issues.jenkins-ci.org/browse/JENKINS-32462[JENKINS-32462]
+* https://issues.jenkins-ci.org/browse/JENKINS-32671[JENKINS-32671]
+* https://issues.jenkins-ci.org/browse/JENKINS-33269[JENKINS-33269]
+* https://issues.jenkins-ci.org/browse/JENKINS-47919[JENKINS-47919]
+
+[[ParameterizedRemoteTriggerPlugin-Formoredetails]]
+=== For more details 
+
+https://github.com/jenkinsci/parameterized-remote-trigger-plugin/blob/master/CHANGELOG.md 
+
+[[ParameterizedRemoteTriggerPlugin-Issues]]
+=== Issues
+
+type
+
+key
+
+summary
+
+[.icon-in-pdf]# # Data cannot be retrieved due to an unexpected error.
+
+http://issues.jenkins-ci.org/secure/IssueNavigator.jspa?reset=true&jqlQuery=project%20=%20JENKINS%20AND%20status%20in%20%28Open,%20%22In%20Progress%22,%20Reopened%29%20AND%20component%20=%20%27parameterized-remote-trigger%27&src=confmacro[View
+these issues in Jira]

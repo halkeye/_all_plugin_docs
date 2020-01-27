@@ -1,0 +1,23 @@
+Adds column showing job type that can be configured in views.
+
+This simple plugin adds a `+Job Type+` selection when configuring the
+columns for views.
+
+[[JobTypeColumnPlugin-Changelog]]
+== Changelog
+
+[[JobTypeColumnPlugin-Version1.2(10-Dec-2011)]]
+=== Version 1.2 (10-Dec-2011)
+
+* Added Japanese translation
+
+[[JobTypeColumnPlugin-Version1.1(2-Nov-2011)]]
+=== Version 1.1 (2-Nov-2011)
+
+* Built for newer Jenkins
+(https://issues.jenkins-ci.org/browse/JENKINS-11579[JENKINS-11579])
+
+[[JobTypeColumnPlugin-Version1.0(21-Nov-2009)]]
+=== Version 1.0 (21-Nov-2009)
+
+* Initial release.

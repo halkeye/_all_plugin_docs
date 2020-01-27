@@ -1,0 +1,23 @@
+This is a plugin that makes JVM bypass all the HTTPS certificate checks.
+Convenient if you deal with self-signed certificates and so on. Use with
+caution.
+
+[[SkipCertificateCheckplugin-Usage]]
+== Usage
+
+This plugin doesn't require any configuration. It activates itself when
+Jenkins starts.
+
+[[SkipCertificateCheckplugin-Changelog]]
+== Changelog
+
+[[SkipCertificateCheckplugin-Version1.1(upcoming)]]
+=== Version 1.1 (upcoming)
+
+* Fixed a ticket just for the sake of demo
+(https://issues.jenkins-ci.org/browse/JENKINS-10932[JENKINS-10932])
+
+[[SkipCertificateCheckplugin-Version1.0(Sep7th2011)]]
+=== Version 1.0 (Sep 7th 2011)
+
+* initial version

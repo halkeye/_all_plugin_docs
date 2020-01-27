@@ -1,0 +1,33 @@
+[.conf-macro .output-inline]# #
+
+The SemanticVersioning plugin for http://jenkins-ci.org/[Jenkins] is a
+plugin that reads the base version (Major, Minor, SNAPSHOT) settings
+from various build definition file formats. The plugin currently
+supports POM, SBT, and Build.scala. SemanticVersioning uses the values
+parsed from the build definition files in conjunction with
+the http://jenkins-ci.org/[Jenkins] build number to create
+a http://semver.org/[Semantic Versioning] string. The string is stored
+in an build-environment variable (name is configurable). Additionally
+the http://semver.org/[Semantic Versioning] string is written to a file
+in the Artifact directory.
+
+The second part of the plugin adds a column to the Dashboard that
+displays the http://semver.org/[Semantic Versioning] string from the
+most recent successful build.
+
+[[semantic-versioning-plugin-Source]]
+== Source
+
+The latest and greatest source for the SemanticVersioning plugin can be
+found
+on https://github.com/jenkinsci/semantic-versioning-plugin[GitHub]. Fork
+us!
+
+[[semantic-versioning-plugin-Pull/FeatureRequests]]
+== Pull / Feature Requests
+
+Both are welcome and will be prioritized and executed as time and
+resource allows.
+
+[[semantic-versioning-plugin-BuildStatus]]
+== Build Status [.confluence-embedded-file-wrapper]#image:https://jenkins.ci.cloudbees.com/buildStatus/icon?job=plugins/semantic-versioning-plugin[image]#

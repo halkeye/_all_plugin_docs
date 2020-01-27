@@ -1,0 +1,21 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View AWS SQS Build Trigger https://plugins.jenkins.io/aws-sqs[on the
+plugin site] for more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]##
+
+*This plugin is up for adoption.* The maintainer is looking for a
+co-maintainer.
+https://wiki.jenkins-ci.org/display/JENKINS/Adopt+a+Plugin[Click here to
+learn more]!
+
+Jenkins plugin that triggers builds on events that are published via
+Amazon Simple Queue Service (SQS)
+
+[[AWSSQSPlugin-Alldocumentationcanbefoundhere->https://github.com/jenkinsci/aws-sqs-plugin]]
+== All documentation can be found here -> https://github.com/jenkinsci/aws-sqs-plugin

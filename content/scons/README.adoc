@@ -1,0 +1,82 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View SCons https://plugins.jenkins.io/scons[on the plugin site] for
+more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]##
+
+*This plugin is up for adoption.* Want to help improve this plugin?
+https://wiki.jenkins-ci.org/display/JENKINS/Adopt+a+Plugin[Click here to
+learn more]!
+
+ +
+[.conf-macro .output-inline]#This plugin allows Hudson to invoke
+http://www.scons.org/[SCons] build script as the main build step.# +
+ +
+ +
+
+[[SConsPlugin-Configurations]]
+== Configurations
+
+[[SConsPlugin-ProjectConfiguration]]
+=== Project Configuration
+
+The plugin works much like Ant builder, and using it is very easy. You
+basically just need to specify the SCons options, variables and targets
+build script that you want to run: +
+ +
+ +
+[.confluence-embedded-file-wrapper]#image:docs/images/scons_create_project.png[image]# +
+ +
+[.confluence-embedded-file-wrapper]#image:docs/images/scons_build_step.png[image]# +
+ +
+[.confluence-embedded-file-wrapper]#image:docs/images/scons_build_proj_lcov.png[image]# +
+
+[[SConsPlugin-GlobalConfiguration]]
+=== Global Configuration
+
+If 'scons' is not in PATH, or if you have multiple SCons installations
+and need to be able to configure which project uses which SCons, then
+you can go to the system configuration and tell Hudson where your Gradle
+are: +
+ +
+[.confluence-embedded-file-wrapper]#image:docs/images/scons_global_conf.png[image]# +
+ +
+
+[[SConsPlugin-Changelog]]
+== Changelog
+
+[[SConsPlugin-Release0.4(May24,2011)]]
+=== Release 0.4 (May 24, 2011)
+
+* Fixed https://issues.jenkins-ci.org/browse/JENKINS-9755[JENKINS-9755]
+- SCons-Plugin does not work with current Jenkins release (1.413)
+
+[[SConsPlugin-Release0.3(March06,2011)]]
+=== Release 0.3 (March 06, 2011)
+
+* Upgraded to Jenkins 1.399 metadata
+
+[[SConsPlugin-Release0.2.1(July07,2010)]]
+=== Release 0.2.1 (July 07, 2010)
+
+* Fixed https://issues.jenkins-ci.org/browse/JENKINS-5791[JENKINS-5791]
+
+[[SConsPlugin-Release0.2(January28,2010)]]
+=== Release 0.2 (January 28, 2010)
+
+* Added the ability to provide a SCons script content without a SCons
+file.
+
+NOTE: the config.xml section name changed in this release. 
+SConsBuilderScriptFile replaced SConsBuilder, and you will have to
+manually change the section name in your existing configuration files.
+
+[[SConsPlugin-Release0.1(April08,2009)]]
+=== Release 0.1 (April 08, 2009)
+
+* Initial

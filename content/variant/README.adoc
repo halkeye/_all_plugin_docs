@@ -1,0 +1,45 @@
+See
+
+https://github.com/jenkinsci/variant-plugin
+
+This library plugin allows other plugins to behave differently depending
+on the "environment" where they run.
+
+@OptionalExtension and @OptionalPackage annotations can be used to
+define a set of required:
+
+* Plugins.
+* Classes.
+* Variants.
+
+These variants can be activated through:
+
+* JENKINS_VARIANT environment variable.
+* Jenkins-Variant attribute in META-INF/MANIFEST.MF in the WAR file.
+* Files in $JENKINS_HOME/variants folder.
+
+[[VariantPlugin-VersionHistory]]
+== Version History
+
+[[VariantPlugin-Version1.2(2019-02-15)]]
+=== Version 1.2 (2019-02-15)
+
+* https://github.com/jenkinsci/variant-plugin/pull/3 Internal
+compatibility fix
+for _https://github.com/jenkinsci/plugin-compat-tester[Plugin
+Compatibility Tester]_ execution.
+
+[[VariantPlugin-Version1.1(2015-11-25)]]
+=== Version 1.1 (2015-11-25)
+
+* Fixed
+https://issues.jenkins-ci.org/browse/JENKINS-39612[JENKINS-39612]:
+Upgrade to new parent POM.
+* Fixed
+https://issues.jenkins-ci.org/browse/JENKINS-37317[JENKINS-37317]:
+Errors when `+requiredClasses+` that do not exist are provided.
+
+[[VariantPlugin-Version1.0(2015-08-07)]]
+=== Version 1.0 (2015-08-07)
+
+Initial plugin release.

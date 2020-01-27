@@ -1,0 +1,10 @@
+[[PipelineGithubPlugin-Summary]]
+== Summary
+
+Programmatic access to Pull Requests from Jenkins Pipelines, in the form
+of additional global variables. 
+
+Please refer to the GitHub page for requirements, descriptions and usage
+examples.
+
+https://github.com/jenkinsci/pipeline-github-plugin

@@ -1,0 +1,147 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View Deploy to container https://plugins.jenkins.io/deploy[on the
+plugin site] for more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2017-08-07/[Insecure credential
+storage]
+
+This plugin takes a war/ear file and deploys that to a running remote
+application server at the end of a build. The implementation is based on
+http://cargo.codehaus.org/[Cargo]. The list of currently supported
+containers include:
+
+* Tomcat 4.x/5.x/6.x/7.x/8.x/9.x
+* JBoss 3.x/4.x/5.x/6.x/7.x
+* Glassfish 2.x/3.x/4.x
+
+Refer to the
+http://wiki.jenkins-ci.org/display/HUDSON/Deploy+WebSphere+Plugin[Deploy
+WebSphere Plugin] to deploy to a running remote WebSphere Application
+Server. +
+Refer to the
+https://wiki.jenkins-ci.org/display/JENKINS/WebLogic+Deployer+Plugin[WebLogic
+Deployer Plugin] to deploy to a running remote WebLogic Application
+Server.
+
+[[DeployPlugin-Howtorollbackorredeployapreviousbuild]]
+== How to rollback or redeploy a previous build
+
+There may be several ways to accomplish this, but here is one suggested
+method:
+
+. Install the
+https://wiki.jenkins-ci.org/display/JENKINS/Copy+Artifact+Plugin[Copy
+Artifact Plugin]
+. Create a new job that you will trigger manually only when needed
+. Configure this job with a build parameter of type "Build selector for
+Copy Artifact", and a copy artifact build step using "Specified by build
+parameter" to select the build.
+. Add a post-build action to deploy the artifact that was copied from
+the other job
+
+Now when you trigger this job you can enter the build number (or use any
+other available selector) to select which build to redeploy. Thanks to
+Helge Taubert for this idea.
+
+[[DeployPlugin-ChangeLog]]
+== Change Log
+
+[[DeployPlugin-Version1.14(Jul24,2019)]]
+=== Version 1.14 (Jul 24, 2019)
+
+* deployment plugin does not show any error message when the war file
+does not exist
+(https://issues.jenkins-ci.org/browse/JENKINS-13219[JENKINS-13219])
+* Nothing happens after build
+(https://issues.jenkins-ci.org/browse/JENKINS-12760[JENKINS-12760])
+* Add Deployment feature for Tomcat 9
+(https://issues.jenkins-ci.org/browse/JENKINS-55333[JENKINS-55333])
+* Tomcat deploy transfer speed
+(https://issues.jenkins-ci.org/browse/JENKINS-40428[JENKINS-40428])
+* Add support for Jenkins Pipeline
+(https://issues.jenkins-ci.org/browse/JENKINS-44810[JENKINS-44810])
+* Allow expansion of environment variables in the configuration
+(https://issues.jenkins-ci.org/browse/JENKINS-12825[JENKINS-12825])
+
+[[DeployPlugin-Version1.13(August7,2017)]]
+=== Version 1.13 (August 7, 2017)
+
+* https://jenkins.io/security/advisory/2017-08-07/#deploy-to-container-plugin-stored-plain-text-passwords-in-job-configuration[Security
+fix]
+
+[[DeployPlugin-Version1.10(Jul2,2014)]]
+=== Version 1.10 (Jul 2, 2014)
+
+* Support deployment to multiple targets
+(https://issues.jenkins-ci.org/browse/JENKINS-4949[JENKINS-4949])
+* Expand variable references in the context path
+(https://issues.jenkins-ci.org/browse/JENKINS-5790[JENKINS-5790])
+* Added JBoss 6 and 7
+(https://issues.jenkins-ci.org/browse/JENKINS-19256[JENKINS-19256])
+
+[[DeployPlugin-Version1.9(Jun11,2012)]]
+=== Version 1.9 (Jun 11, 2012)
+
+* Password in config.xml is now scrambled
+(https://github.com/jenkinsci/deploy-plugin/pull/6[pull #6])
+** This change is backward-compatible but is not forward-compatible
+* The context path can now also be spericied
+(https://issues.jenkins-ci.org/browse/JENKINS-9093[JENKINS-9093])
+
+[[DeployPlugin-Version1.8(Jun28,2011)]]
+=== Version 1.8 (Jun 28, 2011)
+
+* GlassFish v3 remote deployment
+(https://github.com/jenkinsci/deploy-plugin/pull/3[pull #3])
+
+[[DeployPlugin-Version1.7(Mar11,2011)]]
+=== Version 1.7 (Mar 11, 2011)
+
+* Fix Tomcat 7 deployement url
+
+[[DeployPlugin-Version1.6(Dec10,2010)]]
+=== Version 1.6 (Dec 10, 2010)
+
+* Added Tomcat 7 and GlassFish 3 support
+* Fixed bug in GlassFishAdapter, need to explicitly set the home on the
+container
+* Updated library to Cargo 1.0.4
+
+[[DeployPlugin-Version1.5(Jan16,2010)]]
+=== Version 1.5 (Jan 16, 2010)
+
+* Support Ant style GLOBs for specifying war/ear files
+(https://issues.jenkins-ci.org/browse/JENKINS-5166[JENKINS-5166])
+
+[[DeployPlugin-Version1.4(Dec30,2009)]]
+=== Version 1.4 (Dec 30, 2009)
+
+* Update library to Cargo 1.0
+* Only deploy if the build was successful, unless "even when failed"
+option is checked
+* Check URL format when saving config
+* Update code for more recent Hudson
+* Add initial glassfish support
+
+[[DeployPlugin-Version1.3(Aug5,2008)]]
+=== Version 1.3 (Aug 5, 2008)
+
+* This plugin didn't work on slaves
+(http://www.nabble.com/Tomcat-deploy-fails-on-slave-agent-%28%27Deploy-war-to-container%27-action%29-td18747851.html[report],https://issues.jenkins-ci.org/browse/JENKINS-2114[JENKINS-2114])
+
+[[DeployPlugin-Version1.2(Jul11,2008)]]
+=== Version 1.2 (Jul 11, 2008)
+
+* Fixed the problem in submitting the configuration. Make sure to run
+this with 1.234 or later.
+(http://www.nabble.com/Error-saving-on-%22Deploy-war-to-a-container%22-td18387294.html[report])

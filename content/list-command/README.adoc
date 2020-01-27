@@ -1,0 +1,10 @@
+[[ListCommandPlugin-Description]]
+== Description
+
+[[ListCommandPlugin-Versionhistory]]
+== Version history
+
+[[ListCommandPlugin-Version0.2]]
+=== Version 0.2
+
+* Initial release

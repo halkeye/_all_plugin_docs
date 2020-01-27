@@ -1,0 +1,279 @@
+This plugin add features related to Maven jobs info. Adds columns
+configurable in views (version, dependencies, modules, ...) and extract
+information from Maven jobs (update name and description from POM, ...)
+
+Tested On
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+Jenkins: 1.500, 1.509.4 +
+Chrome: 30 +
+Internet Explorer: 10 +
+Firefox: 24
+
+[[MavenInfoPlugin-Features]]
+== Features
+
+[[MavenInfoPlugin-Column:SelectedModuleLastVersion]]
+=== Column: Selected Module Last Version
+
+Shows last build version.
+
+If you move mouse over the version, an info panel is shown.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/LastVersion.png[image]#
+
+This panel shows main module's info and all modules grouped by
+`+groupId+`. If a module has different version then it's also shown
+between brackets.
+
+Main module is shown in *_bold italic_* .
+
+[[MavenInfoPlugin-Column:SelectedDependencies]]
+=== Column: Selected Dependencies
+
+Show version of selected dependencies.
+
+If you move the mouse pointer over the version, an info panel is also
+shown.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/SelectedDependencies.png[image]#
+
+Only one version by column. If there is more than one version by
+dependency, then the column is marked with an asterisk ( * ) and all the
+versions are shown in the info panel.
+
+This panel shows versions of selected dependencies grouped by
+`+groupId+`.
+
+[[MavenInfoPlugin-Column:MavenModules(Short)]]
+=== Column: Maven Modules (Short)
+
+Show project modules.
+
+[[MavenInfoPlugin-Column:MavenModules(Version)]]
+=== Column: Maven Modules (Version)
+
+Show project module versions.
+
+[[MavenInfoPlugin-Column:MavenDependencies(withingroupId)]]
+=== Column: Maven Dependencies (within groupId)
+
+Show project dependencies within project groupId
+
+[[MavenInfoPlugin-Column:MavenDependencies]]
+=== Column: Maven Dependencies
+
+Show all project dependencies
+
+[[MavenInfoPlugin-Column:MavenModules(Full)]]
+=== Column: Maven Modules (Full)
+
+Show all project module info
+
+[[MavenInfoPlugin-AssignnamefromPOM]]
+=== Assign name from POM
+
+Updates project Visible Name automatically from main module pom.xml
+(from tag `+<name>+`)
+
+You can configure a template to generate name using the
+https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin[Token
+Macro Plugin] in Job configuration page :
+
+[.confluence-embedded-file-wrapper]#image:docs/images/AssignName.png[image]#
+
+It's useful to show checked out branch or some other label.
+
+By default module name is used.
+
+[[MavenInfoPlugin-AssigndescriptionfromPOM]]
+=== Assign description from POM
+
+Updates project Description automatically from pom.xml (from tag
+`+<description>+`)
+
+You can configure a template to generate description using the
+https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin[Token
+Macro Plugin] in Job configuration page :
+
+[.confluence-embedded-file-wrapper]#image:docs/images/AssignDescription.png[image]#
+
+By default "`+<pre>$MAIN_DESCRIPTION</pre>+`" is used.
+
+[[MavenInfoPlugin-Wishlist]]
+== Wish list
+
+* Last Release and Last Release dependencies columns
+* Exclude artifacts from selected dependencies column (multi pattern)
+
+[[MavenInfoPlugin-Configuration]]
+== Configuration
+
+This plugin has some configuration at Job level.
+
+You can find it at section:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/Section.png[image]#
+
+It also haves a plugin configuration at Jenkins Configuration page:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/ConfigurePlugin.png[image]#
+
+[[MavenInfoPlugin-Selectmainmodule]]
+=== Select main module
+
+If project is a multi-module project then you can select which module is
+used to extract info (main module). If no module is specified or found
+then root module is used as main module.
+
+It's useful if your root module has different version or if you want to
+focus only on one module.
+
+To select a module as main module you can use a "module selector".
+
+A module selector is a pattern of the form "`+groupId:artifactId+`".
+Both `+groupId+` and `+artifactId+` can contain wildcards (*). If
+`+groupId+` or `+artifactId+` is empty, they are treated as *.
+
+So, valid expressions are "`+*:my-artifact+`", "`+:my-artifact+`*",
+"`+*.plugin:main+`", ...
+
+If more than one module is selected, modules are sorted
+lexicographically and first one is selected.
+
+You can configure the main module selector in Job configuration page
+(advaced options):
+
+[.confluence-embedded-file-wrapper]#image:docs/images/SelectMainModule.png[image]#
+
+[[MavenInfoPlugin-Selectinterestingdependencies]]
+=== Select interesting dependencies
+
+You can select which dependencies are interesting for you in a project.
+
+It's useful to focus on some dependencies or dependency group (e.g.:
+commons-io version in all modules, spring framework dependencies, ...)
+
+You can configure the dependencies selector in Job configuration page
+(advaced options):
+
+[.confluence-embedded-file-wrapper]#image:docs/images/InterestingDependencies.png[image]#
+
+[[MavenInfoPlugin-HideSnapshots]]
+=== Hide Snapshots
+
+You can hide the annoying suffix "-SANPSHOT" of snapshot versions to
+improve version readability.
+
+This can be done checking the checkbox at Plugin's Configuration
+section:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/HideSnapshots.png[image]#
+
+If you check it, versions will be shown without the suffix and using an
+alternate style:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/SnapshotHidden.png[image]#
+
+instead of
+
+[.confluence-embedded-file-wrapper]#image:docs/images/SnapshotVisible.png[image]#
+
+[[MavenInfoPlugin-Versionsstyles(CSS)]]
+=== Versions styles (CSS)
+
+You can change the style of versions to improve readability.
+
+As example, you can use green for releases and italic red for snapshots.
+
+To do that you have two textboxes at Plugin's Configuration section:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/VersionStyles.png[image]#
+
+Versions are rendered inside an `+<span>+` : E.g: `+<span>1.0.0</span>+`
+
+CSS code entered here will apply only to this span.
+
+Note: if you leave empty snapshot version style and hide snapshots is
+checked, a default style is applied.
+
+[[MavenInfoPlugin-TemplateVariables]]
+=== Template Variables
+
+In addition to
+https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin[Token
+Macro Plugin] and extensions variables, templates can use the following
+variables:
+
+[cols=",,",options="header",]
+|===
+|Version |Variable |Description
+|0.0.5 |`+MAVEN_NAME+` |Main module's name
+|0.0.5 |`+MAVEN_DESCRIPTION+` |Main module's description
+|===
+
+[[MavenInfoPlugin-Changelog]]
+== Changelog
+
+[[MavenInfoPlugin-Version0.2.0]]
+=== Version 0.2.0
+
+* image:docs/images/error.svg[(error)]
+https://issues.jenkins-ci.org/browse/JENKINS-21450[JENKINS-21450]
+
+[[MavenInfoPlugin-Version0.1.3]]
+=== Version 0.1.3
+
+* image:docs/images/error.svg[(error)]
+https://issues.jenkins-ci.org/browse/JENKINS-20929[JENKINS-20929]
+
+[[MavenInfoPlugin-Version0.1.2]]
+=== Version 0.1.2
+
+* image:docs/images/information.svg[(info)]
+Hide snapshots feature
+* image:docs/images/information.svg[(info)]
+Assign style (css) to version columns
+* image:docs/images/information.svg[(info)]
+Delay before showing info panels
+* image:docs/images/error.svg[(error)]
+NoSuchElementException showing dependencies version
+* image:docs/images/smile.svg[(smile)]
+Improved readability of old columns (pre 0.0.5)
+
+[[MavenInfoPlugin-Version0.1.1]]
+=== Version 0.1.1
+
+* image:docs/images/information.svg[(info)]
+Column: Selected Dependencies Version
+* image:docs/images/error.svg[(error)]
+Main Module Pattern not applied on Jenkins restart
+* image:docs/images/information.svg[(info)]
+More verbose exception on POM parse error
+* image:docs/images/information.svg[(info)]
+More verbose exception on pattern parse error
+* image:docs/images/information.svg[(info)]
+Configurable caption for newest columns
+
+[[MavenInfoPlugin-Version0.0.5]]
+=== Version 0.0.5
+
+* image:docs/images/information.svg[(info)]
+Column: Selected Module Last Version
+* image:docs/images/information.svg[(info)]
+Assign name from POM
+* image:docs/images/information.svg[(info)]
+Assign description from POM
+* image:docs/images/smile.svg[(smile)]
+Changed default visibility of columns
+
+[[MavenInfoPlugin-Version0.0.4&previous]]
+=== Version 0.0.4 & previous
+
+* Column: Maven Modules (Short)
+* Column: Maven Modules (Version)
+* Column: Maven Dependencies (within groupId)
+* Column: Maven Dependencies
+* Column: Maven Modules (Full)

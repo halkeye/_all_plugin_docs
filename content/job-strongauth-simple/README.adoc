@@ -1,0 +1,80 @@
+Japanese:
+https://wiki.jenkins-ci.org/display/JA/Job+StrongAuthSimple+Plugin[Job
+StrongAuthSimple Plugin]
+
+[[JobStrongAuthSimplePlugin-Summary]]
+== Summary
+
+This plugin allows you to safety builds for job, when multi-people
+approved
+
+[[JobStrongAuthSimplePlugin-Whythisplugin?]]
+== Why this plugin ?
+
+This plugin avoid careless 'Job Build'. If single people execute 'Job
+Build', this plugin stop build. However, if multiple people execute 'Job
+Build', this plugin doesn't stop build. And continue execution of job.
+
+[[JobStrongAuthSimplePlugin-Features]]
+== Features
+
+* Job StrongAuthSimple can configure the people who approve job
+executtion.
+* Support for setting of minimum numbers, which approved.
+
+[[JobStrongAuthSimplePlugin-Screenshot]]
+== Screenshot
+
+[.confluence-embedded-file-wrapper]#image:docs/images/JobStrongAuthSimplePlugin_en.png[image]#
+
+[[JobStrongAuthSimplePlugin-Dependencies]]
+== Dependencies
+
+* None
+
+[[JobStrongAuthSimplePlugin-Testedminimumcore]]
+=== Tested minimum core
+
+1.374 works fine
+
+[[JobStrongAuthSimplePlugin-Configuration]]
+== Configuration
+
+After installing the plugin you'll get a new entry in the Job
+configuration view and Jenkins configuration view.
+
+The job configuration view similar to other build task.
+
+[[JobStrongAuthSimplePlugin-FAQ]]
+== FAQ
+
+[[JobStrongAuthSimplePlugin-cancelauth?]]
+=== cancel auth ?
+
+* currentry, delete job execution.
+
+[[JobStrongAuthSimplePlugin-Todolist]]
+== Todo list
+
+* Support to build by Timer, after condition be approved
+
+[[JobStrongAuthSimplePlugin-Changelog]]
+== Change log
+
+[[JobStrongAuthSimplePlugin-Version0.5(December17,2012)]]
+=== Version 0.5 (December 17, 2012)
+
+* Add display global user for user friendly at configuration of job
+* Add help at configuration of job
+* Implement help at configuration of global
+
+[[JobStrongAuthSimplePlugin-Version0.4(December08,2012)]]
+=== Version 0.4 (December 08, 2012)
+
+* *Initial release*
+
+[[JobStrongAuthSimplePlugin-About]]
+=== About
+
+* Author: KK.Kon
+* Contributors: -

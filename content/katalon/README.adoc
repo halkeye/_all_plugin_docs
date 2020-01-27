@@ -1,0 +1,34 @@
+[[KatalonPlugin-KatalonPlugin]]
+== Katalon Plugin
+
+This plugin will help download, deploy, and execute Katalon Studio on
+Jenkins servers automatically. +
+
+[[KatalonPlugin-Tutorials]]
+== Tutorials
+
+https://forum.katalon.com/t/how-to-use-katalon-plugin-for-jenkins-on-windows/20326[How
+to use Katalon plugin for Jenkins on Windows].
+
+https://forum.katalon.com/t/run-katalon-studio-tests-with-jenkins-on-a-headless-ubuntu-machine/17790[How
+to use Katalon plugin for Jenkins on Ubuntu].
+
+[[KatalonPlugin-Usage]]
+== Usage
+
+* Install the plugin.
+* Go to project _Configure_ > _Build_ > _Add build step_ > _Execute
+Katalon Studio Tests_.
+* Provide the Katalon Studio version to be downloaded and the command
+arguments for executing the tests. If you have installed Katalon Studio
+yourself, please provide its location in _Use pre-installed Katalon
+Studio_.
+* Save the configuration.
+
+[[KatalonPlugin-PublishtheJUnitreports]]
+== Publish the JUnit reports
+
+* Go to _Add post-build action_ > _Publish JUnit test result report_.
+* Set the value _Test report XMLs_ to _Reports/**/JUnit_Report.xml_.
+* _Latest Test Result_ will be shown in the project page after every
+build.

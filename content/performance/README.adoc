@@ -1,0 +1,27 @@
+This plugin allows you to capture reports from popular testing tools.
+Jenkins will generate graphic charts with the trend report of
+performance and robustness. +
+It includes the feature of setting the final build status as good,
+unstable or failed, based on the reported error percentage. +
+Report formats supported:
+
+* http://jmeter.apache.org/[JMeter] XML and CSV format, also Summarizer
+log output
+* http://gettaurus.org/docs/Reporting/?utm_source=jenkins&utm_medium=link&utm_campaign=wiki#BlazeMeter-Reporter[Taurus
+Tool Final Stats XML] (through it, you can publish summaries from
+JMeter, Gatling, Grinder, Siege, ab, Selenium and
+http://gettaurus.org/docs/ExecutionSettings/#Executor-Types[many
+others])
+* http://www.junit.org/[JUnit] format (used by SoapUI for example)
+* https://github.com/twitter/iago[Twitter's Iago]
+* https://github.com/wg/wrk[wrk]
+
+[[PerformancePlugin-Documentation:]]
+== Documentation:
+
+* http://jenkinsci.github.io/performance-plugin/RunTests.html[How to Run
+Test with Performance Plugin]
+* http://jenkinsci.github.io/performance-plugin/Reporting.html[How to
+Build Reports with Peformance Plugin]
+* http://jenkinsci.github.io/performance-plugin/Changelog.html[Version
+History (Changelog)]

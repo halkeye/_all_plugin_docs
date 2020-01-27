@@ -1,0 +1,59 @@
+This plugin enables a builder which takes build steps from json and
+executes them in freestyle project.
+
+[[BuildStepsfromJsonPlugin-Usage]]
+== Usage
+
+This plugin enables a builder which takes build steps from json data and
+executes them in freestyle project.
+
+Snippet generator also provided to user what and how to define builder
+in formatted code.
+
+This avoids the large listing of build steps in configuration screen
+with long scrollable.
+
+[[BuildStepsfromJsonPlugin-Example]]
+=== Example
+
+[source,syntaxhighlighter-pre]
+----
+[
+  {
+    "stepClass": "hudson.tasks.BatchFile",
+    "stepDetails": [
+      {
+        "command": "echo \"test\""
+      },
+      {
+        "command": "echo \"test1\""
+      }
+    ]
+  },
+  {
+    "stepClass": "sp.sd.fileoperations.FileOperationsBuilder",
+    "stepDetails": [
+      {
+        "fileOperations": [
+          {
+            "$class": "FileCreateOperation",
+            "fileContent": "test",
+            "fileName": "test.txt"
+          }
+        ]
+      }
+    ]
+  }
+]
+----
+
+[[BuildStepsfromJsonPlugin-Note]]
+=== Note
+
+This plugin is in starting stages and testing with various builders,
+builders with complex object may not support.
+
+[[BuildStepsfromJsonPlugin-Release1.0(10August2016)]]
+=== Release 1.0 (10 August 2016)
+
+* First public release

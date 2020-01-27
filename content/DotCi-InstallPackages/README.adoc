@@ -1,0 +1,4 @@
+[.conf-macro .output-inline]#Install Packages is now its own plugin as
+of https://wiki.jenkins-ci.org/display/JENKINS/DotCi+Plugin[DotCi
+Plugin] since
+https://github.com/groupon/DotCi/commits/DotCi-2.13.0[2.13.0]#

@@ -1,0 +1,32 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-945[Credentials
+stored in plain text]
+
+Provides Jenkins integration with
+https://www.vmware.com/products/vrealize-automation[vRealize Automation
+7.x] +
+
+[[VMwarevRealizeAutomationPlugin-JenkinsvRealizeAutomationPlugin]]
+== Jenkins vRealize Automation Plugin
+
+The vRealize Automation Jenkins plugin enables Jenkins to provision
+vRealize Automation 7 Blueprints.
+
+[[VMwarevRealizeAutomationPlugin-Requirements]]
+=== Requirements
+
+* Jenkins 1.58+
+* Java 8 to compile plugin or Java 7 if just running in Jenkins
+* vRealize Automation 7
+* Maven if compiling the plugin
+
+ For up to date instructions for configuring or compiling the plugin,
+please visit the
+https://github.com/jenkinsci/vmware-vrealize-automation-plugin/blob/master/README.md[github
+project page.]

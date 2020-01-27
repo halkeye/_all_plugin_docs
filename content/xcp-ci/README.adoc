@@ -1,0 +1,7 @@
+Eases the generation and deployment of Documentum xCP applications.
+
+[[xCPCIPlugin-Instructions]]
+== Instructions
+
+More information in the project
+https://github.com/viltgroup/jenkins-xcp-ci-plugin/wiki[wiki].

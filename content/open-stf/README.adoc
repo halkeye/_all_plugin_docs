@@ -1,0 +1,86 @@
+Allows android developer to use android devices
+with http://openstf.io/[OpenSTF][.conf-macro .output-inline]####
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View Open STF https://plugins.jenkins.io/open-stf[on the plugin site]
+for more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-1059[Open
+STF Plugin stores credentials in plain text]
+
+[[OpenSTFPlugin-Features]]
+== Features
+
+Provides some features for Android development and testing
+with http://openstf.io/[The OpenSTF] during Jenkins builds, including:
+
+* Reserves and connect a STF device before build, and release it after
+use.
+* Provides the matrix axis for the STF device attribute.
+
+[[OpenSTFPlugin-Requirements]]
+== Requirements
+
+* http://openstf.io/[Open STF] ver2.0 or later
+
+[[OpenSTFPlugin-Versionhistoy]]
+== Version histoy
+
+[[OpenSTFPlugin-Version1.0.8]]
+=== Version 1.0.8
+
+* Fix for compatibility with JEP-200 - Stop trying to serialize
+deviceCondition.
+
+[[OpenSTFPlugin-Version1.0.7]]
+=== Version 1.0.7
+
+* Fix for compatibility
+with https://wiki.jenkins-ci.org/display/JENKINS/Android+Emulator+Plugin[android-emulator
+v3.0]
+
+[[OpenSTFPlugin-Version1.0.6]]
+=== Version 1.0.6
+
+* Added filter by battery remaining. @lukzeg
+
+[[OpenSTFPlugin-Version1.0.5]]
+=== Version 1.0.5
+
+* Fix Null Pointer error when waiting for device connection
+
+[[OpenSTFPlugin-Version1.0.4]]
+=== Version 1.0.4
+
+* Add a option about the SSL certificate vetification.(ignore errors or
+not) [https://issues.jenkins-ci.org/browse/JENKINS-39276[JENKINS-39276]]
+* Add the 'abi' parameter as a device
+condition. [https://issues.jenkins-ci.org/browse/JENKINS-39277[JENKINS-39277]]
+
+[[OpenSTFPlugin-Version1.0.3]]
+=== Version 1.0.3
+
+* Add feature about marking the device information on build.
+
+[[OpenSTFPlugin-Version1.0.2]]
+=== Version 1.0.2
+
+* Improve parameter validation. 
+
+[[OpenSTFPlugin-Version1.0.1]]
+=== Version 1.0.1
+
+* Bug fix about jQuery confliction.
+
+[[OpenSTFPlugin-Version1.0.0]]
+=== Version 1.0.0
+
+* Initial release

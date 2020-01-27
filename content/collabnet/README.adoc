@@ -1,0 +1,255 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2018-06-25/#SECURITY-941[Plugin
+globally disables SSL/TLS certification validation in Jenkins]
+
+[.conf-macro .output-inline]##The CollabNet Plugin is an integration
+with http://www.open.collab.net/products/sfee/[CollabNet
+TeamForge].##Don't have TeamForge yet?  Try our
+http://www.open.collab.net/products/sfee/tryit.html[free 90-day trial].
+
+Provided features include:
+
+* Authenticate users from TeamForge.  If setup as the "Build & Test"
+application, it can even use Single Sign-On.
+* Authorization from TeamForge, including the ability to set permissions
+in Jenkins based on roles in your TeamForge project.
+* Upload the build log or workspace artifacts to the TeamForge
+Documents.
+* Upload workspace artifacts to the TeamForge File Release System, as a
+post-build publishing task or as a build promotion task.
+* Open/update/close TeamForge Tracker artifacts based on the Jenkins
+build status.
+* Upload workspace artifacts to the Lab Management Project Build
+Library.  (Requires http://www.open.collab.net/products/CUBiT/[CollabNet
+Lab Management]).
+
+[[CollabNetPlugin-Requirements:]]
+== Requirements:
+
+The CollabNet Plugin requires the
+https://wiki.jenkins-ci.org/display/JENKINS/Promoted+Builds+Plugin[Promoted
+Builds Plugin].
+
+The CollabNet Plugin requires the
+https://wiki.jenkins-ci.org/display/JENKINS/Subversion+Plugin[Subversion
+Plugin].
+
+The CollabNet Plugin requires a
+http://www.open.collab.net/products/sfee/[CollabNet TeamForge 5.2]+ or
+http://www.open.collab.net/products/sfee/[CollabNet SourceForge 5.0] +
+server.  The Authorization component will only work with CollabNet
+TeamForge 5.2 or later.
+
+The Lab Management PBL Upload component requires a
+http://www.open.collab.net/products/CUBiT/[CollabNet Lab Management]
+server.  But don't worry, all the other components will work just fine
+without it.
+
+[[CollabNetPlugin-ConfiguringComponents:]]
+== Configuring Components:
+
+Following individual component can be configured within each Jenkins job
+
+[[CollabNetPlugin-Authentication]]
+=== https://wiki.jenkins-ci.org/display/JENKINS/Authentication[Authentication]
+
+[[CollabNetPlugin-DocumentUploader]]
+=== https://wiki.jenkins-ci.org/display/JENKINS/Collabnet+Plugin+-+Document+Uploader[Document Uploader]
+
+[[CollabNetPlugin-FileReleasetoTeamForge]]
+=== https://wiki.jenkins-ci.org/display/JENKINS/Collabnet+Plugin+-+File+Release[File Release to TeamForge]
+
+[[CollabNetPlugin-ProjectBuildLibrary]]
+=== https://wiki.jenkins-ci.org/display/JENKINS/Collabnet+Plugin+-+Project+Build+Library[Project Build Library]
+
+[[CollabNetPlugin-Tracker]]
+=== https://wiki.jenkins-ci.org/display/JENKINS/Collabnet+Plugin+-+Tracker[Tracker]
+
+[[CollabNetPlugin-SCMViewerforSubversion]]
+=== https://wiki.jenkins-ci.org/display/JENKINS/SCMViewer+for+Subversion[SCMViewer for Subversion]
+
+[[CollabNetPlugin-Help/Support:]]
+== Help/Support:
+
+Please submit any questions to the
+http://forums.open.collab.net/ds/viewForumSummary.do?dsForumId=736[TeamForge
+forum].
+
+[[CollabNetPlugin-FAQ:]]
+== FAQ:
+
+   1.  Does this integrate with / update the
+https://wiki.jenkins-ci.org/display/JENKINS/SFEE+Plugin[SFEE Plugin]?
+
+        No, the
+https://wiki.jenkins-ci.org/display/JENKINS/SFEE+Plugin[SFEE Plugin] is
+a separate plugin that is not maintained by
+http://www.collab.net/[CollabNet].  It works with CollabNet SourceForge
+4.4, so it may be a good choice if you have an older version.  Our
+plugin is not a direct upgrade.  If you change from using the
+https://wiki.jenkins-ci.org/display/JENKINS/SFEE+Plugin[SFEE Plugin] to
+the CollabNet Plugin, you will have to reconfigure your jobs
+appropriately.  You should be able to use both plugins simultaneously,
+if you wish, although it might be a bit confusing.
+
+   2.  Uploads fail when using an SSL-enabled TeamForge server.  What do
+I do?
+
+        You'll need to add the server's certificate to your java
+keystore on the Jenkins server.  First dowload the certificate to your
+Jenkins server.  You should be able to get it by opening a browser
+window on the TeamForge server, viewing the certificate associated with
+that page, and exporting the certificate file.  Then, you'll need to run
+something like "sudo keytool -keystore
+$JAVA_HOME/jre/lib/security/cacerts -import -file teamforge.cert".  (On
+Windows, replace $JAVA_HOME with %JAVA_HOME%).  If you haven't changed
+your java keystore's password, it will be "changeit".  After you've
+imported the cert to the java instance that Jenkins is using, it should
+be able to upload.
+
+   3.  I'm having problems with login and logout when using CollabNet
+Authentication.  It seems to be redirecting to an unexpected site.
+
+        Go to the Jenkins configure page and look in the Email
+Notifacation section. The CollabNet plugin uses the value of the Jenkins
+URL set here for redirection. If it's wrong, logins will go astray.
+Check that it's set to the real Jenkins URL.
+
+   4.  I've setup authentication, but can no longer get to the "Manage
+Jenkins" pages.&nbps; How do I get back into the system?
+
+        As long as you have access to the machine and user running
+Jenkins, you'll be able to get back in. Just log into the machine. Find
+the Jenkins home (by default, this will be the ~/.jenkins or ~/.hudson
+directory of the user running Jenkins). Edit the config.xml, changing
+the value for "useSecurity" to false. Restart Jenkins and you should not
+need to log in to get access.
+
+[[CollabNetPlugin-Changelog:]]
+== Changelog:
+
+*Version 2.0.5:* Released 05/25/2018.
+
+* https://jenkins.io/security/advisory/2018-06-25/#SECURITY-941[Fix
+security issue]
+
+*Version 2.0.4*:  Released 09/08/2017.
+
+* Introduce 'publishEventQ' pipeline step. This step will report the
+current pipeline job status to TeamForge EventQ
+server (https://github.com/jenkinsci/collabnet-plugin/pull/19[Pull
+request #19])
+* Adds dependency on the 'credentials' plugin.
+
+*Version 2.0.3*:  Released 05/27/2017.
+
+* Add enhancements for ActionHub related functions
+(https://github.com/jenkinsci/collabnet-plugin/pull/15[Pull request
+#15])
+
+*Version 2.0.2*:  Released 11/28/2016.
+
+* No changes. Attempting to update automatic documentation
+
+*Version 2.0.1*:  Released 11/25/2016.
+
+* Upgrade to use 1.645 jenkins plugin/core
+* Java 8 is required
+* EventQ and ActionHub integrations added
+* File Release will now create a new release, if it doesn't already
+exist (JENKINS-29314)
+
+*Version 2.0.0*:  Not released.
+
+*Version 1.2.0*:  Released 5/11/2016.
+
+* Upgrade plugin to use TeamForge SOAP60 API  (artf256273)
+
+*Version 1.1.10*:  Released 10/11/2015.
+
+* Fixed: Document upload fails if TeamForge > v8.0 (CNSC-176447)
+* Authenticated user belongs to authenticated magic group
+
+*Version 1.1.9*:  Released 10/10/2013.
+
+* Fixed issue for large file uploads not matching original size
+(CNSC-157361)
+
+*Version 1.1.8*:  Released 5/16/2013.
+
+* Fix for connection time out during large file uploads.
+(https://issues.jenkins-ci.org/browse/JENKINS-17152[Issue #17152])
+
+*Version 1.1.7*:  Released 2/27/2013.
+
+* Fix for multiple field validations in document upload, tracker, and
+file release post-build actions including fixes for bugs causing
+stacktraces in the UI.
+(https://issues.jenkins-ci.org/browse/JENKINS-13742[Issue #13742])
+
+*Version 1.1.6*:  Released 3/12/2011.
+
+* Misc code modernization/cleanup and bug fixes.
+* Fix to work with
+https://wiki.jenkins-ci.org/display/JENKINS/Copy+Artifact+Plugin[Copy
+Artifact Plugin] when using a build parameter for project name.
+(https://issues.jenkins-ci.org/browse/JENKINS-8969[JENKINS-8969])
+
+*Version 1.1.5*:  Released 4/22/2010.
+
+* Feature addition: Added configurable authorization cache when using
+TeamForge authorization to reduce load generated on TeamForge server
+* Feature addition: Passwords are stored more securely
+
+*Version 1.1.4*:  Released 3/26/2010.
+
+* Bug fix: SVN tagging plugin does not work with 1.1.3
+
+*Version 1.1.3*:  Released 2/26/2010.
+
+* Bug fix: A ClassCastException that caused builds to fail when the
+Tracker or Document Uploader component was enabled, is now fixed.
+* Feature addition: CollabNet Build & Test reauthenticates when
+TeamForge Single Sign On tokens from another user are observed.
+* Feature addition: A Hudson job that is not associated with a TeamForge
+project can now be viewed and configured by all authenticated users.
+
+*Version 1.1.2*:  Released 12/21/2009.
+
+* Bug fix: FRS now can upload when using master/slave configuration
+* Bug fix: Error message related to Promoted Build plugin during startup
+* Bug fix: Having a trailing "/" in a CollabNet TeamForge URL ended the
+user's session and prevented single sign-on with Hudson
+* Feature addition: You can now use TeamForge's ScmViewer as the
+subversion repository viewer
+* Feature addition: You can enable/disable SSO between Hudson and
+CollabNet TeamForge
+
+*Version 1.1.1*:  Released 09/03/2009.
+
+* Bug fix: Fixed a 500 error when the plugin is installed using some
+browsers (IE 8 and Chrome)
+* Bug fix: Fixed problem where triggered builds in Hudson (e.g.,
+periodic build or poll scm) won't run if CollabNet Authorization is in
+use.
+* Bug fix: Fixed problems that caused incorrect redirection on logging
+* Bug fix: Fixed problem where, for some users, the 'Assigned to' field
+in the Tracker component could not be set
+
+*Version 1.1*:  Released 07/20/2009:
+
+* Fix to make file uploads faster (as of r17463).
+* Feature addition: Allow system-wide shared authentication which can be
+overridden for individual components (as of r18043).
+* Bug fix: Fixed errors that occurred when running Hudson in an iFrame
+in IE (r18646).
+* Bug fix: Fixed bug where SSO was not working on very first page load
+(r18684).
+
+*Version 1.0*:  Released 04/14/2009.

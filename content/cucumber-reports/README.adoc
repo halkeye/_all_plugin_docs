@@ -1,0 +1,38 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2016-07-27/[Plugin disables
+Content-Security-Policy for files served by Jenkins]
+
+[[CucumberReportsPlugin-Publishprettycucumberreports]]
+== Publish pretty cucumber reports
+
+This is a Java Jenkins plugin which publishes
+https://github.com/damianszczepanik/cucumber-reporting[pretty html
+reports] showing the results of cucumber runs.
+
+[[CucumberReportsPlugin-Configuration]]
+== Configuration
+
+Visit https://github.com/jenkinsci/cucumber-reports-plugin[project
+website] to check how can you configure the plugin and how powerful it
+is.
+
+[[CucumberReportsPlugin-Screenshots]]
+== Screenshots
+
+[width="99%",cols="20%,16%,16%,16%,16%,16%",]
+|===
+|image:docs/images/1-feature-overview.png[image,width=300,height=171]
+|image:docs/images/2-feature-passed.png[image,width=300,height=124]
+|image:docs/images/3-feature-failed.png[image,width=300,height=193]
+|image:docs/images/4-tag-overview.png[image,width=300,height=161]
+|image:docs/images/5-tag-report.png[image,width=300,height=205]
+|image:docs/images/6-trends-overview.png[image,width=300,height=162]
+
+a| a| a| a| a| a|
+|===

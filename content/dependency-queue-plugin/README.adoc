@@ -1,0 +1,20 @@
+This plugin will make sure the order of dependencies is honored in the
+build queue.
+
+[[DependencyQueuePlugin-ChangeLog]]
+== Change Log
+
+[[DependencyQueuePlugin-V1.1@07/20/2012]]
+===    V1.1 @ 07/20/2012
+
+* Fix issue with items in the queue that are not AbstractProjects.
+
+[[DependencyQueuePlugin-V1.0@05/18/2012]]
+===    V1.0 @ 05/18/2012
+
+* initial release
+
+[[DependencyQueuePlugin-Author]]
+== Author
+
+Larry Shatzer

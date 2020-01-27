@@ -1,0 +1,52 @@
+This plugin adds a new parameter type to a parameterized build, where
+the user can optionally submit a patch file. This patch file will be
+then applied to the workspace before the build commences.
+
+[[PatchParameterPlugin-Motivation]]
+== Motivation
+
+This plugin is developed to enable server-side testing of a change
+that's not yet committed (also known as
+http://www.jetbrains.com/teamcity/features/delayed_commit.html[pre-tested
+commit]). In this workflow, a developer works on a change locally, and
+before he checks in the changes, he'd take the diff, submit it to
+Jenkins, and verify that it builds OK. Once the patch is verified by
+Jenkins, the user will then actually commit the change.
+
+This can be also useful for situations where a proper test environment
+is tricky to replicate locally, or where your Jenkins can run tests
+considerably faster than developers' local computers.
+
+Note that on distributed version control systems, there's often a better
+way to do this. See
+https://wiki.jenkins-ci.org/display/JENKINS/Gerrit+Trigger[Gerrit
+Trigger] or
+https://wiki.jenkins-ci.org/display/JENKINS/Subversion+Merge+Plugin[Subversion
+Merge Plugin] or
+http://jenkins-enterprise.cloudbees.com/docs/user-guide-bundle/validated-merge.html[validated
+merge feature from CloudBees].
+
+[[PatchParameterPlugin-Usage]]
+== Usage
+
+In the job configuration screen, click "This build is parameterized",
+then add "patch as a parameter".
+
+[[PatchParameterPlugin-Changelog]]
+== Changelog
+
+[[PatchParameterPlugin-Version1.2(Jul8,2014)]]
+=== Version 1.2 (Jul 8, 2014)
+
+* Fixed the handling of patch produced by Mercurial
+(https://github.com/cloudbees/diff4j/pull/2[pull request])
+
+[[PatchParameterPlugin-Version1.1(Aug16,2013)]]
+=== Version 1.1 (Aug 16, 2013)
+
+* Small change to make it more clear why a patch failed to apply
++
+[[PatchParameterPlugin-Version1.0(Oct7,2012)]]
+==== Version 1.0 (Oct 7, 2012)
+
+* Initial release

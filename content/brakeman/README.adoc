@@ -1,0 +1,108 @@
+[.conf-macro .output-inline]#This plugin reads output from
+http://brakemanscanner.org/[Brakeman], a static analysis security
+vulnerability scanner for Ruby on Rails.#
+
+[[BrakemanPlugin-Description]]
+== Description
+
+This plugin takes output from http://brakemanscanner.org/[Brakeman], a
+security scanner for http://rubyonrails.org/[Ruby on Rails] that finds
+vulnerabilities via static analysis, and uses the "Static Analysis
+Utilities" plugin to produce nice reports
+https://wiki.jenkins-ci.org/display/JENKINS/Static+Code+Analysis+Plug-ins[like
+these].
+
+Brakeman detects security vulnerabilities in Ruby on Rails applications
+such as cross-site scripting, SQL injection, command injection, unsafe
+redirects, mass assignment, file access, default routes, and more.
+
+[[BrakemanPlugin-Setup]]
+== Setup
+
+[[BrakemanPlugin-RunningBrakeman]]
+=== Running Brakeman
+
+Because of the many ways Ruby and gems can be installed, the plugin does
+not actually run Brakeman for you.
+
+Running Brakeman can be accomplished by adding an "Execute Shell" build
+step. The command to use will vary based on your Ruby setup.
+
+The simplest command would look like this:
+
+[source,conf-macro,output-block]
+----
+  brakeman -o brakeman-output.json
+----
+
+This assumes Brakeman is globally available on the machine where Jenkins
+is running.
+
+The following options are recommended:
+
+[source,conf-macro,output-block]
+----
+  brakeman -o brakeman-output.json --no-progress --no-exit-on-warn
+----
+
+To automatically install/update Brakeman (if needed):
+
+[source,conf-macro,output-block]
+----
+  gem install brakeman --no-ri --no-rdoc &&
+  brakeman -o brakeman-output.json --no-progress --no-exit-on-warn
+----
+
+To use http://beginrescueend.com/[rvm] (with Bash):
+
+[source,conf-macro,output-block]
+----
+bash -l -c '
+rvm install ruby-2.5.1 &&
+rvm use ruby-2.5.1 &&
+gem install brakeman &&
+brakeman -o brakeman-output.json --no-progress --no-exit-on-warn'
+----
+
+It might be a good idea to use
+http://beginrescueend.com/gemsets/basics/[gemsets], too:
+
+[source,conf-macro,output-block]
+----
+bash -l -c '
+rvm install ruby-2.5.1 &&
+rvm use ruby-2.5.1 &&
+rvm gemset use brakeman-jenkins --create &&
+gem install brakeman &&
+brakeman -o brakeman-output.json --no-progress --no-exit-on-warn'
+----
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+The output from running Brakeman *MUST* be in the "json" or "tabs"
+format. As of 0.10, JSON is strongly recommended.
+
+This can be accomplished either by using "-f json" or simply adding
+".json" at the end of the output file name.
+
+[[BrakemanPlugin-PublishingResults]]
+=== Publishing Results
+
+Check the "Publish Brakeman warnings" option under "Post-build Actions".
+*Make sure the output file name matches the one used in the shell
+command.*
+
+[[BrakemanPlugin-SettingThresholds]]
+=== Setting Thresholds
+
+It is possible to set thresholds for warnings, so that builds can be
+marked as unstable or failed depending on the number of warnings
+reported.
+
+To set thresholds, click the "Advanced..." button next to "Publish
+Brakeman warnings".
+
+To set set thresholds based on new warnings found, check the "Compute
+new warnings (based on reference build)" box. This opens another set of
+thresholds.

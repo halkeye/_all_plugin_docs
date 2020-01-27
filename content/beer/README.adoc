@@ -1,0 +1,23 @@
+We all need beer from time to time
+
+See http://ci.jenkins-ci.org/beer/[the demo instance] in action. Read a
+few times to see variations. Pull request welcome to add more
+quote/images.
+
+[[BeerPlugin-Changelog]]
+== Changelog
+
+[[BeerPlugin-Version1.2(Mar21,2012)]]
+=== Version 1.2 (Mar 21, 2012)
+
+* Improved resource caching
+
+[[BeerPlugin-Version1.1(Jan4th,2012)]]
+=== Version 1.1 (Jan 4th, 2012)
+
+* More beer quotes
+
+[[BeerPlugin-Version1.0(Jan3rd,2012)]]
+=== Version 1.0 (Jan 3rd, 2012)
+
+* First release

@@ -1,0 +1,43 @@
+This plugin notifies
+https://github.com/codefirst/AsakusaSatellite[AsakusaSatellite] of build
+results.
+
+[[AsakusaSatellitePlugin-Features]]
+== *Features*
+
+* Notify https://github.com/codefirst/AsakusaSatellite[AsakusaSatellite]
+of build results
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/jenkins_message.png[image,width=547,height=111]#
+
+[[AsakusaSatellitePlugin-Setup]]
+== *Setup*
+
+At (your project) > Configure > AsakusaSatellite, set room information
+at your AsakusaSatellite.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/jenkins_as_notifier.png[image]#
+
+* *appkey*: secret key of your AsakusaSatellite acount. You can get this
+key at your acount page at AsakusaSatellite.
+
+         
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/as_api.png[image,width=462,height=142]#
+
+* *baseUrl*: a Base URL of AsakusaSatellite
+* *roomNumber*: a room id. Typically, URL of rooms are such as
+*baseUrl*/chat/room/*roomNumber*
+* *message*: a message template. You can use following variables
+** $\{project}: a project name
+** $\{number}: a build number
+** $\{result}: a build result
+** $\{url}: a url of build result
+** $\{changeset}: change set of this build
+
+[[AsakusaSatellitePlugin-VersionHistory]]
+== Version History
+
+[[AsakusaSatellitePlugin-Version0.1(22October,2012)]]
+=== *Version 0.1 (22* **October***, 2012)*
+
+* Initial release

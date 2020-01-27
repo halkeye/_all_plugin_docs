@@ -1,0 +1,75 @@
+[.conf-macro .output-inline]#Exposes
+https://www.versionone.com/product/continuum/devops/features[Continuum]
+commands that are available via its
+https://community.versionone.com/VersionOne_Continuum/REST_API_and_Command_Line_Tools/API_Introduction/Continuum_REST_API_Reference[REST
+API] as pipeline steps.#
+
+[[ContinuumPlugin-Requirements]]
+== Requirements
+
+* Continuum API token (see
+https://community.versionone.com/VersionOne_Continuum/REST_API_and_Command_Line_Tools/API_Introduction['Authenticating:
+Using a token'] section),
+* Jenkins 2.11 or later,
+* https://wiki.jenkins.io/display/JENKINS/Credentials+Plugin[Credentials
+Plugin] 1.22 or later,
+* https://wiki.jenkins.io/display/JENKINS/Pipeline+Job+Plugin[Pipeline
+Job Plugin] 2.9 or later
+
+[[ContinuumPlugin-Usage]]
+== Usage
+
+*Common step parameters:*
+
+* _serverUrl_ - Continuum server's base URL
+* __credentialsId__ - Id of the stored credentials which contains the
+Continuum API token,
+* __apiToken__ - Continuum API token. When specified, this parameter's
+value has precedence over credentialsId value,
+* __markUnstable__ - When set, mark current run as unstable if the step
+execution fails.
+
+[[ContinuumPlugin-Commands]]
+=== Commands
+
+[[ContinuumPlugin-ctmInitiatePipeline]]
+==== _ctmInitiatePipeline_
+
+[source,syntaxhighlighter-pre]
+----
+ctmInitiatePipeline serverUrl: 'https://continuum.server.url', credentialsId: 'Continuum', project: 'My Ctm Project', definition: 'My pipeline definition', group: 'master', environmentVariables: '*'
+----
+
+The id of the initiated pipeline instance is recorded
+in _jenkins.plugins.continuum.actions.PipelineInitiatedAction_ instance
+within the current _Run_.
+
+[[ContinuumPlugin-ctmPostPiData,ctmSetPiData]]
+==== _ctmPostPiData_, _ctmSetPiData_
+
+[source,syntaxhighlighter-pre]
+----
+ctmPostPiData serverUrl: 'https://continuum.server.url', credentialsId: 'Continuum', key: 'build_complete', value: 'true', pi: 'running_pipeline_instance_id'
+----
+
+[source,syntaxhighlighter-pre]
+----
+ctmSetPiData serverUrl: 'https://continuum.server.url', credentialsId: 'Continuum', key: 'build_complete', value: 'true', pi: 'running_pipeline_instance_id'
+----
+
+If the __pi __parameter is not specified, the ids that are recorded in
+current
+run's _jenkins.plugins.continuum.actions.PipelineInitiatedAction_ instance
+are used.
+
+[[ContinuumPlugin-VersionHistory]]
+== Version History
+
+[[ContinuumPlugin-Version1.0.1(November2017)]]
+=== Version 1.0.1 (November 2017)
+
+* Initial release,
+* Supports https://community.versionone.com/VersionOne_Continuum/REST_API_and_Command_Line_Tools/API_Introduction/Continuum_REST_API_Reference#initiate_pipeline[initiate_pipeline], https://community.versionone.com/VersionOne_Continuum/REST_API_and_Command_Line_Tools/API_Introduction/Continuum_REST_API_Reference#post_pi_data[post_pi_data], https://community.versionone.com/VersionOne_Continuum/REST_API_and_Command_Line_Tools/API_Introduction/Continuum_REST_API_Reference#set_pi_data[set_pi_data]
+commands.
+
+ 

@@ -1,0 +1,19 @@
+ACE Editor Plugin
+
+ +
+ +
+
+*NOTE*: *This is a UI support plugin. It should not be installed
+directly.* Plugins that use it will auto-install it.
+
+See https://github.com/jenkinsci/js-libs/tree/master/ace-editor[GitHub
+documentation for more details].
+
+[[ACEEditorPlugin-Changelog]]
+== Changelog
+
+[[ACEEditorPlugin-Version1.0.1(Nov62015)]]
+=== Version 1.0.1 (Nov 6 2015)
+
+[[ACEEditorPlugin-Version1.0(Nov52015)]]
+=== Version 1.0 (Nov 5 2015)

@@ -1,0 +1,43 @@
+[[PolicyCenterGateValidatorPlugin-Summary]]
+== Summary
+
+[.conf-macro .output-inline]#The http://www.parasoft.com/[Parasoft]
+Policy Center Gate Validator Plugin for Jenkins lets you add a build
+step to check a Police Center policy gate. This enables you to
+automatically stop a deployment if a policy gate is not successfully
+passed.#
+
+[[PolicyCenterGateValidatorPlugin-Prerequisites]]
+== Prerequisites
+
+* Parasoft Development Testing Platform 5.3.1 or higher
+* Parasoft PolicyCenter 3.2.1 or higher
+
+[[PolicyCenterGateValidatorPlugin-Configuration]]
+== Configuration
+
+Each Jenkins server communicates with one Policy Center. Multiple
+Jenkins servers can communicate with the same Policy Center.
+
+. Go to Manage Jenkins.
+. Go to Configure System.
+. Scroll down to the Parasoft Policy Center area and enter your Policy
+Center URL.
+
+[[PolicyCenterGateValidatorPlugin-AddingaCheckPolicyGateBuildStep]]
+=== Adding a Check Policy Gate Build Step
+
+You can add any number of "Check Policy" gates as build steps.
+
+. Open the job you want to configure.
+. Go to Configure.
+. Under Add Build Step, select Check Policy Gate. Two new fields
+(Project and Gate) will display.
+. Under Project, select the project that the policy gate should apply
+to.
+. Under Gate, select the gate that you want applied.
+. Under Post-build Actions, review the deployment trigger criteria and
+update as needed, depending on whether you want the deployment to run
+only when the gate is stable (i.e., if it shows Policy Center "success"
+status), or if you will permit deployment if the gate is unstable or if
+the gate fails.

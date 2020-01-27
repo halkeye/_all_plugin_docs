@@ -1,0 +1,26 @@
+This plugin allows other Jenkins plugins to take advantage of the
+<l:icon> tag.
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+This plugin allows other Jenkins plugins to take advantage of the
+<l:icon> tag, while at the same time maintaining backward compatibility
+with versions of Jenkins that do not have the <l:icon> tag (Jenkins
+before 1.576).  Plugins need to add this plugin as a dependency.
+
+See the https://github.com/jenkinsci/icon-shim-plugin[documentation] to
+use the plugin.
+
+[[IconShimPlugin-Changelog]]
+== Changelog
+
+[[IconShimPlugin-2.0.3(Feb232016)]]
+=== 2.0.3 (Feb 23 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-33095[JENKINS-33095]
+Working around fatal error occurring when upgrading
+https://wiki.jenkins-ci.org/display/JENKINS/CloudBees+Folders+Plugin[CloudBees
+Folders plugin] and
+https://wiki.jenkins-ci.org/display/JENKINS/Matrix+Authorization+Strategy+Plugin[Matrix
+Authorization Strategy Plugin].

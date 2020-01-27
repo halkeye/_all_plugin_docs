@@ -1,0 +1,27 @@
+[.conf-macro .output-inline]#This plugin provides the
+https://github.com/google/google-api-java-client[Google APIs Client
+Library for Java] to other plugins.# It provides _no_ user-visible
+features.
+
+*Note*: this plugin may conflict with other plugins which include the
+Google APIs Client Library for Java directly. The author hopes such
+plugins depends on this one so that the Library can be shared by many
+plugins.
+
+[[GoogleAPIsClientLibrary-Projectinformation]]
+== Project information
+
+Regardless of the Source Code link above, the source code repository of
+this plugin will be at
+https://bitbucket.org/kazssym/jenkins-google-api-client-plugin. If you
+are interested in what will be implemented in future versions, please
+https://bitbucket.org/account/signup/[sign up for a free Bitbucket
+account] (if you have not yet) and watch the repository for
+notifications.
+
+[[GoogleAPIsClientLibrary-License]]
+=== License
+
+This program is licensed under the
+http://www.apache.org/licenses/LICENSE-2.0[Apache License, Version 2.0],
+as the Google APIs Client Library for Java is.

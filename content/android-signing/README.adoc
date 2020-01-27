@@ -1,0 +1,8 @@
+[.conf-macro .output-inline]#https://developer.android.com/studio/publish/app-signing.html[Sign]
+Android APKs using Jenkins-managed
+https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin[credentials].
+See the https://github.com/jenkinsci/android-signing-plugin[README] and
+https://github.com/jenkinsci/android-signing-plugin/blob/master/CHANGELOG.md[change
+log] for detailed information.#
+
+*Note:* This plugin requires Jenkins to run in a *Java 8* runtime.

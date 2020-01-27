@@ -1,0 +1,7 @@
+[.conf-macro .output-inline]#The
+https://github.com/jenkinsci/jx-pipelines-plugin[JX Pipelines Plugin]
+provides a set of reusable pipeline steps for CI / CD on Kubernetes when
+using https://jenkins-x.github.io/jenkins-x-website/[Jenkins X]#
+
+[[JXPipelinesPlugin-Background]]
+== Background

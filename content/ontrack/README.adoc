@@ -1,0 +1,471 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2019-04-17/#SECURITY-1341[Script
+security sandbox bypass]
+* https://jenkins.io/security/advisory/2017-04-10/[Arbitrary code
+execution vulnerability]
+
+[.conf-macro .output-inline]#This plug-in allows to connect to an
+http://nemerosa.github.io/ontrack/[Ontrack] server in order to enable
+traceability and monitoring of your continuous delivery pipeline(s).#
+
+[[OntrackPlugin-Documentation]]
+== Documentation 
+
+Main documentation is available on
+https://github.com/jenkinsci/ontrack-plugin[GitHub].
+
+[[OntrackPlugin-Changelog]]
+== Change log
+
+[[OntrackPlugin-3.7.0]]
+=== 3.7.0
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/59[#59] - Upgrade
+to Ontrack DSL 3.39.4 (for promotion checks definitions)
+
+[[OntrackPlugin-3.6.0]]
+=== 3.6.0
+
+* https://github.com/jenkinsci/ontrack-plugin/pull/56[#56] - Enabling
+metrics validation data type
+
+[[OntrackPlugin-3.5.0]]
+=== 3.5.0
+
+* https://github.com/jenkinsci/ontrack-plugin/pull/55[#55] - Upgrade to
+Ontrack DSL 3.38.15 (for `issuesIds` link on Git change log)
+
+[[OntrackPlugin-3.4.1]]
+=== 3.4.1
+
+* Fix for security vulnerability at
+https://jenkins.io/security/advisory/2019-03-06/#SECURITY-1336%20(1)
+
+[[OntrackPlugin-3.4]]
+=== 3.4
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/54[#54] - Get a
+more precise timing for the stage execution time
+
+[[OntrackPlugin-3.3]]
+=== 3.3
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/53[#53] - Ontrack
+multiple trigger
+
+[[OntrackPlugin-3.2]]
+=== 3.2
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/11[#11] -
+[.js-issue-title]#Ontrack parameters as extensions of the Job DSL#
+(upgrade of the Job DSL to 1.71)
+* https://github.com/jenkinsci/ontrack-plugin/issues/49[#49] -
+Navigation between Jenkins and Ontrack - links on the left side bar of a
+build page to go the Ontrack build, branch & project
+* https://github.com/jenkinsci/ontrack-plugin/issues/52[#52] - Allow
+binding parameters for the `+OntrackChoiceParameterDefinition+` DSL
+
+[[OntrackPlugin-3.1]]
+=== 3.1
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/51[#51] - support
+for test summary as validation data (needs Ontrack 3.37.7 or better)
+
+[[OntrackPlugin-3.0]]
+=== 3.0
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/50[#50] - support
+for validation data (needs Ontrack 3.x)
+
+[[OntrackPlugin-2.33.4]]
+=== 2.33.4
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/48[#48] -
+`+ontrackTrigger+` available in the pipeline DSL - see
+https://github.com/jenkinsci/ontrack-plugin/blob/master/PIPELINE.md#ontrack-trigger[example]
+
+[[OntrackPlugin-2.33.3]]
+=== 2.33.3
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/47[#47] -
+Correction of validation run status computation for declarative &
+scripted pipelines
+
+[[OntrackPlugin-2.33.2]]
+=== 2.33.2
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/46[#46] - Can not
+save global configuration
+* Note: 2.33.1 version disappeared in the abyss
+
+[[OntrackPlugin-2.33.0/LTS2.30.3.9]]
+=== 2.33.0 / LTS 2.30.3.9
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/45[#45] - Sending
+run info to Ontrack (see also
+http://nemerosa.ghost.io/2018/05/15/ontrack-2-35-3-35/[announcement])
+
+[[OntrackPlugin-2.32.5]]
+=== 2.32.5
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/44[#44] - Make the
+Ontrack trigger available for pipeline jobs
+
+[[OntrackPlugin-2.30.3.8/2.31.6/2.32.4]]
+=== 2.30.3.8 / 2.31.6 / 2.32.4
+
+* https://github.com/jenkinsci/ontrack-plugin/pull/43[#43] Fix
+ClassCastException in OntrackMultiChoiceParameter
+
+[[OntrackPlugin-2.32.3]]
+=== 2.32.3
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/40[#40] Allows use
+of the ontrack parameter type in declarative pipeline syntax
+
+[[OntrackPlugin-2.32.2]]
+=== 2.32.2
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/39[#39] Pipeline -
+unstable build was not translated into a warning validation stamp
+
+[[OntrackPlugin-2.32.1]]
+=== 2.32.1
+
+* https://github.com/jenkinsci/ontrack-plugin/pull/37[#37] Ontrack
+trigger syntax fix
+
+[[OntrackPlugin-2.32.0]]
+=== 2.32.0
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/19[#19] Support for
+the Pipeline plugin (Ontrack steps - see the
+https://github.com/jenkinsci/ontrack-plugin/blob/master/PIPELINE.md[Wiki]
+for the documentation)
+
+[[OntrackPlugin-2.31.5]]
+=== 2.31.5
+
+* https://github.com/jenkinsci/ontrack-plugin/pull/37[#37] Ontrack
+trigger syntax fix
+
+[[OntrackPlugin-2.31.4]]
+=== 2.31.4
+
+* https://github.com/jenkinsci/ontrack-plugin/pull/35[#35] Ontrack
+upgraded to 2.33.5
+for https://github.com/nemerosa/ontrack/issues/587[#587]
+* https://github.com/jenkinsci/ontrack-plugin/pull/34[#34] Make
+minimumResult configurable
+
+[[OntrackPlugin-2.31.3]]
+=== 2.31.3
+
+* https://github.com/jenkinsci/ontrack-plugin/pull/31[#31] OntrackTrigger:
+make minimumResult configurable
+
+[[OntrackPlugin-2.31.2]]
+=== 2.31.2
+
+* Upgrade to Ontrack 2.32.16
+* https://github.com/jenkinsci/ontrack-plugin/issues/30[#30] Option to
+ignore failures
+
+[[OntrackPlugin-2.31.1]]
+=== 2.31.1
+
+* Upgrade to Ontrack 2.32.10
+
+[[OntrackPlugin-2.31.0]]
+=== 2.31.0
+
+* Correction of security vulnerabilities - the Ontrack DSL scripts must,
+from now on, either be approved by an administrator or run into a
+sandbox +
+Note that the Job DSL support for the Ontrack plug-in has been extended
+to support the `+sandbox+` flag, for example: +
+ +
++
+[source,syntaxhighlighter-pre]
+----
+steps {
+        ontrackDsl {
+            log()
+            sandbox()
+            script """\
+...
+"""
+----
+
+[[OntrackPlugin-2.30.3.7]]
+=== 2.30.3.7
+
+* https://github.com/jenkinsci/ontrack-plugin/pull/37[#37] Ontrack
+trigger syntax fix
+
+[[OntrackPlugin-2.30.3.6]]
+=== 2.30.3.6
+
+* https://github.com/jenkinsci/ontrack-plugin/pull/35[#35] Ontrack
+upgraded to 2.33.5 for
+https://github.com/nemerosa/ontrack/issues/587[#587]
+
+[[OntrackPlugin-2.30.3.5]]
+=== 2.30.3.5
+
+* https://github.com/jenkinsci/ontrack-plugin/pull/34[#34] Make
+minimumResult configurable
+
+[[OntrackPlugin-2.30.3.4]]
+=== 2.30.3.4
+
+* https://github.com/jenkinsci/ontrack-plugin/pull/31[#31] OntrackTrigger:
+make minimumResult configurable
+
+[[OntrackPlugin-2.30.3.3]]
+=== 2.30.3.3
+
+* Upgrade to Ontrack 2.32.16
+* https://github.com/jenkinsci/ontrack-plugin/issues/30[#30] Option to
+ignore failures
+
+[[OntrackPlugin-2.30.3.2]]
+=== 2.30.3.2
+
+* Upgrade to Ontrack 2.32.10
+
+[[OntrackPlugin-2.30.1]]
+=== 2.30.1
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/28[#28] Triggers
+based on builds and promotions
+* Upgrade to Ontrack 2.30.4
+
+[[OntrackPlugin-2.29.1]]
+=== 2.29.1
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/26[#26] Ontrack
+Change Log plugin must not synchronize on the build
+
+[[OntrackPlugin-2.29.0]]
+=== 2.29.0
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/25[#25] Upgrade to
+Ontrack 2.29.5
+
+[[OntrackPlugin-2.28.2]]
+=== 2.28.2
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/24[#24] Fix Groovy
+related incompatibility issue with old versions of Jenkins 
+
+[[OntrackPlugin-2.28.1]]
+=== 2.28.1
+
+* Upgrade to Ontrack DSL
+https://github.com/nemerosa/ontrack/releases/tag/2.28.0[2.28.0]
+
+[[OntrackPlugin-2.26.0]]
+=== 2.26.0
+
+* Upgrade to Ontrack DSL
+https://github.com/nemerosa/ontrack/releases/tag/2.26.5[2.26.5]
+
+[[OntrackPlugin-2.25.1]]
+=== 2.25.1
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/23[23] - Used
+escaped raw message for the revision change log
+
+[[OntrackPlugin-2.25.0]]
+=== 2.25.0
+
+* Upgrade to
+the https://github.com/nemerosa/ontrack/releases/tag/2.25.1[Ontrack DSL
+2.25.1]
+* https://github.com/jenkinsci/ontrack-plugin/issues/21[21] - Retry
+mechanism (to mitigate network instabilities or downtimes)
+
+[[OntrackPlugin-2.22.0]]
+=== 2.22.0
+
+* Upgrade to
+the https://github.com/nemerosa/ontrack/releases/tag/2.22.1[Ontrack DSL
+2.22.1]
+
+[[OntrackPlugin-2.21.0]]
+=== 2.21.0
+
+* Upgrade to the
+https://github.com/nemerosa/ontrack/releases/tag/2.21.1[Ontrack DSL
+2.21.1]
+* https://github.com/jenkinsci/ontrack-plugin/issues/18[#18] Injection
+of committers mailing in environment variable
+
+[[OntrackPlugin-2.19.2]]
+=== 2.19.2
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/17[#17] Option to
+not fail the build when the change log cannot be collected
+
+[[OntrackPlugin-2.19.0]]
+=== 2.19.0
+
+* Upgrade to
+the https://github.com/nemerosa/ontrack/releases/tag/2.19.1[Ontrack DSL
+2.19.1]
+
+[[OntrackPlugin-2.18.1]]
+=== 2.18.1
+
+* Fix for https://github.com/jenkinsci/ontrack-plugin/issues/10[#10]
+
+[[OntrackPlugin-2.18.0]]
+=== 2.18.0
+
+* Upgrade to the
+https://github.com/nemerosa/ontrack/releases/tag/2.18.0[Ontrack DSL
+2.18.0]
+* https://github.com/jenkinsci/ontrack-plugin/issues/9[#9] Ontrack tasks
+can be defined using the Job DSL
+* https://github.com/jenkinsci/ontrack-plugin/issues/10[#10] Preparing
+the build environment using the Ontrack DSL
+* https://github.com/jenkinsci/ontrack-plugin/issues/12[#12] Support for
+folders in the build notifier
+
+[[OntrackPlugin-2.17.0]]
+=== 2.17.0
+
+* Upgrade to
+the https://github.com/nemerosa/ontrack/releases/tag/2.17.1[Ontrack DSL
+2.17.1]
+
+[[OntrackPlugin-2.16.0]]
+=== 2.16.0
+
+* Upgrade to the
+https://github.com/nemerosa/ontrack/releases/tag/2.16.0[Ontrack DSL
+2.16.0]
+
+[[OntrackPlugin-2.15.0]]
+=== 2.15.0
+
+* Upgrade to the
+https://github.com/nemerosa/ontrack/releases/tag/2.15.0[Ontrack DSL
+2.15.1]
+
+[[OntrackPlugin-2.14.0]]
+=== 2.14.0
+
+* Upgrade to
+the https://github.com/nemerosa/ontrack/releases/tag/2.14.0[Ontrack DSL
+2.14.0]
+* Support for the
+https://github.com/nemerosa/ontrack/wiki/Auto-creation-of-promotion-levels[auto
+creation of promotion levels] when enabled for a project
+* *This version of the plug-in does not work with a version of the
+Ontrack server < 2.14.0*
+
+[[OntrackPlugin-2.13.2]]
+=== 2.13.2
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/8[#8] - Enhancement
+- File change log can be disabled, and this should be the default
+
+[[OntrackPlugin-2.13.1]]
+=== 2.13.1
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/7[#7] - Fix
+- DSLRunner field on OntrackParameterDefinition classes must not be
+serialised
+
+[[OntrackPlugin-2.13.0]]
+=== 2.13.0
+
+* Upgrade to the Ontrack DSL 2.13.13 version
+* https://github.com/jenkinsci/ontrack-plugin/issues/6[#6] Correction of
+exception when an Ontrack parameter DSL returns null
+
+[[OntrackPlugin-2.12.0]]
+=== 2.12.0
+
+* Upgrade to the
+https://github.com/nemerosa/ontrack/releases/tag/2.12.1[Ontrack DSL
+2.12.1]
+
+[[OntrackPlugin-2.11.0]]
+=== 2.11.0
+
+* Upgrade to the
+http://nemerosa.ghost.io/2015/06/24/ontrack-2-11[Ontrack DSL 2.11.0]
+* *Aligning the major version of the* *_plugin_* *with the prerequisite*
+*_server_* *version*
+
+[[OntrackPlugin-2.9.0]]
+=== 2.9.0
+
+* Upgrade to the
+https://github.com/nemerosa/ontrack/releases/tag/2.10.0[Ontrack DSL
+2.10.0]
+* https://github.com/jenkinsci/ontrack-plugin/issues/4[#4] - Ontrack
+change log can be published on the build page
+* *This version of the plug-in needs at least the version 2.10.0 of the
+Ontrack server*
+
+[[OntrackPlugin-2.8.0]]
+=== 2.8.0
+
+* Upgrade to the
+https://github.com/nemerosa/ontrack/releases/tag/2.9.0[Ontrack DSL
+2.9.0]
+* Support for the auto creation of validation stamps when enabled for a
+project
+* *This version of the plug-in does not work with a version of the
+Ontrack server < 2.9.0*
+
+[[OntrackPlugin-2.7.0]]
+=== 2.7.0
+
+* Upgrade to the
+https://github.com/nemerosa/ontrack/releases/tag/2.8.0[Ontrack DSL
+2.8.0]
+* Build notifier does not create the build if it already exists
+* *This version of the plug-in (and the older ones) does not work with a
+version of the Ontrack server > 2.8.0*
+
+[[OntrackPlugin-2.6.0]]
+=== 2.6.0
+
+* Upgrade to
+the https://github.com/nemerosa/ontrack/releases/tag/2.7.0[Ontrack DSL
+2.7.0]
+
+[[OntrackPlugin-2.5.0]]
+=== 2.5.0
+
+* Upgrade to the
+https://github.com/nemerosa/ontrack/releases/tag/2.6.0[Ontrack DSL
+2.6.0]
+
+[[OntrackPlugin-2.4.3]]
+=== 2.4.3
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/2[#2] - Post-build
+'Dsl action' doesn't work with inline script.
+
+[[OntrackPlugin-2.4.2]]
+=== 2.4.2
+
+* https://github.com/jenkinsci/ontrack-plugin/issues/1[#1] - Cannot
+configure properties when using GString templates
+
+[[OntrackPlugin-2.4.1]]
+=== 2.4.1
+
+Initial version

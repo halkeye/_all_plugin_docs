@@ -1,0 +1,26 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]##
+
+*This plugin is up for adoption.* Want to help improve this plugin?
+https://wiki.jenkins-ci.org/display/JENKINS/Adopt+a+Plugin[Click here to
+learn more]!
+
+[.conf-macro .output-inline]#This is a driver plugin for
+https://wiki.jenkins-ci.org/display/JENKINS/Database+Plugin[Database
+plugin] that adds http://h2database.com/[H2 database] driver#
+
+[[H2DatabasePlugin-Changelog]]
+== Changelog
+
+[[H2DatabasePlugin-Version1.1(Nov15,2015)]]
+=== Version 1.1 (Nov 15, 2015)
+
+* Provide configuration option to use H2's Automatic Mixed Mode. For
+more information on Automatic Mixed mode see
+http://www.h2database.com/html/features.html#auto_mixed_mode
+
+[[H2DatabasePlugin-Version1.0(Dec14,2012)]]
+=== Version 1.0 (Dec 14, 2012)
+
+* Initial version

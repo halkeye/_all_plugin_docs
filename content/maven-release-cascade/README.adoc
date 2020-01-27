@@ -1,0 +1,32 @@
+[[MavenCascadeReleasePlugin-Developedby]]
+===== Developed by
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/barchart-logo-512x512.png[image,width=64,height=64]#
+
+http://www.barchart.com/
+
+[[MavenCascadeReleasePlugin-Contributedby]]
+===== Contributed by
+
+https://github.com/barchart/barchart-jenkins-cascade-plugin/wiki/Brain-Dump-1[Jeff
+Vincent]
+
+https://github.com/barchart/barchart-jenkins-cascade-plugin/wiki/Brain-Dump-2[Jeremy
+Jongsma]
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/red-matreshka-head.png[image,width=64,height=64]#
+
+[[MavenCascadeReleasePlugin-PluginPurpose]]
+== Plugin Purpose
+
+Configure and perform maven release cascade.
+
+[[MavenCascadeReleasePlugin-PluginDocumentaion]]
+== Plugin Documentaion
+
+https://github.com/barchart/barchart-jenkins-cascade-plugin/wiki
+
+[[MavenCascadeReleasePlugin-PluginIssueTracking]]
+== Plugin Issue Tracking
+
+https://github.com/barchart/barchart-jenkins-cascade-plugin/issues

@@ -1,0 +1,14 @@
+This plugin allows the tracking of the creation of, and use of Docker
+containers in Jenkins.
+
+[[CloudBeesDockerTraceability-Setupandusageguidelines]]
+== Setup and usage guidelines
+
+See
+https://github.com/jenkinsci/docker-traceability-plugin/blob/master/README.md[README.md]
+
+[[CloudBeesDockerTraceability-VersionHistory]]
+== Version History
+
+For changes version changes in this plugin see
+https://github.com/jenkinsci/docker-traceability-plugin/blob/master/CHANGES.md[CHANGES.md]

@@ -1,0 +1,341 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View CVS https://plugins.jenkins.io/cvs[on the plugin site] for more
+information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]##
+
+*This plugin is up for adoption.* Want to help improve this plugin?
+https://wiki.jenkins.io/display/JENKINS/Adopt+a+Plugin[Click here to
+learn more]!
+
+**This plugin currently un-maintained and looking for a new owner.
+Contact the Jenkins Dev mailing list if you need any further
+information.**This bundled plugin integrates Jenkins with CVS version
+control system.*Note:* This plugin was part of the Jenkins core until
+1.340. After that, it was split out into a separately update-able
+plugin. However, for backwards compatibility purposes, subsequent core
+releases still bundle the (old) version. If you do not use this plugin
+at all, you can simply disable it.
+
+[[CVSPlugin-ChangeLog]]
+== Change Log
+
+[[CVSPlugin-Version2.14(Feb28,2018)]]
+=== Version 2.14 (Feb 28, 2018)
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-26345[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-26345] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-49574[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-49574] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  necessary for users of Jenkins 2.102+
+* Use standard JSch library
+(https://github.com/jenkinsci/cvs-plugin/pull/47[PR 47])
+
+[[CVSPlugin-Version2.13(Jan18,2017)]]
+==== Version 2.13 (Jan 18, 2017)
+
+* Select the checkout timestamp wisely to honor the spirit of quiet
+period (https://github.com/jenkinsci/cvs-plugin/pull/32[pull request])
+* CVS plugin now works with Jenkins Pipeline
+(https://issues.jenkins-ci.org/browse/JENKINS-27717[JENKINS-27717])
+* Ignore recusive symlinks during cvs update
+(https://issues.jenkins-ci.org/browse/JENKINS-23234[JENKINS-23234])
+
+[[CVSPlugin-Version2.12(June10,2014)]]
+==== Version 2.12 (June 10, 2014)
+
+* Reduce memory usage during changelog handling
+(https://issues.jenkins-ci.org/browse/JENKINS-19458[JENKINS-19458])
+* Don't prune non directory modules
+(https://issues.jenkins-ci.org/browse/JENKINS-20317[JENKINS-20317])
+* Don't queue new builds for changes in the current build
+(https://issues.jenkins-ci.org/browse/JENKINS-19314[JENKINS-19314])
+* German localisation improvements
+
+[[CVSPlugin-Version2.11(October24,2013)]]
+==== Version 2.11 (October 24, 2013)
+
+* Fix change log retrieval on slaves
+(https://issues.jenkins-ci.org/browse/JENKINS-20192[JENKINS-20192])
+* Fix issues with files not being updated, being removed, or incorrectly
+backed-up when 'Force Clean Copy' is enabled
+(https://issues.jenkins-ci.org/browse/JENKINS-17383[JENKINS-17383],
+https://issues.jenkins-ci.org/browse/JENKINS-20188[JENKINS-20188])
+
+[[CVSPlugin-Version2.10(October21,2013)]]
+==== Version 2.10 (October 21, 2013)
+
+* Match global authentication rules in a case-insensitive manner on
+hostname
+* Fix empty directory prune when running in quiet mode
+(https://issues.jenkins-ci.org/browse/JENKINS-18390[JENKINS-18390])
+* Fix ConcurrentModificationException on polling
+(https://issues.jenkins-ci.org/browse/JENKINS-18329[JENKINS-18329])
+* Fix sporadic ssh connection failures
+(https://issues.jenkins-ci.org/browse/JENKINS-18591[JENKINS-18591])
+* Fix post checkout change log generation always running on master
+(https://issues.jenkins-ci.org/browse/JENKINS-13764[JENKINS-13764])
+* Expand tag/branch name during polling
+(https://issues.jenkins-ci.org/browse/JENKINS-19653[JENKINS-19653])
+* Properly match exclude regions during polling
+(https://issues.jenkins-ci.org/browse/JENKINS-15826[JENKINS-15826])
+* Don't skip subsequent modules after first successful tag in
+multi-module setup
+(https://issues.jenkins-ci.org/browse/JENKINS-15735[JENKINS-15735])
+* Don't poll if last checkout hasn't completed to prevent multiple
+builds of same change
+(https://issues.jenkins-ci.org/browse/JENKINS-19314[JENKINS-19314])
+* Fix polling and workspace updates when CVS server is in a different
+timezone from Jenkins
+(https://issues.jenkins-ci.org/browse/JENKINS-17383[JENKINS-17383],
+https://issues.jenkins-ci.org/browse/JENKINS-17965[JENKINS-17965])
+
+[[CVSPlugin-Version2.9(June03,2013)]]
+==== Version 2.9 (June 03, 2013)
+
+* Prevent removal of tag information during checkout
+(https://issues.jenkins-ci.org/browse/JENKINS-16314[JENKINS-16314])
+* Improve efficiency of file tagging
+(https://issues.jenkins-ci.org/browse/JENKINS-15735[JENKINS-15735])
+* Match global authentication entries even when no CVS port is defined
+(https://issues.jenkins-ci.org/browse/JENKINS-16432[JENKINS-16432])
+* Prevent potential ConcurrentModificationException during polling
+* Allow repository browsers to be defined at the repository level rather
+then the job level
+* Fix an issue with identifying branches/tags in for CVS parameters
+(https://issues.jenkins-ci.org/browse/JENKINS-17656[JENKINS-17656])
+* Allow CVS to be very quiet in the logs
+(https://issues.jenkins-ci.org/browse/JENKINS-17470[JENKINS-17470])
+* Fix OpenGrok browser support
+
+[[CVSPlugin-Version2.8(February19,2013)]]
+==== Version 2.8 (February 19, 2013)
+
+* Add option to force clean update (cvs up -C)
+(https://issues.jenkins-ci.org/browse/JENKINS-15848[JENKINS-15848])
+* Allow dashes in projestset module names
+(https://issues.jenkins-ci.org/browse/JENKINS-15525[JENKINS-15525])
+* Resolve issue with sticky date cleanup if workspace is flattened
+(https://issues.jenkins-ci.org/browse/JENKINS-16412[JENKINS-16412])
+* Fix log parsing issue for repositories defined with backslashes
+(https://issues.jenkins-ci.org/browse/JENKINS-16044[JENKINS-16044])
+* Fix AbstractCvs instantiation error in logs for old non projectset
+builds
+(https://issues.jenkins-ci.org/browse/JENKINS-15702[JENKINS-15702])
+* Split mail address resolver into separate plugin to prevent delays at
+the end of the build
+(https://issues.jenkins-ci.org/browse/JENKINS-16389[JENKINS-16389])
+
+[[CVSPlugin-Version2.7(November05,2012)]]
+==== Version 2.7 (November 05, 2012)
+
+* Add functions to support CVS Tag plugin
+* Exclude Non-Head changes from changelog
+(https://issues.jenkins-ci.org/browse/JENKINS-15416[JENKINS-15416])
+* Don't set checkout-as option on checkout command if local name is not
+over-ridden
+(https://issues.jenkins-ci.org/browse/JENKINS-15132[JENKINS-15132])
+* Tidy up projectset parser to allow period on hostname, no port numbers
+and slashes in remote name
+(https://issues.jenkins-ci.org/browse/JENKINS-15525[JENKINS-15525])
+* Fix mixing descriptor exception in logs
+* Force socket timeout on connection to CVS server
+(https://issues.jenkins-ci.org/browse/JENKINS-13032[JENKINS-13032])
+
+[[CVSPlugin-Version2.6(September22,2012)]]
+==== Version 2.6 (September 22, 2012)
+
+* Fix potential NPE when cleaning up workspace following a
+checkout/update
+* Parse changelog generated from old versions of the CVS plugin properly
+(https://issues.jenkins-ci.org/browse/JENKINS-14711[JENKINS-14711])
+* Add support for check-out and dynamic parse of Eclipse Projectset
+(psf) files
+* Allow configuration of username and passwords for CVSROOTs across
+jobs, similar to how cvspass file works on CVS Clients
+(https://issues.jenkins-ci.org/browse/JENKINS-12582[JENKINS-12582])
+* Change parsing of CVS Rlog output from REGEXP to Token Based to
+improve efficiency and handle varied input
+(https://issues.jenkins-ci.org/browse/JENKINS-14163[JENKINS-14163],
+https://issues.jenkins-ci.org/browse/JENKINS-14293[JENKINS-14293])
+* Explicitly specify encoding for reading and writing changelog and
+temporary files
+(https://issues.jenkins-ci.org/browse/JENKINS-4633[JENKINS-4633],
+https://issues.jenkins-ci.org/browse/JENKINS-14678[JENKINS-14678])
+* Correct link to ViewCVS/ViewVC repository browser from changelog lists
+(https://issues.jenkins-ci.org/browse/JENKINS-14343[JENKINS-14343])
+* Prevent StackOverflowException when comparing changesets
+(https://issues.jenkins-ci.org/browse/JENKINS-13959[JENKINS-13959])
+* Perform variable expansion on module names for Core CVS (non
+Projectset) modules
+(https://issues.jenkins-ci.org/browse/JENKINS-13186[JENKINS-13186])
+* Add OpenGrok as a repository browser
+* Add job parameter for listing CVS branches and tags for a given module
+(https://issues.jenkins-ci.org/browse/JENKINS-9311[JENKINS-9311])
+
+[[CVSPlugin-Version2.5(August1,2012)]]
+==== Version 2.5 (August 1, 2012)
+
+* Build tagging allows direct creation of a branch rather than a tag
+(https://issues.jenkins-ci.org/browse/JENKINS-2460[JENKINS-2460])
+* Checking out a non head location does not try and use sticky dates
+(https://issues.jenkins-ci.org/browse/JENKINS-13789[JENKINS-13789])
+* Checking out a submodule, or a module into a subdirectory no longer
+causes CVS to throw an exception
+(https://issues.jenkins-ci.org/browse/JENKINS-13264[JENKINS-13264])
+* Checkout/update no longer leaves the workspace looking like it needs
+updated before commit/build actions
+(https://issues.jenkins-ci.org/browse/JENKINS-13734[JENKINS-13734])
+* SSH authentication file path separators are changed to match local
+system requirements when moving between slaves/host
+(https://issues.jenkins-ci.org/browse/JENKINS-13764[JENKINS-13764])
+* Legacy mode can now be disabled properly - regression in Version 2.4
+(https://issues.jenkins-ci.org/browse/JENKINS-14141[JENKINS-14141])
+
+[[CVSPlugin-Version2.4(June3,2012)]]
+==== Version 2.4 (June 3, 2012)
+
+* Branch/Tag/Head is specified above module level in configuration to
+save entering/changing the name in multiple locations
+(https://issues.jenkins-ci.org/browse/JENKINS-12598[JENKINS-12598])
+* Enabling 'use head if not found' now detects changes and creates
+change-logs properly
+(https://issues.jenkins-ci.org/browse/JENKINS-12104[JENKINS-12104])
+* Polling and change-logs now work correctly on branch and tag modules
+(https://issues.jenkins-ci.org/browse/JENKINS-13277[JENKINS-13277])
+* Post build tagging no longer throws exception during execution
+(https://issues.jenkins-ci.org/browse/JENKINS-13439[JENKINS-13439])
+
+[[CVSPlugin-Version2.3(April12,2012)]]
+==== Version 2.3 (April 12, 2012)
+
+* Implemented https://wiki.jenkins.io/display/JENKINS/Hierarchical+projects+support[Hierarchical
+projects support]
+
+[[CVSPlugin-Version2.2(March26,2012)]]
+==== Version 2.2 (March 26, 2012)
+
+* Timezones in CVS commands are now formatted numerically (+XXXX rather
+then GMT/EST/CEST etc)
+(https://issues.jenkins-ci.org/browse/JENKINS-12573[JENKINS-12573])
+* Perform variable expansion on known hosts and private key fields
+* Fix issue writing local files marked as read only in the repository
+
+[[CVSPlugin-Version2.1(March17,2012)]]
+==== Version 2.1 (March 17, 2012)
+
+Fixes various issues introduced with Version 2.0:
+
+* Module names are always explicitly specified in checkout and update
+command to prevent checking out of all modules
+(https://issues.jenkins-ci.org/browse/JENKINS-12595[JENKINS-12595],
+https://issues.jenkins-ci.org/browse/JENKINS-12581[JENKINS-12581])
+* Close connections to CVS servers on finishing action
+(https://issues.jenkins-ci.org/browse/JENKINS-12612[JENKINS-12612])
+* Date handling for old changelog files and some CVS servers
+(https://issues.jenkins-ci.org/browse/JENKINS-13017[JENKINS-13017],
+https://issues.jenkins-ci.org/browse/JENKINS-12573[JENKINS-12573],
+https://issues.jenkins-ci.org/browse/JENKINS-12586[JENKINS-12586])
+* Concurrent Modification Exception for CVS
+(https://issues.jenkins-ci.org/browse/JENKINS-12987[JENKINS-12987])
+* Password file "$\{user.home}/.cvspass" is ignored under some
+conditions
+(https://issues.jenkins-ci.org/browse/JENKINS-12582[JENKINS-12582],
+migration issue only)
+
+Features added in this release:
+
+* Add in EXT (SSH) support for cvsclient including public key
+authentication
+(https://issues.jenkins-ci.org/browse/JENKINS-4687[JENKINS-4687])
+* Set executable file permissions as per repository state
+(https://issues.jenkins-ci.org/browse/JENKINS-12628[JENKINS-12628])
+* Allow clean checkout if update fails
+(https://issues.jenkins-ci.org/browse/JENKINS-753[JENKINS-753])
+
+[[CVSPlugin-Version2.0(Jan28,2012)]]
+==== Version 2.0 (Jan 28, 2012)
+
+* Allowing multiple repositories (CVSROOTs) in a single checkout
+(https://issues.jenkins-ci.org/browse/JENKINS-2638[JENKINS-2638])
+* Allow modules from different locations (branch, tag or head) in a
+single checkout
+(https://issues.jenkins-ci.org/browse/JENKINS-768[JENKINS-768],
+https://issues.jenkins-ci.org/browse/JENKINS-6812[JENKINS-6812])
+* Use a java CVS library rather than require a system binary
+(https://issues.jenkins-ci.org/browse/JENKINS-49[JENKINS-49],
+https://issues.jenkins-ci.org/browse/JENKINS-3848[JENKINS-3848])
+* Use the CVS rlog command for polling and the rtag command for tagging
+(rather than log and tag)
+* Fix handling of files with non ASCII characters in the filenames
+* Encrypt CVS passwords so they're not visible to other users
+* Workspace is no longer required for polling
+* Changes in the repository state (deleted files) are picked up properly
+* Variable references can be used in branch and tag names
+
+[[CVSPlugin-Version1.6(Aug17,2011)]]
+==== Version 1.6 (Aug 17, 2011)
+
+* Location of cvspass and cvs.exe can now contain environment variable
+reference.
+(http://jenkins.361315.n4.nabble.com/cvspass-location-on-slave-td3746864.html[report])
+
+[[CVSPlugin-Version1.5(Jul25,2011)]]
+==== Version 1.5 (Jul 25, 2011)
+
+* Fixed handling of file name with '&'
+(https://issues.jenkins-ci.org/browse/JENKINS-10241[JENKINS-10241])
+* Added a switch to support -f
+(https://issues.jenkins-ci.org/browse/JENKINS-9953[JENKINS-9953])
+
+[[CVSPlugin-Version1.4(May27,2011)]]
+==== Version 1.4 (May 27, 2011)
+
+* Improved the handling of large changelog
+
+[[CVSPlugin-Version1.3(Feb14,2011)]]
+==== Version 1.3 (Feb 14, 2011)
+
+* Translation update (Chinese)
+
+[[CVSPlugin-Version1.2(Jul20,2010)]]
+==== Version 1.2 (Jul 20, 2010)
+
+* Fix NPE in "tag all upstream builds" feature.
+(https://issues.jenkins-ci.org/browse/JENKINS-4374[JENKINS-4374])
+* Avoid file handle leak if there are errors reading CVS/Entries files.
+
+[[CVSPlugin-Version1.1(Mar25,2010)]]
+==== Version 1.1 (Mar 25, 2010)
+
+* Improved the debug switch behavior to cover "cvs update"
+(http://n4.nabble.com/cvs-polling-fails-after-2nd-build-td1595867.html#a1599322[report])
+* Space in the module name breaks after-the-fact tagging
+(https://issues.jenkins-ci.org/browse/JENKINS-4961[JENKINS-4961])
+
+[[CVSPlugin-Version1.0(Jan13,2010)]]
+==== Version 1.0 (Jan 13, 2010)
+
+* Fixed "tried to access method
+hudson.scm.ChangeLogSet$Entry.setParent(Lhudson/scm/ChangeLogSet;)V from
+class hudson.scm.CVSChangeLogSet"
+(https://issues.jenkins-ci.org/browse/JENKINS-5251[JENKINS-5251])
+
+[[CVSPlugin-Version0.1(Dec24,2009)]]
+==== Version 0.1 (Dec 24, 2009)
+
+* Initial version, split from the core. The CVS functionality has been
+in the core for several years.
+
+*Please do not raise issues on this page. Either raise them on the Jira
+Issue Tracker or email the Jenkins users email list.*

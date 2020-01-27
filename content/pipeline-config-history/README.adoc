@@ -1,0 +1,111 @@
+ +
+
+This Plugin tracks changes in your pipeline configuration on a build
+basis (including replay builds): +
+On each completed build built from a pipeline config (including
+libraries) which differs from the latest history entry, a new history
+entry is created.
+
+These information are stored:
+
+* The Jenkinsfile (or the pipeline script if you're not using pipeline
+via scm)
+* Globally shared libraries
+* Shared Libraries accessible to the folder your pipeline might be
+included in.
+
+The single configurations are viewable file-by-file with each file being
+downloadable.
+
+You can also easily compare pipeline changes between two builds with a
+file-wise or all-in-one side-by-side or line-under-line diff view. +
+Restoring old configurations however is not possible, since that would
+require a modification in your Jenkinsfile and/ or library scm.
+
+'''''
+
+[[PipelineConfigurationHistory-Pictures]]
+== Pictures
+
+[[PipelineConfigurationHistory-IndexPage]]
+=== Index Page
+
+*[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/image2019-5-15_13-44-54.png&effects=border-simple,blur-border[image,width=910]#*
+
+[[PipelineConfigurationHistory-ConfigRevisionOverviewPage]]
+=== Config Revision Overview Page
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/image2019-5-15_14-11-7.png&effects=border-simple,blur-border[image,height=250]#
+
+[[PipelineConfigurationHistory-SingleFilePage]]
+=== Single File Page
+
+*[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/image2019-5-15_13-53-17.png&effects=border-simple,blur-border[image,width=910]#*
+
+[[PipelineConfigurationHistory-SingleFileDiff]]
+=== Single File Diff
+
+*[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/image2019-9-12_15-30-49.png&effects=border-simple,blur-border[image,width=910]# +
+*
+
+[[PipelineConfigurationHistory-AllDiffsInOnePage]]
+=== All Diffs In One Page
+
+*[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/image2019-9-12_15-34-15.png&effects=border-simple,blur-border[image,width=910]# +
+*
+
+'''''
+
+[[PipelineConfigurationHistory-Openissues]]
+== Open issues
+
+[[refresh-module--794199144]]
+[[refresh--794199144]][[jira-issues--794199144]]
+Key
+
+Summary
+
+T
+
+Created
+
+Updated
+
+Due
+
+Assignee
+
+Reporter
+
+P
+
+Status
+
+Resolution
+
+[.refresh-action-group]# #
+
+[[refresh-issues-loading--794199144]]
+[.aui-icon .aui-icon-wait]#Loading...#
+
+[#refresh-issues-button--794199144]##
+[#refresh-issues-link--794199144]#Refresh#
+[#error-message--794199144 .error-message .hidden]# #
+
+'''''
+
+[[PipelineConfigurationHistory-Changelog]]
+== Changelog
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+See
+https://github.com/jenkinsci/pipeline-config-history-plugin/blob/master/CHANGELOG.md[Changelog]
+on Github.
+
+ +
+
+ +
+
+ +

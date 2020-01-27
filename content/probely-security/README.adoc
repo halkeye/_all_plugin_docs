@@ -1,0 +1,177 @@
+[[ProbelySecurityScannerPlugin-Description]]
+== Description
+
+This plugin uses https://probely.com/[Probely] to scan your web
+application for security vulnerabilities. It enables security testing in
+your CI/CD pipeline.
+
+Probely is a Web Vulnerability Scanning suite for Agile Teams. It
+provides continuous scanning of your Web Applications and lets you
+efficiently manage the lifecycle of the vulnerabilities found. Some of
+its main features are:
+
+* Tests for more than 5000 vulnerabilities
+* Authenticated scanning
+* Tailored instructions on how to fix the vulnerabilities (including
+snippets of code)
+* API for every single feature
+* Jira and Slack integration
+* PCI-DSS and OWASP compliance reports
+* Designed for developers, easy to use, easy to understand.
+* Re-test vulnerabilities, define custom headers, multiple users, CVSS
+score, scheduling, and more.
+
+[[ProbelySecurityScannerPlugin-Installingtheplugin]]
+== Installing the plugin
+
+Installing and setting up the plugin will take you less than 5 minutes.
+
+. Open Jenkins and click on *Manage Jenkins*
+. Click on *Manage Plugins*
+. Click on the *Available* tab
+. On the Filter search box, enter *probely*
+. Select the *Probely Security Scanner* plugin
+. Click on *Download now and install after restart*
+. After Jenkins restarts, the plugin will be installed. Continue reading
+to setup the required Probely API key.
+
+[[ProbelySecurityScannerPlugin-GeneratinganAPIkey]]
+== Generating an API key
+
+Before using the plugin, you first need to create an API key for Jenkins
+to be able to start a scan with Probely.
+
+. Go to https://app.probely.com/[https://app.probely.com] and log in
+. Select a target from the drop-down list
+. Go to the *Settings* page
+. Click on the *Integrations* tab
+. Write a name for the API Key. Since we want this API Key for Jenkins,
+we name it *Jenkins*
+. Click on *Generate New Key*
+
+https://github.com/jenkinsci/probely-security-plugin/blob/master/images/new_api_key.png[[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://github.com/jenkinsci/probely-security-plugin/raw/master/images/new_api_key.png[Creating
+an API key,width=875]#]
+
+After the API key is created, please take note of the *Target id* and
+**API key **values. They will be required to configure the Plugin
+credentials later on.
+
+[[ProbelySecurityScannerPlugin-Configuringtheplugin]]
+== Configuring the plugin
+
+The plugin can be used both in a Freestyle or a in a Pipeline project.
+We will describe how to use the plugin in both project types.
+
+[[ProbelySecurityScannerPlugin-Configuringcredentials]]
+=== Configuring credentials
+
+. Click on *Credentials*
+. Click on the *down arrow* near (global) to enable the dropdown menu
+and choose *Add credentials*
+
+https://github.com/jenkinsci/probely-security-plugin/blob/master/images/credentials_1.png[[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://github.com/jenkinsci/probely-security-plugin/raw/master/images/credentials_1.png[Add
+Credentials,width=875]#]
+
+. On the *Kind* dropdown menu, choose *Secret text*
+. Enter the API key in the *Secret* textbox
+. Enter a value for the credentials in the *ID* textbox, for
+example probely-test-site
+. Enter an optional *Description* and click *OK* +
+ +
+https://github.com/jenkinsci/probely-security-plugin/blob/master/images/credentials_2.png[[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://github.com/jenkinsci/probely-security-plugin/raw/master/images/credentials_2.png[Add
+Secret,width=875]#]
+
+[[ProbelySecurityScannerPlugin-UsingtheplugininaFreestyleproject]]
+=== Using the plugin in a Freestyle project
+
+Freestyle Jenkins projects have been traditionally used to create
+pipeline-like setups by chaining build steps together. To enable Probely
+in a Freestyle project, the following steps may be used.
+
+. Open Jenkins and click on *New Item*
+. Enter your project name, choose *Freestyle Project* and click OK
+
+https://github.com/jenkinsci/probely-security-plugin/blob/master/images/freestyle_0.png[[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://github.com/jenkinsci/probely-security-plugin/raw/master/images/freestyle_0.png[Freestyle
+Project,width=875]#]
+
+* Add Probely scan step
+
+We assume that all required steps have been properly configured, such as
+checking out from your SCM, testing, among others.
+
+. Add the *Target Id*, as defined in the Generating an API key step.
+. Select the right *credentials*, which were configured in Configuring
+credentials. If the connection to Probely's API is working correctly,
+and the credentials are valid, you should see the message "Credentials
+verified successfully".
+. When all steps are properly configured, click on *Save*
+
+https://github.com/jenkinsci/probely-security-plugin/blob/master/images/freestyle_1.png[[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://github.com/jenkinsci/probely-security-plugin/raw/master/images/freestyle_1.png[Probely
+step,width=875]#]
+
+[[ProbelySecurityScannerPlugin-UsingtheplugininaPipelineproject]]
+=== Using the plugin in a Pipeline project
+
+Pipeline projects are the new way to create build/test/deploy (among
+others) pipelines in Jenkins. Pipelines are defined in a `+Jenkinfile+`,
+which can be configured in an older imperative syntax, or in a more
+modern declarative syntax. We describe how to use Probely using a
+declarative `+Jenkinsfile+` to build a simple build/test/scan Pipeline.
+
+* Open Jenkins and click on *New Item*
+* Enter your project name, choose *Pipeline Project* and click *OK*
+
+https://github.com/jenkinsci/probely-security-plugin/blob/master/images/pipeline_0.png[[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://github.com/jenkinsci/probely-security-plugin/raw/master/images/pipeline_0.png[Pipeline,width=875]#]
+
+* Create a `+Jenkinsfile+`
+
+We assume that the step to check out source code from your SCM is
+properly configured. The following `+Jenkinsfile+` may be used as an
+example to add Probely to your pipeline. It should be placed in the root
+of your source code repository. This pipeline consists of an
+hypothetical Java project, built with Gradle, with two stages: one
+running unit tests and the other launching a scan with Probely. Note
+that the `+targetId+` and `+credentialsId+` values refer to the
+credentials obtained and configured previously.
+
+*Pipeline*
+
+[source,syntaxhighlighter-pre]
+----
+pipeline {
+  agent {
+    docker {
+      image 'maven:3-alpine' 
+    } 
+  }
+  stages {
+    stage('Unit tests') { 
+      steps { 
+        sh './gradlew check' 
+      }
+    } 
+    stage('Scan with Probely') {
+      steps {
+        probelyScan targetId: '9nl6yy0TWWKv', credentialsId: 'probely-test-site'
+      } 
+    } 
+  }
+}
+----
+
+[[ProbelySecurityScannerPlugin-Changelog]]
+== Changelog
+
+[[ProbelySecurityScannerPlugin-1.0.1]]
+=== 1.0.1
+
+* Decrease required Jenkins version.
+
+[[ProbelySecurityScannerPlugin-1.0.0]]
+=== 1.0.0
+
+* Initial release.
+
+ +
+
+ +

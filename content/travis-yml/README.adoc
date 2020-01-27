@@ -1,0 +1,67 @@
+This plugin runs your jobs using .travis.yml file in your project.
+
+ +
+
+[[TravisYMLPlugin-Use]]
+== Use
+
+Install by navigating and selecting Manage Jenkins -> Manage Plugins
+-> Travis YML Plugin
+
+Add to your workspace on the root folder a .travis.yml, this plugin
+accept the next phases of lifecycle:
+
+. before_install
+. install
+. before_script
+. script
+. after_success
+. after_failure
+. before_deploy
+. deploy
+. after_deploy
+. after_script
+
+If you have any failure on your build and want to review the final
+generated, you should declare the environment
+variable DEBUG_TRAVIS_YML either on your build node or in jenkins.
+
+[[TravisYMLPlugin-ChangelogVersion0.2.2(13Nov,2016)]]
+=== ChangelogVersion 0.2.2 (13 Nov, 2016)
+
+* Added debug mode 
+
+[[TravisYMLPlugin-Version0.2.1(23Oct,2016)]]
+=== Version 0.2.1 (23 Oct, 2016)
+
+* fix echo not escaping first parameter.
+* export enviroment variables escape non alpha-numeric character
+identifiers 
+
+[[TravisYMLPlugin-Version0.2.0(19Oct,2016)]]
+=== Version 0.2.0 (19 Oct, 2016)
+
+* Escape complex bash commands echo problem.
+* Added expansion of enviroment variables
+* Support "before_deploy", "deploy" and "after_deploy"
+
+[[TravisYMLPlugin-Version0.1.0(30Jul,2014)]]
+=== Version 0.1.0 (30 Jul, 2014)
+
+* Initial release to jenkins-ci.org
+* Support "env" in .travis.yml
+* Support "before_install", "install", "before_script", "script", and
+"after_script" in .travis.yml
+* Support "after_success" and "after_failure" in .travis.yml
+
+[[TravisYMLPlugin-KnowIssues]]
+=== Know Issues 
+
+.travis.yml build not save
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+downgrade 'ruby-runtime' plugin back to v0.12
+
+ChangeLog

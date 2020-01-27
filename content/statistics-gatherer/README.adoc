@@ -1,0 +1,9 @@
+Captures Statistics related to Jenkins Builds, Build Step, SCM
+checkouts, Jobs and Queue and sends them where you want.
+
+[[StatisticsGathererPlugin-Documentation,Changelog,etc.]]
+== Documentation, Changelog, etc.
+
+Please refer to the
+https://github.com/jenkinsci/statistics-gatherer-plugin[readme]. It will
+always be up to date. 

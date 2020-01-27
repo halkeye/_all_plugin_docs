@@ -1,0 +1,91 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View Redgate SQL Change Automation
+https://plugins.jenkins.io/redgate-sql-ci[on the plugin site] for more
+information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2019-12-17/#SECURITY-1598[Credentials
+stored in plain text]
+* https://jenkins.io/security/advisory/2020-01-15/#SECURITY-1696[Credentials
+stored in plain text]
+
+[[RedgateSQLChangeAutomationPlugin-Whoisthispluginfor?]]
+== Who is this plugin for?
+
+It's for users of Redgate's SQL Change Automation. The tools help users
+manage databases alongside application code in agile processes. The
+http://www.red-gate.com/sca[SQL Change Automation] tool plugs into
+Jenkins to enable continuous integration for your SQL Server databases.
+
+[[RedgateSQLChangeAutomationPlugin-Whatdoesitdo?]]
+== What does it do?
+
+It's an easy way to build, test, synchronize and publish databases using
+Jenkins:
+
+. Build - builds your database from a
+http://www.red-gate.com/sqlsourcecontrol/[Redgate source controlled
+database] to a NuGet package.
+. Test - generates test data using Redgate's
+http://www.red-gate.com/sql-data-generator/[SQL Data Generator] and runs
+tSQLt tests against the package.
+. Sync - updates an existing database with the latest version in the
+package.
+. Publish - publishes the package to a NuGet feed ready for deployment.
+
+[[RedgateSQLChangeAutomationPlugin-Whataretheprerequisites?]]
+== What are the prerequisites?
+
+You'll need to install:
+
+* Redgate's
+https://www.red-gate.com/products/sql-development/sql-source-control/[SQL
+Source Control] or https://www.red-gate.com/sca[SQL Change
+Automation] so you can generate a project
+
+Free trial versions of these tools are available.
+
+[[RedgateSQLChangeAutomationPlugin-Developingordebuggingthisplugin]]
+== Developing or debugging this plugin
+
+Redgate recommend the https://www.jetbrains.com/idea/[JetBrains IntelliJ
+IDEA] environment for developing or debugging. There's a free community
+edition available.
+
+To get a development version of Jenkins working with the Redgate SQL
+Change Automation plugin installed:
+
+. Clone the repository.
+. Install https://maven.apache.org/download.cgi[Maven].
+. Open a command prompt at the repository root directory and run the
+following commands:
+.. set MAVEN_OPTS=-Xdebug
+-Xrunjdwp:transport=dt_socket,server=y,address=8000,suspend=n
+.. mvn hpi:run
+
+For more details, see this
+https://wiki.jenkins-ci.org/display/JENKINS/Plugin+tutorial[Jenkins
+tutorial]
+
+[[RedgateSQLChangeAutomationPlugin-Needhelp?]]
+== Need help?
+
+If you need help with this plugin, email support@red-gate.com
+
+[[RedgateSQLChangeAutomationPlugin-Knowhowtoimprovethisplugin?]]
+== Know how to improve this plugin?
+
+If you can make this plugin better - great! Code it and submit a
+https://github.com/jenkinsci/redgate-sql-ci-plugin/pulls[pull request].
+If it looks good, we'll merge in your changes.
+
+Alternatively, email your suggestions to support@red-gate.com

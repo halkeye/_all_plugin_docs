@@ -1,0 +1,42 @@
+Deprecated: This plugin has been removed from the Jenkins Update Centre
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+This functionality is now built in to Jenkins core — no plugin is
+required. +
+http://archives.jenkins-ci.org/plugins/persistent-build-queue-plugin/[Archived
+versions] of this plugin remain available for download.
+
+[[PersistentBuildQueuePlugin-PersistentBuildQueuePlugin]]
+== Persistent Build Queue Plugin
+
+This plugin preserves the build queue across Jenkins restart.
+
+ +
+
+'''''
+
+ +
+
+[[PersistentBuildQueuePlugin-Changelog]]
+=== Changelog
+
+[[PersistentBuildQueuePlugin-1.0(unreleased)]]
+==== 1.0 (unreleased)
+
+Planned
+
+* Do not require per-job configuration of plugin
+
+[[PersistentBuildQueuePlugin-0.1.1(released2011-06-02)]]
+==== 0.1.1 (released 2011-06-02)
+
+* had a problem with pom.xml's scm section for github
+** new release was required to do full :prepare :perform .. sorry!
+
+[[PersistentBuildQueuePlugin-0.1.0(released2011-06-02)]]
+==== 0.1.0 (released 2011-06-02)
+
+* fully I18N
+* initial implementation

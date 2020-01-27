@@ -1,0 +1,27 @@
+Allows users to upload files to https://slack.com/[Slack]
+
+[[SlackFileUploaderPlugin-Summary]]
+== Summary
+
+Jenkins is a wonderful continuous integration system which automates
+your build process for you. Frequently artifacts and files are generated
+during the build process which one may want to share with their team.
+This plugin was born out of that necessity and streamlines the process
+of posting such files to Slack, the popular chat messenger for companies
+and teams. With bare minimum configuration, you get a slack uploader!
+
+[[SlackFileUploaderPlugin-Wiki]]
+=== Wiki
+
+Check the wiki page: -
+https://github.com/jenkinsci/slack-uploader-plugin to post issues or to
+check release notes.
+
+[[SlackFileUploaderPlugin-Setup]]
+== Setup
+
+* Create a Slack account and obtain your token.
+* Install the plugin on Jenkins server.
+* Configure your Jenkins job as a Post-Build action.
+* Enter the channel and the file path of the files you want to upload.
+* Start a build and watch as the magic happens.

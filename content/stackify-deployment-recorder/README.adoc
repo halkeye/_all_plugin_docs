@@ -1,0 +1,72 @@
+ 
+
+Jenkins Plugin to Record Deployments in Stackify Retrace +
+ +
+Deployment Tracking Overview: +
+https://support.stackify.com/deployment-tracking-overview/ +
+ +
+Sign Up for a Trial: +
+http://www.stackify.com/sign-up/
+
+[[StackifyDeploymentRecorderPlugin-Installation]]
+== Installation
+
+Manage Jenkins / Manage Plugins / Available
+
+Search for 'Stackify' and install the 'Stackify Deployment Recorder'
+plugin.
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/stackify-deployment-recorder-install.png[image,height=150]#
+
+[[StackifyDeploymentRecorderPlugin-Usage]]
+== Usage
+
+Jenkins Job / Configure
+
+Add the 'Record deployment in Stackify Retrace' Post Build Action
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/stackify-deployment-recorder-postbuildaction.png[image,height=250]#
+
+Fill in your Stackify API key first. You will then get a drop down list
+of applications to pick from.
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/stackify-deployment-recorder-blankconfig.png[image,height=250]#
+
+The configuration defaults should be fine for a Git + Maven Java
+project.
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/stackify-deployment-recorder-config.png[image,height=250]#
+
+Save your job configuration changes.
+
+[[StackifyDeploymentRecorderPlugin-Troubleshooting]]
+== Troubleshooting
+
+[[StackifyDeploymentRecorderPlugin-JobLog]]
+=== Job Log
+
+Jenkins Job / Console Output
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/stackify-deployment-recorder-joblog.png[image,height=150]#
+
+[[StackifyDeploymentRecorderPlugin-SystemLog]]
+=== System Log
+
+Manage Jenkins / System Log / Add new log recorder
+
+Name: Stackify
+
+Logger: org.jenkinsci.plugins.stackify
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/stackify-deployment-recorder-systemlogrecorder.png[image,height=150]#
+
+Then you can view log messages from the Stackify plugin.
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/stackify-deployment-recorder-systemlog.png[image,height=250]#
+
+ 
+
+ +
+ +
+ +
+ +

@@ -1,0 +1,28 @@
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/saha-logolar-v2-T1.png[image,height=250]#
+
+ 
+
+ 
+
+ 
+
+ 
+
+[.conf-macro .output-inline]# +
+#
+
+[.conf-macro .output-inline]#This plugin integrates Jenkins
+with http://www.testinium.com/[Testinium] projects. #
+
+[[TestiniumPlugin-ChangeLog]]
+== [.conf-macro .output-inline]#Change Log#
+
+[.conf-macro .output-inline]# #
+
+[[TestiniumPlugin-Version1.0.0]]
+=== Version 1.0.0 
+
+* Initial release of plugin.
+
+[.conf-macro .output-inline]# +
+#

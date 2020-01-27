@@ -1,0 +1,9 @@
+Aggregate past cloud provisioning activities into a report.
+
+The plugin collects activities of other plugins and visualizes them as
+well as provides them to other plugins in form of an API.
+
+Note that a provisioning plugin needs to explicitly integrate against
+this plugin in order to capture its statistics.
+
+The statistics are presented on *Manage Jenkins > Cloud Statistics*.

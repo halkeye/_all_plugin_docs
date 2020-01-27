@@ -1,0 +1,29 @@
+http://vaddy.net/[VAddy] is automated web security testing service
+provided by http://www.bitforest.jp/[Bitforest.]
+
+This plugin integrates http://vaddy.net/[VAddy.net] to Jenkins. 
+
+ +
+
+[[VAddyPlugin-Documents]]
+== Documents
+
+User's manual is  http://vaddy.net/docs/step03-j.html.
+
+[[VAddyPlugin-Changes]]
+== Changes
+
+[[VAddyPlugin-Version1.2.8(Apr25,2016)]]
+=== Version 1.2.8(Apr 25, 2016)
+
+* Added. To specify a search keyword of crawl label.
+
+[[VAddyPlugin-Version1.2.6(Feb29,2016)]]
+=== Version 1.2.6(Feb 29, 2016)
+
+* Added. To specify any Crawl ID.
+
+[[VAddyPlugin-Version1.2.5(Feb11,2016)]]
+=== Version 1.2.5(Feb 11, 2016)
+
+* Fix bug. Extend timeout hours from 1 to 3.

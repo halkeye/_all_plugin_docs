@@ -1,0 +1,9 @@
+This plug-in display the queue for given computer in it's page
+
+[[Computerqueueplugin-Computerqueueplugin]]
+== Computer queue plugin
+
+This plug-in display the queue for given computer in it's page
+
+ 
+[.confluence-embedded-file-wrapper]#image:docs/images/computer.jpg[image]#

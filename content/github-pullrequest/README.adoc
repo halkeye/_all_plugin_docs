@@ -1,0 +1,13 @@
+Advanced trigger for GitHub Pull Requests and Branches.
+
+ +
+NOTE: github-pullrequest-plugin is the main component atm.
+
+https://github.com/jenkinsci/github-pullrequest-plugin/blob/master/README.adoc[README]
+
+https://github.com/KostyaSha/github-integration-plugin/tree/master/docs[Documentation]
+
+https://github.com/jenkinsci/github-pullrequest-plugin/blob/master/CHANGELOG.md[CHANGELOG]
+
+https://github.com/jenkinsci/github-integration-plugin/issues[Issue
+tracker]

@@ -1,0 +1,8 @@
+Alauda Pipeline Plugin
+
+\{jenkins-plugin-info:alauda-pipeline}
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+ 

@@ -1,0 +1,730 @@
+[[BranchAPIPlugin-BranchAPIPlugin]]
+== Branch API Plugin
+
+This plugin provides an API for multiple branch based projects.
+
+ +
+The following concepts are provided:
+
+* Multibranch projects: projects consisting in a group of several
+projects, one for each defined branch.
+* Organizational folders: a folder-like collection of Multibranch
+projects, one per repository.
+* Branch properties: add additional information linked to the branch,
+which can then be used to take decisions. Some properties are provided:
+
+* {blank}
+** Do not trigger builds for branch.
+** Do not trigger builds for organizational folder.
+** Override triggering behaviour for multibranch project or
+organizational folder.
+** Untrusted author.
+** Limit builds for a branch to a certain rate.
+** Discard old builds for branch.
+
+[[BranchAPIPlugin-Debughooksforevents]]
+== Debug hooks for events
+
+If you have to try and diagnose issues with events or indexing, the
+following information may be of assistance:
+
+Jobs triggered by SCM Events try to capture their origin.
+
+The origin is available as a tool-tip on the build cause: +
+  
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/Screen_Shot_2017-03-16_at_14.11.57.png[image,width=300]#
+
+This can be very helpful to quickly identify where events that trigger
+builds are coming from.
+
+More detailed event processing information is available from the event
+logs. +
+ 
+
+By default, the CloudBees Folders plugin will only retain the logs of
+the last scan / index. If you are having issues with scanning /
+indexing, it can help to turn on the retention with the system
+property `+com.cloudbees.hudson.plugins.folder.computed.FolderComputation.BACKUP_LOG_COUNT+`
+(note that you can write directly to that field using the System Groovy
+Console, so you can change the value on a running system without a
+restart)
+
+The Multi-branch projects will log the initial arrival of events and any
+routing decisions in
+the `+$JENKINS_HOME/logs/jenkins.branch.MultiBranchProject.log+` file
+(which will be rolled every 32kB, limit of 5 files)
+
+* Once an event has been routed to a specific Multi-branch project, the
+responsibility for logging the event will belong with that Multi-branch
+project and will be stored in the
+`+$JENKINS_HOME/jobs/$PATH_TO_PROJECT/indexing/events.log+` (which will
+be rolled every 150kB, limit of `+BACKUP_LOG_COUNT+` files)
+
+The Organization folder projects will log the initial arrival of events
+and any routing decisions in
+the `+$JENKINS_HOME/logs/jenkins.branch.OrganizationFolder.log+`
+file (which will be rolled every 32kB, limit of 5 files)
+
+* Once an event has been routed to a specific Organization folder
+project, the responsibility for logging the event will belong with that
+Organization folder project and will be stored in the
+`+$JENKINS_HOME/jobs/$PATH_TO_PROJECT/computation/events.log+` (which
+will be rolled every 150kB, limit of `+BACKUP_LOG_COUNT+` files)
+
+[[BranchAPIPlugin-VersionHistory]]
+== Version History
+
+[[BranchAPIPlugin-Version2.5.4(Jul25,2019)]]
+=== Version 2.5.4 (Jul 25, 2019)
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-54864[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-54864] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  Undeprecate the "Automatic branch project triggering" property for
+organization folders and disable the automated migration that replaced
+it with a "Named Branch" build strategy from Basic Branch Build
+Strategies Plugin starting in version 2.1.0 of this plugin because the
+migration caused an undesirable change in behavior in some cases.
+
+[[BranchAPIPlugin-Version2.5.3]]
+=== Version 2.5.3 
+
+* TODO
+
+[[BranchAPIPlugin-Version2.5.2(May24,2019)]]
+=== Version 2.5.2 (May 24, 2019)
+
+* Typo fix from v2.5.1 and internal
+refactoring (https://github.com/jenkinsci/branch-api-plugin/pull/153[PR
+#153], https://github.com/jenkinsci/branch-api-plugin/pull/154[PR #154])
+
+[[BranchAPIPlugin-Version2.5.1(May22,2019)]]
+=== Version 2.5.1 (May 22, 2019)
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-57588[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-57588] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  Prevent job storm on upgrade from 2.4.x and earlier
+(https://github.com/jenkinsci/branch-api-plugin/pull/152[PR #152])
+
+[[BranchAPIPlugin-Version2.5.0(May21,2019)]]
+=== Version 2.5.0 (May 21, 2019)
+
+* https://github.com/jenkinsci/branch-api-plugin/pull/145[PR #145]
+- Support for programmatically generating OrganizationFolders
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-54992[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-54992] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  Replaced misleading job pronoun on Delete action with base Job
+pronoun (https://github.com/jenkinsci/branch-api-plugin/pull/150[PR
+#150])
+* Java 11 readiness: build both on JDK8 and JDK11
+(https://github.com/jenkinsci/branch-api-plugin/pull/148[PR #148])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-38552[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-38552] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  Use a lastSeenRevision + lastBuilt
+(https://github.com/jenkinsci/branch-api-plugin/pull/149[PR #149])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-55597[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-55597] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  Handle IOException in onOnline when failing to delete workspace, to
+prevent a node disconnection
+(https://github.com/jenkinsci/branch-api-plugin/pull/142[PR #142])
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-49729[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-49729] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  Indicate dead branch on job and run pages
+(https://github.com/jenkinsci/branch-api-plugin/pull/151[PR #151])
+
+[[BranchAPIPlugin-Version2.4.0(Apr8,2019)]]
+=== Version 2.4.0 (Apr 8, 2019)
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-56903[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-56903] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  Add a health reporting metric for multibranch projects that only
+reports the health of the "primary" branch (as reported by the SCM)
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-56917[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-56917] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  Adds an extension point for organization folders that enabled the
+customization of the children of the organization folder on every
+organization folder scan. There are three implementations provided: +
+** Child Health metrics which allows controlling the health metrics that
+the child multibranch projects will use. Previous behaviour was to
+always configure just the default health metrics relevant to a
+multi-branch project.
+** Child Scan Triggers which enabled the customization of the scan
+triggers for the child multibranch projects. Previous behaviour was to
+initially configure this to once per day and never update it. The new
+behaviour will now enforce the triggers defined in Child Scan Triggers
+for the organization folder.  +
+image:docs/images/warning.svg[(warning)]**NOTE **if
+you have been using some custom hack to change the multibranch scan
+triggers after initial creation, that hack is no longer needed... and in
+fact it will now cease to work
+** Child Orphaned Item Strategy which allows the child multibranch
+projects to have a different orphaned item strategy from the parent
+organization folder. By default this property will use the _Inherited_
+strategy which retains the existing behaviour but you can configure a
+different strategy if you want branches to be retained on a different
+schedule from repositories.
+* Jenkins core version bump to 2.138 LTS line
+
+[[BranchAPIPlugin-Version2.3.0(Apr4,2019)]]
+=== Version 2.3.0 (Apr 4, 2019)
+
+* Set the revision even if the build does not happen. Enabling 
+[.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-38552[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-38552] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#
+* Migrated Chinese localization into localization-zh-cn
+* Updated some test dependencies
+
+[[BranchAPIPlugin-Version2.2.0(Mar21,2019)]]
+=== Version 2.2.0 (Mar 21, 2019)
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-56658[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-56658] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  Changed API for BranchBuildStrategy to provide strategies with access
+to the task listener. +
+Impact assessment:
+** Change is binary compatible. At run-time plugins implementing the
+older API will be transparently detected and the legacy API methods
+invoked as appropriate. 
+** Change is not source compatible. Plugins implementing
+BranchBuildStrategy will need to update the overridden method when they
+update their compile time dependency on branch-api to 2.2.0
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-54968[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-54968] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  “path sanitization ineffective when using legacy Workspace Root
+Directory” ending in slash 
+
+[[BranchAPIPlugin-Version2.1.2(Dec6,2018)]]
+=== Version 2.1.2 (Dec 6, 2018)
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-54654[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-54654] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#
+
+[[BranchAPIPlugin-Version2.1.1(Nov19,2018)]]
+=== Version 2.1.1 (Nov 19, 2018)
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-54640[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-54640] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+# Index collision check was not working
+
+[[BranchAPIPlugin-Version2.1.0(Nov16,2018)]]
+=== Version 2.1.0 (Nov 16, 2018)
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-47859[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-47859] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  Migrate "Automatic branch project triggering » Branch names to build
+automatically" hack to the branch build strategy implementation
+
+[[BranchAPIPlugin-Version2.0.21(Nov9,2018)]]
+=== Version 2.0.21 (Nov 9, 2018)
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-2111[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-2111] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#   [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-34564[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-34564] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+# [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-30148[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-30148] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+# [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-38706[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-38706] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+# [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-22240[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-22240] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+# Managed workspace indices
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-50561[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-50561] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#  Added rateLimitBuilds symbol
+* Code cleanup
+
+[[BranchAPIPlugin-Version2.0.20.1(Nov15,2018)]]
+=== Version 2.0.20.1 (Nov 15, 2018)
+
+* Updated pom to fix the PCT for the Git Plugin
+
+[[BranchAPIPlugin-Version2.0.20(Apr20,2018)]]
+=== Version 2.0.20 (Apr 20, 2018)
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-50777[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-50777] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#
+
+[[BranchAPIPlugin-Version2.0.19(Apr5,2018)]]
+=== Version 2.0.19 (Apr 5, 2018)
+
+* Remove usage restriction from OrganizationFolder
+
+[[BranchAPIPlugin-Version2.0.18(Jan10,2018)]]
+=== Version 2.0.18 (Jan 10, 2018)
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-48890[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-48890] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#
+
+[[BranchAPIPlugin-Version2.0.17(Jan2,2018)]]
+=== Version 2.0.17 (Jan 2, 2018)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-48535[JENKINS-48535]
+Provide an API that enabled extension plugin to provide a branch build
+strategy that could do things like not-build merge PRs when only the
+target revision has changed
+* https://issues.jenkins-ci.org/browse/JENKINS-48536[JENKINS-48536]
+Organization folder does not call afterSave on child multibranch
+projects
+
+[[BranchAPIPlugin-Version2.0.16(Dec5,2017)]]
+=== Version 2.0.16 (Dec 5, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-44335[JENKINS-44335]
+Allow user-boosting option in rate limit throttle
+* https://issues.jenkins-ci.org/browse/JENKINS-48214[JENKINS-48214] When
+a multibranch project in an organization folder has been disabled, the
+organization folder is responsible for handling events
+* https://issues.jenkins-ci.org/browse/JENKINS-48090[JENKINS-48090] When
+a SCMSource provides branch actions that include CauseAction, merge the
+CauseActions
+* Add Chinese translations
+(https://github.com/jenkinsci/branch-api-plugin/pull/114[PR#114])
+
+[[BranchAPIPlugin-Version2.0.15(Oct26,2017)]]
+=== Version 2.0.15 (Oct 26, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-47678[JENKINS-47678] If a
+BranchBuildStrategy is provided by an extension plugin, attempts to save
+a multibranch project with a BranchBuildStrategy configured will fail
+with a class cast exception.
+
+[[BranchAPIPlugin-Version2.0.14(Oct9,2017)]]
+=== Version 2.0.14 (Oct 9, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-47311[JENKINS-47311] Ok,
+sometimes you have a bad day making simple fixes.
+https://github.com/jenkinsci/branch-api-plugin/commit/720206f89cc7d0caafe0b67dba23d8abc1b88275[Fixed] now
+image:docs/images/tongue.svg[(tongue)].
+
+[[BranchAPIPlugin-Version2.0.13(Oct9,2017)]]
+=== Version 2.0.13 (Oct 9, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-47340[JENKINS-47340] Fix
+NPE when saving organization folders
+
+[[BranchAPIPlugin-Version2.0.12(Oct6,2017)]]
+=== Version 2.0.12 (Oct 6, 2017)
+
+* [.s1]#https://issues.jenkins-ci.org/browse/JENKINS-47311[JENKINS-47311]
+Fix the broken form submission and add the missing form support for org
+folders#
+* [.s1]#https://issues.jenkins-ci.org/browse/JENKINS-47308[JENKINS-47308]
+Add the ability for branch build strategies to consider the revision#
+* https://issues.jenkins-ci.org/browse/JENKINS-46957[JENKINS-46957] Use
+new parent POM to fix PCT and update dependencies accordingly
+* [.s1]#https://issues.jenkins-ci.org/browse/JENKINS-45814[JENKINS-45814]
+Fix javadoc#
+* [.s1]#Update to SCM API 2.2.3#
+
+[[BranchAPIPlugin-Version2.0.11(Jul17,2017)]]
+=== Version 2.0.11 (Jul 17, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-38837[JENKINS-38837] Mutibranch
+project plugin does not respect "Workspace Root Directory" global
+configuration
+* https://issues.jenkins-ci.org/browse/JENKINS-43433[JENKINS-43433] Allow
+SCMSource implementations to expose merge and origin of change request
+heads
+* https://issues.jenkins-ci.org/browse/JENKINS-43507[JENKINS-43507] Allow
+SCMSource and SCMNavigator subtypes to share common traits
+* https://issues.jenkins-ci.org/browse/JENKINS-44676[JENKINS-44676] Support
+for TAG_NAME env variable
+* https://issues.jenkins-ci.org/browse/JENKINS-45322[JENKINS-45322] Orphaned
+MultiBranchProject not properly disabled
+
+[[BranchAPIPlugin-Version2.0.10(Jun9,2017)]]
+=== Version 2.0.10 (Jun 9, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-44784[JENKINS-44784]
+Perform workspace cleanup for deleted branch projects asynchronously and
+apply a timeout.
+
+[[BranchAPIPlugin-Version2.0.9(May2,2017)]]
+=== Version 2.0.9 (May 2, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-41736[JENKINS-41736]
+Leverage the new event description API from SCM API to expose event
+descriptions
+* https://issues.jenkins-ci.org/browse/JENKINS-34691[JENKINS-34691] On
+Jenkins 2.51+ veto attempts to copy branch projects outside of their
+multibranch container (as they will not function correctly outside of
+their container)
+
+[[BranchAPIPlugin-Version2.0.8(Mar8,2017)]]
+=== Version 2.0.8 (Mar 8, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-37364[JENKINS-37364] Tabs
+should indicate the number of items they have
+* https://issues.jenkins-ci.org/browse/JENKINS-34522[JENKINS-34522] On
+versions of Jenkins core with
+https://github.com/jenkinsci/jenkins/pull/2772[this change] merged,
+provide the correct action text for Scan now
+* https://issues.jenkins-ci.org/browse/JENKINS-42511[JENKINS-42511] When
+events are concurrent with scanning, ensure that events and scanning do
+not create shadow items resulting in duplicate builds with the same
+build number 
+
+[[BranchAPIPlugin-Version2.0.7(Feb22,2017)]]
+=== Version 2.0.7 (Feb 22, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-34564[JENKINS-34564]
+Allow workspace paths to be less than 54 characters
+* https://issues.jenkins-ci.org/browse/JENKINS-42009[JENKINS-42009]
+Update some test harness related code
+* https://issues.jenkins-ci.org/browse/JENKINS-42151[JENKINS-42151] Pick
+up API changes and return event processing to multi-threaded
+* https://issues.jenkins-ci.org/browse/JENKINS-42234[JENKINS-42234] A
+missing call to SCMHeadEvent.isMatch() could cause some events to
+trigger incorrect branches
+
+[[BranchAPIPlugin-Version2.0.6(Feb14,2017)]]
+=== Version 2.0.6 (Feb 14, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-42000[JENKINS-42000] If
+there is a problem when scanning an Organization Folder, do not storm
+off in a huff and delete all the jobs in the organization folder!
+
+[[BranchAPIPlugin-Version2.0.5(Feb14,2017)]]
+=== Version 2.0.5 (Feb 14, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-41948[JENKINS-41948] (workaround)
+Restore some binary compatibility by adding a bridge method that got
+removed with the upgrade to CloudBees Folders 5.17
+* https://issues.jenkins-ci.org/browse/JENKINS-41980[JENKINS-41980] SCM
+events should be ignored when suppressing SCM triggering. 
+
+[[BranchAPIPlugin-Version2.0.4(Feb10,2017)]]
+=== Version 2.0.4 (Feb 10, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-41927[JENKINS-41927]
+Orphaned branches should have name in strikethrough
+* https://issues.jenkins-ci.org/browse/JENKINS-41883[JENKINS-41883]
+Global event logs were being overwritten on every event making them less
+useful than they should be
+
+[[BranchAPIPlugin-Version2.0.3(Feb8,2017)]]
+=== Version 2.0.3 (Feb 8, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-41795[JENKINS-41795] Report
+the origin of SCM Events when available
+
+[[BranchAPIPlugin-Version2.0.2(Feb2,2017)]]
+=== Version 2.0.2 (Feb 2, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-41517[JENKINS-41517] Branch
+API's event logging could be more consistent in reporting the event
+class
+* https://issues.jenkins-ci.org/browse/JENKINS-41171[JENKINS-41171] Superfluous
+New Item added for "Organization Folder"
+* https://issues.jenkins-ci.org/browse/JENKINS-41124[JENKINS-41124] Can't
+get a human readable job name anymore
+* https://issues.jenkins-ci.org/browse/JENKINS-41255[JENKINS-41255] Upgrading
+from a navigator that did not assign consistent source ids to a version
+that does assign consistent source ids causes a build storm on first
+scan
+* https://issues.jenkins-ci.org/browse/JENKINS-41121[JENKINS-41121] GitHub
+Branch Source upgrade can cause a lot of rebuilds
+* https://issues.jenkins-ci.org/browse/JENKINS-41209[JENKINS-41209] NPE
+during loading of branch jobs when migrating from 1.x to 2.x
+
+[[BranchAPIPlugin-Version2.0.1(Jan17,2017)]]
+=== Version 2.0.1 (Jan 17, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-41125[JENKINS-41125] Branch
+API 2.0.0 event processing doesn't consistently mangle names
+
+[[BranchAPIPlugin-Version2.0.0(Jan16,2017)]]
+=== Version 2.0.0 (Jan 16, 2017)
+
+* image:docs/images/warning.svg[(warning)]
+ Please read https://jenkins.io/blog/2017/01/17/scm-api-2/[this Blog
+Post] before upgrading
+* https://issues.jenkins-ci.org/browse/JENKINS-40865[JENKINS-40865] Org
+folders do not encode child project names
+* https://issues.jenkins-ci.org/browse/JENKINS-40876[JENKINS-40876] ObjectMetadataAction
+objectUrl never gets populated for PRs or Branches
+* Log exceptions during scan/indexing with tracking details
+* Where the SCM Source reports tags (no known implementations yet), tags
+should not be built by default
+* Suppress scans when configuration unchanged but trigger if there has
+not been a scan with current configuration
+* https://issues.jenkins-ci.org/browse/JENKINS-40832[JENKINS-40832] Primary
+branches should have their name in bold
+* https://issues.jenkins-ci.org/browse/JENKINS-40829[JENKINS-40829] Provide
+an API to retrieve a SCMSource from a given Item
+* https://issues.jenkins-ci.org/browse/JENKINS-40828[JENKINS-40828] Provide
+a way for tests using MockSCMController to inject failures
+* https://issues.jenkins-ci.org/browse/JENKINS-40827[JENKINS-40827] Clarify
+the content of ObjectMetadataAction's getDescription() and
+getDisplayName()
+* https://issues.jenkins-ci.org/browse/JENKINS-39355[JENKINS-39355] Pick
+up SCM API improvements
+* https://issues.jenkins-ci.org/browse/JENKINS-39816[JENKINS-39816] Fix
+PCT against >= 2.16
+* https://issues.jenkins-ci.org/browse/JENKINS-39520[JENKINS-39520] CustomOrganizationFolderDescriptor
+breaks when multiple branch sources are added
+* https://issues.jenkins-ci.org/browse/JENKINS-39026[JENKINS-39026] Add
+a ViewJobFilter specialized for filtering by Branch
+* https://issues.jenkins-ci.org/browse/JENKINS-38987[JENKINS-38987] Use
+contextual naming for SCMHead/SCMSource/SCMNavigator instances
+
+[[BranchAPIPlugin-Version2.0.0-beta-1(Dev16,2016)]]
+=== Version 2.0.0-beta-1 (Dev 16, 2016)
+
+* Available in the experimental update center only
+* Pick up API changes from SCM API 2.0 (requires SCM API 2.0.1-beta-1
+and if you have either of the github-branch-source or
+bitbucket-branch-source plugins you must upgrade them to at least
+2.0.0-beta-1)
+
+[[BranchAPIPlugin-Version1.11.1(Nov04,2016)]]
+=== Version 1.11.1 (Nov 04, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-39520[JENKINS-39520]
+Error when dynamically installing multiple branch source plugins.
+
+[[BranchAPIPlugin-Version1.11(Sep23,2016)]]
+=== Version 1.11 (Sep 23, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-34564[JENKINS-34564]
+Branch projects now get custom workspace paths inside the node’s
+`+workspace+` directory, capped by default at 80 characters and using
+only ASCII letters, numbers, and simple punctuation (in particular, no
+`+%+`).
+* https://issues.jenkins-ci.org/browse/JENKINS-37219[JENKINS-37219]
+Added a job property for overriding the implicit branch indexing trigger
+flag, allowing a multibranch `+Jenkinsfile+` to customize its own
+triggering behavior after the initial build.
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]#
+#
+
+Some projects running external processes that cannot handle even
+moderately long pathnames will not work with the new default workspace
+locations. The system property
+`+jenkins.branch.WorkspaceLocatorImpl.PATH_MAX+` may be set to `+0+` to
+restore the previous behavior (which will then break some processes
+which cannot handle funny characters, or projects using long branch
+names etc.). The default value is 80; values as low as 54 (but no lower)
+are possible. When feasible, fix the external process to be more robust,
+or on Windows use
+
+[source,syntaxhighlighter-pre]
+----
+\\?\
+----
+
+as a prefix before the remote filesystem root.
+
+Another workaround in Pipeline scripts is to use the `+ws+` step with an
+absolute pathname. You can then choose any path, and concurrent builds
+will still get distinct workspaces automatically; but you are on the
+hook for finding a _valid_ path on the node, unrelated projects might
+overwrite each other’s workspaces between builds (reducing beneficial
+caches of SCM checkouts and the like), and the custom workspaces will
+not be automatically deleted if the branch project is deleted. The first
+problem could be avoided by using a pathname like `+../custom+` rather
+than an absolute path.
+
+Note that the `+sshagent+` Pipeline step
+(https://wiki.jenkins.io/display/JENKINS/SSH+Agent+Plugin[SSH Agent
+Plugin]) when used inside an `+Image.inside+` block
+(https://wiki.jenkins.io/display/JENKINS/Docker+Pipeline+Plugin[Docker
+Pipeline Plugin]) will not currently work when the workspace path
+exceeds 108 characters, due to a poor choice of constant in most Linux
+kernels:
+https://issues.jenkins-ci.org/browse/JENKINS-36997[JENKINS-36997].
+
+A full fix should probably come in
+https://issues.jenkins-ci.org/browse/JENKINS-2111[JENKINS-2111] for all
+project types.
+
+[[BranchAPIPlugin-Version1.10.2(Sep03,2016;1.10.1burned)]]
+=== Version 1.10.2 (Sep 03, 2016; 1.10.1 burned)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-34239[JENKINS-34239] Fix
+of https://issues.jenkins-ci.org/browse/JENKINS-33106[JENKINS-33106] in
+1.4 did not work in all cases.
+
+[[BranchAPIPlugin-Version1.10(Jun09,2016)]]
+=== Version 1.10 (Jun 09, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-34246[JENKINS-34246]
+Improve organization folder API to allow project recognizers to indicate
+removed repositories or edited configuration.
+
+[[BranchAPIPlugin-Version1.9(Jun01,2016)]]
+=== Version 1.9 (Jun 01, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-32178[JENKINS-32178]
+Broken links in custom views of multibranch projects.
+
+[[BranchAPIPlugin-Version1.9-beta-1(May23,2016)]]
+=== Version 1.9-beta-1 (May 23, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-32396[JENKINS-32396]
+Option to suppress automatic SCM trigger.
+
+[[BranchAPIPlugin-Version1.8(May13,2016)]]
+=== Version 1.8 (May 13, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-33819[JENKINS-33819]
+`+OrphanedItemStrategy+` is now propagated to multibranch projects.
+* Added extra log
+https://github.com/jenkinsci/branch-api-plugin/pull/40[messages] from
+branch indexing.
+* A https://github.com/jenkinsci/branch-api-plugin/pull/39[regression]
+was introduced in 1.7 while
+https://issues.jenkins-ci.org/browse/JENKINS-34259[JENKINS-34259] was
+fixed.
+
+[[BranchAPIPlugin-Version1.7(Apr29,2016)]]
+=== Version 1.7 (Apr 29, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-34259[JENKINS-34259] Some
+links (in left menu) in Pipeline Multibranch projects and GitHub
+Organization projects are broken when there are no branch sources
+defined or the GitHub Organization is empty.
+* Documented build environment variables.
+
+[[BranchAPIPlugin-Version1.6(Apr11,2016)]]
+=== Version 1.6 (Apr 11, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-33808[JENKINS-33808]
+Support for Item categorization. More information about this new feature
+in core here
+https://issues.jenkins-ci.org/browse/JENKINS-31162[JENKINS-31162]
+
+[[BranchAPIPlugin-Version1.5(Mar21,2016)]]
+=== Version 1.5 (Mar 21, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-32670[JENKINS-32670]
+Suppress whole branch property UI for project types which do not have
+any supported branch properties, such as multibranch Pipeline.
+
+[[BranchAPIPlugin-Version1.4(Mar14,2016)]]
+=== Version 1.4 (Mar 14, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-33106[JENKINS-33106]
+Organization folder types not displayed under _New Item_ without a
+restart.
+* https://issues.jenkins-ci.org/browse/JENKINS-33309[JENKINS-33309]
+Using API for defining variables associated with pull requests.
+* https://issues.jenkins-ci.org/browse/JENKINS-32782[JENKINS-32782]
+Welcome view failed to display _Delete Folder_ link.
+
+[[BranchAPIPlugin-Version1.3(Feb18,2016)]]
+=== Version 1.3 (Feb 18, 2016)
+
+* Prevent NPE while unserialization of BranchSources with a null
+SCMSource
+* https://issues.jenkins-ci.org/browse/JENKINS-32493[JENKINS-32493]
+Adapt to Parent POM 2.3
+
+[[BranchAPIPlugin-Version1.1(Jan28,2016)]]
+=== Version 1.1 (Jan 28, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-31949[JENKINS-31949]
+Bogus _New Item_ option inside folders.
+* https://issues.jenkins-ci.org/browse/JENKINS-31516[JENKINS-31516]
+Children not reindexed on organization folder reindex.
+* Useless `+MultiBranchProjectDescriptor.getSCMDescriptors+` API
+deleted.
+* https://issues.jenkins-ci.org/browse/JENKINS-31381[JENKINS-31381] Show
+more helpful welcome text for empty multibranch projects and
+organization folders.
+
+[[BranchAPIPlugin-Version1.0(Nov12,2015)]]
+=== Version 1.0 (Nov 12, 2015)
+
+* Fix to `+RateLimitBranchProperty+` for the benefit of Workflow
+multibranch `+properties+` step.
+* Ensure that `+SCMSource.setOwner+` is called consistently.
+* https://issues.jenkins-ci.org/browse/JENKINS-30252[JENKINS-30252] New
+environment variable `+BRANCH_NAME+`.
+* https://issues.jenkins-ci.org/browse/JENKINS-30595[JENKINS-30595]
+Implemented new API.
+* Suppress non-read view permissions on multi-branch projects within an
+organization folder.
+* Add `+PeriodicFolderTrigger+` by default.
+* https://issues.jenkins-ci.org/browse/JENKINS-30744[JENKINS-30744]
+Fixed handling of branches with slashes in the name.
+* https://issues.jenkins-ci.org/browse/JENKINS-31432[JENKINS-31432] NPE
+under some conditions.
+
+[[BranchAPIPlugin-Version0.2-beta-5]]
+=== Version 0.2-beta-5
+
+*Warning*: settings compatibility for this release has not yet been
+tested. If you have an existing project using the Literate plugin in
+particular, the dead branch retention strategy might be reset to “delete
+immediately” after the upgrade.
+
+* Introduced an “organization folder” top-level item type. Hidden unless
+there are some SCM providers
+(https://wiki.jenkins.io/display/JENKINS/GitHub+Branch+Source+Plugin[GitHub
+Branch Source Plugin]), and project factories
+(https://wiki.jenkins.io/display/JENKINS/Pipeline+Plugin[Pipeline
+Plugin]).
+* Major refactoring to use `+ComputedFolder+` API in
+https://wiki.jenkins.io/display/JENKINS/CloudBees+Folders+Plugin[CloudBees
+Folders Plugin].
+* Always run branch indexing on the master node.
+* Compatibility with 1.576+ icon captions.
+
+[[BranchAPIPlugin-Version0.2-beta-4]]
+=== Version 0.2-beta-4
+
+* API changes useful for Workflow.
+
+[[BranchAPIPlugin-Version0.1]]
+=== Version 0.1
+
+* Initial release.

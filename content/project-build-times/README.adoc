@@ -1,0 +1,38 @@
+This plugin contributes a new view implementation that provides graphs
+to display cumulative and separate build times on the dashboard-view.
+
+[[ProjectBuildTimes-Description]]
+== Description
+
+This plugin allows for graphs to be displayed on the Jenkins Dashboard
+view in both stacked and line versions.
+
+[[ProjectBuildTimes-Viewlayout]]
+== View layout
+
+The dashboard view supports a layout with rows spanning the entire view
+with 2 columns.
+
+[width="100%",cols="50%,50%",]
+|===
+|Top portlet 1........  + |.......................  +
+|Left portlet 1  + |Right portlet 1  +
+|Left portlet 2  + |Right portlet 2  +
+|Bottom portlet 1...  + |.......................  +
+|===
+
+[[ProjectBuildTimes-TODO]]
+== TODO
+
+[width="100%",cols="25%,25%,25%,25%",]
+|===
+|  |  |  | +
+|===
+
+[[ProjectBuildTimes-VersionHistory]]
+== Version History
+
+[[ProjectBuildTimes-Version1.0(02/18/2014)]]
+=== Version 1.0 (02/18/2014)
+
+* Initial release 

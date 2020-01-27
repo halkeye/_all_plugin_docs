@@ -1,0 +1,117 @@
+[[FireLinePlugin-PluginInformation]]
+== Plugin Information
+
+[width="100%",cols="22%,25%,17%,36%",]
+|===
+|Plugin ID |fireline |Changes
+|[.underline]#https://github.com/jenkinsci/fireline-plugin/releases[releases]#
+
+a|
+*Latest Release*
+
+*Latest Release Date *
+
+* Required Core *
+
+* Dependencies*
+
+a|
+1.0
+
+2017/09/25
+
+ 
+
+a|
+Source Code 
+
+ Issue Tracking 
+
+ Pull Requests 
+
+ Maintainer(s)
+
+a|
+[[FireLinePlugin-GitHub]]
+======= [.underline]#https://github.com/jenkinsci/fireline-plugin[GitHub]#
+
+[[FireLinePlugin-OpenIssues]]
+======= [.underline]#https://github.com/jenkinsci/fireline-plugin[Open Issues]#
+
+[[FireLinePlugin-PullRequests]]
+======= [.underline]#https://github.com/jenkinsci/fireline-plugin/pulls[Pull Requests]#
+
+[[FireLinePlugin-AnneWei]]
+======= [.underline]#mailto:weihao@360.cn[AnneWei]#
+
+|*Usage* |  |Installations | 
+|===
+
+ 
+
+[[FireLinePlugin-Features]]
+== Features
+
+1、Free
+
+Free service +
+Custom defect service
+
+2、Highspeed
+
+Industry leaders in terms of scanning speed
+
+3、Professional
+
+Double kernels +
+More accurate
+
+[[FireLinePlugin-RULEDESCRIPTION]]
+== RULE DESCRIPTION
+
+There are six types of rules included in FireLine at present,as shown
+below:
+
+{empty}1. APP security detection +
+2. Code style detection +
+3. Memory leak detection +
+4. Log output detection +
+5. Null pointer detection +
+6. Multithreading detection
+
+More details, click
+[.underline]#http://magic.360.cn/en/document.html[Rule Document]# .
+
+[[FireLinePlugin-Pleasenote]]
+=== Please note
+
+1、More than 1.7 jdk version
+
+[[FireLinePlugin-Setup]]
+== Setup
+
+Support multiple modes of operation:
+
+{empty}1. Command Operation +
+2. Gradle Deployment +
+3. Jenkins Integration +
+4. Android Studio Plugin +
+More details, click [.underline]#http://magic.360.cn/en/user.html[User
+Document]# .
+
+[[FireLinePlugin-Frequentlyaskedquestions]]
+== Frequently asked questions
+
+ 
+
+[[FireLinePlugin-Versionhistory]]
+== Version history
+
+[[FireLinePlugin-Version1.0(September25,2017)]]
+=== Version 1.0 (September 25, 2017)
+
+ 
+
+ 
+
+ 

@@ -1,0 +1,148 @@
+[[GitLabOAuthPlugin-AboutGitLabAuthenticationPlugin]]
+== About GitLab Authentication Plugin
+
+The GitLab Authentication Plugin provides a means of using GitLab for
+authentication and authorization to secure Jenkins. GitLab Enterprise is
+also supported.[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View Gitlab Authentication https://plugins.jenkins.io/gitlab-oauth[on
+the plugin site] for more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2019-08-07/#SECURITY-796[Open
+redirect vulnerability]
+* https://jenkins.io/security/advisory/2019-08-07/#SECURITY-795[HTTP
+session fixation vulnerability]
+
+*On this page:*
+
+[[GitLabOAuthPlugin-Setup]]
+== Setup
+
+Before configuring the plugin you must create a GitLab application
+registration. In the Scopes section mark *api*.
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+the authorization callback URL takes a specific value. It must be
+`+http://myserver.example.com:8080/securityRealm/finishLogin+` where
+myserver.example.com:8080 is the location of the Jenkins server.
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+The Client ID and the Client Secret will be used to configure the
+Jenkins Security Realm. Keep the page open to the application
+registration so this information can be copied to your Jenkins
+configuration.
+
+[[GitLabOAuthPlugin-SecurityRealminGlobalSecurity]]
+=== Security Realm in Global Security
+
+The security realm in Jenkins controls authentication (i.e. you are who
+you say you are). The GitLab Authentication Plugin provides a security
+realm to authenticate Jenkins users via GitLab OAuth.
+
+. In the Global Security configuration choose the Security Realm to be
+*GitLab Authentication Plugin*.
+. The settings to configure are: GitLab Web URI, GitLab API URI, Client
+ID, Client Secret, and OAuth Scope(s).
+. If you're using GitLab Enterprise then the API URI is
+https://ghe.acme.com/api/v3. The prefix
+"https://ghe.acme.com/api/v3[api/v3]" will be completed by the plugin
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+In the plugin configuration pages each field has a little
+image:docs/images/help_16.svg[(question)]
+next to it. Click on it for help about the setting.
+
+[[GitLabOAuthPlugin-OpenTickets(bugsandfeaturerequests)]]
+=== Open Tickets (bugs and feature requests)
+
+[[refresh-module-1789406681]]
+[[refresh-1789406681]][[jira-issues-1789406681]]
+T
+
+Key
+
+Summary
+
+Assignee
+
+Reporter
+
+P
+
+Status
+
+Resolution
+
+Created
+
+Updated
+
+Due
+
+[.refresh-action-group]# #
+
+[[refresh-issues-loading-1789406681]]
+[.aui-icon .aui-icon-wait]#Loading...#
+
+[#refresh-issues-button-1789406681]##
+[#refresh-issues-link-1789406681]#Refresh#
+[#error-message-1789406681 .error-message .hidden]# #
+
+[[GitLabOAuthPlugin-CHANGELOG]]
+== CHANGELOG
+
+....
+### 1.3
+- 529f5b3(feature/JENKINS-47097) [JENKINS-47097] added support to login using gitlab private token
+### 1.2
+- 6f2f23c[JENKINS-44489] fixed findbug introduced by 987608a commit
+- 987608a[JENKINS-44489] fixed logout when the plugin is configured to allow READ permission for Authenticated, but not Anonymous users.
+- 4bdd977add jenkins file to build into ci.jenkins.io
+### 1.1
+- 10b9e65remove redundant NULL check
+- e5ef748upgrade jenkins parent and dependencies versions
+- 24a4014Merge pull request #8 from Wadeck/FIRE_AUTH_NO_MORE_REQ_REFLECTION
+- d0ca105- with import it's better
+- 37c73cdFireAuthenticed no more required reflection - as the core dependency is now set to 1.625.3
+- 3aa706dMerge pull request #7 from artur-malinowski/develop
+- 95d3e90Fixed IndexOutOfBoundsException when user has no group
+### 1.0.9
+- e0f3cbbMerge branch 'Shorang-master' into develop
+- 7e5fe71Merge branch 'master' of https://github.com/Shorang/gitlab-oauth-plugin into Shorang-master
+- 9e1768a[JENKINS-37741] Testing /project path ont allowGitlabWebHookPermission check
+- 4ec3989added new path for  gitlab-plugin's webhook using anonymous permission
+### 1.0.8
+- e1add18Merge branch 'wzxjohn-feature/permission_by_gitlab' into develop
+- 8fcf450Finish permission by gitlab feature
+### 1.0.7
+- eb1f81bMerge branch 'wzxjohn-bugfix/login_fails' into develop
+- 688b57fremove GitlabGroup.java copied from java-gitlab-api 1.2.6-SNAPSHOT, using released version 1.2.6
+- 673e2edMerge branch 'bugfix/login_fails' of https://github.com/wzxjohn/gitlab-oauth-plugin into wzxjohn-bugfix/login_fails
+- a69cc7fMerge pull request #3 from wzxjohn/enhance/license_issue
+- 3b9ee86[JENKINS-37517] Fix login fails because of a GitLab Api Bug Use v1.2.6 of GitLab Api Client to fix this issue.
+- 1c58f75[JENKINS-37518] Fix api url problem New GitLab Api Client will automatically add api/v3 so we do not need to add api/v3 in config. Maybe this config node can be delete in the future.
+- 2930721Fix ERROR: Failed to load help file: Not Found when click the '?' beside "Grant READ permissions for /gitlab-webhook"
+- 9c7285c[JENKINS-37049] License issue
+### 1.0.6
+### 1.0.5
+- 87cb683Merge branch 'askannon-master' into develop
+- 1a49f9cMerge branch 'master' of https://github.com/askannon/gitlab-oauth-plugin into askannon-master
+- 5801ecbChange HttpClient configuration to drop usage of methods flagged as @deprecated
+- 4d2ecf3Merge pull request #1 from Shorang/master
+- 8ab78eb[JENKINS-36075]Gitlab oauth does not display in Security Realm
+....

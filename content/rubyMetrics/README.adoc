@@ -1,0 +1,54 @@
+[.conf-macro .output-inline]#Ruby metric reports for Jenkins.
+http://eigenclass.org/hiki.rb?rcov[Rcov], Rails stats, Rails notes and
+http://ruby.sadi.st/Flog.html[Flog].#
+
+[[RubyMetricsplugin-Rcovsupport]]
+== Rcov support
+
+Rcov plugin parses rcov html report files and shows it in Jenkins with a
+trend graph.
+
+Once we've installed the RubyMetrics plugin, we have to introduce the
+output report directory into the job configuration:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/rcovConfig.png[image]#
+
+If the build was successfully, Jenkins generates the trend report and
+the graph:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/rcovTrendReport2.png[image]#
+
+[.confluence-embedded-file-wrapper]#image:docs/images/rcovReport.png[image]#
+
+[[RubyMetricsplugin-Railsstatssupport]]
+== Rails stats support
+
+Once the plugin is installed we can publish rails stats reports checking
+the right option:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/railsStatsConfig.png[image]#
+
+Jenkins generates a report by each successful build and keeps an
+historic version while the project goes forward:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/railsStatsReport.png[image]#
+
+[[RubyMetricsplugin-Railsnotessupport]]
+== Rails notes support
+
+[[RubyMetricsplugin-Flogsupport]]
+== Flog support
+
+Flog measures code complexity. It shows you the most torturous code you
+wrote.
+
+Check the right option in your job's configuration and add the
+directories that you want to monitorize, i.e app/models
+
+[.confluence-embedded-file-wrapper]#image:docs/images/flog.png[image]#
+
+[[RubyMetricsplugin-Changelog]]
+=== Changelog
+
+Full changelog can be accessed
+https://github.com/jenkinsci/rubymetrics-plugin/blob/master/CHANGELOG.md[here]

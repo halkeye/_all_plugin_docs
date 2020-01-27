@@ -1,0 +1,70 @@
+ +
+
+This plugin allows you to add a column showing the recipients configured
+in email-ext-plugin for every project.
+
+[[EmailExtRecipientsColumnPlugin-Usage]]
+== Usage
+
+Create a brand new View or edit an old one and just add the column
+"Email Ext Recipients" from the list.
+
+If data cannot be obtained for a certain project, then "No data" will
+stand in the corresponding row and column. (Usually due to an
+error/exception in retrieving the information)
+
+If the Email-ext-plugin is not enabled for a certain project, then
+"Disabled" will stand in the corresponding row and column.
+
+*Important - in order to use this plugin you must have the *
+*https://wiki.jenkins-ci.org/display/JENKINS/Email-ext+plugin[Email-ext-plugin]*
+*installed.*
+
+[[EmailExtRecipientsColumnPlugin-Openissues]]
+== Open issues
+
+[[refresh-module--528239984]]
+[[refresh--528239984]][[jira-issues--528239984]]
+T
+
+Key
+
+Summary
+
+Assignee
+
+Reporter
+
+P
+
+Status
+
+Resolution
+
+Created
+
+Updated
+
+Due
+
+[.refresh-action-group]# #
+
+[[refresh-issues-loading--528239984]]
+[.aui-icon .aui-icon-wait]#Loading...#
+
+[#refresh-issues-button--528239984]##
+[#refresh-issues-link--528239984]#Refresh#
+[#error-message--528239984 .error-message .hidden]# #
+
+[[EmailExtRecipientsColumnPlugin-Changelog]]
+== Change log
+
+[[EmailExtRecipientsColumnPlugin-Version1.0-(18.04.2013)]]
+=== Version 1.0 - (18.04.2013)
+
+* First release.
+
+[[EmailExtRecipientsColumnPlugin-About]]
+== About
+
+  The plugin is open source.

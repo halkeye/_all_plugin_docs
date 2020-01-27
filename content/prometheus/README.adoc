@@ -1,0 +1,98 @@
+[.conf-macro .output-inline]#Exposes a
+https://prometheus.io/[Prometheus] metrics endpoint.#
+
+[[PrometheusPlugin-Configuration]]
+== Configuration
+
+[[PrometheusPlugin-Environmentvariables]]
+=== Environment variables
+
+* *PROMETHEUS_ENDPOINT* Configures rest endpoint. Defaults to
+"prometheus"
+* *PROMETHEUS_NAMESPACE* Configure prometheus metric namespace. Defaults
+to "default"
+
+[[PrometheusPlugin-Versionhistory]]
+== Version history
+
+ +
+
+[[PrometheusPlugin-Version2.0.6(August24,2019)]]
+=== Version 2.0.6 (August 24, 2019)
+
+* Bug fixes
+
+[[PrometheusPlugin-Version2.0.4(May18,2019)]]
+=== Version 2.0.4 (May 18, 2019)
+
+* Bug fixes
+
+[[PrometheusPlugin-Version1.2.4(December15,2018)]]
+=== Version 1.2.4 (December 15, 2018)
+
+* Fix build start time not included in samples
+(#75https://github.com/jenkinsci/prometheus-plugin/commit/0b2f5df9b28855568bc91990f8ff618932c78bbd[)]
+* Bug fixes
+
+[[PrometheusPlugin-Version1.2.3(October22,2018)]]
+=== Version 1.2.3 (October 22, 2018)
+
+* Ignore Build Metric
+(#71https://github.com/jenkinsci/prometheus-plugin/commit/0b2f5df9b28855568bc91990f8ff618932c78bbd[)]
+
+[[PrometheusPlugin-Version1.2.2(September18,2018)]]
+=== Version 1.2.2 (September 18, 2018)
+
+* Release (#68https://github.com/jenkinsci/prometheus-plugin/commit/0b2f5df9b28855568bc91990f8ff618932c78bbd[)]
+* Adding a way to group jobs by source control repo (#66)
+* Adding uptime monitor for Jenkins
+instance (#48https://github.com/jenkinsci/prometheus-plugin/commit/0b2f5df9b28855568bc91990f8ff618932c78bbd[)] 
+
+[[PrometheusPlugin-Version1.2.1(May14,2018)]]
+=== Version 1.2.1 (May 14, 2018)
+
+* Adding a gauge for the last start time of the build (#49)
+* Adding a basic unit test to show that the abort works
+(#48https://github.com/jenkinsci/prometheus-plugin/commit/0b2f5df9b28855568bc91990f8ff618932c78bbd[)]
+* stop reparsing the flowNodes
+(#47https://github.com/jenkinsci/prometheus-plugin/commit/c41a36f9f30ec44a62479a5d5985a5bebcbc7169[)]  
+* Resolving gradle build issues
+(#44https://github.com/jenkinsci/prometheus-plugin/commit/54ea46db9390b21ab18d165b66cba19eeb0a50d7[)]
+
+[[PrometheusPlugin-Version1.2.0(April18,2018)]]
+=== Version 1.2.0 (April 18, 2018)
+
+* Updated incorrect help for '_last_build_result' metric (#39)
+* Check configuration for updates on each collection (#41)
+* Allow to configure fetching of test results from builds. (#37)
+* Update build instructions (#34)
+* Add option to process or ignore disabled jobs. (#26)
+
+[[PrometheusPlugin-Version1.1.1(October8,2017)]]
+=== Version 1.1.1 (October 8, 2017)
+
+* Fix PrometheusConfiguration.setCountFailedBuilds
+* allow to configure the default namespace in "Manage Jenkins"
+* Enable automatic build on jenkins.io
+* Add extra job metrics
+
+[[PrometheusPlugin-Version1.1.0(August23,2017)]]
+=== Version 1.1.0 (August 23, 2017)
+
+* Enable filtering by build results for build duration export
+* Allow slashes in path and add authentication for the metrics endpoint
+
+[[PrometheusPlugin-Version1.0.6(June14,2016)]]
+=== Version 1.0.6 (June 14, 2016)
+
+* Added more logging for debugging purposes.
+
+[[PrometheusPlugin-Version1.0.5(April18,2016)]]
+=== Version 1.0.5 (April 18, 2016)
+
+* iterate over getPreviousBuild for memory optimization.
+
+[[PrometheusPlugin-Version1.0.4(April18,2016)]]
+=== Version 1.0.4 (April 18, 2016)
+
+* Initial release

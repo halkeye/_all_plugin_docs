@@ -1,0 +1,143 @@
+A generic tool installer. You define how tools get installed, and the
+plugin will automatically install them when needed. 
+
+[[CustomToolsPlugin-Overview]]
+== Overview 
+
+A job will often require a tool not already installed on your Jenkins
+agents. In large environments, this often results in waiting on an
+administrator. The goal of this plugin is to let users manage their own
+tools, without requiring this administrator involvement. Using this
+plugin, you can define a script (or just a URL) for installing a tool
+using standard
+Jenkins https://jenkins.io/doc/developer/extensions/jenkins-core/#toolinstaller[Tool
+Installers]. Plugins
+like https://plugins.jenkins.io/extra-tool-installers[Extra Tool
+Installers] can be also used in this plugin. You then define which jobs
+require the tool, and the plugin installs them as needed before the
+build runs.
+
+See the plugin documentation
+https://github.com/jenkinsci/custom-tools-plugin/blob/master/README.md[here].
+
+[[CustomToolsPlugin-VersionHistory]]
+== Version History
+
+[[CustomToolsPlugin-Newerreleases]]
+=== Newer releases
+
+See https://github.com/jenkinsci/custom-tools-plugin/releases[GitHub
+Releases]
+
+[[CustomToolsPlugin-Version0.6(Oct30,2018)]]
+=== Version 0.6 (Oct 30, 2018)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-54154[JENKINS-54154] -
+Fix passing of Tool Properties for custom tools when configured via
+Jenkins Configuration as Code plugin (installers, etc.)
+
+[[CustomToolsPlugin-Version0.5(Apr08,2017)]]
+=== Version 0.5 (Apr 08, 2017)
+
+* Update the core baseline to 1.609.3 (last one with Java 6 support)
+* Update plugin to the new plugin parent POM
+* Cleanup FindBugs issues in the plugin
+
+This is just a maintenance release, new features will be delivered
+later.
+
+[[CustomToolsPlugin-Version0.4.4(Oct15,2014)]]
+=== Version 0.4.4 (Oct 15, 2014)
+
+* image:docs/images/information.svg[(info)]
+Properly escape special symbols in Additional vars coming from
+substituted variables
+(https://issues.jenkins-ci.org/browse/JENKINS-24113[JENKINS-24113])
+
+[[CustomToolsPlugin-Version0.4.3(Oct09,2014)]]
+=== Version 0.4.3 (Oct 09, 2014)
+
+* image:docs/images/error.svg[(error)]
+Be robust against null multi-configuration options after plugin upgrades
+(https://issues.jenkins-ci.org/browse/JENKINS-24853[JENKINS-24853])
+* image:docs/images/error.svg[(error)]
+Respect slave platform while constructing environment variables
+(https://issues.jenkins-ci.org/browse/JENKINS-14515[JENKINS-14515])
+
+[[CustomToolsPlugin-Version0.4.2(06/29/2014)]]
+=== Version 0.4.2 (06/29/2014)
+
+* image:docs/images/information.svg[(info)]
+Support of tool version parameters in CLI build commands
+(https://issues.jenkins-ci.org/browse/JENKINS-22923[JENKINS-22923])
+* image:docs/images/information.svg[(info)]
+Reduce the size of the configuration page by adding the Advanced section
+(https://issues.jenkins-ci.org/browse/JENKINS-20909[JENKINS-20909])
+* image:docs/images/error.svg[(error)]
+Return non-null default values for CLI to workaround
+https://issues.jenkins-ci.org/browse/JENKINS-15094[JENKINS-15094] in
+Jenkins core
+(https://issues.jenkins-ci.org/browse/JENKINS-22925[JENKINS-22925])
+* image:docs/images/error.svg[(error)]
+Throw errors if the configured tool cannot be found
+(https://issues.jenkins-ci.org/browse/JENKINS-18814[JENKINS-18814])
+* image:docs/images/error.svg[(error)]
+Properly handle missing tools in the Install wrapper to avoid NPEs
+(https://issues.jenkins-ci.org/browse/JENKINS-22075[JENKINS-22075])
+
+[[CustomToolsPlugin-Version0.4.1(11/25/2013)]]
+=== Version 0.4.1 (11/25/2013)
+
+* image:docs/images/error.svg[(error)]
+Fixed behavior of "Additional variables" field
+(https://issues.jenkins-ci.org/browse/JENKINS-19889[JENKINS-19889])
+* image:docs/images/error.svg[(error)]
+Prevented overriding of PATH variable inside nested launchers
+(https://issues.jenkins-ci.org/browse/JENKINS-20560[JENKINS-20560])
+* image:docs/images/error.svg[(error)]
+Prevented NPE inside nested launchers due to
+https://issues.jenkins-ci.org/browse/JENKINS-20559[JENKINS-20559] in
+Jenkins core
+(https://issues.jenkins-ci.org/browse/JENKINS-19506[JENKINS-19506])
+
+[[CustomToolsPlugin-Version0.4(09/08/2013)]]
+=== Version 0.4 (09/08/2013)
+
+* image:docs/images/add.svg[(plus)]
+Support of versions (job parameter + configuration). Thanks to authors
+of
+https://wiki.jenkins-ci.org/display/JENKINS/Extended+Choice+Parameter+plugin[Extended
+Choice Parameter plugin]
+* image:docs/images/error.svg[(error)]
+Fixed "Exported variables" (textbox -> textarea)
+
+[[CustomToolsPlugin-Version0.3(08/02/2013)]]
+=== Version 0.3 (08/02/2013)
+
+* Change of ownership. New owner: https://github.com/oleg-nenashev[Oleg
+Nenashev], Synopsys Inc., http://www.synopsys.com/[www.synopsys.com]
+* New features:
+** https://issues.jenkins-ci.org/browse/JENKINS-18774[JENKINS-18774] -
+New option: Setup of label-specific environment variables (useful for
+LD_LIBRARY_PATH, etc.)
+** https://issues.jenkins-ci.org/browse/JENKINS-18707[JENKINS-18707] -
+New option: Skip installation of tool at MatrixBuild's master job
+** https://issues.jenkins-ci.org/browse/JENKINS-17844[JENKINS-17844] -
+Improvement: Environment Variables expansion in ExportedPaths and
+ToolHome
+** Partial replacement of the
+https://wiki.jenkins-ci.org/display/JENKINS/Tool+Environment+Plugin[Tool
+Environment Plugin]. Custom Tools can export HOME variables in different
+cases (ex, Tool_HOME and TOOL_HOME)
+* Bug fixes:
+** https://issues.jenkins-ci.org/browse/JENKINS-18815[JENKINS-18815] -
+Home variables substitution doesn't work properly in case of leading
+variable
+** https://issues.jenkins-ci.org/browse/JENKINS-18481[JENKINS-18481] -
+BuildWrapper throws NPE if user doesn't select any tool 
+** https://issues.jenkins-ci.org/browse/JENKINS-14515[JENKINS-14515] -
+Malformed path variable in case of different operating systems at master
+and slave
+** https://issues.jenkins-ci.org/browse/JENKINS-13285[JENKINS-13285] -
+customtools-plugin does not delegate the Launcher.isUnix() call in
+DecoratedLauncher

@@ -1,0 +1,94 @@
+This plugin will add a summary on the build of the artifacts uploaded to
+your maven repository and a builder to download the uploaded artifacts
+to other projects.
+
+[[MavenDeploymentLinker-DeploymentSummery]]
+== Deployment Summery
+
+The deployment summery adds a list of all the deployed maven artifacts
+of the job to the status page. You can activate it in the 'Post build
+actions' of your job and also restrict the listed artifacts by defining
+a regular expression.
+
+[[MavenDeploymentLinker-Downloadlinkedartifacts]]
+== Download linked artifacts
+
+The build step "Get linked maven deployments" allows you to download
+linked artifacts of an other project into your jobs workspace.
+
+[[MavenDeploymentLinker-HelpandSupport]]
+== Help and Support
+
+For Help and support please use the issue tracker and/or
+http://jenkins-ci.org/content/mailing-lists[Jenkins Users] mailing list.
+
+type
+
+key
+
+summary
+
+[.icon-in-pdf]# # Data cannot be retrieved due to an unexpected error.
+
+http://issues.jenkins-ci.org/secure/IssueNavigator.jspa?reset=true&jqlQuery=project%20=%20JENKINS%20AND%20status%20in%20%28Open,%20%22In%20Progress%22,%20Reopened%29%20AND%20component%20=%20%27maven-deployment-linker-plugin%27&src=confmacro[View
+these issues in Jira]
+
+[[MavenDeploymentLinker-ChangeLog]]
+== Change Log
+
+[[MavenDeploymentLinker-V1.5.1@03-15-2013]]
+===    V1.5.1 @ 03-15-2013
+
+* fix https://issues.jenkins-ci.org/browse/JENKINS-14637[JENKINS-14637]
+support all all permalinks found on target project
+* fix https://issues.jenkins-ci.org/browse/JENKINS-14978[JENKINS-14978]
+expand project name with TokenMacro
+
+[[MavenDeploymentLinker-V1.5@05-11-2012]]
+===    V1.5 @ 05-11-2012
+
+* add builder to download artifacts to a workspace from where they have
+been uploaded to
+(https://github.com/jenkinsci/maven-deployment-linker-plugin/pull/2[pull
+#2])
+
+[[MavenDeploymentLinker-V1.4@11-30-2011]]
+===    V1.4 @ 11-30-2011
+
+* JENKINS-9114 changes by
+https://wiki.jenkins-ci.org/display/~aheritier[Unknown User (aheritier)]
+
+[[MavenDeploymentLinker-V1.3@10-20-2010]]
+===    V1.3 @ 10-20-2010
+
+* Fixed a small localization issue
+* The latest deployments now display correctly for Maven2 projects
+* On the project page, the latest deployments, and the latest release
+deployments are displayed
+
+[[MavenDeploymentLinker-V1.2@10-16-2010]]
+===    V1.2 @ 10-16-2010
+
+* https://issues.jenkins-ci.org/browse/JENKINS-7814[JENKINS-7814] :
+Several improvements for maven-deployment-linker plugin
+** i18n (extract to properties, addition of fr locale)
+** The user can input a regular expression to filter artifacts that are
+displayed
+** Excludes by default maven-metadata.xml (under maven3, the deployment
+of this file is logged, which wasn't the case under maven2)
+** Displays on the project page the latest Maven deployments
+
+[[MavenDeploymentLinker-V1.1@09-28-2010]]
+===    V1.1 @ 09-28-2010
+
+* Fix bug in linking.
+
+[[MavenDeploymentLinker-V1.0@09-27-2010]]
+===    V1.0 @ 09-27-2010
+
+* initial release
+
+[[MavenDeploymentLinker-Author]]
+== Author
+
+Larry Shatzer

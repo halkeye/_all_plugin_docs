@@ -1,0 +1,40 @@
+[[GitLabPlugin-GitlabPlugin]]
+== Gitlab Plugin
+
+This plugin is a build trigger that allows GitLab to trigger Jenkins
+builds when code is pushed or a merge request is created. Configuration
+done on a per-job basis.[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2019-04-17/#SECURITY-1357[CSRF
+vulnerability and missing permission checks allowed capturing
+credentials]
+
+[[GitLabPlugin-Configuration]]
+=== Configuration
+
+See the GitHub page for instructions.
+
+https://github.com/jenkinsci/gitlab-plugin
+
+See also:
+
+* https://wiki.jenkins-ci.org/display/JENKINS/Violation+Comments+to+GitLab+Plugin[Violation
+Comments to GitLab Plugin] for pipeline and job DSL examples.
+
+[[GitLabPlugin-Compatibility]]
+=== Compatibility
+
+Version 1.2.1 of the plugin introduces a backwards-incompatible change
+for Pipeline jobs. They will need to be manually reconfigured when you
+upgrade to this version. Freestyle jobs are not impacted. Please see the
+README for details.
+
+[[GitLabPlugin-Changelog]]
+=== Changelog
+
+See https://github.com/jenkinsci/gitlab-plugin/blob/master/CHANGELOG.md

@@ -1,0 +1,84 @@
+[cols="",options="header",]
+|===
+|Plugin Information
+|View Deployment Sphere https://plugins.jenkins.io/deployment-sphere[on
+the plugin site] for more information.
+|===
+
+Jenkins plugin to have a bird's eye view of your continuous deployment
+pipeline.
+
+== [#DeploymentSpherePlugin-Configuration]####Configuration
+
+. Install dependency plugins:
+.. Open “*Manage Jenkins*”
+.. Go to “*Available*”
+.. Find and
+install https://wiki.jenkins-ci.org/display/JENKINS/H2+Database+Plugin[H2
+Database Plugin]
+. Install plugin into Jenkins:
+.. Open “*Manage Jenkins*”
+.. Go to “*Available*”
+.. Find and install
+https://wiki.jenkins-ci.org/display/JENKINS/Deployment+Sphere+Plugin[Deployment
+Sphere Plugin]
+. Restart Jenkins
+. Additional menu item "*Deployment Sphere*" in the left navigation
+block should appear +
+[.image-wrap]#image:https://wiki.jenkins-ci.org/download/attachments/78676564/jenkins.png?version=1&modificationDate=1439549479000&api=v2[image,height=300]#
+. Now you need to configure your Jenkins system:
+.. Open “*Manage Jenkins*”
+.. Open “*Configure system*”
+.. Navigate to “*Deployment Sphere configuration*” to add *Applications*
+and *Environments* you're working with +
+[.image-wrap]#image:https://wiki.jenkins-ci.org/download/attachments/78676564/jenkins_apps_ens.png?version=1&modificationDate=1439549788000&api=v2[image,width=300]#
+
+== [#DeploymentSpherePlugin-Features]####Features
+
+* Collects application versions
+* Collects application versions deployments
+* Configures environments
+* Configures applications
+* Provides dashboard of deployed applications versions across
+environments
+
+== [#DeploymentSpherePlugin-Usage]####Usage
+
+. Create any type Jenkins project to collect Build Metadata by adding
+*post-build* action "*Collect Build Metadata*" and select *Application*
+that is being built by current project. +
+[.image-wrap]#image:https://wiki.jenkins-ci.org/download/attachments/78676564/build_job.png?version=1&modificationDate=1439811619000&api=v2[image,width=300]#
+   
+[.image-wrap]#image:https://wiki.jenkins-ci.org/download/attachments/78676564/build_project_2.png?version=1&modificationDate=1439811651000&api=v2[image,width=300]# +
+where *"0.0.
++
+[.error]#Unknown macro: \{v}#
++
+"* is a version naming template that could be changed according to your
+convention.
+. Crate any type Jenkins project to collect Deploy Metadata by adding
+*post-build* action "*Collect Deploy Metadata*" and
+select *Application* that is being deployed by current project. +
+[.image-wrap]#image:https://wiki.jenkins-ci.org/download/attachments/78676564/jenkins_deploy.png?version=1&modificationDate=1439550466000&api=v2[image,height=300]#
+   
+[.image-wrap]#image:https://wiki.jenkins-ci.org/download/attachments/78676564/jenkins_select_app.png?version=1&modificationDate=1439550554000&api=v2[image,width=300]#
+. Now build your application and go to deploy project +
+[.image-wrap]#image:https://wiki.jenkins-ci.org/download/attachments/78676564/jenkins_deploy_app.png?version=1&modificationDate=1439550677000&api=v2[image,width=300]#
+. Select environment and application version you'd like to deploy +
+[.image-wrap]#image:https://wiki.jenkins-ci.org/download/attachments/78676564/jenkins_env_version.png?version=1&modificationDate=1439550748000&api=v2[image,width=300]#
+. Now you can check out to what environment and what version of your
+application was deployed +
+[.image-wrap]#image:https://wiki.jenkins-ci.org/download/attachments/78676564/deployment_sphere.png?version=1&modificationDate=1439550864000&api=v2[image]#
+
+== [#DeploymentSpherePlugin-Roadmap]####Roadmap
+
+TODO
+
+== [#DeploymentSpherePlugin-About]####About
+
+This plugin is started as a hack-a-thon at the EPAM Grand Hackathon 2015
+in Minks. It is licensed under Apache License, Version 2.0.
+
+== [#DeploymentSpherePlugin-Changelog]####Changelog
+
+TODO

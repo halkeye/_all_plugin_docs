@@ -1,0 +1,15 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-1090[Credentials
+stored in plain text]
+
+This plugin allows you to use
+http://www.ibm.com/lotus/sametime[SameTime] as build notifier.
+
+[[SameTimePlugin-ConfiguringtheSameTimePlugin]]
+== Configuring the SameTime Plugin

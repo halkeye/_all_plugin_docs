@@ -1,0 +1,13 @@
+The Appspider plugin allows you to configure settings to automatically
+trigger Appspider scans when builds of your web application completes.
+This enables your team to find web security defects earlier in the
+software development lifecycle.
+
+[[AppspiderBuildScannerPlugin-Features]]
+== Features
+
+* Trigger Appspider scan to jenkins post build
+* After a successful scan, the plugin will retrieve the report generated
+by Appspider and store them in the plugin's workspace
+* Plugin is able to create a scan config quickly from the plugin without
+going to the Appspider Enterprise web interface

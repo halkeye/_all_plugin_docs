@@ -1,0 +1,50 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View CloudCoreo DeployTime
+https://plugins.jenkins.io/cloudcoreo-deploytime[on the plugin site] for
+more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-960[Credentials
+stored in plain text]
+
+ 
+
+[[CloudCoreoDeployTimePlugin-CloudCoreoDeployTime]]
+== CloudCoreo DeployTime
+
+Allows for inspection of cloud objects at time of deploy against
+contexts on the CloudCoreo platform. Fails builds that are in violation
+of user-defined CloudCoreo context rules.
+
+[[CloudCoreoDeployTimePlugin-Requirements]]
+=== Requirements
+
+* https://www.cloudcoreo.com/[CloudCoreo] account
+* A connected cloud account for the CloudCoreo account
+
+[[CloudCoreoDeployTimePlugin-Usage]]
+=== Usage
+
+. Create a CloudCoreo access key in your CloudCoreo account
+. In Jenkin's global configuration settings, add a team and fill out all
+necessary fields
+. Under "Build Environment" for job configuration, select "CloudCoreo
+Enabled for Workload Analysis" and choose a team
+. Add a post-build action for "Analyze CloudCoreo Results"
+
+[[CloudCoreoDeployTimePlugin-Tips&Customizations]]
+=== Tips & Customizations
+
+Use CloudCoreo to edit the contexts for which new deployed objects are
+checked against. You can edit the default rules, adding to them or
+defining a new default context altogether, as well as individually
+select rules within a broader context.

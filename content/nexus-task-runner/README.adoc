@@ -1,0 +1,32 @@
+This plugin executes Sonatype Nexus scheduled tasks after your build.
+
+For example, if you want to refresh your Nexus's repositories index
+after building your project, +
+you can use execute a Nexus task whose type is "Publish index" using
+this plugin.
+
+[[NexusTaskRunnerPlugin-Howtouse]]
+== How to use
+
+. Register task you want to execute to your Nexus.
+* You have to select the value 'Manual' at 'Recurrence' property. +
+[.confluence-embedded-file-wrapper]#image:docs/images/nexus.png[image]#
+. Register your Nexus to Jenkins.
+* Go to Jenkins system configuration
+page(http://jenkins.yourcompany/configure).
+* The user have to be given Nexus permission 'UI:Scheduled Task
+Administration'. +
+[.confluence-embedded-file-wrapper]#image:docs/images/confNexus.png[image]#
+. Configure your build.
+* In 'Post-build Actions', you select 'Run Nexus's task'.
+* Input Nexus scheduled task name (e.g. 'Publish')
+. Run your build.
+
+[[NexusTaskRunnerPlugin-VersionHistory]]
+== Version History
+
+[[NexusTaskRunnerPlugin-Version0.9.1(Nov4,2012)]]
+=== Version 0.9.1 (Nov 4, 2012)
+
+[[NexusTaskRunnerPlugin-Version0.9.2(Nov6,2012)]]
+=== Version 0.9.2 (Nov 6, 2012)

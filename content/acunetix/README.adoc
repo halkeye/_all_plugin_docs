@@ -1,0 +1,243 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View Acunetix https://plugins.jenkins.io/acunetix[on the plugin site]
+for more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2019-02-19/#SECURITY-980[SSRF
+vulnerability]
+* https://jenkins.io/security/advisory/2019-02-19/#SECURITY-951[Credentials
+stored in plain text]
+
+ +
+[#AcunetixPlugin-_iaond8wbb8sd .confluence-anchor-link .conf-macro .output-inline]#
+#
+
+[[AcunetixPlugin-_ls9xqo2eti5k]]
+== [#AcunetixPlugin-_ls9xqo2eti5k .confluence-anchor-link .conf-macro .output-inline]# #
+
+[[AcunetixPlugin-PluginInformation]]
+== Plugin Information
+
+This plugin allows you to trigger automated Acunetix scans as part of
+your web application's build process inside of Jenkins.
+
+[[AcunetixPlugin-_3blvc3bps88Description]]
+== [#AcunetixPlugin-_3blvc3bps88 .confluence-anchor-link .conf-macro .output-inline]## ##Description
+
+Acunetix is an automated web application security testing and
+vulnerability management platform. Acunetix automatically crawls and
+scans off-the-shelf and custom-built websites and web applications for
+over 3000 web vulnerabilities to help organizations shore up their web
+security. +
+The
+http://www.acunetix.com/blog/web-security-zone/acunetix-jenkins-plugin/[Acunetix
+Jenkins Plugin] enables you to:
+
+. Trigger Acunetix scans from within Jenkins upon each build
+. Trigger Acunetix scans with built-in or custom Scan Types to only scan
+for specific vulnerabilities
+. Configure Jenkins to fail a build (and optionally abort the scan) as
+soon as a specific threat-level (high, medium or low severity) is
+reached
+. Automatically generate reports
+
+ +
+After setting up the Acunetix Jenkins Plugin, you can configure any
+Jenkins job with a build step action to trigger an Acunetix scan. When
+an Acunetix scan is triggered, Jenkins will launch a scan against a
+Target you specify and is scanned with settings configured in Acunetix.
+Jenkins will pass or fail the build based on criteria you provided.
+
+[cols="",]
+|===
+|*Note* – The Acunetix Jenkins Plugin requires an Acunetix API key,
+which is only available in _Acunetix Enterprise_.
+|===
+
+[[AcunetixPlugin-_5t40ocx3dtmdInstallation]]
+== [#AcunetixPlugin-_5t40ocx3dtmd .confluence-anchor-link .conf-macro .output-inline]## ##Installation
+
+To install the Acunetix Jenkins Plugin:
+
+. In Jenkins, navigate to _Manage Jenkins > Manage Plugins_ and select
+the _Available_ tab
+. Search the Jenkins Plugin Index for _Acunetix_
+. Select _Install without restart_ or _Download and install after
+restart_. Jenkins will install the plugin based on your preference
+
+[[AcunetixPlugin-_kmj0k46c12xwConfiguration]]
+== [#AcunetixPlugin-_kmj0k46c12xw .confluence-anchor-link .conf-macro .output-inline]## ##Configuration
+
+To configure the Acunetix Jenkins Plugin:
+
+. https://www.acunetix.com/blog/docs/use-acunetix-host-localhost/[Make
+Acunetix reachable from hosts other than localhost]
+. http://www.acunetix.com/blog/docs/installing-and-configuring-the-acunetix-jenkins-plugin[Add
+the Acunetix Root CA Certificate to Jenkins]
+. Obtain an Acunetix API key
+. Modify the Jenkins Content Security Policy (optional)
+
+[[AcunetixPlugin-_rie8aw2nw361Usage]]
+== [#AcunetixPlugin-_rie8aw2nw361 .confluence-anchor-link .conf-macro .output-inline]## ##Usage
+
+. In Jenkins, navigate to the job you wish to run an Acunetix scan in,
+and select _Configure_ in the sidebar
+. In the _Build_ section, select _Acunetix_ from the _Add build step_
+drop-down menu
+. You will then be presented with the options outlined below.
+.. *Scan Type* – Choose a _Scan Type_ with which you want the scan to
+run. _Scan Types_ are used to reduce the scope of the tests the scanner
+runs during the scan.
+.. *Scan Target* – Choose a _Scan Target_ you wish to scan. _Scan
+Targets_ are obtained from Acunetix, with the exception of Targets
+requiring Manual Intervention. Targets contain part of the Target
+description for distinguishability between Targets that have the same
+URL.
+.. *Fail build if threat level is* – Choose at which threat level to
+fail the Jenkins build based upon the scan's threat level (High
+severity, Medium severity or Low Severity).
+.. *Stop the scan when build fails* – Check this checkbox if you would
+like to abort the scan when the fail condition in _Fail build if threat
+level is_ is met. This is setting is enabled by default.
+.. *Generate Report* – Choose to a report to generate upon completion of
+the scan. The report will be accessible inside of Acunetix and a
+download link will be provided within console output log
+. Click _Save_
+
+[[AcunetixPlugin-_kqkgt0g35ot6FAQs]]
+== [#AcunetixPlugin-_kqkgt0g35ot6 .confluence-anchor-link .conf-macro .output-inline]## ##FAQs
+
+. *Which edition of Acunetix do I need to use the Acunetix Jenkins
+Plugin?*
+
+The Acunetix Jenkins Plugin requires access to the Acunetix API and API
+key, which is only available in _Acunetix Enterprise_.
+
+. *The Target I have set-up in Acunetix is not showing in drop-down list
+inside Jenkins.*
+
+The Acunetix Jenkins Plugin will display all Targets in an Acunetix
+installation, with the exception of Targets requiring Manual
+Intervention as part of their Login Sequence. Please make sure that the
+Target you wish to select does not make use of Manual Intervention.
+
+. *How can I differentiate between multiple Targets with the same URL?*
+
+If you have multiple Targets with the same URL, it is advised that you
+enter a description in the Target's settings to be able to differentiate
+between them. The Target's description will show up in Jenkins if one is
+available.
+
+. *Why does a scan take long for to start?*
+
+When Jenkins attempts to start a scan, the scan is placed in a scan
+queue. If the scan queue is empty, then the scan will start immediately.
+However, if the maximum number of scans (including scheduled scans) in
+the scan queue is reached, the scan will wait in the queue until other
+scans finish processing. This also means that the Jenkins build will not
+finish processing until the scan is complete.
+
+. *What happens to the scan if I abort the Jenkins build?*
+
+Aborting the Jenkins build will also abort the scan. You may still view
+partial results inside of Acunetix. Reports will not be automatically
+generated if the Jenkins build is aborted (you can manually generate
+reports from within the Acunetix UI).
+
+. *What happens if I stop an Acunetix scan from outside Jenkins?*
+
+If a scan that was started by Jenkins is stopped from the Acunetix UI or
+via the Acunetix API, the Jenkins build will also be aborted. Reports
+will not be automatically generated if the scan is stopped (you can
+manually generate reports from within the Acunetix UI)
+
+. *What kind of reports can be generated from Jenkins?*
+
+All _Standard_ reports can be generated from Jenkins (Affected Items,
+Developer, Executive Summary and Quick reports). Compliance reports (PCI
+DSS, OWASP Top 10, ISO 27001…) for the scans run by Jenkins may be
+generated from within the Acunetix UI.
+
+. *What happens to reports generated from Jenkins?*
+
+Reports generated from Jenkins are generated on the main application and
+a download link is provided in the console output
+
+. *How do I disable or remove the Acunetix Jenkins Plugin*
+
+Please refer to
+https://wiki.jenkins-ci.org/display/JENKINS/Removing+and+disabling+plugins[this
+Jenkins article] on disabling and removing Jenkins plugins and
+associated plugin data
+
+[[AcunetixPlugin-_wf6fxwvriyzaChangelog]]
+== [#AcunetixPlugin-_wf6fxwvriyza .confluence-anchor-link .conf-macro .output-inline]## ##Changelog
+
+[[AcunetixPlugin-_m0xz2s78br91Version1.0.0(March15,2017)]]
+=== [#AcunetixPlugin-_m0xz2s78br91 .confluence-anchor-link .conf-macro .output-inline]## ##Version 1.0.0 (March 15, 2017)
+
+. Initial release
+. New features
+.. Trigger Acunetix scans from within Jenkins upon each build
+.. Trigger Acunetix scans with built-in or custom Scan Types to only
+scan for specific vulnerabilities
+.. Configure Jenkins to fail a build (and optionally abort the scan) as
+soon as a specific threat-level (high, medium or low severity) is
+reached
+.. Automatically generate reports and save them within Jenkins
+. Improvements
+.. N/A
+. Bugfixes
+.. N/A
+
+[[AcunetixPlugin-_m0xz2s78br92Version1.1.0(October24,2018)]]
+=== [#AcunetixPlugin-_m0xz2s78br92 .confluence-anchor-link .conf-macro .output-inline]## ##Version 1.1.0 (October 24, 2018)
+
+      Improvements: Use Jenkins credentials for storing the API Key
+
+[[AcunetixPlugin-_m0xz2s78br93Version1.2.0(October25,2018)]]
+=== [#AcunetixPlugin-_m0xz2s78br93 .confluence-anchor-link .conf-macro .output-inline]## ##Version 1.2.0 (October 25, 2018)
+
+      Improvements: Better exception handling like situations when
+configured target or profile have been deleted in main application
+
+      Bug fixes:
+
+. {blank}
+* Plugin retrieve only first 100 targets
+* Scans can now be executed on the online version of the scanner
+* Reports cannot be downloaded. Now links to the reports will be
+provided on the output. +
+
+[[AcunetixPlugin-_m0xz2s78br94Version1.2.1(January10,2019)]]
+=== [#AcunetixPlugin-_m0xz2s78br94 .confluence-anchor-link .conf-macro .output-inline]## ##Version 1.2.1 (January 10, 2019)
+
+      Bug fixes:
+
+. {blank}
+* Fixed 429 error when pairing with online build
+
+[[AcunetixPlugin-_m0xz2s78br95Version1.2.2(January18,2019)]]
+=== [#AcunetixPlugin-_m0xz2s78br95 .confluence-anchor-link .conf-macro .output-inline]## ##Version 1.2.2 (January 18, 2019)
+
+      Bug fixes:
+
+. {blank}
+* Fixed 429 error for reports
+
+[[AcunetixPlugin-_m0xz2s78br96Version1.2.3(February06,2019)]]
+=== [#AcunetixPlugin-_m0xz2s78br96 .confluence-anchor-link .conf-macro .output-inline]## ##Version 1.2.3 (February 06, 2019)
+
+      Bug fixes:
+
+. {blank}
+* Saved API URL is not loaded and shown in Jenkins system page

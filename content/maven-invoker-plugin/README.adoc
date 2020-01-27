@@ -1,0 +1,33 @@
+[.conf-macro .output-inline]#Display and store reports for Maven Invoker
+it tests (see http://maven.apache.org/plugins/maven-invoker-plugin/ )#
+
+This plugin is currently broken and the guy who started the work doesn't
+have enough time to fix issues :P )
+
+[[MavenInvokerPlugin-Knownissues]]
+== Known issues
+
+[[MavenInvokerPlugin-Howitworks]]
+== How it works
+
+[[MavenInvokerPlugin-Globalconfiguration]]
+=== Global configuration
+
+[[MavenInvokerPlugin-Projectconfiguration]]
+=== Project configuration
+
+[[MavenInvokerPlugin-History]]
+== History
+
+[[MavenInvokerPlugin-Version1.2(Notreleasedyet)]]
+=== Version 1.2 (Not released yet)
+
+[[MavenInvokerPlugin-Version1.1(Aug7,2012)]]
+=== Version 1.1 (Aug 7,2012)
+
+* add a Maven aggregated reporter
+
+[[MavenInvokerPlugin-Version1.0(Jul30,2012)]]
+=== Version 1.0 (Jul 30,2012)
+
+* First version

@@ -1,0 +1,25 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]##
+
+*This plugin is up for adoption.* Want to help improve this plugin?
+https://wiki.jenkins-ci.org/display/JENKINS/Adopt+a+Plugin[Click here to
+learn more]!
+
+[.conf-macro .output-inline]#Provides the Ruby runtime and bindings
+required to implement
+https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+plugin+development+in+Ruby[plugins
+in Ruby].#
+
+[[RubyRuntimePlugin-History]]
+== History
+
+[[RubyRuntimePlugin-Version0.13(Aug11,2016)]]
+=== Version 0.13 (Aug 11, 2016)
+
+* Changes
+** Require Jenkins 1.609.1 or above
+** Depends on JRuby 1.7.18
+*** Should fix
+https://issues.jenkins-ci.org/browse/JENKINS-12094[JENKINS-12094] and
+https://issues.jenkins-ci.org/browse/JENKINS-23071[JENKINS-23071]

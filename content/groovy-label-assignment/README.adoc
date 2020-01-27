@@ -1,0 +1,231 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View Groovy Label Assignment
+https://plugins.jenkins.io/groovy-label-assignment[on the plugin site]
+for more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2017-04-10/[Arbitrary code
+execution vulnerability]
+
+Provides "Groovy script to restrict where this project can be run" in
+job configuration pages.
+
+[[GroovyLabelAssignmentplugin-What'sthis?]]
+== What's this?
+
+This plugin provides "Groovy script to restrict where this project can
+be run" to the job configuration page:
+
+* The value returned from the script is treated as a label expression.
+** This label expression overrides "Restrict where this project can be
+run", and "Slaves"/"Label-expression" axes of multi-configuration
+projects.
+** A non-string values is converted into a string with `+toString()+`.
+** Returning null or empty string does not override existing label
+expressions.
+* Following variables are binded to the Groovy script:
+** Parameters defined with "This build is parameterized".
+** Axes defined with a multi-configuration project.
+** Environment variables defined with plugins.
+* A build does not start (trigger is ignored) in following cases:
+** No groovy script is configured even though Groovy Label Assignment is
+enabled in the job.
+** The groovy script contains syntax errors.
+** The groovy script throws an exception at the runtime.
+
+[[GroovyLabelAssignmentplugin-Usecases]]
+== Use cases
+
+[[GroovyLabelAssignmentplugin-Usecase1]]
+=== Use case 1
+
+Think a following scenario:
+
+* You have to build a project for multiple platforms: arm, win, linux
+* There are following nodes:
++
+[cols=",,,,",options="header",]
+|===
+|Node |Label |arm |win |linux
+|win1 |vs2010,armcc |O |O |X
+|win2 |armcc |X |O |X
+|linux |gcc |X |X |O
+|===
+
+You can manage this by using multi-configuration project as followings:
+
+* Define a User-defined axis "platform": arm, win, linux
+* Define a Slaves axis "slave": armcc, vs2010, gcc
+* Define "Combination Filter" as following:
++
+[source,syntaxhighlighter-pre]
+----
+(platform == "arm" && slave=="armcc") || (platform == "win" && slave=="vs2010") || (platform == "linux" && slave=="gcc")
+----
+
+Groovy Label Assignment plugin provides following alternate solution:
+
+* Define a User-defined axis "platform": arm, win, linux
+* Define "Groovy script to restrict where this project can be run":
++
+[source,syntaxhighlighter-pre]
+----
+def labelMap = [
+    arm: "armcc",
+    win: "vs2010",
+    linux: "gcc",
+];
+return labelMap.get(binding.getVariables().get("platform"));
+----
+
+[[GroovyLabelAssignmentplugin-Usecase2]]
+=== Use case 2
+
+Consider to create a job with which developers build a source tree.
+
+* You want developers can build both a release build and a snapshot with
+that job. Developers select release or snapshot when they trigger a
+build.
+* Release build must be built on nodes labeled "RELEASE" for releasing.
+Snapshot build must be built not on those nodes, but on other nodes.
+
+You can create a satisfying job by using Groovy Label Assignment plugin:
+
+* Parameterize the job.
+* Define a Boolen Value parameter "release", which specifies the
+triggering build is for release.
+* Define "Groovy script to restrict where this project can be run":
++
+[source,syntaxhighlighter-pre]
+----
+return (release == "true")?"RELEASE":"!RELEASE"
+----
+
+[[GroovyLabelAssignmentplugin-Limitations]]
+== Limitations
+
+* Some variables may not be properly binded:
+** Some type of parameters may be not properly binded.
+** Environment variables of some type of plugins may be not properly
+binded.
+** This is for Groovy Label Assignment plugin works when a build is
+going to be created, and is not created. Parameters and plugins that
+refers build information does not work properly.
+* When Groovy Label Assignment plugin fails, a build is rejected
+silently. Failures happen in following cases. You can refer the system
+log to see why Groovy Label Assignment plugin failed.
+** Groovy script is not defined.
+** Groovy script contains syntax errors.
+** Groovy script failed at the runtime.
+*** Especially in case referring non-binded variables. It often happens
+when running with multi-configuration project. In that case, you can
+access the variable safely as following:
++
+[source,syntaxhighlighter-pre]
+----
+binding.getVariables().get("variable-name");
+----
+** Returned value cannot be parsed as a label expression.
+
+[[GroovyLabelAssignmentplugin-Screenshots]]
+== Screenshots
+
+TODO
+
+[[GroovyLabelAssignmentplugin-Issues]]
+== Issues
+
+To report a bug or request an enhancement to this plugin please create a
+ticket in JIRA (you need to login or to sign up for an account). Also
+have a look on
+https://wiki.jenkins-ci.org/display/JENKINS/How+to+report+an+issue[How
+to report an issue]
+
+* https://issues.jenkins-ci.org/secure/CreateIssueDetails!init.jspa?pid=10172&issuetype=1&components=17655&priority=4&assignee=ikedam[Bug
+report]
+* https://issues.jenkins-ci.org/secure/CreateIssueDetails!init.jspa?pid=10172&issuetype=4&components=17655&priority=4[Request
+or propose an improvement of existing feature]
+* https://issues.jenkins-ci.org/secure/CreateIssueDetails!init.jspa?pid=10172&issuetype=2&components=17655&priority=4[Request
+or propose a new feature]
+
+[[refresh-module--1250116461]]
+[[refresh--1250116461]][[jira-issues--1250116461]]
+T
+
+P
+
+Key
+
+Summary
+
+[.refresh-action-group]# #
+
+[[refresh-issues-loading--1250116461]]
+[.aui-icon .aui-icon-wait]#Loading...#
+
+[#refresh-issues-button--1250116461]##
+[#refresh-issues-link--1250116461]#Refresh#
+[#error-message--1250116461 .error-message .hidden]# #
+
+[[GroovyLabelAssignmentplugin-Howdoesthiswork?]]
+== How does this work?
+
+This plugin works as following:
+
+. When a new build is triggerd,
+`+GroovyLabelAssignmentQueueDecisionHandler+` is called.
+. If `+GroovyLabelAssignmentProperty+` is assigned to the job, call it.
+. `+EnvironmentContributingAction#buildEnvVars()+` is called for
+retrieving variables to bind to the Groovy script.
+* Parameters are defined here.
+. Retrieve axes values configured to that job and bind to the Groovy
+script.
+. Run Groovy script.
+. Parse returned value as a label expression.
+. Assign it with `+LabelAssignmentAction+`.
+
+[[GroovyLabelAssignmentplugin-ChangeLog]]
+== Change Log
+
+[[GroovyLabelAssignmentplugin-Version1.2.0(May8,2016)]]
+=== Version 1.2.0 (May 8, 2016)
+
+* Now targets Jenkins 1.509 and later (was 1.466).
+* *Groovy scripts run with
+https://wiki.jenkins-ci.org/display/JENKINS/Script+Security+Plugin[Script
+Security Plugin]*
+(https://issues.jenkins-ci.org/browse/JENKINS-27535[JENKINS-27535])
+** Existing scripts are configured to run in the Groovy sandboxes.
+** You may have to approve some methods to allow run in the sandbox, or
+approve your scripts to allow run out of the sandbox.
+** See
+https://wiki.jenkins-ci.org/display/JENKINS/Script+Security+Plugin[Script
+Security Plugin] for details.
+
+[[GroovyLabelAssignmentplugin-Version1.1.1(Sep13,2015)]]
+=== Version 1.1.1 (Sep 13, 2015)
+
+* Fixed: fails to find nodes with a specified label when the label is
+once removed from all nodes
+(https://issues.jenkins-ci.org/browse/JENKINS-30135[JENKINS-30135])
+
+[[GroovyLabelAssignmentplugin-Version1.1.0(Mar21,2015)]]
+=== Version 1.1.0 (Mar 21, 2015)
+
+* Expose current Jenkins job to the Groovy script as "currentJob"
+variable
+(https://issues.jenkins-ci.org/browse/JENKINS-27424[JENKINS-27424])
+
+[[GroovyLabelAssignmentplugin-Version1.0.0(Jun05,2013)]]
+=== Version 1.0.0 (Jun 05, 2013)
+
+* Initial release.

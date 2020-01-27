@@ -1,0 +1,24 @@
+ 
+
+ [.conf-macro .output-inline]#Jenkins Pipeline Steps for integration
+with the https://hubot.github.com/[Hubot Chat Bot] and with human
+approval.# 
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/JenkinsPlusHubot.png[image,width=200]#
+
+More information about this plugin is
+https://github.com/jenkinsci/hubot-steps-plugin[available in GitHub].
+
+Quick links:
+
+* https://github.com/jenkinsci/hubot-steps-plugin#steps-configuration[Steps]
+* https://github.com/jenkinsci/hubot-steps-plugin#hubot-setup[Hubot
+Setup]
+* https://github.com/jenkinsci/hubot-steps-plugin#examples[Examples]
+
+[[HubotStepsPlugin-Changelog]]
+== Changelog
+
+* Refer to the
+https://github.com/jenkinsci/hubot-steps-plugin/blob/master/CHANGELOG.adoc[CHANGELOG]
+on Github.

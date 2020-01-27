@@ -1,0 +1,177 @@
+Exports the name and message for a git tag as environment variables
+during a build.If the revision checked out during a build has a git tag
+associated with it, its name will be exported during the build as the
+`+GIT_TAG_NAME+` environment variable. +
+If a message was specified when creating the tag (e.g. via
+`+git tag -m "..."+`), then that message will also be exported during
+the build, as the `+GIT_TAG_MESSAGE+` environment variable.
+
+If the revision has more than one tag associated with it, only the most
+recent tag will be taken into account. However, if your refspec includes
+"refs/tags" — i.e. builds are only triggered when certain tag names or
+patterns are matched — then the exact tag name that triggered the build
+will be used, even if it's not the most recent tag for this commit.
+
+You can optionally choose the "use most recent tag" option, which will
+then export the tag name and message from the nearest tag in the history
+of the commit being built, if any.
+
+[[GitTagMessagePlugin-Usage]]
+== Usage
+
+[[GitTagMessagePlugin-Freestyle]]
+=== Freestyle
+
+Under the Source Control Management section in your job configuration,
+if you have selected "Git", then there should be a section labelled
+"Additional Behaviours".
+
+Click "Add" and select "Export git tag and message as environment
+variables".
+
+If you are also using the "Create a tag for every build" behaviour, use
+the drag-and-drop handles to ensure that it happens *after* the "Export
+git tag and message as environment variables" behaviour. Otherwise, the
+git tag message will likely end up being the auto-generated Jenkins tag
+message, e.g. "Jenkins Build #1".
+
+[[GitTagMessagePlugin-Pipeline]]
+=== Pipeline
+
+Currently, this plugin does not work in Pipeline, as plugins can't
+contribute environment variables in the same way as in Freestyle.
+
+However, until this plugin is fixed, you could use these Scripted
+Pipeline functions to achieve pretty much the same result:
+
+[source,syntaxhighlighter-pre]
+----
+// Example usage
+node {
+    git url: 'https://github.com/jenkinsci/git-tag-message-plugin'
+    env.GIT_TAG_NAME = gitTagName()
+    env.GIT_TAG_MESSAGE = gitTagMessage()
+}
+
+/** @return The tag name, or `null` if the current commit isn't a tag. */
+String gitTagName() {
+    commit = getCommit()
+    if (commit) {
+        desc = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
+        if (isTag(desc)) {
+            return desc
+        }
+    }
+    return null
+}
+
+/** @return The tag message, or `null` if the current commit isn't a tag. */
+String gitTagMessage() {
+    name = gitTagName()
+    msg = sh(script: "git tag -n10000 -l ${name}", returnStdout: true)?.trim()
+    if (msg) {
+        return msg.substring(name.size()+1, msg.size())
+    }
+    return null
+}
+
+String getCommit() {
+    return sh(script: 'git rev-parse HEAD', returnStdout: true)?.trim()
+}
+
+@NonCPS
+boolean isTag(String desc) {
+    match = desc =~ /.+-[0-9]+-g[0-9A-Fa-f]{6,}$/
+    result = !match
+    match = null // prevent serialisation
+    return result
+}
+----
+
+[[GitTagMessagePlugin-Example]]
+== Example
+
+At https://iosphere.de/[iosphere], we use this in the process of
+automatically building and distributing beta versions of our mobile
+apps:
+
+. Commit some code
+. Write or generate release notes, e.g.
+`+./generateChangelog.sh > /tmp/changes+`
+. Create a tag, annotating it with the release notes, e.g.
+`+git tag -F /tmp/changes beta/123+`
+. Push the commit and tag to the remote repo
+
+Jenkins will then, having received a git webhook notification:
+
+. Trigger a build of the relevant job, e.g. 'trails-beta-distribution'
+. Check out the committed code, i.e. the revision at tag beta/123
+. Export a GIT_TAG_MESSAGE variable — this will contain the release
+notes
+. Build the mobile app
+. Use the $\{GIT_TAG_MESSAGE} value to fill out the release notes text
+field in a post-build step, e.g. the
+https://wiki.jenkins-ci.org/display/JENKINS/HockeyApp+Plugin[HockeyApp]
+or
+https://wiki.jenkins-ci.org/display/JENKINS/Google+Play+Android+Publisher+Plugin[Google
+Play Android Publisher plugin]
+. Upload and deploy the app to the relevant service for distribution to
+users
+
+[[GitTagMessagePlugin-Versionhistory]]
+== Version history
+
+[[GitTagMessagePlugin-Version1.6.1(December24,2017)]]
+=== Version 1.6.1 (December 24, 2017)
+
+* Removed an unnecessary dependency on a Pipeline plugin, added in
+version 1.6
+* Fixed integration tests so that they can run on Windows
+
+[[GitTagMessagePlugin-Version1.6(December20,2017)]]
+=== Version 1.6 (December 20, 2017)
+
+* Added the ability to use the most recent tag to the commit being built
+(https://issues.jenkins-ci.org/browse/JENKINS-32208[JENKINS-32208])
+** Thanks to https://github.com/Greybird[Arnaud Tamaillon]
+* Fixed the plugin to work with repos where git returns commit hash
+prefixes longer than seven characters
+
+[[GitTagMessagePlugin-Version1.5(April25,2016)]]
+=== Version 1.5 (April 25, 2016)
+
+* Fixed crash which could happen with a detached HEAD, i.e. no branch
+name was associated with a commit
+(https://issues.jenkins-ci.org/browse/JENKINS-34429[JENKINS-34429])
+
+[[GitTagMessagePlugin-Version1.4(June21,2015)]]
+=== Version 1.4 (June 21, 2015)
+
+* The git tag name is now also exported as `+GIT_TAG_NAME+`
+(https://issues.jenkins-ci.org/browse/JENKINS-28705[JENKINS-28705])
+** Thanks to Thomas Blitz
+
+[[GitTagMessagePlugin-Version1.3(March12,2015)]]
+=== Version 1.3 (March 12, 2015)
+
+* Fixed crash when no tag name could be determined
+(https://issues.jenkins-ci.org/browse/JENKINS-27383[JENKINS-27383])
+* The outcome of this plugin (i.e. whether a tag message was found and
+exported) is now written to the build log
+* Increased Jenkins requirement to 1.565.1
+
+[[GitTagMessagePlugin-Version1.2(February1,2015)]]
+=== Version 1.2 (February 1, 2015)
+
+* Ensured that, if building from a tag, the message from that tag is
+used (rather than a newer tag pointing at the same commit)
+
+[[GitTagMessagePlugin-Version1.1(October31,2014)]]
+=== Version 1.1 (October 31, 2014)
+
+* Fixed crash when a detached HEAD or repo with no tags was used
+
+[[GitTagMessagePlugin-Version1.0(October22,2014)]]
+=== Version 1.0 (October 22, 2014)
+
+* Initial release

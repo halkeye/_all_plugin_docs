@@ -1,0 +1,19 @@
+This plugin has dependencies (@see pom.xml)
+
+For example
+https://github.com/DotCi/jenkinsci-dotci-example/blob/1.632/plugins.txt#L26-L39 
+
+installs DotCi-Plugins-Starter-Pack:1.7.3 that also relies on 
+
+ansicolor:0.3.1 +
+build-timeout:1.14 +
+checkstyle:3.43 +
+findbugs:4.62 +
+jacoco:1.0.19 +
+pmd:3.42 +
+analysis-core:1.73 +
+junit:1.8 +
+tap:1.10 +
+cobertura:1.9.3 +
+analysis-collector:1.45 +
+analysis-core:1.74

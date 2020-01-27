@@ -1,0 +1,216 @@
+[[UploadPgyerPlugin-Asimpleintroduction]]
+== A simple introduction
+
+https://github.com/jenkinsci/upload-pgyer-plugin/blob/master/README_cn.md[中文文档]
+
+Pgyer's official website is https://www.pgyer.com/
+
+Pgyer can upload the application to the site, generate installation link
+and qr code user to open the installation link, or scan code qr code,
+can start installation.
+
+So this plugin can be uploaded to the pgyer platform！And it can put the
+fields returned by pgyer into an environment variable, which you can use
+in other build steps, You can select `+upload to pgyer+` by adding build
+steps or adding post-build steps.
+
+[[UploadPgyerPlugin-Screenshot]]
+== https://github.com/jenkinsci/upload-pgyer-plugin#screenshot[Screenshot]
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://blog-1251473749.cos.ap-beijing.myqcloud.com/jenkins_upload_pgyer/upload-pgyer-1.png[image,height=250]#
+
+[[UploadPgyerPlugin-Introductiontoparameters]]
+== https://github.com/jenkinsci/upload-pgyer-plugin#introduction-to-parameters[Introduction to parameters]
+
+[cols=",",options="header",]
+|===
+|field |explanation
+|pgyer uKey |`+(APIV1 Required, APIV2 NO)+` User Key, used to identify
+the current user's identity,  +
+for the same pgyer registered users, the value of the fixed! +
+https://www.pgyer.com/account/api[Click to get pgyer uKey]
+
+|pgyer api_key |`+(Required)+` API Key, used to identify the identity of
+the API caller,  +
+if not specified, each interface needs to contain this parameter. +
+For the same pgyer registered users, this value is fixed. +
+https://www.pgyer.com/account/api[Click to get pgyer api_key]
+
+|scandir |`+(Required)+` need to upload ipa or apk file base dir path! +
+The default is $\{WORKSPACE}, It means the path of the current
+project! +
+It is using ant's DirectoryScanner
+class, https://ant.apache.org/manual/api/org/apache/tools/ant/DirectoryScanner.html[click
+to see DirectoryScanner class] +
+It is equivalent to the parameters of the basedir method in the
+DirectoryScanner
+class! https://ant.apache.org/manual/api/org/apache/tools/ant/DirectoryScanner.html#basedir[click
+to see basedir method]
+
+|file wildcard |`+(Required)+` need to upload ipa or apk file name,
+Support wildcards, +
+like this: **/Test?/*.apk +
+It is using ant's DirectoryScanner
+class, https://ant.apache.org/manual/api/org/apache/tools/ant/DirectoryScanner.html[click
+to see DirectoryScanner class] +
+It is equivalent to the parameters of the includes method in the
+DirectoryScanner
+class! https://ant.apache.org/manual/api/org/apache/tools/ant/DirectoryScanner.html#includes[click
+to see includes method]
+
+|installType |`+(Optional)+` application installation, the value is
+(1,2,3). +
+1: public,  +
+2: password installed,  +
+3: invitation to install. +
+The default is 1 public!
+
+|password |(Optional) set the App installation password, if you do not
+want to set the password, please pass empty string, or not pass.
+
+|updateDescription |`+(Optional)+` version update description, please
+pass empty string, or not pass.
+
+|qrcodePath |`+(Optional)+` If you need to download the qrcode, please
+enter the save path of the qrcode!otherwise, not download!
+
+|envVarsPath |`+(Optional)+` if you need to save info, please enter save
+file path! otherwise, not save!
+|===
+
+[[UploadPgyerPlugin-Runninglog]]
+== https://github.com/jenkinsci/upload-pgyer-plugin#running-log[Running log]
+
+[.confluence-embedded-file-wrapper]#image:https://blog-1251473749.cos.ap-beijing.myqcloud.com/jenkins_upload_pgyer/jenkins_log.png[image]#
+
+When it runs successfully, you can use the environment variables that
+are used! for example:
+
+[.confluence-embedded-file-wrapper]#image:https://blog-1251473749.cos.ap-beijing.myqcloud.com/jenkins_upload_pgyer/upload-pgyer-3.png[image]#
+
+[[UploadPgyerPlugin-PgyerapiV1returnsadescriptionofthefield]]
+== https://github.com/jenkinsci/upload-pgyer-plugin#pgyer-apiv1-returns-a-description-of-the-field[Pgyer apiV1 returns a description of the field]
+
+[cols=",",options="header",]
+|===
+|environment variables |explanation
+|appKey |App Key
+
+|appType |Application type (1:iOS; 2: Android)
+
+|appIsLastest |Is it the latest version (1: yes; 2: no)
+
+|appFileSize |App file size
+
+|appName |App Name
+
+|appVersion |App Version
+
+|appVersionNo |For Android version Numbers, iOS is always 0
+
+|appBuildVersion |pgyer builds build Numbers that distinguish historical
+versions
+
+|appIdentifier |Application package name, iOS for BundleId, Android for
+package name
+
+|appIcon |Application the icon of the key, get the
+address http://o1wh05aeh.qnssl.com/image/view/app_icons/%5BappIcon%5D
+
+|appDescription |Introduction to the Application
+
+|appUpdateDescription |Application update description
+
+|appScreenshots |Application the screenshot of the key, get the
+address http://o1whyeemo.qnssl.com/image/view/app_screenshots/%5BappScreenshots%5D
+
+|appShortcutUrl |Application short links
+
+|appCreated |Application upload time
+
+|appUpdated |Application update time
+
+|appQRCodeURL |Application the qr code address
+
+|appPgyerURL |Application pgyer url
+
+|appBuildURL |Application build pgyer url
+|===
+
+[[UploadPgyerPlugin-PgyerapiV2returnsadescriptionofthefield]]
+== https://github.com/jenkinsci/upload-pgyer-plugin#pgyer-apiv2-returns-a-description-of-the-field[Pgyer apiV2 returns a description of the field]
+
+[cols=",",options="header",]
+|===
+|environment variables |explanation
+|buildKey |Build Key is the only index ID that identifies the
+application
+
+|buildType |Application Type（1:iOS; 2:Android）
+
+|buildIsFirst |Is it the first App? (1: Yes; 2: No;)
+
+|buildIsLastest |Is it the newest? (1: Yes; 2: No;)
+
+|buildFileSize |The size of App
+
+|buildName |App Name
+
+|buildVersion |The default is 1.0 (is the logo that to advertise the
+application, for example: 1.1, 8.2.1, etc.).
+
+|buildVersionNo |The version number of the uploaded package, the default
+is 1 (that is, the compiled version number, in general, the compiler
+will change once the version number. For iOS, is a string type; for
+Android it is an integer. For example: 1001 , 28 etc.)
+
+|buildBuildVersion |pgyer builds build Numbers that distinguish
+historical versions
+
+|buildIdentifier |Application package name, iOS for BundleId, Android
+for package name
+
+|buildIcon |Icon Key of application, URL
+is https://www.pgyer.com/image/view/app_icons/%5BIcon Key of
+application]
+
+|buildDescription |Application Description
+
+|buildUpdateDescription |Application Update Description
+
+|buildScreenShots |Application screenshots key, the address
+is https://www.pgyer.com/image/view/app_screenshots/%5BApplication screenshots
+key]
+
+|buildShortcutUrl |App Download Url
+
+|buildCreated |App Upload time
+
+|buildUpdated |App Update time
+
+|buildQRCodeURL |App QR code Url
+
+|appPgyerURL |Application pgyer url
+
+|appBuildURL |Application build pgyer url
+|===
+
+[[UploadPgyerPlugin-ChangeLog]]
+== https://github.com/jenkinsci/upload-pgyer-plugin#change-log[Change Log]
+
+Version 1.33(2019-09-07)
+
+* Fixed https://issues.jenkins-ci.org/browse/SECURITY-1044[SECURITY-1044]
+* Upgrade gson 2.8.5
+
+Version 1.31(2018-05-07)
+
+* Upgrade gson 2.8.4
+* Optimize upload log
+* Change the document image address.
+
+Version 1.30(2018-04-16）
+
+* Remove jsoup, and import okhttp that be used network
+* Add upload file progress
+* Add https://www.pgyer.com/doc/view/api#uploadApp[pgyer api v2]

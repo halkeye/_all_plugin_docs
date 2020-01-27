@@ -1,0 +1,92 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View Sidebar Link https://plugins.jenkins.io/sidebar-link[on the plugin
+site] for more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2017-07-10/[Persisted XSS
+Vulnerability]
+
+Add links in the sidebar of the Jenkins main page, view tabs and project
+pages.This simple plugin adds an `+Additional Sidebar Links+` section in
+the main Jenkins configuration page, with settings for link URLs, texts
+and icons. These links will be shown in the top-level Jenkins pages
+(main page, user list, build history, My Projects and other project view
+tabs). Sidebar links for particular jobs may also be added in the job
+configuration pages.
+
+'''''
+
+[[Sidebar-LinkPlugin-ChangeLog]]
+== Change Log
+
+[[Sidebar-LinkPlugin-Version1.10(Dec22,2018)]]
+=== Version 1.10 (Dec 22, 2018)
+
+* Add support of Sidebar links for Jenkins Pipeline and other project
+types
+(https://issues.jenkins-ci.org/browse/JENKINS-33458[JENKINS-33458])
+
+[[Sidebar-LinkPlugin-Version1.9.1(July12,2017)]]
+=== Version 1.9.1 (July 12, 2017)
+
+* Fix displaying of saved URL values in the configuration pages
+(https://issues.jenkins-ci.org/browse/JENKINS-45451[JENKINS-45451],
+regression in 1.9)
+
+[[Sidebar-LinkPlugin-Version1.9(July10,2017)]]
+=== Version 1.9 (July 10, 2017)
+
+* https://jenkins.io/security/advisory/2017-07-10/[Fix security issue]
+
+[[Sidebar-LinkPlugin-Version1.6(24-Jul-2011)]]
+=== Version 1.6 (24-Jul-2011)
+
+* Remove stray ">" showing up on job config page.
+* Update for Jenkins.
+
+[[Sidebar-LinkPlugin-Version1.5(20-Jan-2011)]]
+=== Version 1.5 (20-Jan-2011)
+
+* Add option for sidebar links in project pages.
+(https://issues.jenkins-ci.org/browse/JENKINS-7298[JENKINS-7298])
+* Add ability to upload image files into `+JENKINS_HOME/userContent+`
+directory from global config page.
+(https://issues.jenkins-ci.org/browse/JENKINS-8320[JENKINS-8320])
+* Japanese translation
+
+[[Sidebar-LinkPlugin-Version1.4(8-Mar-2010)]]
+=== Version 1.4 (8-Mar-2010)
+
+* Add help text about how to use icon images placed in
+`+HUDSON_HOME/userContent+` directory, and for absolute vs
+in-this-Hudson URLs.
+
+[[Sidebar-LinkPlugin-Verison1.3(10-Feb-2010)]]
+=== Verison 1.3 (10-Feb-2010)
+
+* Update code for more recent Hudson.
+
+[[Sidebar-LinkPlugin-Version1.2(23-May-2009)]]
+=== Version 1.2 (23-May-2009)
+
+* Support for more than one link.
+
+[[Sidebar-LinkPlugin-Version1.1(13-Jan-2009)]]
+=== Version 1.1 (13-Jan-2009)
+
+* Avoid NullPointerException when plugin is installed but not
+configured.
+
+[[Sidebar-LinkPlugin-Version1.0(17-Dec-2008)]]
+=== Version 1.0 (17-Dec-2008)
+
+* Initial release.

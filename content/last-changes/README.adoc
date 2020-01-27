@@ -1,0 +1,796 @@
+____
+The simplest way to know what has changed on your Jenkins builds!.
+____
+
+[[LastChangesPlugin-Introduction]]
+== Introduction
+
+The plugin uses https://diff2html.rtfpessoa.xyz/[diff2html] to show last
+changes of a given build via VCS diffs, example:
+
+[.confluence-embedded-file-wrapper]#image:https://raw.githubusercontent.com/jenkinsci/last-changes-plugin/master/images/last-changes03.png[image]#
+
+ +
+
+Or using *side-by-side* configuration:
+
+[.confluence-embedded-file-wrapper]#image:https://raw.githubusercontent.com/jenkinsci/last-changes-plugin/master/images/last-changes05.png[image]#
+
+ +
+
+ +
+
+[cols=",",]
+|===
+a|
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://assets-cdn.github.com/images/icons/emoji/unicode/2139.png[image,width=20,height=20]#
+
+|Last changes
+means `+compare current repository revision with an old revision+`. By
+default the plugin will diff current and previous revision.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]#
+#
+
+Only Git and Svn based projects are supported. 
+
+[[LastChangesPlugin-Objectives]]
+== Objectives
+
+The main objective of this plugin is to have _fast_ access to what has
+changed on a Jenkins build. +
+Another interesting aspect is that it can easily help to find the root
+cause of a failling build by highlighting what has changed.
+
+And finally the plugin _shines_ in
+a https://en.wikipedia.org/wiki/Continuous_delivery[continuous
+delivery] environment, where each _commit_ generates a release
+candidate.
+
+[[LastChangesPlugin-Howitworks?]]
+== How it works?
+
+. This plugin expects `+.git+` or `+.svn+` folders present on your build
+workspace and will use it to retrieve repository information .
+. While your job runs the plugin reads your build workspace to retrieve
+the current VCS revision;
+. The diff between `+actual+` and a `+previous+` revision will be
+stored; Note that the `+previous revision+` can be:
++
+* A provided revision id;
+* Revision of `+Last successful build+`;
+* Revision of an specific build;
+* Revision of `+Last tag+`;
++
+ +
+
+[cols=",",]
+|===
+a|
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://assets-cdn.github.com/images/icons/emoji/unicode/2139.png[image,width=20,height=20]#
+
+|By default previous revision is `+current revision -1+`.
+|===
+
+ +
++
+ +
+
+[cols=",",]
+|===
+a|
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a1.png[image,width=20,height=20]#
+
+|You can
+use https://wiki.jenkins.io/display/JENKINS/Parameterized+Build[parameters] in `+specificRevision+` parameter.
+In case of git, expressions like `+HEAD^{tree}+`or `+HEAD^^+` can be
+used.
+|===
+. The `+diff+` for each build can be viewed later in html format.
+
+[.aui-icon .aui-icon-small .aui-iconfont-approve .confluence-information-macro-icon]#
+#
+
+To get most from this plugin use periodically SCM pooling to trigger
+your builds,
+http://www.nailedtothex.org/roller/kyle/entry/articles-jenkins-poll[more
+details here].
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]#
+#
+
+[line-through]*The plugin always compare current revision with previous
+one even no new commit has been* [line-through]*made*. Since version
+1.0.7 it is possible to provide a specific revision.
+
+[[LastChangesPlugin-Usage]]
+== Usage
+
+After installation, activate the post build action **Publish Last
+Changes**. 
+
+[[LastChangesPlugin-Activatepostbuildaction]]
+=== Activate post build action
+
+[.confluence-embedded-file-wrapper]#image:https://raw.githubusercontent.com/jenkinsci/last-changes-plugin/master/images/last-changes-activation.png[image]#
+
+[[LastChangesPlugin-Lastchangesmenu]]
+=== Last changes menu
+
+Last changes menu will be available after job execution:
+
+[.confluence-embedded-file-wrapper]#image:https://raw.githubusercontent.com/jenkinsci/last-changes-plugin/master/images/last-changes01.png[image]#
+
+The job level menu will take you to _Last changes history_.
+
+[[LastChangesPlugin-Buildchangeshistory]]
+=== Build changes history
+
+Each link will take you to the changes of the build: 
+
+[.confluence-embedded-file-wrapper]#image:https://raw.githubusercontent.com/jenkinsci/last-changes-plugin/master/images/last-changes02.png[image]#
+
+[[LastChangesPlugin-ViewLastchangesmenu]]
+=== View Last changes menu
+
+At the build level, _View Last Changes_ menu is available for builds
+that published changes. It will also take you to the changes published
+by the build
+
+[.confluence-embedded-file-wrapper]#image:https://raw.githubusercontent.com/jenkinsci/last-changes-plugin/master/images/last-changes04.png[image]#
+
+[[LastChangesPlugin-Viewchangespublishedbybuilds]]
+=== View changes published by builds
+
+Finally, you can view what has changed on the build: 
+
+https://raw.githubusercontent.com/jenkinsci/last-changes-plugin/master/images/commits.png[[.confluence-embedded-file-wrapper]#image:https://github.com/jenkinsci/last-changes-plugin/raw/master/images/commits.png[commits]#]
+
+ +
+
+[cols=",",]
+|===
+a|
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a1.png[image,width=20,height=20]#
+
+a|
+You can also see what has changed on a specific commit by clicking on
+it:
+
+ +
+
+https://raw.githubusercontent.com/jenkinsci/last-changes-plugin/master/images/commit-changes.png[[.confluence-embedded-file-wrapper]#image:https://github.com/jenkinsci/last-changes-plugin/raw/master/images/commit-changes.png[commit
+changes]#]
+
+ +
+
+|===
+
+ +
+
+[[LastChangesPlugin-Configuration]]
+== Configuration
+
+The setup is done via build configuration:
+
+[.confluence-embedded-file-wrapper]#image:https://raw.githubusercontent.com/jenkinsci/last-changes-plugin/master/images/last-changes-config.png[image]#
+
+ +
+
+The possible values for Since attribute is `+Previous revision+` (the
+default), `+Last successful build+` and `+Last tag+`.
+
+ +
+
+[cols=",",]
+|===
+a|
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://assets-cdn.github.com/images/icons/emoji/unicode/2757.png[image,width=20,height=20]#
+
+|If SpecificRevision parameter is provided then Since configuration will
+be ignored and the diff will be done with provided revision id.
+|===
+
+ +
+
+Advanced configuration
+reflects https://github.com/rtfpessoa/diff2html#configuration[diff2html
+options]:
+
+ +
+
+https://raw.githubusercontent.com/jenkinsci/last-changes-plugin/master/images/last-changes-config2.png[[.confluence-embedded-file-wrapper]#image:https://github.com/jenkinsci/last-changes-plugin/raw/master/images/last-changes-config2.png[last
+changes config2]#]
+
+[[LastChangesPlugin-Jenkinspipelinestep]]
+== Jenkins pipeline step
+
+ +
+
+Following is an example of pipeline step using this plugin:
+
+....
+node {
+      stage ('Build') {
+           svn 'https://subversion.assembla.com/svn/cucumber-json-files/trunk/'
+           step([$class: 'LastChangesPublisher', since:'PREVIOUS_REVISION',specificRevision: '', format: 'LINE', matchWordsThreshold: '0.25', matching: 'NONE', matchingMaxComparisons: '1000', showFiles: true, synchronisedScroll: true])
+
+      }
+
+}
+....
+
+[[LastChangesPlugin-PipelineDSL]]
+=== Pipeline DSL
+
+Following are examples of pipeline dsl usage:
+
+ +
+
+....
+node {
+     git 'https://github.com/jenkinsci/last-changes-plugin.git'
+     lastChanges() //will use defaults
+}
+....
+
+ +
+
+Parameters should be declared as `+key: 'value'+` as example below:
+
+ +
+
+....
+node {
+     git 'https://github.com/jenkinsci/last-changes-plugin.git'
+     lastChanges format:'SIDE',matching: 'WORD', specificRevision: 'c546ec31e854de3f27755273d3e1db6185aee4b4'
+}
+....
+
+ +
+
+Or using https://jenkins.io/doc/book/pipeline/syntax/[declarative
+pipeline]
+
+ +
+
+....
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/jenkinsci/last-changes-plugin.git'
+                lastChanges since: 'LAST_SUCCESSFUL_BUILD', format:'SIDE',matching: 'LINE'
+            }
+        }
+    }
+}
+....
+
+ +
+
+Or using build params for _`+specificRevision+`_:
+
+ +
+
+....
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/jenkinsci/last-changes-plugin.git'
+                lastChanges format:'SIDE',matching: 'WORD', specificRevision: "${REV}"
+            }
+        }
+    }
+}
+....
+
+ +
+
+[cols=",",]
+|===
+a|
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a1.png[image,width=20,height=20]#
+
+|Refer
+to https://wiki.jenkins.io/display/JENKINS/Parameterized+Build[parameterized
+builds] to use parameters.
+|===
+
+ +
+
+[[LastChangesPlugin-Pipelinescripting]]
+=== Pipeline scripting
+
+It is possible to invoke LastChanges inside groovy script, instead of
+just declaring
+it https://wiki.jenkins-ci.org/display/JENKINS/Last+Changes+Plugin#LastChangesPlugin-PipelineDSL[as
+we saw above]. See example below:
+
+ +
+
+....
+node {
+      stage("checkout") {
+        git url: 'https://github.com/jenkinsci/last-changes-plugin.git'
+      }
+
+      stage("last-changes") {
+        def publisher = LastChanges.getLastChangesPublisher "PREVIOUS_REVISION", "SIDE", "LINE", true, true, "", "", "", "", ""
+              publisher.publishLastChanges()
+              def changes = publisher.getLastChanges()
+              println(changes.getEscapedDiff())
+              for (commit in changes.getCommits()) {
+                  println(commit)
+                  def commitInfo = commit.getCommitInfo()
+                  println(commitInfo)
+                  println(commitInfo.getCommitMessage())
+                  println(commit.getChanges())
+              }
+      }
+
+}
+....
+
+ +
+
+[cols=",",]
+|===
+a|
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://assets-cdn.github.com/images/icons/emoji/unicode/2139.png[image,width=20,height=20]#
+
+|See https://github.com/jenkinsci/last-changes-plugin/blob/master/src/main/java/com/github/jenkins/lastchanges/model[model
+classes] to know what can be accessed in pipeline script. Note that only
+attributes https://github.com/jenkinsci/last-changes-plugin/blob/master/src/main/java/com/github/jenkins/lastchanges/model/LastChanges.java#L48[annotated
+with @Whitelisted] are visible to be accessed in pipeline script.
+|===
+
+ +
+
+ +
+
+[cols=",",]
+|===
+a|
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a1.png[image,width=20,height=20]#
+
+|If you use declarative pipeline you can
+use https://jenkins.io/doc/book/pipeline/syntax/#script[script section].
+|===
+
+ +
+
+[[LastChangesPlugin-SVNLimitation]]
+=== SVN Limitation
+
+*Svn* based jobs have a limitation, to get last changes from latest tag
+you need to checkout the entire project repository otherwise the plugin
+will not find last tag. This is due to the way SVN handle tags.
+
+[[LastChangesPlugin-Downloadthediff]]
+=== Download the diff
+
+You can also download the diff as `+DIFF+` or `+HTML+`. The download
+links are at the `+bottom right+` of the page:
+
+[.confluence-embedded-file-wrapper]#image:https://raw.githubusercontent.com/jenkinsci/last-changes-plugin/master/images/diff-download.png[image]#
+
+[[LastChangesPlugin-Sendingthediffasemail]]
+== Sending the diff as email
+
+Using https://wiki.jenkins.io/display/JENKINS/Email-ext+plugin[email ext
+plugin] and https://wiki.jenkins-ci.org/display/JENKINS/Last+Changes+Plugin#LastChangesPlugin-Pipelinescripting[pipeline
+scripting] we can send the diff as an email attachment, see example
+below:
+
+. Diff in *plain text*
++
+....
+pipeline {
+    agent any
+    stages {
+        stage('send diff') {
+            steps {
+                git url: 'https://github.com/jenkinsci/last-changes-plugin'
+            }
+        }
+        stage("send diff") {
+            steps {
+                script {
+                    def publisher = LastChanges.getLastChangesPublisher null, "SIDE", "LINE", true, true, "", "", "", "", ""
+                    publisher.publishLastChanges()
+                    def diff = publisher.getDiff()
+                    writeFile file: 'build.diff', text: diff
+                    emailext (
+                      subject: "Jenkins - changes of ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                      attachmentsPattern: '**/*.diff',
+                      mimeType: 'text/html',
+                      body: """<p>See attached diff of <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b>.</p>
+                        <p>Check build changes on Jenkins <b><a href="${env.BUILD_URL}/last-changes">here</a></b>.</p>""",
+                      to: "YOUR-EMAIL@gmail.com"
+                    )
+
+               }
+
+            }
+        }
+    }
+}
+....
++
+ +
+. Diff in *Html format*
++
+....
+pipeline {
+    agent any
+    stages {
+        stage('send html diff') {
+            steps {
+                git 'https://github.com/jenkinsci/last-changes-plugin.git'
+                script {
+                  def publisher = LastChanges.getLastChangesPublisher "PREVIOUS_REVISION", "SIDE", "LINE", true, true, "", "", "", "", ""
+                  publisher.publishLastChanges()
+                  def htmlDiff = publisher.getHtmlDiff()
+                  writeFile file: 'build-diff.html', text: htmlDiff
+                    emailext (
+                      subject: "Jenkins - changes of ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                      attachmentsPattern: '**/*build-diff.html',
+                      mimeType: 'text/html',
+                      body: """<p>See attached diff of build <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b>.</p>
+                        <p>Check build changes on Jenkins <b><a href="${env.BUILD_URL}/last-changes">here</a></b>.</p>""",
+                      to: "YOUR-EMAIL@gmail.com" )
+                } //end script
+            }
+        }
+    }
+}
+....
+
+[[LastChangesPlugin-Docker]]
+== Docker
+
+An easy way to test this plugin is using a docker container, here are
+the steps (assumming you have docker installed):
+
+. {blank}
++
+....
+Run the image: docker run -it -p 8080:8080 rmpestano/jenkins-last-changes
+....
+. {blank}
++
+....
+Access http://localhot:8080/ and create a job
+....
+. Configure this svn
+repository: https://subversion.assembla.com/svn/cucumber-json-files/trunk/
+. Add the Publish last changes _post build action_;
+. Just run the job
+
+Job output should look like:
+
+[.confluence-embedded-file-wrapper]#image:https://raw.githubusercontent.com/jenkinsci/last-changes-plugin/master/images/last-changes-docker.png[image]#
+
+[[LastChangesPlugin-Contributing]]
+== Contributing
+
+See
+https://github.com/jenkinsci/last-changes-plugin/wiki/Contributors-guide[contributors
+guide].
+
+[[LastChangesPlugin-ChangeLog]]
+== Change Log
+
+[[LastChangesPlugin-Version2.7.6(aug14,2019)]]
+=== Version 2.7.6 (aug 14, 2019) 
+
+* Fix encode issue in
+https://wiki.jenkins.io/display/JENKINS/Last+Changes+Plugin#LastChangesPlugin-Downloadthediff[html
+diff download].
+
+[[LastChangesPlugin-Version2.7.5(apr25,2019)]]
+=== Version 2.7.5 (apr 25, 2019) 
+
+* Performance: Also compress commit diffs bigger than 250kb.
+
+[[LastChangesPlugin-Version2.7.4(apr05,2019)]]
+=== Version 2.7.4 (apr 05, 2019) 
+
+* Performance: Diffs bigger than 250kb will be compressed to not consume
+too much memory on Jenkins.
++
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+The 250kb can be configured using
+SystemProperty: **lastchanges.diff.compress-threshold=500**`+ will make only diffs bigger than 500kb to be compressed.+`
+
+[[LastChangesPlugin-Version2.7.2/2.73(apr03,2019)]]
+=== Version 2.7.2/2.73 (apr 03, 2019) 
+
+* Prevent NPE on html diff download
+
+[[LastChangesPlugin-Version2.7.1(apr03,2019)]]
+=== Version 2.7.1 (apr 03, 2019) 
+
+* {blank}
++
+[[LastChangesPlugin-#65-Addpreviousandcurrentrevisioninformationonhtmldiffdownload]]
+====== https://github.com/jenkinsci/last-changes-plugin/issues/65[#65] - Add previous and current revision information on html diff download
+
+[[LastChangesPlugin-Version2.7.0(apr02,2019)]]
+=== Version 2.7.0 (apr 02, 2019) 
+
+* https://github.com/jenkinsci/last-changes-plugin/issues/46[#48] - VCS
+dir should only be deleted if it was copied before
+* Support for sending html diffs as email attachments
+* Upgrade base line to 2.73.3
+* Update test dependencies to support declarative pipeline in
+integration tests
+
+[[LastChangesPlugin-Version2.6.8(oct01,2018)]]
+=== Version 2.6.8 (oct 01, 2018) 
+
+* Fixes https://issues.jenkins-ci.org/browse/JENKINS-53860[JENKINS-53860]
+
+[[LastChangesPlugin-Version2.6.7(sep10,2018)]]
+=== Version 2.6.7 (sep 10, 2018) 
+
+* https://github.com/jenkinsci/last-changes-plugin/issues/58[#58] -
+Serialization issues in pipeline script section
+* https://github.com/jenkinsci/last-changes-plugin/issues/59[#59] -
+Adjust css on downloaded diff html
+
+[[LastChangesPlugin-Version2.6.6(sep09,2018)]]
+=== Version 2.6.6 (sep 09, 2018) 
+
+* https://github.com/jenkinsci/last-changes-plugin/issues/57[#57] -
+Download the diff as HTML
+
+[[LastChangesPlugin-Version2.6.5(sep09,2018)]]
+=== Version 2.6.5 (sep 09, 2018) 
+
+* [.js-issue-title]#[.gh-header-number]##https://github.com/jenkinsci/last-changes-plugin/issues/53[#53]
+- ##Make it possible to download the diff in 'diff' format (so it can be
+viewed later on https://diffy.org/ )#
+* [.js-issue-title]#https://github.com/jenkinsci/last-changes-plugin/issues/56[#56]
+- Could not load actions from
+com.github.jenkins.lastchanges.LastChangesProjectAction#
+
+[[LastChangesPlugin-Version2.6.4(sep03,2018)]]
+=== Version 2.6.4 (sep 03, 2018) 
+
+* https://github.com/jenkinsci/last-changes-plugin/issues/55[#55] -
+LastChanges icon is rendered for all jobs
+
+[[LastChangesPlugin-Version2.6.3(sep01,2018)]]
+=== Version 2.6.3 (sep 01, 2018) 
+
+* https://issues.jenkins-ci.org/browse/JENKINS-50116[JENKINS-50116] - LastChanges
+history becomes empty after Jenkins restart
+* https://github.com/jenkinsci/last-changes-plugin/issues/50[#50] -
+Upgrade to diff2html 2.4.0
+* https://github.com/jenkinsci/last-changes-plugin/issues/51[#51] -
+Upgrade Jenkins baseline to 2.x
+
+[[LastChangesPlugin-Version2.6.2(apr05,2018)]]
+=== Version 2.6.2 (apr 05, 2018)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-50569[JENKINS-50569] - AccessDeniedException
+when copying VCS dir
+
+[[LastChangesPlugin-Version2.6.1(mar11,2018)]]
+=== Version 2.6.1 (mar 11, 2018)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-49368[JENKINS-49368] -
+Forbid nested references to model objects
+
+[[LastChangesPlugin-Version2.6(jan26,2018)]]
+=== Version 2.6 (jan 26, 2018)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-49176[JENKINS-49176]
+* https://issues.jenkins-ci.org/browse/JENKINS-49185[JENKINS-49185]
+
+[[LastChangesPlugin-Version2.5(jan10,2018)]]
+=== Version 2.5 (jan 10, 2018)
+
+* https://github.com/jenkinsci/last-changes-plugin/issues/36[#36] Remove
+unnecessary call to commitInfo
+* https://github.com/jenkinsci/last-changes-plugin/issues/37[#37] Makes
+LastChanges available in pipeline script
+(PR https://github.com/jenkinsci/last-changes-plugin/pull/38[#38])
+* https://github.com/jenkinsci/last-changes-plugin/pull/39[#39] Spelling
+* https://github.com/jenkinsci/last-changes-plugin/issues/40[#40] Use
+Jenkins 1.642 as baseline to enable pipeline testing
+
+See
+https://github.com/jenkinsci/last-changes-plugin/releases/tag/2.5[release
+notes] for more details.
+
+[[LastChangesPlugin-Version2.4(dez26,2017)]]
+=== Version 2.4 (dez 26, 2017)
+
+* https://github.com/jenkinsci/last-changes-plugin/issues/35[#35] Wrong
+diff of specific commit in git repositories
+
+[[LastChangesPlugin-Version2.3(dez17,2017)]]
+=== Version 2.3 (dez 17, 2017)
+
+* https://github.com/jenkinsci/last-changes-plugin/issues/32[#32] Changes
+since specific build.
+* https://github.com/jenkinsci/last-changes-plugin/issues/33[#33] findVCSDir
+researches only one, first folder from workspace.
+* https://github.com/jenkinsci/last-changes-plugin/issues/34[#34] Show
+the list of commits between current and previous revision.
+
+[[LastChangesPlugin-Version2.2(nov16,2017)]]
+=== Version 2.2 (nov 16, 2017)
+
+https://github.com/jenkinsci/last-changes-plugin/issues/29[#29] Cleaning
+vcs dir after the diff is created +
+https://github.com/jenkinsci/last-changes-plugin/issues/30[#30] 'null'
+revision in SVN
+
+[[LastChangesPlugin-Version2.1(nov03,2017)]]
+=== Version 2.1 (nov 03, 2017)
+
+Fixes SVN authentication issue.
+
+The fix for
+issue https://github.com/jenkinsci/last-changes-plugin/issues/25[#25] introduced
+an auth issue for some private repositories:
+
+....
+ org.tmatesoft.svn.core.SVNAuthenticationException: svn: E170001: Authentication required for '<secret> Authorization Realm
+....
+
+[[LastChangesPlugin-Version2.0(nov02,2017)]]
+=== Version 2.0 (nov 02, 2017)
+
+https://github.com/jenkinsci/last-changes-plugin/issues/25[#25] SVN
+changes are retrieved locally now. Before it, repository info was
+retrieved remotelly from build trigger and there was some serious issues
+like https://github.com/jenkinsci/last-changes-plugin/issues/4[#4]; +
+https://github.com/jenkinsci/last-changes-plugin/issues/26[#26] Last
+Changes since Last tag; +
+https://github.com/jenkinsci/last-changes-plugin/issues/27[#27] The UI
+and also pipeline DSL attributes has changed.
+
+*Breaking changes*
+
+sinceLastSuccessfulBuild atribute was removed; +
+previousRevision was renamed to *SpecificRevision*
+
+A new attribute Since was added, the possible values are:
+
+* PREVIOUS_REVISION (default)
+* LAST_SUCCESSFUL_BUILD
+* LAST_TAG
+
+[[LastChangesPlugin-Version1.1.4(oct31,2017)]]
+=== Version 1.1.4 (oct 31, 2017)
+
+* https://github.com/jenkinsci/last-changes-plugin/issues/24[#24] Skip
+SCM verification for GIT repositories.
+
+[[LastChangesPlugin-Version1.1.3(oct31,2017)]]
+=== Version 1.1.3 (oct 31, 2017)
+
+* Bad release, do not use this version.
+
+[[LastChangesPlugin-Version1.1.2(oct30,2017)]]
+=== Version 1.1.2 (oct 30, 2017)
+
+* https://github.com/jenkinsci/last-changes-plugin/issues/22[#22] NullPointerException
+when using sinceLastSuccessfulBuild
+* https://github.com/jenkinsci/last-changes-plugin/issues/23[#23] Make
+workflow-job dependency optional
+
+[[LastChangesPlugin-Version1.1.1(oct28,2017)]]
+=== Version 1.1.1 (oct 28, 2017)
+
+* {blank}
++
+https://github.com/jenkinsci/last-changes-plugin/issues/20[#20] Allow
+git expressions in previous revision field
+* https://github.com/jenkinsci/last-changes-plugin/issues/21[#21] Better
+error message
+
+[[LastChangesPlugin-Version1.1.0(oct29,2017)]]
+=== Version 1.1.0 (oct 29, 2017)
+
+* {blank}
++
+https://github.com/jenkinsci/last-changes-plugin/issues/16[#16] Rename
+"End revision" to "Previous revision" as it is causing confusion
+* https://github.com/jenkinsci/last-changes-plugin/issues/17[#17] Mismatched
+heading in side-by-sude revision summary
+* https://github.com/jenkinsci/last-changes-plugin/issues/18[#18] Rename
+lastSuccessfulBuild to sinceLastSuccessfulBuild
+* https://github.com/jenkinsci/last-changes-plugin/issues/19[#19] Switch
+current and previous revision summary panel
+
+[[LastChangesPlugin-Version1.0.12(oct28,2017)]]
+=== Version 1.0.12 (oct 28, 2017)
+
+* {blank}
++
+https://github.com/jenkinsci/last-changes-plugin/issues/14[#14] Updates
+to latest DiffToHtml
+* https://github.com/jenkinsci/last-changes-plugin/issues/15[#15] Support
+for diff against *last successful build*
+
+[[LastChangesPlugin-Version1.0.11(oct13,2017)]]
+=== Version 1.0.11 (oct 13, 2017)
+
+* {blank}
++
+https://github.com/jenkinsci/last-changes-plugin/issues/11[#11] Support
+parameterized repository url for SVN builds. 
+
+[[LastChangesPlugin-Version1.0.10(aug13,2017)]]
+=== Version 1.0.10 (aug 13, 2017)
+
+* {blank}
++
+https://github.com/jenkinsci/last-changes-plugin/issues/8[#8] Simplifies
+pipeline script execution.
+
+[[LastChangesPlugin-Version1.0.9(aug11,2017)]]
+=== Version 1.0.9 (aug 11, 2017)
+
+* https://github.com/jenkinsci/last-changes-plugin/issues/6[#6] EndRevision
+input is replaced when using Environment Variables
+* https://github.com/jenkinsci/last-changes-plugin/issues/7[#7] Javascript
+error when there is no change between revisions
+
+[[LastChangesPlugin-Version1.0.8(aug10,2017)]]
+=== Version 1.0.8 (aug 10, 2017)
+
+* https://github.com/jenkinsci/last-changes-plugin/issues/5[#5] Support
+environment variables in endRevision
+
+[[LastChangesPlugin-Version1.0.7(jul15,2017)]]
+=== Version 1.0.7 (jul 15, 2017)
+
+* https://github.com/jenkinsci/last-changes-plugin/issues/1[#1] -
+Updates to latest diff2html - 2.3.0
+* https://github.com/jenkinsci/last-changes-plugin/issues/2[#2] -
+Support for Jenkins 2 pipelines
+* https://github.com/jenkinsci/last-changes-plugin/issues/3[#3] -
+Ability to diff to an specific revision
+
+[[LastChangesPlugin-Version1.0.6(may8,2017)]]
+=== Version 1.0.6 (may 8, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-36971[F]ixes SVN diff
+which was in inverse order.
+
+[[LastChangesPlugin-Version1.0.3(jul27,2016)]]
+=== Version 1.0.3 (jul 27, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-36971[Git clone into sub
+directories support]
+* Improves master slave support.
+
+[[LastChangesPlugin-Version1.0.2(jul26,2016)]]
+=== Version 1.0.2 (jul 26, 2016)
+
+* Fixes https://issues.jenkins-ci.org/browse/JENKINS-36911[Master/Slave
+support issue]
+
+[[LastChangesPlugin-Version1.0.1(jul15,2016)]]
+=== Version 1.0.1 (jul 15, 2016)
+
+* Fixes https://issues.jenkins-ci.org/browse/JENKINS-36710[SVN
+authorization issue]
+
+[[LastChangesPlugin-Version1.0.0(jul14,2016)]]
+=== Version 1.0.0 (jul 14, 2016)
+
+* Initial release

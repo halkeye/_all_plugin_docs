@@ -1,0 +1,11 @@
+[.conf-macro .output-inline]#This plugin packages JavaScript
+http://harvesthq.github.com/chosen/[Chosen] library as a Jenkins
+plugin#, so that it can be used as an adjunct and a tag.
+
+[[Chosenplugin-Changelog]]
+== Changelog
+
+[[Chosenplugin-Version1.0(Dec31,2012)]]
+=== Version 1.0 (Dec 31, 2012)
+
+* Initial release

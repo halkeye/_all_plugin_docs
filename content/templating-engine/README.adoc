@@ -1,0 +1,18 @@
+[[TemplatingEnginePlugin-Plugininformation]]
+== Plugin information
+
+For more information consult the
+plugin's https://github.com/jenkinsci/templating-engine-plugin/blob/master/README.rst[README]
+or the https://jenkinsci.github.io/templating-engine-plugin/[full
+documentation].
+
+ +
+
+[[TemplatingEnginePlugin-Changelog]]
+== Changelog
+
+Please refer to the
+https://github.com/jenkinsci/templating-engine-plugin/releases[Release
+Notes]
+
+ +

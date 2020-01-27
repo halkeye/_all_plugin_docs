@@ -1,0 +1,134 @@
+[.conf-macro .output-inline]#This plugin lets you define custom
+personalities like
+https://wiki.jenkins-ci.org/display/JENKINS/ChuckNorris+Plugin[Chuck
+Norris] or
+https://wiki.jenkins-ci.org/display/JENKINS/BruceSchneier+Plugin[Bruce
+Schneier] just by preparing an XML file and a few image files.# In this
+way, you can quickly define your CEO in Jenkins and earn some brownie
+points.
+
+[[PersonaPlugin-Howtodefineapersona]]
+== How to define a persona
+
+By default, this plugin doesn't ship with any particular persona, so you
+need to define one before you use. To define a new persona, place your
+files in the following directory structure:
+
+....
+$JENKINS_HOME
++- persona
+   +- BruceLee
+   |  +- persona.xml
+   |  +- success.jpg/.png/.gif
+   |  +- failure.jpg/.png/.gif
+   |  +- other.jpg/.png/.gif
+   |  +- icon.jpg/.png/.gif
+   +- AnotherPersona
+      +- ... same set of files ...
+....
+
+The image files can be of any image type. The 'success' file is used as
+a background image for successful builds, the 'failure' file for failed
+builds, and the 'other' file is used for all the other kinds of builds
+(such as unstable, aborted, etc.) The icon file should be 48x48, and is
+used as a small icon placed in front of a quote.
+
+These files can be placed anywhere under $JENKINS_HOME/persona, so long
+as they are side by side to each other.
+
+The format of the persona.xml file is as follows:
+
+....
+<persona id='djb' displayName='Daniel J. Bernstein'>
+  <quote>Just because it's automatic doesn't mean it works.</quote>
+  <quote>Be careful what you wish for you just might get it.</quote>
+  <quote>I do engineering, not religion.</quote>
+  <quote type="success">This is only for stable builds.</quote>
+  <quote type="failure">This is only for unstable builds.</quote>
+  <quote type="other">This is only for failed builds.</quote>  ...
+</persona>
+....
+
+"type" : build status such as 'success', 'failure', 'other' (case
+insensitive).
+
+[[PersonaPlugin-ReloadingpersonawithoutrestartingJenkins]]
+== Reloading persona without restarting Jenkins
+
+Send an HTTP request to http://yourserver/jenkins/reload-persona/ to
+have Jenkins reload your persona on the fly. This is useful when you
+manually added new ones or new quotes to existing ones.
+
+[[PersonaPlugin-Packagingyourpersonaasaplugin]]
+== Packaging your persona as a plugin
+
+Create a plugin with your persona.xml and other image files in the top
+of the .hpi file. This allows you to easily share your persona with the
+Jenkins community.
+
+[[PersonaPlugin-Changelog]]
+== Changelog
+
+[[PersonaPlugin-Version2.4(Oct2,2013)]]
+=== Version 2.4 (Oct 2, 2013)
+
+* Fixed NPE
+(https://issues.jenkins-ci.org/browse/JENKINS-12803[JENKINS-12803]).
+
+[[PersonaPlugin-Version2.3(May12,2013)]]
+=== Version 2.3 (May 12, 2013)
+
+* support installing plugins without restart
+(https://issues.jenkins-ci.org/browse/JENKINS-12803[JENKINS-12803]).
+
+[[PersonaPlugin-Version2.2(Apr16,2012)]]
+=== Version 2.2 (Apr 16, 2012)
+
+* use prefix not to pick up a stale cache.
+* show jenkins icon with right bottom location.
+
+[[PersonaPlugin-Version2.1(Mar5,2012)]]
+=== Version 2.1 (Mar 5, 2012)
+
+* fixed that persona does not show up on Firefox.
+
+[[PersonaPlugin-Version2.0(Mar1,2012)]]
+=== Version 2.0 (Mar 1, 2012)
+
+* Reloading persona does not reloads existing persona quotes
+(https://issues.jenkins-ci.org/browse/JENKINS-8298[JENKINS-8298]).
+* Allow use of random persona instead of a fix one
+(https://issues.jenkins-ci.org/browse/JENKINS-8296[JENKINS-8296]).
+* Exception thrown during Persona finder on old format
+(https://issues.jenkins-ci.org/browse/JENKINS-10166[JENKINS-10166]).
+* Image is misplaced in background and long text shift right column
+(https://issues.jenkins-ci.org/browse/JENKINS-10167[JENKINS-10167]).
+* enables to select location to display a persona.
+* fixed several small bugs.
+
+[[PersonaPlugin-Version1.3(Mar22,2011)]]
+=== Version 1.3 (Mar 22, 2011)
+
+* Move background image to lower left
+
+[[PersonaPlugin-Version1.2(Feb24,2011)]]
+=== Version 1.2 (Feb 24, 2011)
+
+* Supported a different quote set for each build
+result(https://issues.jenkins-ci.org/browse/JENKINS-7838[JENKINS-7838]).
+* Increased the icon size to 48x48.
+* Allow packaging of multiple personas as a plugin instead of only one
+(https://issues.jenkins-ci.org/browse/JENKINS-8297[JENKINS-8297]).
+
+[[PersonaPlugin-Version1.1(Oct19,2010)]]
+=== Version 1.1 (Oct 19, 2010)
+
+* Fixed a path handling problem on Windows
+* Removing a persona shouldn't result in a failure to load a job that
+uses it
+* Added an URL to reload persona on the fly without restarting Jenkins
+
+[[PersonaPlugin-Version1.0(Oct17,2010)]]
+=== Version 1.0 (Oct 17, 2010)
+
+* First version

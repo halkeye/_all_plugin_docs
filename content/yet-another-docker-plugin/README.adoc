@@ -1,0 +1,12 @@
+Allows to run Docker Jenkins Cloud Slaves.
+
+https://github.com/KostyaSha/yet-another-docker-plugin/blob/master/CHANGELOG.md[Changelog]
+
+https://github.com/KostyaSha/yet-another-docker-plugin/tree/master/docs[Documentation]
+
+https://github.com/KostyaSha/yet-another-docker-plugin/blob/master/README.adoc[README]
+
+https://github.com/KostyaSha/yet-another-docker-plugin/issues[Issue
+tracker]
+
+https://github.com/KostyaSha/yet-another-docker-plugin[Sources]

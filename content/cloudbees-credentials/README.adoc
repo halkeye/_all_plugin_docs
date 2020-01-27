@@ -1,0 +1,21 @@
+This plugin extends
+https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin[Credentials
+Plugin] and allow Jenkins to store your
+http://www.cloudbees.com/[CloudBees] account information and its
+password. This is normally not a plugin that you'll choose to install on
+its own. Rather, it gets installed as a dependency of other plugins.
+
+If you are writing a plugin that interacts with CloudBees service and
+wants to share the same credentials with other plugins. Consider
+depending on
+https://wiki.jenkins-ci.org/display/JENKINS/CloudBees+Registration+Plugin[CloudBees
+Registration plugin] that provides UI and concrete implementation. This
+plugin just defines contracts of the CB credentials.
+
+[[CloudBeesCredentialsPlugin-Changelog]]
+== Changelog
+
+[[CloudBeesCredentialsPlugin-Version3.3(Mar17,2014)]]
+=== Version 3.3 (Mar 17, 2014)
+
+* Initial OSS release

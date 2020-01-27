@@ -1,0 +1,60 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View Fabric Beta Publisher
+https://plugins.jenkins.io/fabric-beta-publisher[on the plugin site] for
+more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-1043[Credentials
+stored in plain text]
+
+Allows users to publish Android apps to
+https://docs.fabric.io/android/beta/overview.html[Fabric Beta]
+
+[[FabricBetaPublisherPlugin-Features]]
+== Features
+
+* Upload .apk file to Fabric Beta
+* Choose to notify testers
+** By a group alias
+** By a list of e-mails
+* Specify release notes
+** From the Jenkins changelog
+** With a build parameter
+** From a text file
+* Pipeline support
+* Add `+FABRIC_BETA_BUILD_URL+` and `+FABRIC_BETA_BUILD_URL_{n}+` environment
+variables after successful upload. The `+{n}+` is replaced with the APK
+index.
+
+[[FabricBetaPublisherPlugin-Changelog]]
+== Changelog
+
+[[FabricBetaPublisherPlugin-Version2.1]]
+=== Version 2.1
+
+* Fix unzip APK issue after migrating to AndroidX and ProGuard
+(https://github.com/jenkinsci/fabric-beta-publisher-plugin/pull/44[#44])
+
+[[FabricBetaPublisherPlugin-Version2.0]]
+=== Version 2.0
+
+* Make possible reading the changelog from a file on a slave
+(**Note: **the path is now relative to the workspace and not absolute –
+you have to change it in your configuration)
+
+* +
+*
+
+* +
+*
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:http://i.imgur.com/ladnLhk.png[image,width=600,height=485]#

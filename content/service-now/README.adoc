@@ -1,0 +1,19 @@
+[[ServiceNowPlugin-Description]]
+== Description
+
+This plugin allows a workflow step to automatically build API requests
+for the
+https://developer.servicenow.com/app.do#!/rest_api_doc?v=jakarta&id=c_TableAPI[ServiceNow
+API] and return appropriately parsed values based on the type of API
+called.
+
+For more details, please refer to
+the https://github.com/jenkinsci/service-now-plugin/blob/master/README.md[README] of
+the plugin.
+
+[[ServiceNowPlugin-Changelog]]
+== Changelog
+
+See
+the https://github.com/jenkinsci/service-now-plugin/releases[releases
+page in GitHub].

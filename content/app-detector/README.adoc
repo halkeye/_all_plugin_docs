@@ -1,0 +1,60 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2017-04-10/[Arbitrary code
+execution vulnerability in rare circumstances]
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2017-04-10/[Arbitrary code
+execution vulnerability]
+
+[[ApplicationDetectorPlugin-Features]]
+== Features
+
+This plugin provides the following functions.
+
+* Detects an application and its versions installed in slaves, by using
+a groovy script.
+* Enables you to execute builds by specifying the detected application
+and its version.
+
+For more Information, Please see below.
+
+https://github.com/jenkinsci/app-detector-plugin
+
+[[ApplicationDetectorPlugin-Versionhistory]]
+== Version history
+
+[[ApplicationDetectorPlugin-Version1.0.4]]
+=== Version 1.0.4
+
+* Change to enable on Windows slaves.
+
+[[ApplicationDetectorPlugin-Version1.0.3]]
+=== Version 1.0.3
+
+* Delete duplicate method for a groovy script.
+
+[[ApplicationDetectorPlugin-Version1.0.2]]
+=== Version 1.0.2
+
+* Security fix for SECURITY-494
+** https://jenkins.io/security/advisory/2017-04-10/#application-detector-plugin
+
+[[ApplicationDetectorPlugin-Version1.0.1]]
+=== Version 1.0.1
+
+* Fix build parameter default value.
+
+[[ApplicationDetectorPlugin-Version1.0.0]]
+=== Version 1.0.0
+
+* Initial release

@@ -1,0 +1,270 @@
+[[IBMSecurityAppScanStandardScannerPlugin-VersionHistory]]
+== Version History
+
+[[IBMSecurityAppScanStandardScannerPlugin-version2.8]]
+=== version 2.8
+
+* Fixed a NullPointerException while using "IncludeURLs" in advanced
+section
+
+[[IBMSecurityAppScanStandardScannerPlugin-version2.7]]
+=== version 2.7
+
+* Fixed Jenkins required core
+* Removed unnecessary dependency
+
+[[IBMSecurityAppScanStandardScannerPlugin-version2.6]]
+=== version 2.6
+
+* Fixed pipeline support and added respective how-to at the bottom of
+this page
+
+[[IBMSecurityAppScanStandardScannerPlugin-ProjectDescription]]
+== Project Description
+
+The purpose of this plugin is to allow Jenkins to perform dynamic
+analysis with IBM AppScan Standard with minimal configuration.
+
+AppScan Standard is a security tool provided by IBM that will scan
+application for vulnerabilities in run-time.
+
+IBM Security AppScan Standard supports:
+
+* *Broad coverage* to scan and test for a wide range of application
+security vulnerabilities.
+* *Accurate scanning and advanced testing* that delivers high levels of
+accuracy.
+* *Quick remediation* with prioritized results and fix recommendations.
+* *Enhanced insight and compliance* that helps manage compliance and
+provides awareness of key issues.
+
+Configuring AppScan Standard to perform automated scanning with custom
+batch jobs or shell scripts can be a time-consuming and error-prone
+process.
+
+This Jenkins plugin greatly simplifies the process of automating AppScan
+Standard by providing global settings and simple scan configuration
+within Jenkins.
+
+For more information on IBM AppScan Standard, please visit the official
+IBM site at http://www-03.ibm.com/software/products/en/appscan-standard
+
+[[IBMSecurityAppScanStandardScannerPlugin-Prerequisites]]
+== Prerequisites
+
+This plugin requires the following:
+
+* AppScan Standard installed with a valid license on a node (slave) or
+master.
+
+[[IBMSecurityAppScanStandardScannerPlugin-PluginSetup]]
+== Plugin Setup
+
+To download and install AppScan Standard plugin go to *Manage Jenkins*
+and then to *Manage Plugins*
+
+* Select the *Available Plugins* tab
+* Search for *AppScan Standard*
+*  
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/setup.png[image,width=539,height=233]#
+* Select and install. 
+
+[[IBMSecurityAppScanStandardScannerPlugin-PluginConfiguration]]
+== Plugin Configuration
+
+. From the Jenkins homepage, click *Manage Jenkins* and then *Global
+Tool Configuration*
+. [.confluence-embedded-file-wrapper]#image:docs/images/globaltool.png[image]#
+. Scroll down the page and locate the section titled AppScan Standard
+. Click *Add AppScan Standard*
+. Fill out the AppScan Standard form
+. [.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/appscanglobalconfig.png[image,width=640,height=223]#
+
+. {blank}
+.. *Name*: A name for this instance of AppScan Standard. This is just to
+help manage environments that may have multiple installation
+.. *AppScan Standard Installation Directory*: The path to the
+installation directory. Note: the default value is C:\Program Files
+(x86)\IBM\AppScanStandard\
+. Click *Save*
+
+[[IBMSecurityAppScanStandardScannerPlugin-Usingtheplugin]]
+== Using the plugin
+
+. Create a new job or access an existing job
+. Select *Configure*
+. Select "*Add build step*" and select "*Run AppScan Standard*"
+.  
+[.confluence-embedded-file-wrapper]#image:docs/images/buildstep.png[image]#
+. Complete the fields that appear:
+.  
+[.confluence-embedded-file-wrapper]#image:docs/images/appscanform.png[image]#
+.  *Installation* will show the name you provided for the installation
+on the global configuration screen.
+.. {blank}
+...  If you have not added an installation, please go the the Jenkins
+Global Tool Configuration link under Manage Jenkins.
+...  If you only have one installation configured, the installation
+should be selected for you. If you plan to execute AppScan Standard on
+multiple Jenkins nodes, you may need to configure multiple installation
+paths.
+.. *Starting URL* is the URL AppScan Standard will use to run the
+spiders on to find compile a list of URIs to scan.
+.. *Authenticated Scan* will scan the website logged in as the provided
+account, this will provide better scanning results.
+... *Recorded Login Sequence* uses a recorded login sequence (you must
+generate it using AppScan Standard previously) to login.
+... *Form Based Authentication* tries to login automatically using the
+credentials provided, this method may fail depending on your website's
+authentication configuration.
+.. *Generate Report* will generate and save a report with the
+vulnerabilities found by AppScan Standard.
+... *Report title* the generated report will be saved using this title
+for the name.
+... *HTML Report* saves the report in HTML format.
+... *PDF* saves the report in PDF format.
+.... You can save both formats in one run.
+.. *Advanced* configurations that can be applied to the scan
+...  
+[.confluence-embedded-file-wrapper]#image:docs/images/appscanformadvanced.png[image]#
+... *Include URLs for Scanning* allows you to manually include URLs for
+scanning in case the spiders miss them
+... *Test Policy File Path* will use the specified test policy instead
+of the default options
+... *Additional Commands* can be used to execute additional options
+available in the command line interface that are not available in
+plugin's graphical user interface.
+.. If you need help filling in any field, check the *help* description
+by pressing the *? icon*
+...  
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/help.png[image,width=563,height=214]#
+. Click *Save* at the bottom
+. Run the job.
+
+[[IBMSecurityAppScanStandardScannerPlugin-UsingNodestorunAppScanStandardPlugin]]
+== Using Nodes to run AppScan Standard Plugin
+
+If you have AppScan Standard installed on a node you must configure the
+build to run on that node so that the plugin can reach the installation.
+
+First you must set that machine as a node (slave), you can follow
+https://wiki.jenkins-ci.org/display/JENKINS/Step+by+step+guide+to+set+up+master+and+agent+machines+on+Windows[this
+guide to do so].
+
+Afterwards you can use the
+https://wiki.jenkins-ci.org/display/JENKINS/NodeLabel+Parameter+Plugin[Node
+and Label Parameter Plugin], following the guide provided in its wiki
+achieving this goal should be straightforward.
+
+Setting a parameter on the build would look something like the image
+below.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/parameter.png[image]#
+
+[[IBMSecurityAppScanStandardScannerPlugin-UsingHTMLPublisherPluginwithAppScanStandardPlugin]]
+== Using HTML Publisher Plugin with AppScan Standard Plugin
+
+To take full advantage of this plugin, you may want to combine it with
+https://wiki.jenkins-ci.org/display/JENKINS/HTML+Publisher+Plugin[HTML
+Publisher Plugin]
+
+If you already have HTML Publisher installed, this can be achieved in 2
+simple steps:
+
+. Select *Generate a Report*, insert a *Report Title* and check *HTML
+Report*
+.. [.confluence-embedded-file-wrapper]#image:docs/images/generateReport.png[image]#
+. In the *Post-build Actions* add *Publish HTML reports*, press *Add*
+and fill it in to match the settings from AppScan Standard Plugin
+(*report title must match Index page[s]*)
+.. [.confluence-embedded-file-wrapper]#image:docs/images/publishHTML.png[image]#
+
+When the build completes you will have a new item in the job's page,
+press it to access the report generated by AppScan Standard.
+
+{empty}[.confluence-embedded-file-wrapper]#image:docs/images/htmlreport.png[image]# +
+The expected result should be similar to the image below *if you allow
+CSS in Jenkins*, if you only see text then CSS is most likely blocked
+(set by default),
+http://stackoverflow.com/questions/35783964/jenkins-html-publisher-plugin-no-css-is-displayed-when-report-is-viewed-in-j[this
+link explains how to change that option.]
+
+If you change the CSS options, they won't be applied to the current
+report, you must re-run the build/scan.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/rep1.png[image]#
+
+ +
+
+[[IBMSecurityAppScanStandardScannerPlugin-RunningAppScanStandardinaPipeline]]
+== Running AppScan Standard in a Pipeline
+
+. Navigate to "Pipeline Syntax" (follow a, b or c below) +
+.. (create a pipeline job, save and it will be on the left side menu)
+.. (navigate to an existing pipeline job, it will be on the left side
+menu)
+.. (navigate to
+http://localhost:8080/pipeline-syntax/[http://JENKINS-URL-HERE/pipeline-syntax/)]
+. In "Steps" find "step: General Build Step"
+. in "Build Step" find "Run AppScan Standard"
+. Configure AppScan Standard plugin as usual
+. Press "Generate Pipeline Script" and copy the resulting script
+. Paste the script in your pipeline inside a node
+
+The end result would look like the image below.
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/image2017-7-21_16:51:44.png[image,width=957,height=819]#
+
+ +
+
+A resulting script looks something like the one below, you can use this
+one as your starting point.
+
+[cols="",options="header",]
+|===
+a|
+____
+....
+stage ('Run AppScan Standard') {
+....
+
+....
+    node {
+....
+
+....
+        step([$class: 'AppScanStandardBuilder', additionalCommands: '', authScanPw: '',
+....
+
+....
+             authScanUser: '', includeURLS: '', installation: 'AppScan Standard Default',
+....
+
+....
+             pathRecordedLoginSequence: '', policyFile: '', reportName: '', startingURL: 'demo.testfire.net'])
+....
+
+....
+    }
+....
+
+....
+}
+....
+____
+
+|===
+
+[[IBMSecurityAppScanStandardScannerPlugin-ScheduledTasksforversion2.9]]
+== Scheduled Tasks for version 2.9
+
+* Implement Quality Gate support for AppScan Standard (fails build on %
+of errors)
+
+[[IBMSecurityAppScanStandardScannerPlugin-Compatibility]]
+== Compatibility
+
+Version 2.8 of this plugin is compatible with:
+
+* Jenkins 2.0 and newer
+* IBM Security AppScan Standard 9.0.3.x

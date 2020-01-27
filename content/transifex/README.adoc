@@ -1,0 +1,40 @@
+[[TransifexPlugin-TransifexPlugin]]
+== Transifex Plugin
+
+This plugin integrates Jenkins
+with https://transifex.com/[Transifex] projects.
+
+ +
+The plugin currently has one major functionality:
+
+* Create hyperlinks between your Jenkins projects and Transifex
+
+[[TransifexPlugin-Knownissues]]
+=== Known issues
+
+type
+
+key
+
+summary
+
+[.icon-in-pdf]# # Data cannot be retrieved due to an unexpected error.
+
+http://issues.jenkins-ci.org/secure/IssueNavigator.jspa?reset=true&jqlQuery=project%20=%20JENKINS%20AND%20status%20in%20%28Open,%20%22In%20Progress%22,%20Reopened%29%20AND%20component%20=%20%27transifex%27&src=confmacro[View
+these issues in Jira]
+
+[[TransifexPlugin-ChangeLog]]
+=== Change Log
+
+[[TransifexPlugin-Version0.2.0(notreleasedyet)]]
+==== Version 0.2.0 (not released yet)
+
+* Upgrade required core version to current Jenkins LTS version (1.554.1)
+
+[[TransifexPlugin-Version0.1.0(05.11.2013)]]
+==== Version 0.1.0 (05.11.2013)
+
+* Puts an icon into the project overview and links it to the transifex
+project
+* Use official icons
+( https://issues.jenkins-ci.org/browse/JENKINS-20087[JENKINS-20087] )

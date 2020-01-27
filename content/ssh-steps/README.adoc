@@ -1,0 +1,27 @@
+ +
+
+ +
+[.conf-macro .output-inline]#Jenkins pipeline steps which provides SSH
+facilities such as command execution or file transfer for continuous
+delivery. # +
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/JenkinsPlusSSH.png[image,width=200]#
+
+More information about this plugin
+is https://github.com/jenkinsci/ssh-steps-plugin[available in GitHub].
+
+Read more about the YAML extension of this plugin
+at https://engineering.cerner.com/blog/ssh-steps-for-jenkins-pipeline/[this
+blog post]
+
+Quick links:
+
+* https://github.com/jenkinsci/ssh-steps-plugin#pipeline-steps[Steps]
+* https://github.com/jenkinsci/ssh-steps-plugin#configuration[Configuration]
+* https://github.com/jenkinsci/ssh-steps-plugin#examples[Examples]
+
+[[SSHStepsPlugin-Changelog]]
+== Changelog
+
+* Refer to
+the https://github.com/jenkinsci/ssh-steps-plugin/blob/master/CHANGELOG.adoc[CHANGELOG] on
+Github.

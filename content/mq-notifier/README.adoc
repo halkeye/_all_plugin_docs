@@ -1,0 +1,129 @@
+This plugin sends messages to an MQ, e.g. RabbitMQ whenever a build is
+started and finished. It also sends a message when a build enters and
+leaves the queue. +
+By extending this plugin, developers can add events for when to send
+messages to MQ.
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View MQ Notifier https://plugins.jenkins.io/mq-notifier[on the plugin
+site] for more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2018-09-25/#SECURITY-972[CSRF
+vulnerability and missing permission checks]
+
+==== [#MQNotifierPlugin-Generalinformation]####General information
+
+The plugin connects to an MQ, e.g. RabbitMQ and sends messages during
+specific events. In its first version, the messages are sent when:
+
+* A build is added to the queue
+* A build leaves the queue (either to be built or is cancelled)
+* A build starts
+* A build finishes (either when the build is finished or when it is
+aborted)
+
+The basic use case is for other systems to interact with Jenkins. An
+example is a system that triggers a build using the rest API of
+Jenkins, +
+then waits for the build to finish. The system wants to present
+information about these builds. The alternative to listening to an MQ is
+for the system +
+to continuously poll Jenkins for information of the build status.
+
+Other events can be added to the plugin by extending it.
+
+==== [#MQNotifierPlugin-Messageformat]####Message format
+
+====== [#MQNotifierPlugin-Enteringqueue]####Entering queue
+
+"state":"QUEUED","url":"http://urltojenkins:port/jenkins/job/myjob/","parameters":"["parameter1":"parametervalue","parameter2":"otherparametervalue"]"
+
+====== [#MQNotifierPlugin-Leavingqueue]####Leaving queue
+
+"state":"DEQUEUED","DEQUEUE_REASON":"BUILDING","url":"http://urltojenkins:port/jenkins/job/myjob/","parameters":\{"parameter1":"parametervalue","parameter2":"otherparametervalue"}
+
+====== [#MQNotifierPlugin-Buildstarted]####Build started
+
+"state":"STARTED","url":"http://urltojenkins:port/jenkins/job/myjob/buildnumber/","causes":\{"UserIdCause",
+"Started by user Bunny
+McQueen"},"parameters":\{"parameter1":"parametervalue","parameter2":"otherparametervalue"}
+
+====== [#MQNotifierPlugin-Buildfinished]####Build finished
+
+"state":"COMPLETED","url":"http://urltojenkins:port/jenkins/job/myjob/buildnumber/","status":"SUCCESS","parameters":\{"parameter1":"parametervalue","parameter2":"otherparametervalue"}
+
+==== [#MQNotifierPlugin-Settings]####Settings
+
+[.image-wrap]#image:https://wiki.jenkins-ci.org/download/attachments/98009293/rmq.png?version=1&modificationDate=1461306851000&api=v2[image]#
+
+The settings are all MQ-related. The only required settings are the MQ
+URI, for where to find the MQ server and Exchange name, +
+for where to send the messages inside the MQ. The other settings are all
+optional and related to your MQ setup, you can read more +
+about them at e.g. the RabbitMQ site here:
+https://www.rabbitmq.com/documentation.html[RabbitMQ docs]
+
+=== [#MQNotifierPlugin-ChangeLog]####Change Log
+
+===== [#MQNotifierPlugin-Version1.2.8(releasedNov16,2018)]####Version 1.2.8 (released Nov 16, 2018)
+
+Pipeline Step to allow publishing of arbitrary messages
+
+===== [#MQNotifierPlugin-Version1.2.7(releasedSep25,2018)]####Version 1.2.7 (released Sep 25, 2018)
+
+https://jenkins.io/security/advisory/2018-09-25/#SECURITY-972[Fix
+security issue]
+
+===== [#MQNotifierPlugin-Version1.2.6(releasedMar06,2018)]####Version 1.2.6 (released Mar 06, 2018)
+
+Refactoring some code to easier allow other plugins to easier send
+standalone messages to RabbitMQ.
+
+===== [#MQNotifierPlugin-Version1.2.5(releasedMar06,2018)]####Version 1.2.5 (released Mar 06, 2018)
+
+  +
+Add an option to disable/enable the plugin (Thanks Huaxing Sun)
+
+*Please note:* After upgrade and initial restart the plugin will not be
+enabled. Go to Configure Jenkins -> Enable Notifier in the 'MQ Notifier'
+section.
+
+===== [#MQNotifierPlugin-Version1.2.4(releasedOct02,2017)]####Version 1.2.4 (released Oct 02, 2017)
+
+Add "Build Duration" time to the published AMQP event.
+
+===== [#MQNotifierPlugin-Version1.2.3(releasedJune08,2017)]####Version 1.2.3 (released June 08, 2017)
+
+Added a null check to fix NullPointerExceptions in the CauseProvider
+
+===== [#MQNotifierPlugin-Version1.2.2(releasedMay22,2017)]####Version 1.2.2 (released May 22, 2017)
+
+Collect additional build and host data (project names, jenkins master
+fqdn) +
+Collect data about time spent in queue and assigned label
+
+===== [#MQNotifierPlugin-Version1.2.1(releasedFeb16,2017)]####Version 1.2.1 (released Feb 16, 2017)
+
+Added an extension point for providing data to the notifier
+
+===== [#MQNotifierPlugin-Version1.2.0(releasedDec22,2016)]####Version 1.2.0 (released Dec 22, 2016)
+
+Support for pipeline projects
+
+===== [#MQNotifierPlugin-Version1.1.5(releasedDec09,2016)]####Version 1.1.5 (released Dec 09, 2016)
+
+Added internal queue for when connection to MQ is down. +
+Several fixes regarding saving of the configuration. +
+Build parameters added to all of the existing messages.
+
+===== [#MQNotifierPlugin-Version1.0(releasedMay18,2016)]####Version 1.0 (released May 18, 2016)
+
+Initial release

@@ -1,0 +1,31 @@
+Jenkins has a mechanism known as
+"https://wiki.jenkins-ci.org/display/JENKINS/User+Content[User
+Content]", where administrators can place files inside
+`+$JENKINS_HOME/userContent+`, and these files are served from
+`+http://yourhost/jenkins/userContent+`. This can be thought of as a
+mini HTTP server to serve images, stylesheets, and other static
+resources that you can use from various description fields inside
+Jenkins.
+
+This plugin exposes this `+$JENKINS_HOME/userContent+` directory as a
+Git repository, allowing administrators to use git to push/pull changes
+and manage them with history.
+
+Once this plugin is installed, see
+http://yourserver/jenkins/userContent.git in your browser for how to
+access this repository.
+
+[[GituserContentplugin-Changelog]]
+== Changelog
+
+[[GituserContentplugin-Version1.4(Oct142014)]]
+=== Version 1.4 (Oct 14 2014)
+
+* Decoupled the dependency from
+https://wiki.jenkins-ci.org/display/JENKINS/Git+Client+Plugin[Git Client
+Plugin] to avoid LinkageErrors due to version incompatibility.
+
+[[GituserContentplugin-Version1.1(August29)]]
+=== Version 1.1 (August 29)
+
+* Initial release

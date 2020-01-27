@@ -1,0 +1,120 @@
+[.conf-macro .output-inline]#This plugin allows Jenkins to invoke
+http://rake.rubyforge.org/[Rake] tasks as build steps.# +
+The plugin detects the ruby VM installed on the host and it allows you
+to include new instances. You can configure Jenkins to allow that each
+project will select the installation that will use.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/rubyConfigurationOptions.png[image]#
+
+This plugin works as other builders like Ant builder or Gant builder.
+You just need to specify the Rake tasks to run but you can also
+configure other Rake options.
+[.confluence-embedded-file-wrapper]#image:docs/images/rakeBuildOptions.png[image]#
+
+[#Rakeplugin-rvm .confluence-anchor-link .conf-macro .output-inline]# #
+
+[[Rakeplugin-Rvmintegration]]
+== Rvm integration
+
+Since version 1.7 the Rake plugin also detects the machine's Rvm
+installation and collects its Ruby instances to use them as normal
+instances:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/rvmAutodetection.png[image]#
+
+If your Rvm installation is not in the default directory, $HOME/.rvm,
+the path can be modified into the Jenkins' system configuration panel:
+
+[.confluence-embedded-file-wrapper]#image:docs/images/rvmConfiguration.png[image]#
+
+[[Rakeplugin-Changelog]]
+== Changelog
+
+[[Rakeplugin-1.8.0(2014/03/13)]]
+=== 1.8.0 (2014/03/13)
+
+* Minor feature: Reload the gemsets where rake is not found. Thanks to
+Brian Fletcher (https://github.com/punkle[@punkle]) for pull request
+https://github.com/jenkinsci/rake-plugin/pull/15[#15].
+* Minor improvement: Order list of rake installations for the dropdown.
+Thanks to Brian Fletcher (https://github.com/punkle[@punkle]) for pull
+request https://github.com/jenkinsci/rake-plugin/pull/16[#16].
+* Minor feature: Add option to use bundle exec. Thanks to Scott Nelson
+(https://github.com/sanelson2000[@sanelson2000]) for pull request
+https://github.com/jenkinsci/rake-plugin/pull/17[#17].
+
+[[Rakeplugin-1.7.8(2013/08/06)]]
+=== 1.7.8 (2013/08/06)
+
+* Work around JRE bug that prevents the default rake installation from
+being used on Windows
+(https://issues.jenkins-ci.org/browse/JENKINS-18822[JENKINS-18822])
+
+[[Rakeplugin-1.7.7(2011/08/13)]]
+=== 1.7.7 (2011/08/13)
+
+* Ensure we search global gemsets for the rake gem, and update path
+accordingly
+* Make sure the global path is added in addition to the gemset path
+* Ensure we include the Ruby bin path (needed by JRuby)
+
+[[Rakeplugin-1.7.6(2011/03/22)]]
+=== 1.7.6 (2011/03/22)
+
+* Add rvm bin path to the environment path
+* Add initial path to the environment
+* Fix gems bin parent directory
+
+[[Rakeplugin-1.7.3(2010/10/30)]]
+=== 1.7.3 (2010/10/30)
+
+* Rake Plugin does not properly discover available gemsets.
+(https://github.com/jenkinsci/rake-plugin/issues/1[issue GH-1])
+
+[[Rakeplugin-1.7.2(2010/10/28)]]
+=== 1.7.2 (2010/10/28)
+
+* Rake plugin can't always find Rake with rvm installed.
+(https://issues.jenkins-ci.org/browse/JENKINS-7947[JENKINS-7947])
+
+[[Rakeplugin-1.7.1(2010/09/21)]]
+=== 1.7.1 (2010/09/21)
+
+* Rake plugin fails when job configured to use (Default) Rake
+installation.
+(https://issues.jenkins-ci.org/browse/JENKINS-7530[JENKINS-7530])
+
+[[Rakeplugin-1.7(2010/09/18)]]
+=== 1.7 (2010/09/18)
+
+* Autodetect Rvm installation and its Ruby instances.
+https://wiki.jenkins-ci.org/display/JENKINS/Rake+Plugin#Rakeplugin-rvm[#rvm]
+
+[[Rakeplugin-1.6.3(2010/04/16)]]
+=== 1.6.3 (2010/04/16)
+
+* Maintenance release, fixing JENKINS-5110 and JENKINS-6194.
+
+[[Rakeplugin-1.5(2009/03/16)]]
+=== 1.5 (2009/03/16)
+
+* Custom root directory added
+* Bug fixed: when you added several build tasks they copied data from
+the first one.
+
+[[Rakeplugin-1.4(2009/01/20)]]
+=== 1.4 (2009/01/20)
+
+* Some bugs fixed
+
+[[Rakeplugin-1.2(2008/09/18)]]
+=== 1.2 (2008/09/18)
+
+* Rake version selector moved to a separated template in order to use it
+in dependent plugins.
+
+[[Rakeplugin-1.1(2008/08/22)]]
+=== 1.1 (2008/08/22)
+
+* Updated to keep up with changes in Hudson core 1.250
+(http://www.nabble.com/hudson-fails-to-build-td19115807.html[report])

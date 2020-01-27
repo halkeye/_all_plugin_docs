@@ -1,0 +1,436 @@
+[.conf-macro .output-inline]#This plugin allows to add various
+https://www.docker.com/[Docker] commands into your job as a build step#
+
+If you would like to use Docker for dynamics slave provisioning, you
+should check
+https://wiki.jenkins-ci.org/display/JENKINS/Docker+Plugin[this plugin].
+
+Plugin currently support following commands:
+
+* commit changes in specified container
+* create new container from image
+* create image from Dockerfile
+* create exec command
+* kill container(s)
+* pull image from a repository
+* push image to a repository
+* remove container(s)
+* remove all containers
+* restart container(s)
+* start container(s)
+* stop container(s)
+* stop all containers
+* start/stop all containers created from specified image
+* start exec command
+
+Some commands also export build variables, so that you can easily use
+them in subsequent build steps. +
+Variables exported by _create_ and _start_ commands:
+
+* `+DOCKER_CONTAINER_IDS+` - IDs of created/started containers
+* `+DOCKER_IP_$HOSTNAME+` - IP of running container with hostname
+`+$HOSTNAME+`
+
+When port binding in set up (in _start_ command), following environment
+variables are exported:
+
+* `+DOCKER_HOST_BIND_PORTS+` - contains comma separated list of ports to
+which are bound docker container ports 
+* `+DOCKER_HOST_PORT_$SCHEMA_$PORT+` - which docker container port is
+bound to this port (e.g. `+DOCKER_HOST_PORT_TCP_80+` would contain value
+8080 in case that container port 8080 is bound to port 80 on host)
+* `+DOCKER_HOST_SOCKET_$SCHEMA_$PORT+` - host IP:PORT to which conatiner
+`+$PORT+` using `+$SCHEMA+` is bound. E.g. with following port binding
+`+127.0.0.1:80:8080+`, container TCP port is 8080 is bound to host port
+80 on loopback and `+DOCKER_HOST_SOCKET_TCP_8080+` will contain
+`+127.0.0.1:80+`.
+
+*Known limitations:* Commands run without any issue only on master, on
+remote slaves command execution fails,
+see https://issues.jenkins-ci.org/browse/JENKINS-24071[JENKINS-24071] for
+details.
+
+[[Dockerbuildstepplugin-Configuration]]
+== Configuration
+
+You have to make sure that Docker service is running on slaves where you
+run the build. In Jenkins global configuration, you need to specify
+Docker REST API URL (typically somethig like
+http://127.0.0.1:2375/[http://127.0.0.1:2375]) and select build steps
+you'd like to perform in your job configuration.
+
+[[Dockerbuildstepplugin-Changelog]]
+== Changelog
+
+[[Dockerbuildstepplugin-Upcomingchanges]]
+=== Upcoming changes
+
+[[Dockerbuildstepplugin-Release2.0(2018-01-21)]]
+=== Release 2.0 (2018-01-21)
+
+* Command executed remotely on slave
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/52[pull52])
+
+[[Dockerbuildstepplugin-Release1.43(2017-06-09)]]
+=== Release 1.43 (2017-06-09)
+
+* Handle empty arguments in `+CreateImageCommand+`
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/49[pull49])
+
+[[Dockerbuildstepplugin-Release1.42(2017-05-22)]]
+=== Release 1.42 (2017-05-22)
+
+* Bump docker-java version to 3.0.10
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/48[pull48])
+
+[[Dockerbuildstepplugin-Release1.41(2017-03-30)]]
+=== Release 1.41 (2017-03-30)
+
+* Added support for build-arg in `+Create image+` command
+(https://github.com/vjuranek/docker-build-step-plugin/pull/60[pull60])
+
+[[Dockerbuildstepplugin-Release1.40(2017-03-10)]]
+=== Release 1.40 (2017-03-10)
+
+* `+dockerCertPath+` is a property
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/45/files[pull45])
+* Fixed NPE
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/46/files[pull46])
+
+[[Dockerbuildstepplugin-Release1.39(2017-02-08)]]
+=== Release 1.39 (2017-02-08)
+
+* Expanded `+tag+` parameter in `+Push image+` build step
+(https://github.com/vjuranek/docker-build-step-plugin/pull/53[pull53])
+
+[[Dockerbuildstepplugin-Release1.38(2017-01-18)]]
+=== Release 1.38 (2017-01-18)
+
+* Updated Apache `+httpclient+` version
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/44[pull44])
+* Support for specifying Docker file name in `+Create image+` build step
+(https://github.com/vjuranek/docker-build-step-plugin/pull/51[pull51])
+
+[[Dockerbuildstepplugin-Release1.37(2017-01-05)]]
+=== Release 1.37 (2017-01-05)
+
+* Upgrade to https://github.com/docker-java/docker-java[docker java]
+2.2.3
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/41[pull41]) +
+*BACKWARD INCOMPATIBLE CHANGE:*  following options were moved (due to
+changes in underlying `+docker-java+` library) from `+StartConatinter+`
+command to `+CreateContainer+` command:
+** `+publishAllPorts+`
+** `+portBindings+`
+** `+links+`
+** `+bindMounts+`
+** `+privileged+`
+* Added several features
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/42[pull42])
+** support for SSL
+** always restart container policy
+** extra hosts option (list of hostnames added to `+/etc/hosts+`)
+* Wait for completion of some actions to make sure they succeeded
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/43[pull43])
+* Upgrade to https://github.com/docker-java/docker-java[docker java]
+3.0.6
+(https://github.com/vjuranek/docker-build-step-plugin/pull/45[pull45])
+
+[[Dockerbuildstepplugin-Release1.36(2017-01-05)]]
+=== Release 1.36 (2017-01-05)
+
+* broken release (as I forgot on INFRA-588)
+
+[[Dockerbuildstepplugin-Release1.35(2016-05-11)]]
+=== Release 1.35 (2016-05-11)
+
+* Fixed tag in `+SaveImageCommnad+`
+(https://github.com/vjuranek/docker-build-step-plugin/issues/37[issue
+#37])
+
+[[Dockerbuildstepplugin-Release1.34(2016-03-01)]]
+=== Release 1.34 (2016-03-01)
+
+* Support the post-build action in a multi-configuration project
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/40[pull40])
+
+[[Dockerbuildstepplugin-Release1.33(2015-11-19)]]
+=== Release 1.33 (2015-11-19)
+
+* Added force option to commands for container removal
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/39[pull39])
+
+[[Dockerbuildstepplugin-Release1.32(2015-10-30)]]
+=== Release 1.32 (2015-10-30)
+
+* Added force option for tag command
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/38[pull38])
+* Improve description of config form fields
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/36[pull36])
+and display text
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/37[pull37])
+
+[[Dockerbuildstepplugin-Release1.31(2015-09-05)]]
+=== Release 1.31 (2015-09-05)
+
+* Upgrade `+docker-commons+` to 1.2
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/35[pull35])
+
+[[Dockerbuildstepplugin-Release1.30(2015-08-28)]]
+=== Release 1.30 (2015-08-28)
+
+* Container command can take arguments
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/34[pull34])
+* Fixed NPE in `+CreateImageCommand+`
+(https://github.com/vjuranek/docker-build-step-plugin/issues/20[issue
+#20])
+
+[[Dockerbuildstepplugin-Release1.29(2015-08-14)]]
+=== Release 1.29 (2015-08-14)
+
+* Added missing Jelly file for `+SaveImageCommand+`
+(https://github.com/vjuranek/docker-build-step-plugin/pull/24[pull24])
+
+[[Dockerbuildstepplugin-Release1.28(2015-07-24)]]
+=== Release 1.28 (2015-07-24)
+
+* Added `+TagImageCommand+`
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/33[pull33])
+* Added configuration for `+RemoveImageCommand+`
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/33[pull33])
+
+[[Dockerbuildstepplugin-Release1.27(2015-07-15)]]
+=== Release 1.27 (2015-07-15)
+
+* Added option to remove intermediate containers after a successful
+build to `+Create image+` command
+* `+Docker URL+` and version in global config can now contain
+environment variables
+
+[[Dockerbuildstepplugin-Release1.26(2015-06-26)]]
+=== Release 1.26 (2015-06-26)
+
+* Switch from custom Docker registry endpoint config to
+https://github.com/jenkinsci/docker-commons-plugin[Docker commons
+plugin]
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/32[pull32])
+* Improved output in `+CreateImageCommand+`
+(https://github.com/vjuranek/docker-build-step-plugin/pull/19[pull19])
+* Added `+SaveImageCommand+` and `+RemoveImageCommand+`
+(https://github.com/vjuranek/docker-build-step-plugin/pull/19[pull19])
+
+[[Dockerbuildstepplugin-Release1.25(2015-06-05)]]
+=== Release 1.25 (2015-06-05)
+
+* Added option for removing volumes when removing container
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/31[pull31])
+
+[[Dockerbuildstepplugin-Release1.24(2015-05-07)]]
+=== Release 1.24 (2015-05-07)
+
+* Intorduced new command combining `+create+` and `+start exec+`
+commands
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/30[pull30])
+* Show in the build log stream response from Docker in `+start exec+`
+command
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/30[pull30])
+
+[[Dockerbuildstepplugin-Release1.23(2015-04-28)]]
+=== Release 1.23 (2015-04-28)
+
+* Expanded env. variables in commit command
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/29[pull29])
+
+[[Dockerbuildstepplugin-Release1.22(2015-04-07)]]
+=== Release 1.22 (2015-04-07)
+
+* Added possibility to capture container log - currently works only for
+containers with TTY disabled
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/28[pull28])
+* Added post build step to stop and remove Docker containers
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/27[pull27])
+* Built with JDK6 support - docker-java library rebuilt with JDK6
+support
+(https://issues.jenkins-ci.org/browse/JENKINS-27821[JENKINS-27821])
+
+[[Dockerbuildstepplugin-Release1.21(2015-03-11)]]
+=== Release 1.21 (2015-03-11)
+
+* Added option for CPU and memory limits when creating container
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/26[pull26])
+* Host `+IP:PORT+` to which some container port is bound is now exported
+as `+DOCKER_HOST_SOCKET_$SCHEMA_$PORT+`
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/25[pull25])
+
+[[Dockerbuildstepplugin-Release1.20(2015-02-27)]]
+=== Release 1.20 (2015-02-27)
+
+* Added exposed ports option to CreateContainerCommand
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/24[pull24])
+
+[[Dockerbuildstepplugin-Release1.19(2015-02-23)]]
+=== Release 1.19 (2015-02-23)
+
+* Exec create and exec start commands
+* Fixed issue with authnetication
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/23[pull23])
+
+[[Dockerbuildstepplugin-Release1.18(2015-01-19)]]
+=== Release 1.18 (2015-01-19)
+
+* Added option to ignore nonexistent containers IDs when removing the
+containers
+(https://github.com/vjuranek/docker-build-step-plugin/pull/8[pull8]).
+
+[[Dockerbuildstepplugin-Release1.17(2015-01-07)]]
+=== Release 1.17 (2015-01-07)
+
+* Added Push command
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/22[pull22])
+* Added registry authentication
+(https://issues.jenkins-ci.org/browse/JENKINS-24388[JENKINS-24388])
+* Improved Pull image command
+(https://issues.jenkins-ci.org/browse/JENKINS-26166[JENKINS-26166],
+https://issues.jenkins-ci.org/browse/JENKINS-26167[JENKINS-26167])
+
+[[Dockerbuildstepplugin-Release1.16(2014-12-05)]]
+=== Release 1.16 (2014-12-05)
+
+* Pull image cmd broken in rel. 1.15
+(https://issues.jenkins-ci.org/browse/JENKINS-25929[JENKINS-25929])
+
+[[Dockerbuildstepplugin-Release1.15(2014-12-04)]]
+=== Release 1.15 (2014-12-04)
+
+* Jenkins plugins class loader is now passed into docker-java client
+* Allow "no-cache" option in Create Image step
+(https://issues.jenkins-ci.org/browse/JENKINS-25835[JENKINS-25835])
+* Added option for links when creating a container
+* Added option for specifying links when starting a container
+(https://issues.jenkins-ci.org/browse/JENKINS-25796[JENKINS-25796])
+* Option for specifying container name when created container
+
+[[Dockerbuildstepplugin-Release1.14(2014-11-25)]]
+=== Release 1.14 (2014-11-25)
+
+* Ensure `+DOCKER_CONTAINER_IDS+` contains unique IDs
+(https://issues.jenkins-ci.org/browse/JENKINS-25745[JENKINS-25745])
+
+[[Dockerbuildstepplugin-Release1.13(2014-11-06)]]
+=== Release 1.13 (2014-11-06)
+
+* Multiple port bindings
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/17[pull17])
+* Upgrade to docker-java 0.10.3
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/18[pull18])
+
+[[Dockerbuildstepplugin-Release1.12(2014-10-24)]]
+=== Release 1.12 (2014-10-24)
+
+* Support for bind mounts (volumes)
+(https://issues.jenkins-ci.org/browse/JENKINS-24683[JENKINS-24683])
+
+[[Dockerbuildstepplugin-Release1.11(2014-10-01)]]
+=== Release 1.11 (2014-10-01)
+
+* Added EnvVars option in Create container command
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/14[pull14])
+* Fixed invalid version information in Docker URL
+(https://issues.jenkins-ci.org/browse/JENKINS-24551[JENKINS-24551])
+
+[[Dockerbuildstepplugin-Release1.10(2014-09-19)]]
+=== Release 1.10 (2014-09-19)
+
+* Upgrade to docker-java 0.10.0
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/13[pull13])
+* Create image build step fails with Jenkins prior to 1.553
+(https://issues.jenkins-ci.org/browse/JENKINS-24699[JENKINS-24699]) -
+requires Jenkins core 1.554.1 or higher
+
+[[Dockerbuildstepplugin-Release1.9(2014-08-21)]]
+=== Release 1.9 (2014-08-21)
+
+* Added env. variables with port bindings
+(https://issues.jenkins-ci.org/browse/JENKINS-23704[JENKINS-23704])
+* Execute Docker commands remotely on slaves (actually wasn't fixed,
+see https://issues.jenkins-ci.org/browse/JENKINS-24071[JENKINS-24071])
+
+[[Dockerbuildstepplugin-Release1.8(2014-08-15)]]
+=== Release 1.8 (2014-08-15)
+
+* Added more options for Start container command - publish all ports and
+privileged option
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/10[pull10])
+* Added option for Docker client version
+(https://issues.jenkins-ci.org/browse/JENKINS-24156[JENKINS-24156])
+* Switch to Docker syntax for port binding, *backward incompatible
+change*, see
+https://issues.jenkins-ci.org/browse/JENKINS-23704[JENKINS-23704] for
+details
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/7[pull7])
+
+[[Dockerbuildstepplugin-Release1.7(2014-08-06)]]
+=== Release 1.7 (2014-08-06)
+
+* Removed placeholder text from index page
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/4[pull4])
+* Allow admin to save global config page even if Docker URL is empty
+(https://issues.jenkins-ci.org/browse/JENKINS-23733[JENKINS-23733])
+* Added option for specifying port mapping when the container is started
+(https://issues.jenkins-ci.org/browse/JENKINS-23704[JENKINS-23704])
+* Expand env. variables in "wait for ports" field
+(https://issues.jenkins-ci.org/browse/JENKINS-24043[JENKINS-24043])
+* Don't use JDK7 methods
+(https://issues.jenkins-ci.org/browse/JENKINS-24041[JENKINS-24041])
+* Command is optional on container creation
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/5[pull5])
+
+[[Dockerbuildstepplugin-Release1.6(2014-06-17)]]
+=== Release 1.6 (2014-06-17)
+
+* Compatibility with Docker 1.0 (switch to
+https://github.com/docker-java/docker-java[com.github.docker-java])
+
+[[Dockerbuildstepplugin-Release1.5(2014-06-07)]]
+=== Release 1.5 (2014-06-07)
+
+* Check, if Docker URL was provided and Docker client initialized
+(https://issues.jenkins-ci.org/browse/JENKINS-23342[JENKINS-23342])
+* Validation button for Docker URL in global configuration
+(https://issues.jenkins-ci.org/browse/JENKINS-23343[JENKINS-23343])
+
+[[Dockerbuildstepplugin-Release1.4(2014-05-28)]]
+=== Release 1.4 (2014-05-28)
+
+* Upgrade to latest docker-java - covers latest Docker REST API + number
+of bug fixes
+(https://issues.jenkins-ci.org/browse/JENKINS-23200[JENKINS-23200],https://issues.jenkins-ci.org/browse/JENKINS-22838[JENKINS-22838])
+
+[[Dockerbuildstepplugin-Release1.3(2014-05-21)]]
+=== Release 1.3 (2014-05-21)
+
+* Allow variable expansion in command parameters
+(https://issues.jenkins-ci.org/browse/JENKINS-23025[JENKINS-23025])
+* Fixed typos
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/3[pull3])
+
+[[Dockerbuildstepplugin-Release1.2(2014-04-06)]]
+=== Release 1.2 (2014-04-06)
+
+* Improved logging during building image from Docker file
+(https://issues.jenkins-ci.org/browse/JENKINS-22083[JENKINS-22083]/https://github.com/jenkinsci/docker-build-step-plugin/pull/2[pull2])
+* Wait for specified ports when starting containers (optional)
+
+[[Dockerbuildstepplugin-Release1.1(2014-03-06)]]
+=== Release 1.1 (2014-03-06)
+
+* Start and stop all containers created from specified image
+* Pulling image from a repository
+* Commit changes in specified container
+* Create image from Dockerfile
+(https://github.com/jenkinsci/docker-build-step-plugin/pull/1[pull1])
+
+[[Dockerbuildstepplugin-Release1.0(2014-02-17)]]
+=== Release 1.0 (2014-02-17)
+
+* Initial release

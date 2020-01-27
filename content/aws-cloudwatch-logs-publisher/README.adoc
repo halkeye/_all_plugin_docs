@@ -1,0 +1,40 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View AWS CloudWatch Logs Publisher
+https://plugins.jenkins.io/aws-cloudwatch-logs-publisher[on the plugin
+site] for more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-830[AWS
+CloudWatch Logs Publisher Plugin stores credentials in plain text]
+
+ +
+
+Publishes build logs to Amazon CloudWatch Logs
+
+ +
+Allows Jenkins to send the console log of your builds to
+https://aws.amazon.com/about-aws/whats-new/2014/07/10/introducing-amazon-cloudwatch-logs/%20Amazon%20CloudWatch%20Logs[Amazon
+CloudWatch Logs].
+
+[[AWSCloudWatchLogsPublisherPlugin-Configuringyourjob]]
+== Configuring your job
+
+In your job configuration page, go to the section *Post-build Actions*,
+click the *Add post-build action* button and select the item *AWS
+CloudWatch Logs Publisher*.
+
+[[AWSCloudWatchLogsPublisherPlugin-Systemconfiguration]]
+== System configuration
+
+In *Manage Jenkins > Configure System > AWS Logs Publisher*, you have to
+configure the *AWS Access Key Id* and *AWS Secret Key* of an account
+with _logs:CreateLogStream_ and _logs:PutLogEvents_ rights.

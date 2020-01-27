@@ -1,0 +1,11 @@
+Adds a column that shows the actual node the last build was run on.
+
+[[Built-onColumn-Version1.1]]
+== Version 1.1
+
+* Fixed relative path in link
+
+[[Built-onColumn-Version1.0]]
+== Version 1.0
+
+* Initial release

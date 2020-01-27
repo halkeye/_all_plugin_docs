@@ -1,0 +1,136 @@
+Allows admins to detect orphaned jobs automatically and deactivate or
+delete these jobs.This is a management tool that helps Jenkins admins to
+detect orphaned jobs and deletes or disables chosen jobs.
+
+ 
+
+[[FailedJobDeactivatorPlugin-Openissues]]
+== Open issues
+
+[[refresh-module-1859037506]]
+[[refresh-1859037506]][[jira-issues-1859037506]]
+T
+
+Key
+
+Summary
+
+Assignee
+
+Reporter
+
+P
+
+Status
+
+Resolution
+
+Created
+
+Updated
+
+Due
+
+[.refresh-action-group]# #
+
+[[refresh-issues-loading-1859037506]]
+[.aui-icon .aui-icon-wait]#Loading...#
+
+[#refresh-issues-button-1859037506]##
+[#refresh-issues-link-1859037506]#Refresh#
+[#error-message-1859037506 .error-message .hidden]# #
+
+[[FailedJobDeactivatorPlugin-Changelog]]
+== Changelog
+
+[[FailedJobDeactivatorPlugin-Release2.0(upcoming)]]
+=== Release 2.0 (upcoming)
+
+* Complete reengineering.
+* Spport for Pipelines and Folders.
+* Huge performance improvement.
+* No more global and job configuration needed.
+* Filter jobs by regex.
+* ...and much more!
+
+[[FailedJobDeactivatorPlugin-Release1.2.1(8September2015)]]
+=== Release 1.2.1 (8 September 2015)
+
+* image:docs/images/error.svg[(error)]
+Bugfix: CSV export
+
+[[FailedJobDeactivatorPlugin-Release1.2(27August2015)]]
+=== Release 1.2 (27 August 2015)
+
+* image:docs/images/check.svg[(tick)]
+Possibility to change detection rules on start page
+** Ignore individual deadlines of job config
+** Also show deactivated jobs
+** Also show excluded jobs
+** Reconfigure deadlines
+
+* image:docs/images/check.svg[(tick)]
+Export detected jobs (including all information of overview page) to
+CSV.
+* image:docs/images/check.svg[(tick)]
+Detect responsible users (using JobConfigHistory).
+* image:docs/images/error.svg[(error)]
+Fix bug if there are other items than instances of AbstractProject.
+
+[[FailedJobDeactivatorPlugin-Release1.1.2(13August2015)]]
+=== Release 1.1.2 (13 August 2015)
+
+* image:docs/images/error.svg[(error)]
+Deactivated date of first job config (buggy)
+
+[[FailedJobDeactivatorPlugin-Release1.1(3August2015)]]
+=== Release 1.1 (3 August 2015)
+
+* image:docs/images/check.svg[(tick)]
+In the overview page of detected jobs: Possibility to switch to
+deactivation, to deletion or to ignore of each job retrospectively.
+* When performing first job configuration after plugin installation:
+save timestamp in job config (used in detection of jobs that have never
+been built).
+
+[[FailedJobDeactivatorPlugin-Release1.0(24July2015)]]
+=== Release 1.0 (24 July 2015)
+
+* Initial release
+
+[[FailedJobDeactivatorPlugin-Possiblefuturefeatures]]
+== Possible future features
+
+* Possibility of adding additional detection rules
+
+[[FailedJobDeactivatorPlugin-Seealso]]
+== See also
+
+Other plugins powered by 1&1:
+
+* https://wiki.jenkins-ci.org/display/JENKINS/Build+Environment+Plugin[Build
+Environment Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/Email+Ext+Recipients+Column+Plugin[Email
+Ext Recipients Column Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/JobConfigHistory+Plugin[JobConfigHistory
+Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/Job+Direct+Mail+Plugin[Job
+Direct Mail Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/jobtemplates+Plugin[jobtemplates
+Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/JQS+Monitoring+Plugin[JQS
+Monitoring Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/JSWidgets+Plugin[JSWidgets
+Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/Logfilesizechecker+Plugin[Logfilesizechecker
+Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/Periodic+Reincarnation+Plugin[Periodic
+Reincarnation Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/Pom2Config+Plugin[Pom2Config
+Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/SCM2Job+Plugin[SCM2Job
+Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/System+Load+Average+Monitor+Plugin[System
+Load Average Monitor Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/Violation+Columns+Plugin[Violation
+Columns Plugin]

@@ -1,0 +1,11 @@
+Lets you define many cron-like formatted entries, but with additional
+parameters for each definition.Warning: the plugin configuration is only
+visible for jobs with parameters. This means you'll to first add at
+least one parameter, *then save*, then get back to configuring.
+
+See
+https://github.com/jenkinsci/parameterized-scheduler-plugin/blob/master/README.md[more
+documentation including usage examples in the README].
+
+[[ParameterizedSchedulerPlugin-CHANGELOG]]
+== https://github.com/jenkinsci/parameterized-scheduler-plugin/blob/master/CHANGELOG.md[CHANGELOG]

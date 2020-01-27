@@ -1,0 +1,9 @@
+[.conf-macro .output-inline]#The Jenkins Design Language is a React
+component library with associated assets and styles available to use
+with https://github.com/jenkinsci/blueocean-plugin[Jenkins Blue Ocean]
+and extensions, as well as any other project you may choose to use this
+library with.# +
+
+GitHub: https://github.com/jenkinsci/jenkins-design-language
+
+ +

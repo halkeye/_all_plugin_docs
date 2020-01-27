@@ -1,0 +1,194 @@
+Description
+
+This plugin integrates a keychains and mobile provisioning profiles
+management for iOS and OSX projects into Jenkins. Simply upload keychain
+and provisioning profile files and configure your build job to use them.
+When the build is executed, than the keychain and provisioning profile
+files are automatically distributed to the Jenkins node (master or
+slave). There is no need to manage these files manually on each Jenkins
+node. +
+Status: In Progress
+
+[[KeychainsandProvisioningProfilesPlugin-Configuration]]
+== Configuration
+
+[[KeychainsandProvisioningProfilesPlugin-Mainpluginconfiguration]]
+=== Main plugin configuration
+
+. Go to the "Manage Jenkins" page.
+. Click on "Keychains and Provisioning Profiles Management" and the main
+plugin configuration page is shown.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/Screen_Shot_2013-08-09_at_10.29.46.png[image]#
+
+[[KeychainsandProvisioningProfilesPlugin-Uploadkeychainandprovisioningprofilefilessection]]
+==== Upload keychain and provisioning profile files section
+
+{empty}1. Click on "Choose File" and select the keychain or provisioning
+profile file.
+
+{empty}2. Click on "Upload". The keychain or provisioning profile file
+is automatically uploaded and stored on the jenkins.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/Upload_keychain.png[image]#
+
+[[KeychainsandProvisioningProfilesPlugin-Managekeychainssection]]
+==== Manage keychains section
+
+*Filename* - The name of the keychain. The name is automatically filled
+by jenkins.
+
+*Password* - Give the correct password for the keychain.
+
+*Description* - Specify a short description for the keychain.
+
+*Identities* - Lists all added code signing identities. 
+
+*Delete/ Add Code Signing Identity* - You can add more than one "Code
+Signing Identity" to the same keychain and also remove a code signing
+identity from the keychain.
+
+*Delete Keychain* - Will delete your complete keychain after the
+configuration is saved.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/Screen_Shot_2013-08-07_at_13.36.24.png[image]#
+
+[[KeychainsandProvisioningProfilesPlugin-Managecodesigningidentitiessection]]
+===== Manage code signing identities section
+
+{empty}1. Open the program "Keychain Access“.
+
+{empty}2. Select by category "My Certificates“ and select your
+certificate.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/codesigning_Key_1.png[image]#
+
+{empty}3. At next, click "get info" and copy the line "Common Name".
+This is the common name of the code signing indentity.
+
+ 
+[.confluence-embedded-file-wrapper]#image:docs/images/codesigning_Key_2.png[image]#
+
+[[KeychainsandProvisioningProfilesPlugin-Manageprovisioningprofiles]]
+==== Manage provisioning profiles
+
+1. Only if iOS or OSX projects are to be built on the master, than type
+in the directory path where provisioning profiles are stored, that is
+optinal. +
+    Generally: 
+
+[source,syntaxhighlighter-pre]
+----
+/Users/<USERNAME>/Library/MobileDevice/Provisioning Profiles
+----
+
+[.confluence-embedded-file-wrapper]#image:docs/images/Screen_Shot_2013-08-07_at_14.17.05.png[image]#
+
+[[KeychainsandProvisioningProfilesPlugin-Nodeconfiguration]]
+=== Node configuration
+
+1.Only if iOS or OSX projects are to be built on this node, than type in
+the directory path where provisioning profiles are stored on the node. +
+   Generally: 
+
+[source,syntaxhighlighter-pre]
+----
+/Users/<USERNAME>/Library/MobileDevice/Provisioning Profiles
+----
+
+[.confluence-embedded-file-wrapper]#image:docs/images/Screen_Shot_2013-08-07_at_15.26.50.png[image]#
+
+[[KeychainsandProvisioningProfilesPlugin-Buildjobconfiguration]]
+=== Build job configuration
+
+[[KeychainsandProvisioningProfilesPlugin-Buildenvironmentconfigurationsection]]
+==== Build environment configuration section
+
+There are two pre-build steps added to the job configuration page.
+
+[[KeychainsandProvisioningProfilesPlugin-KeychainsandCodeSigningIdentities]]
+===== Keychains and Code Signing Identities
+
+*Keychain and Code Signing Identities* - Mark this checkbox to use
+keychains and code signing identities.
+
+*Overwrite existing keychains* - Mark this checkbox to override existing
+keychains on the node.
+
+*Delete copied keychains after build* - Mark this checkbox, if copied
+keychains are to be deleted after the build.
+
+*Keychain* - Select the keychain.
+
+*Variable Prefix* - If more than one keychain is to be used, than set a
+prefix for the variable names to avoid variable name collisions.
+
+*Variables -* Get the variable names. They can be used in other build
+steps.
+
+*Delete* - Delete keychain configuration.
+
+*Add Keychain* - Add keychain configuration.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/keyjjjchain.png[image]#
+
+[[KeychainsandProvisioningProfilesPlugin-MobileProvisioningProfiles]]
+===== Mobile Provisioning Profiles 
+
+*Mobile Provisioning Profiles* - Mark this checkbox to use provisioning
+profiles.
+
+*Overwrite existing provisioning profiles* - Mark this checkbox to
+override existing provisioning profiles on the node.
+
+*Delete copied provisioning profiles after build* - Mark this checkbox,
+if copied provisioning profiles are to be deleted after the build.
+
+*Provisioning Profile* - Select a provisioning profile.
+
+*Variable Prefix* - If more than one provisioning profile is to be used,
+than set a prefix for the variable names to avoid variable name
+collisions.
+
+*Variable* - Get the variable names. They can be used in other build
+steps.
+
+*Delete* - Delete provisioning profile configuration.
+
+*Add Provisioning Profile* - Add provisioning profile configuration.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/Screen_Shot_2013-08-08_at_14.22.42.png[image]#
+
+[[KeychainsandProvisioningProfilesPlugin-Buildstepintegration]]
+==== Build step integration
+
+Next, the integration of the "Keychains and Provisioning Profiles
+Plugin" into other build steps is explained on the example of the
+https://wiki.jenkins-ci.org/display/JENKINS/Xcode+Plugin[Jenkins Xcode
+Plugin].
+
+*Custom xcodebuild arguments* - Give a reference to the provisioning
+profile. 
+
+[source,syntaxhighlighter-pre]
+----
+ PROVISIONING_PROFILE=${PROVISIONING_PROFILE}
+----
+
+[.confluence-embedded-file-wrapper]#image:docs/images/Screen_Shot_2013-08-08_at_12.40.09.png[image]#
+
+*Unlock Keychain* - Mark the checkbox to unlock the keychain.
+
+*Keychain path* - Type in the variable name for the keychain path.
+
+*Keychain password* - Type in the variable name for the keychain
+password.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/Screen_Shot_2013-08-08_at_12.40.33.png[image]#
+
+[[KeychainsandProvisioningProfilesPlugin-Changelog]]
+== Changelog
+
+*Release 1.0*
+
+* Initial Release

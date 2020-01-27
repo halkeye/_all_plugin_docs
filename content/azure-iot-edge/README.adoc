@@ -1,0 +1,274 @@
+ +
+
+Azure IoT Edge Plugin makes it easy to setup a CI/CD pipeline for
+developing
+an https://docs.microsoft.com/azure/iot-edge/how-iot-edge-works[IoT
+Edge] solution on Jenkins, by providing following functionalities:
+
+* Continuous integration(build and push docker image)
+* Continuous deployment(create Edge deployment on Azure)
+
+[[AzureIoTEdgePlugin-Feedback]]
+== Feedback
+
+* If you encounter any bugs with this plugin please leave comment in
+Wiki page or file an issue in https://issues.jenkins-ci.org/[Jenkins
+JIRA] under component `+azure-iot-edge-plugin+`.
+* You can also contact this Email group for
+issues mailto:vsciet@microsoft.com[Azure IoT Tooling Support].
+
+[[AzureIoTEdgePlugin-Overview]]
+== Overview
+
+This is the work flow for Azure IoT Edge solution CI/CD pipeline.
+
+ https://github.com/jenkinsci/azure-iot-edge-plugin/blob/master/doc/structure.png[[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://github.com/jenkinsci/azure-iot-edge-plugin/raw/master/doc/structure.png[Structure,height=400]#]
+
+[[AzureIoTEdgePlugin-HowtoInstall]]
+== How to Install
+
+[[AzureIoTEdgePlugin-Prerequisites]]
+=== Prerequisites
+
+Install following tools on Jenkins host.
+
+* https://docs.docker.com/install/[Docker]
+* https://docs.microsoft.com/en-US/cli/azure/install-azure-cli[Azure
+CLI]
+* https://github.com/Azure/azure-iot-cli-extension#quick-guide[Azure CLI
+IoT Extension]
+* iotedgedev `+pip install iotedgedev+`
+
+[[AzureIoTEdgePlugin-Installextension]]
+=== Install extension
+
+You can install/update this plugin in Jenkins update center (Manage
+Jenkins -> Manage Plugins, search Azure IoT Edge Plugin).
+
+You can also manually install the plugin if you want to try the latest
+feature before it's officially released. To manually install the plugin:
+
+. Clone the repo and build. (The integration test need about 30 minutes
+to run, you can skip by following command):
++
+....
+mvn package -Dmaven.test.skip=true
+....
+. Open your Jenkins dashboard, go to Manage Jenkins -> Manage Plugins.
+. Go to Advanced tab, under Upload Plugin section, click Choose File.
+. Select `+azure-iot-edge.hpi+` in `+target+` folder of your repo, click
+Upload.
+. Restart your Jenkins instance after install is completed.
+
+[[AzureIoTEdgePlugin-Beforeusingextension]]
+== Before using extension
+
+To use this plugin to build and deploy Azure IoT Edge solution, first
+you need to have an Azure Service Principal in your Jenkins instance.
+
+. Create an Azure Service Principal
+through https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?toc=%2fazure%2fazure-resource-manager%2ftoc.json[Azure
+CLI] or https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal[Azure
+portal]. Make sure in order to use Service Principal for CI/CD, you need
+to create the role at least `+Contributor+`. Otherwise it doesn't have
+enough permission to create deployment on IoT Hub.
+. Open Jenkins dashboard, go to Credentials, add a
+new `+Microsoft Azure Service Principal+` with the credential
+information you just created.
+. If you use common docker registry credential(like docker hub), you may
+also add a new `+Username with password+`credential.
+. Existing https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal[Azure
+IoT Hub] and docker registry are needed in CI/CD.
+
+[[AzureIoTEdgePlugin-Createaproject]]
+== Create a project
+
+In Jenkins, there are two types of project.
+
+* Freestyle project: Config through UI
+* Pipeline project: Config through code
+
+[[AzureIoTEdgePlugin-CreateaFreestyleproject]]
+=== Create a Freestyle project
+
+[[AzureIoTEdgePlugin-Buildtask]]
+==== Build task
+
+Build task could help build Azure IoT Edge Solution into container
+images.
+
+https://github.com/jenkinsci/azure-iot-edge-plugin/blob/master/doc/build.png[[.confluence-embedded-file-wrapper]#image:https://github.com/jenkinsci/azure-iot-edge-plugin/raw/master/doc/build.png[Build]#]
+
+. In `+Build+` section, click `+Add build step+`, then
+choose `+Azure IoT Edge Build+`.
+. Set `+Deployment Manifest File Path+`, this file defines the modules
+and routes in Azure IoT Edge solution.
+. Set `+Default Platform+`. In your *.template.json, you can leave the
+modules platform unspecified. For these modules, the default platform
+will be used.
+
+[[AzureIoTEdgePlugin-Pushtask]]
+==== Push task
+
+Push task could help push Azure IoT Edge Modules into Docker Registry.
+
+https://github.com/jenkinsci/azure-iot-edge-plugin/blob/master/doc/push.png[[.confluence-embedded-file-wrapper]#image:https://github.com/jenkinsci/azure-iot-edge-plugin/raw/master/doc/push.png[Push]#]
+
+. In `+Build+` section, click `+Add build step+`, then
+choose `+Azure IoT Edge Push+`.
+. Set `+Deployment Manifest File Path+`, this file defines the modules
+and routes in Azure IoT Edge solution.
+. Set `+Default Platform+`. In your *.template.json, you can leave the
+modules platform unspecified. For these modules, the default platform
+will be used.
+. Set `+Bypass modules+`, it is the list of modules to bypass when
+building, use comma delimited list of modules. Example
+"ModuleA,ModuleB". You can leave this field empty to build all modules.
+. Choose docker registry in `+Docker Credential Configuration+`.
+
+* For Azure Container Registry, you need to use the Azure Service
+Principal created above to authenticate.
+* For other types of registry (Docker Hub), you need to
+specify `+Docker registry URL+` and then a credential with
+type `+Username with password+`.
+
+[[AzureIoTEdgePlugin-GenerateDeploymentManifesttask]]
+==== Generate Deployment Manifest task
+
+Generate Deployment Manifest task could help generate the final
+Deployment File from *.template.json file.
+
+https://github.com/jenkinsci/azure-iot-edge-plugin/blob/master/doc/genconfig.png[[.confluence-embedded-file-wrapper]#image:https://github.com/jenkinsci/azure-iot-edge-plugin/raw/master/doc/genconfig.png[GenConfig]#]
+
+. In `+Build+` section, click `+Add build step+`, then
+choose `+Azure IoT Edge Generate Deployment Manifest+`.
+. Set `+Deployment Manifest File Path+`, this file defines the modules
+and routes in Azure IoT Edge solution.
+. Set `+Default Platform+`. In your *.template.json, you can leave the
+modules platform unspecified. For these modules, the default platform
+will be used.
+. Set `+Output Deployment File Path+`, this file is generated from
+*.template.json and used for deployment.
+
+[[AzureIoTEdgePlugin-Deploytask]]
+==== Deploy task
+
+Deploy task could help deploy the Azure IoT Edge Solution to the
+devices.
+
+https://github.com/jenkinsci/azure-iot-edge-plugin/blob/master/doc/deploy.png[[.confluence-embedded-file-wrapper]#image:https://github.com/jenkinsci/azure-iot-edge-plugin/raw/master/doc/deploy.png[Deploy]#]
+
+. In `+Build+` section, click `+Add build step+`, then
+choose `+Azure IoT Edge Deploy+`.
+. Set `+Deployment File Path+`, this file is generated from
+*.template.json and used for deployment.
+. Choose Azure IoT Hub.
+. Set deployment configurations. You can click `+help+` button after the
+input box to get detailed explanation of the item.
+
+[[AzureIoTEdgePlugin-CreateaPipelineproject]]
+=== Create a Pipeline project
+
+You can also use this plugin in pipeline (Jenkinsfile). Here are some
+samples to use the plugin in pipeline script, there is also
+an https://github.com/VSChina/iot-edge-sample-solution/tree/master-pipeline[example] for
+pipeline project.
+
+[[AzureIoTEdgePlugin-ProjectconfigonJenkins]]
+==== Project config on Jenkins
+
+https://github.com/jenkinsci/azure-iot-edge-plugin/blob/master/doc/pipeline.png[[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://github.com/jenkinsci/azure-iot-edge-plugin/raw/master/doc/pipeline.png[pipeline,height=400]#]
+
+[[AzureIoTEdgePlugin-Customizepipeline:Buildtask]]
+==== Customize pipeline: Build task
+
+....
+azureIoTEdgeBuild defaultPlatform: 'amd64', deploymentManifestFilePath: 'deployment.template.json'
+....
+
+[[AzureIoTEdgePlugin-Customizepipeline:Pushtask]]
+==== Customize pipeline: Push task
+
+[[AzureIoTEdgePlugin-UseAzureContainerRegistry]]
+===== Use Azure Container Registry
+
+....
+azureIoTEdgePush dockerRegistryType: 'acr', acrName: '<acr_name>', bypassModules: '', azureCredentialsId: '<azure_credential_id>', resourceGroup: '<resource_group_name>', defaultPlatform: 'amd64', deploymentManifestFilePath: 'deployment.template.json'
+....
+
+[[AzureIoTEdgePlugin-UsecommonContainerRegistry]]
+===== Use common Container Registry
+
+....
+azureIoTEdgePush dockerRegistryType: 'common', dockerRegistryEndpoint: [credentialsId: '<credential_id>', url: '<url>'], bypassModules: '', resourceGroup: '<resource_group_name>', defaultPlatform: 'amd64', deploymentManifestFilePath: 'deployment.template.json'
+....
+
+[[AzureIoTEdgePlugin-Customizepipeline:GenerateDeploymentManifesttask]]
+==== Customize pipeline: Generate Deployment Manifest task
+
+....
+azureIoTEdgeGenConfig defaultPlatform: 'amd64', deploymentFilePath: 'config/deployment.json', deploymentManifestFilePath: 'deployment.template.json'
+....
+
+[[AzureIoTEdgePlugin-Customizepipeline:Deploytask]]
+==== Customize pipeline: Deploy task
+
+[[AzureIoTEdgePlugin-Forsingledevice]]
+===== For single device
+
+....
+azureIoTEdgeDeploy azureCredentialsId: '<azure_credential_id>', deploymentId: '<deployment_id>', deploymentType: 'single', deviceId: '<device_id>', iothubName: '<iothub_name>', priority: '<priority>', resourceGroup: '<resource_group_name>', targetCondition: '', deploymentFilePath: 'config/deployment.json'
+....
+
+[[AzureIoTEdgePlugin-Formultipledevicesusingtargetcondition]]
+===== For multiple devices using target condition
+
+....
+azureIoTEdgeDeploy azureCredentialsId: '<azure_credential_id>', deploymentId: '<deployment_id>', deploymentType: 'multiple', targetCondition: '<target_condition>', iothubName: '<iothub_name>', priority: '<priority>', resourceGroup: '<resource_group_name>', targetCondition: '', deploymentFilePath: 'config/deployment.json'
+....
+
+For advanced options, you can use Jenkins Pipeline Syntax tool to
+generate a sample script.
+
+[[AzureIoTEdgePlugin-FAQ]]
+== FAQ
+
+[[AzureIoTEdgePlugin-DoesARMplatformsupported?]]
+=== Does ARM platform supported?
+
+If you would like to build ARM platform image, you'll need to setup an
+ARM build agent. And for
+the https://github.com/jenkinsci/azure-iot-edge-plugin/blob/master/Readme.md#Prerequisites[Prerequisites],
+they also need to be setup on build agent.
+
+[[AzureIoTEdgePlugin-Data/Telemetry]]
+== Data/Telemetry
+
+Azure IoT Edge Plugin for Jenkins collects usage data and sends it to
+Microsoft to help improve our products and services. Read
+our http://go.microsoft.com/fwlink/?LinkId=521839[privacy statement] to
+learn more. +
+You can turn off usage data collection in Manage Jenkins -> Configure
+System -> Azure -> Help make Azure Jenkins plugins better by sending
+anonymous usage statistics to Azure Application Insights.
+
+[[AzureIoTEdgePlugin-Changelog]]
+== Changelog
+
+[[AzureIoTEdgePlugin-Version2.0.0]]
+=== Version 2.0.0
+
+* Separate to Build, Push, GenConfig, Deploy tasks
+
+[[AzureIoTEdgePlugin-Version1.0.0]]
+=== Version 1.0.0
+
+* Initial release
+
+ +
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+A bulk of the documentation for this plugin is in the
+https://github.com/jenkinsci/azure-iot-edge-plugin[GitHub]

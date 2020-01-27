@@ -1,0 +1,9 @@
+Allows you to add a column that displays line coverage percentages based
+on EMMA.
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+This functionality is included and superseeded by the
+﻿https://wiki.jenkins-ci.org/display/JENKINS/JaCoCo+Plugin[JaCoCo
+Plugin] now!

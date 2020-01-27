@@ -1,0 +1,74 @@
+[[P4Plugin-]]
+== [.confluence-embedded-file-wrapper]#image:docs/images/logo.png[image]#
+
+[.conf-macro .output-inline]#P4 Plugin - By
+http://perforce.com/[Perforce Software]. Jenkins plugin for a Perforce
+Helix Versioning Engine.#
+
+[[P4Plugin-Contribution]]
+== Contribution
+
+_Please consider helping out and joining this project to make it even
+better._  
+
+There are many features to add and a growing backlog of SIRs, I am happy
+to accept GitHub pull requests or Shelved Swarm reviews.  Any questions
+please contact me via our support team support@perforce.com.
+
+Kind regards,
+
+Paul
+
+[[P4Plugin-Overview]]
+== Overview
+
+P4 Plugin for Jenkins manages Perforce Helix workspaces; synchronising
+code and polling/triggering builds. 
+
+The P4 Plugin has been fully tested against Helix P4D release version
+2015.1
+
+The plugin supports:
+
+* Credential authentication
+* Client Workspace management
+* Synchronisation behaviour
+* Polling and filtered builds
+* External review tools (Swarm)
+* Change-list browsing
+* Labeling builds (Tagging)
+* External repository browsers (P4Web, Swarm)
+* Submit assets back to Perforce Helix (Publish)
+
+[[P4Plugin-Requirements]]
+=== Requirements
+
+* Jenkins 1.642.3 or greater.
+* Helix Versioning Engine 2015.1 or greater.
+* Minimum Protection of 'open' for the Jenkins user.
+* If you wish to use the Review Build feature you will need Swarm. 
+* Swarm 2015.1 or greater.
+
+[[P4Plugin-Issues]]
+=== Issues
+
+All issues are managed on the
+JIRA https://issues.jenkins-ci.org/secure/RapidBoard.jspa?rapidView=141[Agile
+Board], when reporting an issue please set the Component to `p4-plugin`
+(not `Perforce`).
+
+[[P4Plugin-Limitations]]
+=== Limitations
+
+* Some parameters are not available during Polling.  As a result these
+variables will not get expanded leading to unexpected results (e.g. new
+workspaces being created resulting in continuous polling).  Jenkins job
+and multi configuration parameters should be expand, but custom or
+parameterised build variables are unlikely to be available.
+
+[[P4Plugin-Documentation]]
+=== Documentation
+
+Please refer to
+the https://www.perforce.com/manuals/jenkins/Content/P4Jenkins/Home-p4jenkins.html[Documentation] for
+more information.

@@ -1,0 +1,40 @@
+[source,conf-macro,output-inline]
+----
+This plugin allows you to send messages from Jenkins jobs to Telegram chat.
+----
+
+[[TelegramNotificationPlugin-Setup]]
+== Setup
+
+[[TelegramNotificationPlugin-CreateaTelegrambot]]
+=== Create a Telegram bot
+
+. Find BotFather in Telegram (_@BotFather_)
+. Send _/newbot_ command
+. Enter bot name and bot username
+
+[[TelegramNotificationPlugin-JenkinsGlobalconfiguration]]
+=== Jenkins Global configuration
+
+. Open the Jenkins global config
+. Paste your bot name and username to according textfields
+. In filed Usernames fill names of users who can get Jenkins messages
+(separated by spaces)
+. Save
+
+[[TelegramNotificationPlugin-SubscribeforJenkinsmessages]]
+=== Subscribe for Jenkins messages
+
+. In telegram find your bot and send _/start_ command
+. Send __/sub __command
+
+[[TelegramNotificationPlugin-Configuration]]
+== Configuration
+
+[[TelegramNotificationPlugin-Manageyourjob]]
+=== Manage your job
+
+. Add build-step (or post build-step)
+. Fill the message (you can use environment variables and simple
+Markdown)
+. Save your job

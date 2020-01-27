@@ -1,0 +1,20 @@
+[[FlexDeployPlugin-Features]]
+== Features
+
+* Can trigger a project build in FlexDeploy
+* When used with the Jenkins Plugin for FlexDeploy, makes it easy to
+deploy artifacts using FlexDeploy +
+ +
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+For more detailed information, check out the
+https://flexagon.atlassian.net/wiki/display/FD403/Jenkins[FlexDeploy
+Wiki.]
+
+[[FlexDeployPlugin-Requirements]]
+== Requirements
+
+* FlexDeploy version 4.0+
+* Java 7+

@@ -1,0 +1,30 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]##
+
+*This plugin is up for adoption.* Want to help improve this plugin?
+https://wiki.jenkins-ci.org/display/JENKINS/Adopt+a+Plugin[Click here to
+learn more]!
+
+This plugin allows for throttling the number of concurrent builds of a
+project running per node or globally.
+
+[[ThrottleConcurrentBuildsPlugin-Documentation]]
+== Documentation
+
+See
+https://github.com/jenkinsci/throttle-concurrent-builds-plugin/blob/master/README.md[the
+plugin page] on GitHub
+
+[[ThrottleConcurrentBuildsPlugin-Source]]
+== Source
+
+The source for this plugin is in GitHub, at
+https://github.com/jenkinsci/throttle-concurrent-builds-plugin
+
+[[ThrottleConcurrentBuildsPlugin-Versions]]
+== Versions
+
+See
+the https://github.com/jenkinsci/throttle-concurrent-builds-plugin/blob/master/CHANGELOG.md[CHANGELOG] page
+on GitHub.

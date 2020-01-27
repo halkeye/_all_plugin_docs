@@ -1,0 +1,55 @@
+[source,conf-macro,output-inline]
+----
+This plugin allows users to send Jenkins Master, Slaves, Jobs information to SumoLogic. 
+Visit SumoLogic Jenkins App for more information on types of logs and data sent to SumoLogic.
+----
+
+[[SumologicPublisherPlugin-Background]]
+== Background
+
+The aim of the SumoLogic publisher plugin is to provide ability to send
+Jenkins System and Jobs information to SumoLogic and Monitor the Jenkins
+system using the
+https://help.sumologic.com/07Sumo-Logic-Apps/08App_Development/Jenkins[SumoLogic
+Jenkins App]. It also helps to monitor multiple Jenkins Master at a
+single place (SumoLogic).
+
+[[SumologicPublisherPlugin-Configuration]]
+== Configuration
+
+Refer to
+the https://github.com/jenkinsci/sumologic-publisher-plugin/blob/master/README.md[README]
+in the plugin repository.
+
+[[SumologicPublisherPlugin-Releases]]
+=== Releases
+
+[[SumologicPublisherPlugin-v2.0.1]]
+==== v2.0.1
+
+* Sumo HTTP URL encryption.
+* Added a button to test the Sumo HTTP URL.
+* Added groovy script for Jenkins Plugin configuration during Jenkins
+restart.
+* Added filter condition for sumo log handler.
+
+[[SumologicPublisherPlugin-V2.0.0]]
+==== V2.0.0
+
+* Contains Pipeline and Multi-branch pipeline support.
+* Added Audit information.
+* Added Metric Information.
+* Added Health related information for every Slave.
+* Added SumoLogic Search Logs button on every build.
+* Added support for sending logs for every job as well as specific jobs.
+* Added support for customisation of type of logs that can be sent to
+SumoLogic.
+* Added support for pipeline console logs identified by stage name.
+* Added support for Source Control Management.
+* Added support for configuration change.  
+
+[[SumologicPublisherPlugin-Issues]]
+==== Issues
+
+Can be
+raised https://github.com/jenkinsci/sumologic-publisher-plugin/issues[HERE].

@@ -1,0 +1,100 @@
+https://wiki.jenkins-ci.org/display/JENKINS/Project+Description+Setter+Plugin#ProjectDescriptionSetterPlugin-features[Features] +
+https://wiki.jenkins-ci.org/display/JENKINS/Project+Description+Setter+Plugin#ProjectDescriptionSetterPlugin-configuration[Configure] +
+https://wiki.jenkins-ci.org/display/JENKINS/Project+Description+Setter+Plugin#ProjectDescriptionSetterPlugin-changelog[Change
+log]
+
+[#ProjectDescriptionSetterPlugin-features .confluence-anchor-link .conf-macro .output-inline]#
+#
+
+[[ProjectDescriptionSetterPlugin-Features]]
+== Features
+
+* Set the project description using a file in the workspace
+* Use
+https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin[Token
+Macro] tokens in the file to replace dynamic values, eg
+$\{ENV,var="JENKINS_URL"}
+* File is read and description set at the end of the build - the file
+can be generated during the build
+* Matrix (Multi-configuration) projects supported in Jenkins 1.426
+onwards
+* Use with
+https://wiki.jenkins-ci.org/display/JENKINS/PegDown+Formatter+Plugin[PegDown
+Formatter Plugin] to format the description with Markdown and prevent
+XSS (by selecting SUPPRESS_ALL_HTML)
+
+[#ProjectDescriptionSetterPlugin-configuration .confluence-anchor-link .conf-macro .output-inline]#
+#
+
+[[ProjectDescriptionSetterPlugin-Configure]]
+== Configure
+
+Set the default Filename and Charset in Manage Jenkins > Configure
+System in the section titled *Project description setter defaults*
+
+Enable the plugin by checking the box next to *Set a project description
+from a file in the workspace* in the *Build Environment* section of a
+project configuration.
+
+[[ProjectDescriptionSetterPlugin-Filename]]
+=== Filename
+
+The location of the file relative to the workspace root +
+The Filename can include
+https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin[Token
+Macro] tokens which will be resolved before the description is set (ie,
+before a Markup formatter is invoked)
+
+[[ProjectDescriptionSetterPlugin-Advancedoptions]]
+=== Advanced options
+
+[[ProjectDescriptionSetterPlugin-Disabletokens]]
+==== Disable tokens
+
+Do not parse the description file for Token Macro tokens (tokens will
+still be expanded in the filename field)
+
+[[ProjectDescriptionSetterPlugin-Charset]]
+==== Charset
+
+Select the charset (character set and character-encoding) for the file
+
+[#ProjectDescriptionSetterPlugin-changelog .confluence-anchor-link .conf-macro .output-inline]#
+#
+
+[[ProjectDescriptionSetterPlugin-Changelog]]
+== Change log
+
+[[ProjectDescriptionSetterPlugin-1.2(Jan13,2017)]]
+=== 1.2 (Jan 13, 2017)
+
+* https://github.com/jenkinsci/project-description-setter-plugin/pull/2[PR
+#2] - Make the plugin compatible with Jenkins 2.102 and above +
+** More info:
+https://wiki.jenkins-ci.org/display/JENKINS/Plugins+affected+by+fix+for+JEP-200[Plugins
+affected by fix for JEP-200]
+* Update the minimal Jenkins Core requirement to 1.625.3
+
+[[ProjectDescriptionSetterPlugin-1.1(12/06/2012)]]
+=== 1.1 (12/06/2012)
+
+* Add option to disable token parsing of the contents of the description
+file https://issues.jenkins-ci.org/browse/JENKINS-14088[JENKINS-14088]
+* Enable environment and build variable token replacement
+
+[[ProjectDescriptionSetterPlugin-1.0(05/08/2011)]]
+=== 1.0 (05/08/2011)
+
+* Initial release
+
+Questions, Comments, Bugs and Feature Requests
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+Please post questions or comments about this plugin to the
+http://jenkins-ci.org/content/mailing-lists[Jenkins User mailing
+list]. +
+To report a bug or request an enhancement to this plugin please
+http://issues.jenkins-ci.org/browse/JENKINS/component/15903[create a
+ticket in JIRA].

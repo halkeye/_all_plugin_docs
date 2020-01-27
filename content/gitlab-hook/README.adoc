@@ -1,0 +1,181 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2020-01-15/#SECURITY-1683[Reflected
+XSS vulnerability]
+* https://jenkins.io/security/advisory/2018-05-09/#SECURITY-263[Gitlab
+API token stored and displayed in plain text]
+
+Enables Gitlab web hooks to be used to trigger SMC polling on Gitlab
+projects
+
+[[GitlabHookPlugin-Why?]]
+== Why?
+
+For http://gitlabhq.com/[Gitlab] there is an existing solution that
+might work for you. +
+You can just use the notifyCommit hook on
+https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin[Git plugin] like
+this:
+
+[source,syntaxhighlighter-pre]
+----
+http://your-jenkins-server/git/notifyCommit?url=<URL of the Git repository for the Gitlab project>
+----
+
+But, with a large number of projects that are mostly polling (no hooks),
+the project might actually be built with a great delay (5 to 20
+minutes). +
+You can find more details about notifyCommit and this issue
+http://kohsuke.org/2011/12/01/polling-must-die-triggering-jenkins-builds-from-a-git-hook[here].
+
+That is where this plugin comes in. +
+It gives you the option to use
+https://github.com/elvanja/jenkins-gitlab-hook-plugin#build-now-hook[build_now] or
+https://github.com/elvanja/jenkins-gitlab-hook-plugin#notify-commit-hook[notify_commit] hook,
+whichever suits your needs better.
+
+[[GitlabHookPlugin-Versionhistory]]
+== Version history
+
+[[GitlabHookPlugin-Openissues]]
+=== Open issues
+
+[[refresh-module-1924370845]]
+[[refresh-1924370845]][[jira-issues-1924370845]]
+T
+
+Key
+
+Summary
+
+Assignee
+
+Reporter
+
+P
+
+Status
+
+Resolution
+
+Created
+
+Updated
+
+Due
+
+[.refresh-action-group]# #
+
+[[refresh-issues-loading-1924370845]]
+[.aui-icon .aui-icon-wait]#Loading...#
+
+[#refresh-issues-button-1924370845]##
+[#refresh-issues-link-1924370845]#Refresh#
+[#error-message-1924370845 .error-message .hidden]# #
+
+[[GitlabHookPlugin-Version1.4.2(Apr2016)]]
+=== Version 1.4.2 (Apr 2016)
+
+* Full support recent GitLab 8.x releases
+* Support for GitLab 8.1 commit statuses
+* https://issues.jenkins-ci.org/browse/JENKINS-33836[JENKINS-33836],
+remove merge request projects even when merged branches triggering is
+disabled
+* https://issues.jenkins-ci.org/browse/JENKINS-33252[JENKINS-33252],
+skip reporting if gitlab url/token not configured
+* https://issues.jenkins-ci.org/browse/JENKINS-29317[JENKINS-29317],
+implemented endpoint for triggering a specific jenkins project
+* https://issues.jenkins-ci.org/browse/JENKINS-30322[JENKINS-30322],
+report on job log about communications through gitlab API
+* https://issues.jenkins-ci.org/browse/JENKINS-28808[JENKINS-28808],
+fixed _Multiple SCMs_ projects
+* Avoid tag building projects to be elected as candidates to
+automatically create projects
+* Improved acceptance tests & documentation
+
+[[GitlabHookPlugin-Version1.4.1.1(Jan2016)]]
+=== Version 1.4.1.1 (Jan 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-28327[JENKINS-28327],
+uncaptured exception on malformed congiguration file
+* https://issues.jenkins-ci.org/browse/JENKINS-28452[JENKINS-28452],
+configurable triggering for projects with pre-build merges
+* Fixed parameter serialization for tag builds
+
+[[GitlabHookPlugin-Version1.4.0(May2015)]]
+=== Version 1.4.0 (May 2015)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-23992[JENKINS-23992],
+HTML on build reason
+* https://issues.jenkins-ci.org/browse/JENKINS-25267[JENKINS-25267],
+building merge request objects
+* https://issues.jenkins-ci.org/browse/JENKINS-27101[JENKINS-27101],
+undefined method isOlderThan on automatic project creation
+
+[[GitlabHookPlugin-Version1.3.1(Feb272015)]]
+=== Version 1.3.1 (Feb 27 2015)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-27101[JENKINS-27101],
+exception happens when creating a project from a template
+* https://github.com/javiplx/jenkins-gitlab-hook-plugin/issues/56[Issue
+#56], elevated privileges required for automatic project creation
+
+[[GitlabHookPlugin-Version1.3.0(Feb192015)]]
+=== Version 1.3.0 (Feb 19 2015)
+
+* Template based automatic project creation
+* Improved branch matching. Mainly allow exact matches for _*/master_
+and allow branch specifications starting with _refs/_
+
+[[GitlabHookPlugin-Version1.2.1(Feb32015)]]
+=== Version 1.2.1 (Feb 3 2015)
+
+* https://github.com/jenkinsci/gitlab-hook-plugin/pull/3[Issue #3]
+allowing also choice parameter type for branch name parameter
+
+[[GitlabHookPlugin-Version1.2.0(Jan192015)]]
+=== Version 1.2.0 (Jan 19 2015)
+
+* https://github.com/elvanja/jenkins-gitlab-hook-plugin/pull/44[Issue
+#44] global configuration for automatic project per branch creation
+* https://github.com/elvanja/jenkins-gitlab-hook-plugin/issues/50[Issue
+#50] trigger the build only for multi configuration project, not it's
+axis
+* https://github.com/elvanja/jenkins-gitlab-hook-plugin/pull/31[Issue
+#31] payload data is auto-filled to job parameters
+* https://github.com/elvanja/jenkins-gitlab-hook-plugin/pull/41[Issue
+#41] supporting refspec matching (if refspec present in job
+configuration)
+* https://github.com/elvanja/jenkins-gitlab-hook-plugin/pull/39[Issue
+#39] multiple smc's support
+* https://github.com/elvanja/jenkins-gitlab-hook-plugin/pull/42[Issue #42] git
+2 support
+* https://github.com/elvanja/jenkins-gitlab-hook-plugin/pull/43[Issue
+#43] better error handling, exceptions converted to java
+RuntimeException
+* https://issues.jenkins-ci.org/browse/JENKINS-24232[#JENKINS-24232] fix
+for branch specifier that is not of String type, now just skipping such
+projects instead of raising exception
+* https://github.com/elvanja/jenkins-gitlab-hook-plugin/pull/45[Issue
+#45] fix for getting branch name from payload, did not work correctly
+for tags
+* fix for invalid or empty payload, returns the actual payload sent and
+a more meaningful description
+* catching invalid route, displaying known routes and link to wiki
+* improved logging for request details, payload, matching projects
+* displaying stack trace on exception, nicely formatted for api response
+or in log
+
+[[GitlabHookPlugin-Version1.1.0(Jul132014)]]
+=== Version 1.1.0 (Jul 13 2014)
+
+* https://github.com/elvanja/jenkins-gitlab-hook-plugin/issues/30[Issue
+#30] supporting crumb exclusion
+* https://github.com/elvanja/jenkins-gitlab-hook-plugin/issues/26[Issue
+#26] automatic detection and filling of parameters from payload
+* RSpec 3.0 compliance

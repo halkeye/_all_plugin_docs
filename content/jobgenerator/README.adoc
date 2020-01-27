@@ -1,0 +1,736 @@
+[[JobGeneratorPlugin-Summary]]
+== Summary
+
+This plugin adds a new job type "Job Generator" which can generate new
+projects when executed.
+
+[[JobGeneratorPlugin-Tableofcontent]]
+=== Table of content 
+
+[[JobGeneratorPlugin-Whythisplugin?]]
+== Why this plugin ?
+
+This plugin is a good fit for generating pipelines based on
+parameterized templates. Typical parameter is the branch name or base
+directory where to execute a job.
+
+It is possible to do it with the built-in build parameters of Jenkins
+but you have to manage input/output parameters for each job (i.e.
+duplicate the branch name parameter) if you want to be able to execute a
+job manually in the pipeline. Moreover some plugins don't expand
+variables which can be a show-stopper till they get fixed. Last but not
+least you may want to avoid to pollute the job history with different
+parameters which make hard to follow trends (i.e. different branch
+locations) and you need history isolation with different explicit jobs
+pre-configured with each parameter value.
+
+Of course you don't want to do this by hand as the number of jobs can
+grow quickly if you have a big pipeline. Many teams work around this by
+developing external tools to duplicate jobs. There are some plugins
+available which allow to generate job configurations, you may want to
+take a look a the
+https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin[Job DSL
+Plugin].
+
+The Job Generator plugin proposes a different approach by allowing to
+define job templates in a natural way, there is no need to learn an
+additional script language.
+
+[[JobGeneratorPlugin-Features]]
+== Features
+
+* Global and Local Generator Parameters.
+* Powered by the
+plugins https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger
+Plugin], https://wiki.jenkins-ci.org/display/JENKINS/Conditional+BuildStep+Plugin[Conditional
+BuildStep
+Plugin] and https://wiki.jenkins-ci.org/display/JENKINS/Flexible+Publish+Plugin[Flexible
+Publish Plugin]
+* Pipeline generation and deletion in a few clicks.
+* Conditional steps are resolved at generation time.
+* Requires explicit action from the user for critical operations.
+* Should support all free-style job plugins out of the box.
+* Hot creation/deletion of jobs. No need to reload from disk and restart
+jenkins.
+
+[[JobGeneratorPlugin-Howitworks?]]
+== How it works ?
+
+A job generator copies itself when it is executed replacing all
+generator parameters by the given values. The conditional entries
+(https://wiki.jenkins-ci.org/display/JENKINS/Conditional+BuildStep+Plugin[Conditional
+BuildStep
+Plugin] and https://wiki.jenkins-ci.org/display/JENKINS/Flexible+Publish+Plugin[Flexible
+Publish Plugin]) are resolved during the generation so generated job
+configurations are clean.
+
+By using
+the https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin] (see example below) you can generate multiple jobs in
+one pass by calling a downstream job generator multiple times with
+different parameter values; this way you can fork jobs easily.
+
+[[JobGeneratorPlugin-Configuration]]
+== Configuration
+
+After installing the plugin you'll get a new entry in the Job creation
+view.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/JobGenerator.png[image]# +
+_A new type of job_
+
+The job configuration view is the same as a free-style software build
+job with a few additions:
+
+* New choices of build parameters:  _Generator Parameter_, and
+_Generator Choice Parameter._
+* New choices of parameters for
+the https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin]: _Generator Parameter_ and _Current Generator
+Parameters_.
+* Text box entries to provide the name of the generated job as well as
+its display name (section is at the bottom of the configuration page).
+* Check box to automatically run the generated job once the generation
+is complete.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/BuildParameters.png[image]# +
+_Build parameters_
+
+[.confluence-embedded-file-wrapper]#image:docs/images/TriggerBuildParameters.png[image]# +
+_Trigger build parameters_
+
+[.confluence-embedded-file-wrapper]#image:docs/images/GeneratedJobName.png[image]# +
+_Provide a name for the generated job_
+
+When a Job Generator is executed an action view is displayed allowing
+you to define the declared generator parameters and to set several
+options:
+
+* Process this job only: Downstream jobs are skipped.
+* Delete jobs: If checked, the jobs are deleted instead of being
+generated.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/GeneratePage.png[image]# +
+_Generation Page_
+
+[[JobGeneratorPlugin-Usage]]
+== Usage
+
+[[JobGeneratorPlugin-Inanutshell]]
+=== In a nutshell
+
+Define your pipeline once with job generators => Make instances of your
+pipeline by running the top most job generator (trigger of your
+pipeline). There is no need to restart the server to use the generated
+jobs.
+
+[[JobGeneratorPlugin-Details]]
+=== *Details*
+
+*Parameters*
+
+Parameters are defined using the regular build parameters of Jenkins.
+New types of build parameters and factories allow to define generation
+parameters:
+
+* Predefined Generator Parameter: a key-value parameter.
+* Generator Choice Parameter: a set of predefined key-value parameters.
+* Counter Generator Parameter Factory: it creates generator parameters
+based on a counter.
+* File Generator Parameter Factory: it creates generator parameters
+based on a list of parameters stored in a file.
+
+As you can see on the above screenshot, Generator Parameters are
+splitted into two categories depending on their declaration location:
+
+* Global: These parameters are declared in the top most jobs of the
+pipeline (the trigger jobs). They are globally available in the whole
+pipeline.
+* Local: These parameters are declared in any other jobs which are not
+top most. They are only visible for the job which declares them. This is
+useful to fork a generation at a certain point in the pipeline, this is
+possible by using
+the https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin] which can call the same Job Generator several times with
+different values for the local Generator Parameters.
+
+*Job Names*
+
+The name of a generated job must be provided and it cannot be the same
+as the Job Generator name or cannot produce a name of a Job Generator. +
+To let the display name parameter available to the Job Generator, a
+special configuration item is available in the Additional Configuration
+section to define the display name for the generated jobs.
+
+*Recommended additional plugins*
+
+This plugin works best coupled to the following plugins:
+
+* https://wiki.jenkins-ci.org/display/JENKINS/Conditional+BuildStep+Plugin[Conditional
+BuildStep Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/Flexible+Publish+Plugin[Flexible
+Publish Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin]
+
+*Good practices*
+
+* You can prefix the Job Generator names (i.e. name starting with TL_)
+and put them in a special view with a matching regular expression. Use
+of the https://wiki.jenkins-ci.org/display/JENKINS/View+Job+Filters[View
+Job Filters] to hide this view to non-admin users.
+
+[[JobGeneratorPlugin-AdvancedUsage]]
+== Advanced Usage
+
+[[JobGeneratorPlugin-Ontheflyreplacement]]
+=== *On the fly replacement*
+
+It is possible to perform string replacement operations at generation
+time. There are 2 special forms for string replacement:
+
+* Asterisk
+* Regular expression (something like sed)
+
+*Asterisk form* +
+If you put an asterisk at the end of a variable name then all special
+characters will be replaced by underscores. +
+Exhaustive special characters list:  *\ / : * ? " < > |* 
+
+Example:
+
+[source,syntaxhighlighter-pre]
+----
+FOO = "<Hello::World>"
+${FOO*}= "_Hello__World_"
+----
+
+Note: Generated job names are always generated with the asterisk form.
+
+*Regular expression form* +
+Regular expression can be specified with an _a la sed_ syntax. Some
+examples are worth a thousand word:
+
+[source,syntaxhighlighter-pre]
+----
+FOO = "One more hello world example"
+${FOO/.*(hello).*/$1} = "hello"
+${FOO/\s/_} = "One_more_hello_world_example"
+----
+
+[[JobGeneratorPlugin-Example/Tutorial]]
+== *Example/Tutorial*
+
+Given a pipeline
+
+[source,syntaxhighlighter-pre]
+----
+A > B > C
+----
+
+where A is the trigger job which defines the following global generator
+parameter:
+
+* BRANCH
+
+And C is the last job which defines the local generator parameter:
+
+* LANGUAGE
+
+Configuration of job A
+
+* A build parameter with type _Generator Parameter_ and name *BRANCH*
+* An _Execute Shell_ build step:* echo A*
+* _Generated Job Name_: 
++
+[source,syntaxhighlighter-pre]
+----
+${BRANCH}_A
+----
+* _Generated Job Display Name_: 
++
+[source,syntaxhighlighter-pre]
+----
+(${BRANCH}) A Trigger
+----
+* A publisher _Trigger a parameterized build_ for job B with:
+** a parameter type _Current Generator Parameters_
+
+Configuration of job B
+
+* _Generated Job Name_:
++
+[source,syntaxhighlighter-pre]
+----
+${BRANCH}_B
+----
+* _Generated Job Display Name_:
++
+[source,syntaxhighlighter-pre]
+----
+(${BRANCH}) B
+----
+* An _Execute Shell_ build step: *echo B*
+* A publisher _Trigger a parameterized build_ for job C with:
+** a parameter type _Current Generator Parameters_
+** a parameter type _Generator Parameter_: *LANGUAGE=Cpp*
+* Another_ _publisher _Trigger a parameterized build_ for job C with:
+** a parameter type _Current Generator Parameters_
+** a parameter type Generator Parameter: *LANGUAGE=Java*
+
+Configuration of job C
+
+* _Generated Job Name_:
++
+[source,syntaxhighlighter-pre]
+----
+ ${BRANCH}_${LANGUAGE}_C
+----
+* _Generated Job Display Name_:
++
+[source,syntaxhighlighter-pre]
+----
+(${BRANCH}) C (${LANGUAGE})
+----
+* An _Execute Shell_ build step:
++
+[source,syntaxhighlighter-pre]
+----
+echo ${LANGUAGE}
+----
+
+Launch a build on job A with BRANCH=prod, the generated jobs are:
+
+[source,syntaxhighlighter-pre]
+----
+prod_A > prod_B > prod_Cpp_C
+                > prod_Java_C
+----
+
+[source,syntaxhighlighter-pre]
+----
+(prod) A > (prod) B > (prod) C (Cpp)
+                    > (prod) C (Java)
+----
+
+When this pipeline is executed the following merged output is:
+
+[source,syntaxhighlighter-pre]
+----
+~$ A
+~$ B
+~$ Cpp
+~$ Java
+----
+
+[[JobGeneratorPlugin-Limitations]]
+== Limitations
+
+* Support for free-style build software jobs only.
+* Job generators cannot use _Poll SCM_ and _Time_ triggers (but it is
+possible to define a free-style top level job to trigger the
+generation).
+
+[[JobGeneratorPlugin-Todolist]]
+== Todo list
+
+* Check for the possibility to support all kind of jobs.
+* Preview of impacted jobs in the generation view.
+* Batch generation by providing multiple values separated by commas.
+
+[[JobGeneratorPlugin-Needhelp?]]
+== Need help ?
+
+The comments on this page are not well suited to ask for help. Please
+join the
+ https://wiki.jenkins-ci.org/display/JENKINS/Mailing+Lists[jenkins-user] mailing
+list and ask your questions there. For bug report or new feature
+request, please open a ticket on
+http://issues.jenkins-ci.org/secure/IssueNavigator.jspa?mode=hide&reset=true&jqlQuery=project+%3D+JENKINS+AND+status+in+%28Open%2C+%22In+Progress%22%2C+Reopened%29+AND+component+%3D+%27jobgenerator%27[JIRA].
+
+[[JobGeneratorPlugin-Changelog]]
+== Change log
+
+[[JobGeneratorPlugin-1.23(willbereleasedsoon)]]
+=== 1.23 (*will be released soon*)
+
+*New Feature*
+
+* https://issues.jenkins-ci.org/browse/JENKINS-22808[[JENKINS-22808]] Add
+support for
+https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger] blocks nested in
+https://wiki.jenkins-ci.org/display/JENKINS/Flexible+Publish+Plugin[Flexible
+Publish] block.
+
+*Dependencies*
+
+* Updated dependency on Jenkins core to 1.509.3.
+* Add https://wiki.jenkins-ci.org/display/JENKINS/Flexible+Publish+Plugin[Flexible
+Publish Plugin] dependency to 0.12.
+* Updated https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin] dependency to 2.24.
+* Updated
+https://wiki.jenkins-ci.org/display/JENKINS/Conditional+BuildStep+Plugin[Conditional
+BuildStep Plugin] dependency to 1.3.3.
+* Updated https://wiki.jenkins-ci.org/display/JENKINS/Run+Condition+Plugin[Run
+Condition Plugin] dependency to 1.0.
+* Updated https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin[Token
+Macro Plugin] dependency to 1.10.
+
+[[JobGeneratorPlugin-1.22(releasedApril13,2014)]]
+=== 1.22 (*released April 13, 2014*)
+
+*Major bug fix*
+
+* https://issues.jenkins-ci.org/browse/JENKINS-22455[[JENKINS-22455]] FATAL:
+Null value not allowed as an environment variable: VARIABLE_NAME
+
+[[JobGeneratorPlugin-1.21(releasedFebruary15,2014)]]
+=== *1.21 (released February 15, 2014)*
+
+*New feature*
+
+* https://issues.jenkins-ci.org/browse/JENKINS-21238[[JENKINS-21238]] Ability
+to run the generated job immediately after generation.
+
+[[JobGeneratorPlugin-1.20(releasedDecember29,2013)]]
+=== 1.20 (released December 29, 2013)
+
+*Major bug fix*
+
+* https://issues.jenkins-ci.org/browse/JENKINS-21072[[JENKINS-21072]] White
+screen after submitting job generation (thanks to Alex Artyukhovskii).
+
+[[JobGeneratorPlugin-1.19(releasedDecember11,2013)]]
+=== 1.19 (released December 11, 2013)
+
+*Major bug fix*
+
+* https://issues.jenkins-ci.org/browse/JENKINS-20972[[JENKINS-20972]] Exception
+when updating a generated job.
+
+[[JobGeneratorPlugin-1.18(releasedJuly16,2013)]]
+=== 1.18 (released July 16, 2013)
+
+*New feature*
+
+* On the fly string replacement of generator parameter values,
+https://wiki.jenkins-ci.org/display/JENKINS/Job+Generator+Plugin#JobGeneratorPlugin-AdvancedUsage[see
+the advanced usage section for examples].
+
+_1.17 is a non-release._
+
+[[JobGeneratorPlugin-1.16(releasedJuly14,2013)]]
+=== 1.16 (released July 14, 2013)
+
+*Major bug fix*
+
+*  https://issues.jenkins-ci.org/browse/JENKINS-18663[[JENKINS-18663]] Generator
+triggers the build step using "conditional build step"
+
+*Note*: Freestyle jobs which are part of a Job Generators hierarchy *are
+not executed anymore at generation time as in 1.15*. This should not
+bother anyone since it should be the expected behavior. If this behavior
+causes some troubles please
+http://issues.jenkins-ci.org/secure/IssueNavigator.jspa?mode=hide&reset=true&jqlQuery=project+%3D+JENKINS+AND+status+in+%28Open%2C+%22In+Progress%22%2C+Reopened%29+AND+component+%3D+%27jobgenerator%27[post
+an issue on the bug tracker].
+
+[[JobGeneratorPlugin-1.15(releasedJuly4,2013)]]
+=== 1.15 (released July 4, 2013)
+
+*Major bug fix*
+
+*  https://issues.jenkins-ci.org/browse/JENKINS-17814[[JENKINS-17814]] hudson.model.FreeStyleProject
+cannot be cast to org.jenkinsci.plugins.jobgenerator.JobGenerator
+
+[[JobGeneratorPlugin-1.14(releasedMay30,2013)]]
+=== 1.14 (released May 30, 2013)
+
+*Major bug fix*
+
+*  https://issues.jenkins-ci.org/browse/JENKINS-18146[[JENKINS-18146]] Support
+for comma separated fields for downstream jobs
+
+*New feature*
+
+* Add a new generation option: Disable jobs. If true, all generated jobs
+will be disabled.
+
+[[JobGeneratorPlugin-1.13(releasedMay29,2013)]]
+=== 1.13 (*released May 29, 2013*)
+
+image:docs/images/warning.svg[(warning)]
+*  WARNING !! *
+
+*This version has a breaking change: *GeneratorKeyValueBuildParameters
+class has been removed. It is replaced by PredefinedGeneratorParameters.
+
+Please DO NOT remove the data in Manage Old Data section (as seen in the
+thumbnail below), instead you can make a *global search and replace in
+all your config.xml files* to replace all
+GeneratorKeyValueBuildParameters occurrences to
+PredefinedGeneratorParameters* and then restart your Jenkins server.*
+
+[.confluence-embedded-file-wrapper]#image:docs/images/removedGeneratorKeyValueBuildParameters.png[image]#
+
+*New features*
+
+* New Counter Generator Parameters for _'call build'_ build step
+of https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin].
+* New File Generator Parameters for _'call build'_ build step
+of https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin].
+* New Predefined Generator Parameters (it replaces the old
+GeneratorKeyValueBuildParameters).
+
+*Major Change*
+
+* GeneratorKeyValueBuildParameters class has been removed.
+
+[[JobGeneratorPlugin-1.12(releasedMay27,2013)]]
+=== *1.12 (released May 27, 2013)*
+
+*Major change*
+
+* New dependency:
+https://wiki.jenkins-ci.org/display/JENKINS/Conditional+BuildStep+Plugin[Conditional
+Build Step Plugin]
+* https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin] dependency is now mandatory.
+
+*Bug Fixes*
+
+* https://issues.jenkins-ci.org/browse/JENKINS-17862[[JENKINS-17862]] multi
+step job generation doesn't work with multiple calls.
+* https://issues.jenkins-ci.org/browse/JENKINS-18100[[JENKINS-18100]]
+Nested call builds in conditional steps are not triggered and their
+names are not expanded.
+
+[[JobGeneratorPlugin-1.11(releasedMay26,2013)]]
+=== *1.11 (released May 26, 2013)*
+
+*New feature*
+
+* https://issues.jenkins-ci.org/browse/JENKINS-17730[﻿﻿[JENKINS-17730]] Added
+support for Custom Workspace (thanks
+to https://issues.jenkins-ci.org/secure/ViewProfile.jspa?name=markom[Marko
+Macek] and https://issues.jenkins-ci.org/secure/ViewProfile.jspa?name=cjbush[Chris
+Bush]).
+
+[[JobGeneratorPlugin-1.10(releasedMarch16,2013)]]
+=== *1.10 (released March 16, 2013)*
+
+*Bug Fixes*
+
+* Fixed special characters in generated job names, the characters  *\ /
+: * ? " < > |*  are now replaced by *_*
+* Fixed support
+for https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin] build steps (which are no longer listed as downstream
+projects since version 2.17).
+
+*Dependencies*
+
+* Updated https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin] optional dependency to 2.17.
+* Updated https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin[Token
+Macro Plugin] dependency to 1.6.
+
+[[JobGeneratorPlugin-1.09(releasedJanuary17,2013)]]
+=== 1.09 (released January 17, 2013)
+
+*New feature*
+
+* Added support for
+_http://<servername>/job/<jobname>/buildWithParameters_ end point.
+
+[[JobGeneratorPlugin-1.08(releasedJanuary8,2013)]]
+=== 1.08 (released January 8, 2013)
+
+*New feature*
+
+* It is now possible to insert a regular job type (i.e. Free-Style Build
+Software job) in the hierarchy of job generators.
+
+*Enhancements*
+
+* Evaluation of conditional blocks
+from https://wiki.jenkins-ci.org/display/JENKINS/Conditional+BuildStep+Plugin[Conditional
+BuildStep
+Plugin] and https://wiki.jenkins-ci.org/display/JENKINS/Flexible+Publish+Plugin[Flexible
+Publish Plugin] are performed for the following expressions only:
+** Boolean condition
+** Numerical comparison
+** Regular expression match
+** String match
+* Display a summary of deleted jobs when deleting a hierarchy of
+generated jobs.
+
+*Major change*
+
+* Simplified the options on the generation page to better fit the most
+common use case:
+** removed "overwrite" option, a generation now always overwrites an
+existing job.
+** Inverted option to generate downstream jobs. Now the default behavior
+is to generate downstream jobs and there is an option to only generate
+the launched job generator.
+
+*Bug fix*
+
+* Fixed a race condition when deleting a hierarchy of generated jobs.
+
+[[JobGeneratorPlugin-1.07(released12-12-12)]]
+=== 1.07 (released 12-12-12)
+
+*Enhancement*
+
+* Generator parameters are recursively evaluated.
+* {blank}
++
+[source,syntaxhighlighter-pre]
+----
+i.e. X="${VAR1}" with VAR1="${VAR2}", VAR2="Hello" and VAR1, VAR2 are generator parameters, X is evaluated to "Hello"
+----
+
+[[JobGeneratorPlugin-1.06(releasedDecember10,2012)]]
+=== 1.06 (released December 10, 2012)
+
+*Major bug fix*
+
+* Conditional entries
+from https://wiki.jenkins-ci.org/display/JENKINS/Conditional+BuildStep+Plugin[Conditional
+BuildStep
+Plugin] and https://wiki.jenkins-ci.org/display/JENKINS/Flexible+Publish+Plugin[Flexible
+Publish Plugin] with unresolved variables are not discarded anymore.
+
+[[JobGeneratorPlugin-1.05(releasedDecember10,2012)]]
+=== 1.05 (released December 10, 2012)
+
+*Major changes*
+
+* Reorganized packages as the plugin is getting bigger and more
+complicated. Backward compatibility is broken (should be the last time).
+* New mandatory dependencies
+on https://wiki.jenkins-ci.org/display/JENKINS/Run+Condition+Plugin[Run
+Condition
+Plugin] and https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin[Token
+Macro Plugin]
+* Dependency
+on https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin] is now optional.
+
+*Major enhancement*
+
+* Conditional entries for builders and publishers are now evaluated at
+generation time. Conditional entries require the
+plugins https://wiki.jenkins-ci.org/display/JENKINS/Conditional+BuildStep+Plugin[Conditional
+BuildStep Plugin] for builders
+and https://wiki.jenkins-ci.org/display/JENKINS/Flexible+Publish+Plugin[Flexible
+Publish Plugin] for publishers.
+
+[[JobGeneratorPlugin-1.04(releasedDecember5,2012)]]
+=== 1.04 (released December 5, 2012)
+
+*New feature*
+
+* Added a summary in build page showing which job has been created or
+updated.
+
+*Minor change*
+
+* Removed quiet period when a Job Generator is triggered.
+
+[[JobGeneratorPlugin-1.03(releasedDecember3,2012)]]
+=== 1.03 (released December 3, 2012)
+
+*New features*
+
+* New generator build parameter entry available: Generator Choice
+Parameter.
+* New parameterized build trigger entry available: Current Generator
+Parameters.
+
+*Minor change*
+
+* Added 2 specific sections for global and local generator parameters in
+build action view.
+
+*Bug Fix*
+
+* Trigger job names in parameterized trigger section are now correctly
+resolved when there is more than 1 parameter specified in the Generator
+Parameter field.
+
+[[JobGeneratorPlugin-1.02(releasedDecember2,2012)]]
+=== 1.02 (released December 2, 2012)
+
+*Major changes*
+
+* changed base package and renamed classes which break the backward
+compatibility with version 1.01.
+* mandatory dependency
+on https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin]
+
+*New feature*
+
+* Powered by
+the https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin]. It is now possible to generate more complex pipelines.
+
+*Minor changes*
+
+* renamed Template Parameter for Generator Parameter.
+* Revamped UI of generation view in order to be simpler
+(removed unnecessary Additional parameter block).
+
+*Bug fix*
+
+* Fixed generation of fields containing a coma separated list of
+projects (previous version only generated the first entry in the field).
+
+[[JobGeneratorPlugin-1.01(releasedNovember29,2012)]]
+=== 1.01 (released November 29, 2012)
+
+*New features*
+
+* SCM and Time build triggers are now ignored for Job Generator.
+* SCM configuration is now ignored when a Job Generator is executed.
+* Job generators are always executed on the master node.
+
+*Minor change*
+
+* Configuration entries added by the plugin are now in their own section
+at the bottom of the configuration page.
+
+*Bug fixes*
+
+* Build is now marked as a failure if the generated job name is empty or
+equal to a Job Generator name.
+* Generated Job Display Name is now correctly saved.
+* Fixed a side effect when using
+the https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin[Parameterized
+Trigger Plugin] which prevented the predefined parameters from being
+generated.
+
+[[JobGeneratorPlugin-1.0(releasedNovember28,2012)]]
+=== 1.0 (released November 28, 2012)
+
+* *Initial version*
+
+[[JobGeneratorPlugin-About]]
+== About
+
+* Author: https://issues.jenkins-ci.org/secure/ViewProfile.jspa?name=syl20bnr[Sylvain
+Benner]
+* Contributors:
+** https://issues.jenkins-ci.org/secure/ViewProfile.jspa?name=markom[Marko
+Macek]
+** https://issues.jenkins-ci.org/secure/ViewProfile.jspa?name=cjbush[Chris
+Bush]
+** https://issues.jenkins-ci.org/secure/ViewProfile.jspa?name=foxbat_a[Alex
+Artyukhovskii]

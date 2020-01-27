@@ -1,0 +1,2 @@
+[.conf-macro .output-inline]#Sync your jobs with
+https://github.com/openshift/origin/[OpenShift].#

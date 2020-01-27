@@ -1,0 +1,26 @@
+ 
+
+ 
+
+ 
+
+[[HandyUriTemplates2APIPlugin-Summary]]
+== Summary
+
+This plugin bundles
+the https://github.com/damnhandy/Handy-URI-Templates[Handy URI Templates
+2.x] library, which can be used by other plugins as a dependency. It
+allows managing library updates independently from plugins.
+
+[[HandyUriTemplates2APIPlugin-Documentation]]
+== Documentation
+
+See the plugin's GitHub
+Page: https://github.com/jenkinsci/handy-uri-templates-2-api-plugin
+
+[[HandyUriTemplates2APIPlugin-Versionhistory]]
+== Version history
+
+See the
+plugin's https://github.com/jenkinsci/handy-uri-templates-2-api-plugin/blob/master/CHANGELOG.md[Release
+Notes].

@@ -1,0 +1,22 @@
+Twitter Bootstrap Plugin
+
+ +
+ +
+
+*NOTE*: *This is a UI support plugin. It should not be installed
+directly.* Plugins that use it will auto-install it.
+
+See https://github.com/jenkinsci/js-libs/tree/master/bootstrap[GitHub
+documentation for more details].
+
+[[TwitterBootstrap-ChangeLog]]
+== Change Log
+
+[[TwitterBootstrap-Version1.3.1(Jan4,2016)]]
+=== Version 1.3.1 (Jan 4, 2016)
+
+[[TwitterBootstrap-Version1.3(Dec15,2015)]]
+=== Version 1.3 (Dec 15, 2015)
+
+[[TwitterBootstrap-Version1.2(Nov30,2015)]]
+=== Version 1.2 (Nov 30, 2015)

@@ -1,0 +1,63 @@
+[.conf-macro .output-inline]#This plugin runs your jobs in the
+http://rvm.io/[RVM] managed ruby+gemset of your choice#.
+
+[[RVMPlugin-Features]]
+== Features
+
+* Runs your entire build (from SCM check out to post-build actions)
+within the context of an RVM managed environment of your choice (as
+opposed to your doing "source ~/.rvm/scripts/rvm && rvm foo@bar", which
+only affects your current shell)
+* If the Ruby/gemset you specified doesn't exist on a slave that the
+build is running, it'll be automatically installed and created (via
+`+rvm_install_on_use_flag+`)
+
+[[RVMPlugin-Configuration]]
+== Configuration
+
+Once this plugin is installed, you'll see the "Run the build in a
+RVM-managed environment" option under the "Build Environment" section.
+Click the checkbox, then type in the Ruby implementation name in the
+text box. The implementation name is of the form `+RUBY[@GEMEST]+`. See
+http://rvm.io/rubies/installing/[the RVM documentation] and the output
+of `+rvm list known+` for possible values.
+
+[[RVMPlugin-History]]
+== History
+
+[[RVMPlugin-Version0.6(Aug10,2016)]]
+=== Version 0.6 (Aug 10, 2016)
+
+* Bug fixes
+** Fix an issue when project name contains spaces
+(https://github.com/jenkinsci/rvm-plugin/pull/18[GitHub PR#18])
+** Fix a RVM detection issue on slave
+(https://github.com/jenkinsci/rvm-plugin/pull/19[GitHub PR#19])
+
+[[RVMPlugin-Version0.5]]
+=== Version 0.5
+
+* Not released in pubilc
+
+[[RVMPlugin-Version0.4(Mar05,2013)]]
+=== Version 0.4 (Mar 05, 2013)
+
+* (Released unofficially)
+* Added
+https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin[Token
+Macro plugin] support
+
+[[RVMPlugin-Version0.3(Apr03,2012)]]
+=== Version 0.3 (Apr 03, 2012)
+
+* Migrated to GitHub
+
+[[RVMPlugin-Version0.2(Jan24,2012)]]
+=== Version 0.2 (Jan 24, 2012)
+
+* Now auto-installs RVM itself if not installed
+
+[[RVMPlugin-Version0.1(Dec31,2011)]]
+=== Version 0.1 (Dec 31, 2011)
+
+* First release

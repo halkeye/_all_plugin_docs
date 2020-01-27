@@ -1,0 +1,93 @@
+[.conf-macro .output-inline]# #
+
+Yandex Metrica plugin allows to decorate all Jenkins pages with
+https://metrica.yandex.com/[Yandex.Metrica] tracking code.
+
+It helps you get descriptive reports and record the actions of
+individual users, find out what they are searching for on the build
+system, and how do they use it.
+
+[[YandexMetricaPlugin-Requirements]]
+== Requirements
+
+* Jenkins LTS 1.580.1 or higher
+* Java SE Runtime Environment 1.7 or higher
+* Yandex Metrica's account and counter
+
+[[YandexMetricaPlugin-Configuration]]
+== Configuration
+
+Configuration section for this plugin is very simple:
+
+[.confluence-embedded-file-wrapper]#image:https://raw.githubusercontent.com/vbauer/yandex-metrica-plugin/master/misc/configuration.png[image]#
+
+You should specify only "Counter ID" parameter to integrate Jenkins with
+Yandex Metrica.
+
+[[YandexMetricaPlugin-Development]]
+== Development
+
+How to build the `hpi` file:
+
+{empty}1. Clone the git repository:
+
+....
+$> git clone https://github.com/vbauer/yandex-metrica-plugin
+....
+
+{empty}2. Change directory to the `"yandex-metrica-plugin"` repository:
+
+....
+$> cd yandex-metrica-plugin
+....
+
+{empty}3. Build the hpi file from source:
+
+....
+$> mvn clean package
+....
+
+{empty}4. The hpi file is located at "target/yandex-metrica.hpi".
+
+{empty}5. If you would like to run a local Jenkins instance with the
+plug-in:
+
+....
+$> mvn clean package hpi:run
+....
+
+[[YandexMetricaPlugin-Manualinstallation]]
+== Manual installation
+
+You can install the plugin easily by uploading the binary to Jenkins
+through Plugin Manager UI.
+
+To do so:
+
+* Build binary release. See "Development section" for additional
+information.
+* Go to Manage Jenkins -> Manage Plugins.
+* Switch to the "Advanced" tab.
+* In the "Upload Plugin" section, pick the binary downloaded in the
+first step and press "Upload".
+
+[[YandexMetricaPlugin-Contributingguidelines]]
+== Contributing guidelines
+
+Feel free to file bugs or pull requests
+here: https://github.com/vbauer/yandex-metrica-plugin.
+
+*NB:* If you would like to send PR, check your build with `"strict"`
+profile (it runs PMD and Checkstyle Maven plugins):
+
+....
+$> mvn clean package -P strict
+....
+
+[[YandexMetricaPlugin-Changelog]]
+== Change log
+
+[[YandexMetricaPlugin-1.0-(3_october2015_)]]
+=== 1.0 - (3_ october 2015_)
+
+* Initial version

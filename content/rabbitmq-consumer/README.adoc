@@ -1,0 +1,235 @@
+[[RabbitMQConsumerPlugin-Description]]
+== Description
+
+This plugin connects to RabbitMQ, consumes messages in queue, then
+notifies it to listener.
+
+Causion
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+This plugin has global configuration only, so any features for user are
+not provided. You should need other plugins to provide features to user.
+c.f.
+https://wiki.jenkins-ci.org/display/JENKINS/RabbitMQ+Build+Trigger+Plugin[RabbitMQ
+Build Trigger Plugin]
+
+[[RabbitMQConsumerPlugin-Developlistenerplugin]]
+== Develop listener plugin
+
+This plugin provides convenient extension point to listen application
+messages. To implement listener to your plugin, you can user the blows:
+
+*pom.xml*
+
+[source,syntaxhighlighter-pre]
+----
+<project>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins</groupId>
+      <artifactId>rabbitmq-consumer</artifactId>
+      <version>VERSION</version>
+    </dependency>
+  </dependencies>
+
+</project>
+----
+
+*org.jenkinsci.plugins.rabbitmqconsumer.extensions*
+
+[source,syntaxhighlighter-pre]
+----
+public abstract class MessageQueueListener implements ExtensionPoint {
+    String getName();
+    String getAppId();
+    void onBind(String queueName);
+    void onUnbind(String queueName);
+    void onReceive(String queueName, String contentType, Map<String, Object> headers, byte[] body);
+}
+----
+
+[[RabbitMQConsumerPlugin-Publishmessagesfromyourplugin]]
+== Publish messages from your plugin
+
+This plugin registers extension to publish messages to RabbitMQ. +
+If you want to use them from your plugin, please see the implementation
+of
+https://wiki.jenkins-ci.org/display/JENKINS/RabbitMQ+Build+Trigger+Plugin[RabbitMQ
+Build Trigger Plugin].
+
+[[RabbitMQConsumerPlugin-Implementationclass]]
+=== Implementation class
+
+* org.jenkinsci.plugins.rabbitmqbuildtrigger.RemoteBuildPublisher
+
+[[RabbitMQConsumerPlugin-Extension]]
+=== Extension
+
+* org.jenkinsci.plugins.rabbitmqconsumer.extensions.MessagePublisher
+
+[[RabbitMQConsumerPlugin-Customizeserveroperation]]
+== Customize server operation
+
+This plugin provides extension to customize server operation.
+
+[[RabbitMQConsumerPlugin-Extension.1]]
+=== Extension
+
+* org.jenkinsci.plugins.rabbitmqconsumer.extensions.ServerOperation
+
+[[RabbitMQConsumerPlugin-RemoteAPI]]
+== Remote API
+
+Since 2.7, this plugin has
+https://wiki.jenkins-ci.org/display/JENKINS/Remote+access+API[Remote
+access API]. You can get plugin status via API.
+
+[cols=",",]
+|===
+|*Endpoint* |/plugin/rabbitmq-consumer/api/
+|===
+
+[[RabbitMQConsumerPlugin-Notice]]
+== Notice
+
+This plugin does not generates any queues in RabbitMQ. So you should
+prepare them by yourself.
+
+[[RabbitMQConsumerPlugin-License]]
+== License
+
+MIT License.
+
+[[RabbitMQConsumerPlugin-Versionhistory]]
+== Version history
+
+[[RabbitMQConsumerPlugin-Version2.8(01/24/2018)]]
+=== Version 2.8 (01/24/2018)
+
+* [.jira-issue .conf-macro .output-block]#
+https://issues.jenkins-ci.org/browse/JENKINS-49083[[.aui-icon .aui-icon-wait .issue-placeholder]##
+##JENKINS-49083] - [.summary]#Getting issue details...#
+[.aui-lozenge .aui-lozenge-subtle .aui-lozenge-default .issue-placeholder]#STATUS#
+#
+* Drop support Jenkins 1.x
+* Add RabbitMQ connection monitor as AdministrativeMonitor
+* Set system security to callback threads
+
+[[RabbitMQConsumerPlugin-Version2.7(11/06/2014)]]
+=== Version 2.7 (11/06/2014)
+
+* Bump amqp-client to 3.4.1
+* Cleanup code
+* Change logger to SLF4J
+* Add remote API
+
+[[RabbitMQConsumerPlugin-Version2.6]]
+=== Version 2.6
+
+* Skip
+
+[[RabbitMQConsumerPlugin-Version2.5(08/07/2014)]]
+=== Version 2.5 (08/07/2014)
+
+* Catch exception when called extension interfaces
+* Configure the period of supervisory timer
+* Fix NPE during reconnection
+
+[[RabbitMQConsumerPlugin-Version2.3-2.4]]
+=== Version 2.3-2.4
+
+* Sorry, missed release. no exist in repository.
+
+[[RabbitMQConsumerPlugin-Version2.2(03/24/2014)]]
+=== Version 2.2 (03/24/2014)
+
+* Refactor shutdown logic
+* Bump Java to 1.6
+* Improve logs
+* Improve channel handling
+* Add extension to control channel
+
+[[RabbitMQConsumerPlugin-Version2.1(01/27/2014)]]
+=== Version 2.1 (01/27/2014)
+
+* Bumped Jenkins version to 1.532.1
+* Remove recursive reference
+* Stop Heartbeat setting
+** should follow given setting from server
+* Fix unnecessary callback
+* Cleanup code
+* Add tests
+
+[[RabbitMQConsumerPlugin-Version2.0(01/14/2014)]]
+=== Version 2.0 (01/14/2014)
+
+* Fix NPE potential issue
+* Add new extension points to consume/publish message.
+* Deprecate interfaces
+** 1.0 style interfaces are no longer called. So you should not bump
+this easily.
+
+[[RabbitMQConsumerPlugin-Version1.9(07/23/2013)]]
+=== Version 1.9 (07/23/2013)
+
+* Fix: Service URI with userinfo is not valid in spite of fully
+following amqp uri spec.
+** Isolate userinfo from Service URI
+** Add new field to set username and password
+
+[[RabbitMQConsumerPlugin-Version1.8(07/18/2013)]]
+=== Version 1.8 (07/18/2013)
+
+* Add some interfaces for publish
+** Add/Remove channle listener
+** Setup method (Exchange declaration / Bind queue)
+** Expand PublishResult
+
+[[RabbitMQConsumerPlugin-Version1.7(07/17/2013)]]
+=== Version 1.7 (07/17/2013)
+
+* Add publish feature
+
+[[RabbitMQConsumerPlugin-Version1.6(07/11/2013)]]
+=== Version 1.6 (07/11/2013)
+
+* Improve locking opportunity
+* Bumped amqp-client to 3.1.4
+
+[[RabbitMQConsumerPlugin-Version1.5(05/30/2013)]]
+=== Version 1.5 (05/30/2013)
+
+* Prevent to terminate connection when RuntimeException is raised in
+message handler
+
+[[RabbitMQConsumerPlugin-Version1.4(04/16/2013)]]
+=== Version 1.4 (04/16/2013)
+
+* Fix "Undelete queue item" issue
+* Fix "Never open channel" issue due to missing condition check
+* Improve channel update handling and logging messages
+
+[[RabbitMQConsumerPlugin-Version1.3(04/09/2013)]]
+=== Version 1.3 (04/09/2013)
+
+* Fix "Cannot update queue parameters" issue
+
+[[RabbitMQConsumerPlugin-Version1.2(04/09/2013)]]
+=== Version 1.2 (04/09/2013)
+
+* Fix "Parameters with checkbox cannot be saved" issue
+* Fix localization
+* Bumped amqp-client to 3.0.4
+
+[[RabbitMQConsumerPlugin-Version1.1(04/01/2013)]]
+=== Version 1.1 (04/01/2013)
+
+Re-release
+
+[[RabbitMQConsumerPlugin-Version1.0(04/01/2013)]]
+=== Version 1.0 (04/01/2013)
+
+Initial release

@@ -1,0 +1,123 @@
+The current official plugin
+https://github.com/jenkinsci/workflow-cps-global-lib-plugin/[workflow-cps-global-lib]
+does provide a way to retrieve shared libraries through a SCM, such as
+Git. The goal of this plugin is to provide another way to retrieve
+shared libraries via the _@Library_ declaration in a Jenkinsfile.
+
+This is a way to separate to concerns : source code (SCM) and built
+artefacts (binaries). Built artefacts are immutable, tagged and often
+stored on a different kind of infrastructure. Since pipelines can be
+used to make production loads, it makes sense to host the libraries on a
+server with a production-level SLA for example. You can also make sure
+that your artefact repository is close to your pipelines and share the
+same SLA. Having your Jenkins and your artefact repository close limitsr
+latency and limits network issues.
+
+[[HTTPSharedLibrariesRetrieverplugin-Context]]
+== Context
+
+The HTTP shared libraries retriever was implemented to retrieve
+https://jenkins.io/doc/book/pipeline/shared-libraries/[shared libraries]
+through HTTP (or HTTPs) instead of a SCM.
+
+[[HTTPSharedLibrariesRetrieverplugin-Installationandusageoftheplugin]]
+== Installation and usage of the plugin
+
+The most complete and up-to-date insctructions can be found on
+https://github.com/AmadeusITGroup/workflow-cps-global-lib-http-plugin/blob/master/README.md[GitHub]
+
+[[HTTPSharedLibrariesRetrieverplugin-Howtousetheplugin]]
+== How to use the plugin
+
+[[HTTPSharedLibrariesRetrieverplugin-Pre-requisite:packagethelibrary]]
+=== Pre-requisite: package the library
+
+ +
+In order to be able to use this plugin, you need to package your library
+(probably durng a Continuous Integration build) and publish it in a
+location accessible via HTTPS. +
+You should end up with a ZIP file with the following structure:
+
+[source,syntaxhighlighter-pre]
+----
+> unzip -vl pipeline-libraries.zip
+Archive: pipeline-libraries.zip
+Length Method Size Cmpr Date Time CRC-32 Name
+-------- ------ ------- ---- ---------- ----- -------- ----
+xxx Defl:N xxx 37% 03-21-2019 12:14 7d354e1f resources/a-rsc-needed
+xxxx Defl:N xxxx 68% 03-21-2019 12:14 fefba77f src/your/package/YourGroovyClass.groovy
+xxx Defl:N xxx 33% 03-21-2019 12:14 5b6808ab vars/yourvar.groovy
+xxx Defl:N xxx 39% 03-21-2019 12:14 5842cc52 vars/yourvar.txt
+xx Defl:N xx -7% 03-21-2019 12:19 1bd0fa25 version.txt
+-------- ------- --- -------
+xxxxxx xxxxxx x% n files
+----
+
+[[HTTPSharedLibrariesRetrieverplugin-Constraints]]
+=== Constraints
+
+_The plugin supports only ZIP shared libraries format for the moment._
+
+[[HTTPSharedLibrariesRetrieverplugin-Setupoftheplugin]]
+=== Setup of the plugin
+
+The plugin is configurable on the Jenkins UI, at different levels:
+
+* On Global System Configuration page (Administration)
+* On Folder Configuration page
+* On Pipeline Configuration page
+
+Jenkins administrators can set
+https://jenkins.io/doc/book/pipeline/shared-libraries/#global-shared-libraries[global
+libraries on the Administration page], while Jenkins users can set
+libraries either on the
+https://jenkins.io/doc/book/pipeline/shared-libraries/#folder-level-shared-libraries[Folder
+view] or on the Pipeline view.
+
+The generic documentation to reference a new shared library can be found
+https://jenkins.io/doc/book/pipeline/shared-libraries/#using-libraries[here].
+
+[[HTTPSharedLibrariesRetrieverplugin-IntheJenkinsUI]]
+==== In the Jenkins UI
+
+In Administration / Folder / Pipeline configuration views:
+
+* Go to the Global Pipeline Libraries section and add a new library. You
+should see 3 different retrieval methods: HTTP, Modern SCM and Legacy
+SCM.
+* Give it a name and a default version
+* Decide if you want to load it implicitly or not
+* Provide the URL and the credentials (only if needed) used to retrieve
+the shared libraries
+
+The URL of the HTTP retriever is version-dynamic, it follows the Jenkins
+standard annotation _$\{library.<library_name>.version}_ that is
+afterwards replaced either by the default version provided by the admin,
+or the version specified by the user Jenkinsfile in the _@Library_
+annotation.
+
+[[HTTPSharedLibrariesRetrieverplugin-DirectlyintheJenkinsfile]]
+==== Directly in the Jenkinsfile
+
+Users can also retrieve shared libraries from their Jenkinsfile, by
+defining it with this syntax:
+
+[source,syntaxhighlighter-pre]
+----
+library identifier: 'external-shared-libraries@4.1.0', retriever: http(
+credentialsId: 'CREDS_ID',
+httpURL: 'https://my-artifactory.com/mvn-repository/path/to/libraries/external-shared-libraries/${library.external-shared-libraries.version}/external-shared-libraries-${library.external-shared-libraries.version}.zip')
+----
+
+[[HTTPSharedLibrariesRetrieverplugin-VersionHistory]]
+== Version History
+
+[[HTTPSharedLibrariesRetrieverplugin-Version1.2.2(June25th2019)]]
+=== Version 1.2.2 (June 25th 2019)
+
+Fix incorrect wiki URL
+
+[[HTTPSharedLibrariesRetrieverplugin-Version1.2.1(June18th2019)]]
+=== Version 1.2.1 (June 18th 2019)
+
+First public version

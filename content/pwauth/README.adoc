@@ -1,0 +1,82 @@
+[[pwauth-About]]
+== About
+
+This plug-in adds authentication via pwauth and supports both *nix
+system users and groups through PAM. +
+If you're running Jenkins on a Linux system, chances are that your
+systems already include a centralized user management that is based on
+PAM, especially in larger organizations. PAM itself is a very versatile
+system for user authentication and offers many different modules to
+authenticate against, like for examle Samba, LDAP, MySQL, and many more
+(see more at
+http://www.kernel.org/pub/linux/libs/pam/Linux-PAM-html/Linux-PAM_SAG.html[kernel.org]).
+The problem with many solutions working with PAM is that they still need
+access to super user rights to actually use the authentication system.
+This is where PWauth comes into play.
+
+http://code.google.com/p/pwauth/[PWauth] is a system usually used in
+connection with authnz_external, an Apache2-module, but which can be
+used by any system wanting to authenticate against PAM, without needing
+super user rights. This way the user running the Jenkins instance can
+authenticate against any PAM system, without needing special rights, and
+this leaving security intact.
+
+This plug in uses PWauth to authenticate against whatever PAM
+configuration you may have set up and supports users and groups in
+Jenkins. Additionally the plug in allows you to define a white list of
+IPs that can access the system without needing to authenticate. This is
+useful when using a post-commit triggers for example, that tries to
+start a build via a URL, that would usually need authentication.
+
+[[pwauth-Changelog]]
+== Changelog
+
+[[pwauth-Version0.5(planned)]]
+=== Version 0.5 (planned)
+
+* Allow host names in white list
+* Internationalization of all messages
+* Fix broken "Remember me"
+* Make plugin only available under *nix systems
+
+[[pwauth-Version0.4(2010-12-21)]]
+=== Version 0.4 (2010-12-21)
+
+* Allow authentication via GET/POST parameters
+(http://username:password@hudson.url/[http://hudson.url]?username=<username>&password=<password>)
+* Fixed potential security flaw in Filter
+
+[[pwauth-Version0.3(2010-12-20)]]
+=== Version 0.3 (2010-12-20)
+
+* Botched release due to problems with migration to new java.net svn
+repository
+
+[[pwauth-Version0.2(2010-11-05)]]
+=== Version 0.2 (2010-11-05)
+
+* Official release to public
+
+[[pwauth-Version0.1]]
+===  Version 0.1
+
+* First implementation
+
+[[pwauth-HowtosetupPWauth]]
+== How to setup PWauth
+
+TBD.
+
+Until then check the http://www.pyxzl.net/store/authnz.php[tutorial for
+authnz_external] or the projects
+http://code.google.com/p/pwauth/wiki/InstallMain[tutorial] on getting
+things set up.
+
+To use the authentication via Request, you have to send the credentials
+as either POST or GET parameters. Currently accepted parameters are
+"user", "username", "login" and "pass", "password", "passwd", "key". Any
+combination of these should be able to let you authenticate any request
+to the server.
+
+*Example:* +
+http:*/*/http://my.hudson.url/job/My_Project/build?delay=0sec&user=myUser&pass=myPass[my.hudson.url/job/My_Project/build?delay=0sec&user=myUser&pass=myPass]

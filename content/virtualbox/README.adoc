@@ -1,0 +1,136 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View VirtualBox https://plugins.jenkins.io/virtualbox[on the plugin
+site] for more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]##
+
+*This plugin is up for adoption.* Proposing a new maintainer to support
+plugin. https://wiki.jenkins-ci.org/display/JENKINS/Adopt+a+Plugin[Click
+here to learn more]!
+
+[.conf-macro .output-inline]#This plugin integrates Jenkins with
+http://www.virtualbox.org/[VirtualBox] (version 3, 4.0, 4.1, 4.2 and
+4.3) virtual machine.#
+
+[[VirtualBoxPlugin-Configuration]]
+== Configuration
+
+[[VirtualBoxPlugin-VirtualBoxcloud]]
+=== VirtualBox cloud
+
+The first step is the VirtualBox cloud configuration:
+
+. Configure the VirtualBox server, that allows to remotely manage VMs,
+and start it.
++
+[width="100%",cols="100%",]
+|===
+|VBoxManage setproperty websrvauthlibrary null +
+vboxwebsrv
+|===
+. Manage Jenkins -> Configure System -> Cloud -> Add a new cloud ->
+VirtualBox
+. Set `+Name+`, `+URL+`, `+Username+` and `+Password+`
+. Test connection
++
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+If it doesn't work, then you can try to disable authentication library
+by executing following command on VirtualBox host: +
+`+VBoxManage setproperty websrvauthlibrary null+`
++
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+If you got this error:
+
+....
+Runtime modeler error: Wrapper class org.virtualbox_3_1.IWebsessionManagerLogon is not found. Have you run APT to generate them?
+....
+
+Then you should upgrade Java (probably it is a
+https://jax-ws.dev.java.net/issues/show_bug.cgi?id=554[bug] in jax-ws).
+Also note that plugin was tested on Java 1.6.0_19.
+
+[[VirtualBoxPlugin-VirtualBoxslave]]
+=== VirtualBox slave
+
+Now you can setup your nodes in Jenkins and use them to build your
+projects:
+
+. Add Manage Jenkins -> Manage Nodes -> New Node
+. Set Node name for VirtualBox Slave
+. Select `+VirtualBox Host+`, `+Virtual Machine Name+` and
+`+Virtual Machine Type+`
+
+[[VirtualBoxPlugin-TODO]]
+== TODO
+
+. restore snaphot (beta version available in the github repository as
+https://github.com/jenkinsci/virtualbox-plugin/commits/snap[branch
+(snap)])
+. build wrapper
+
+[[VirtualBoxPlugin-Changelog]]
+== Changelog
+
+[[VirtualBoxPlugin-Version0.7(October21,2013)]]
+=== Version 0.7 (October 21, 2013)
+
+* Added VirtualBox 4.3 support
+
+[[VirtualBoxPlugin-Version0.6(October7,2012)]]
+=== Version 0.6 (October 7, 2012)
+
+* Slave stop mode could now be 'pause' or 'powerdown'. Powerdown should
+help when you're faced to VM errors on resume (ie:
+https://www.virtualbox.org/ticket/9796)
+
+[[VirtualBoxPlugin-Version0.5(September21,2012)]]
+=== Version 0.5 (September 21, 2012)
+
+* Added VirtualBox 4.2 support
+(https://issues.jenkins-ci.org/browse/JENKINS-JENKINS-15175[issue
+#JENKINS-15175] )
+
+[[VirtualBoxPlugin-Version0.4.6(March1,2012)]]
+=== Version 0.4.6 (March 1, 2012)
+
+* Added Virtual Machine Types 'gui' and 'sdl'
+(https://issues.jenkins-ci.org/browse/JENKINS-9752[issue #9752])
+
+[[VirtualBoxPlugin-Version0.4.4(February22,2012)]]
+=== Version 0.4.4 (February 22, 2012)
+
+* Added support for VirtualBox version 4.0 and 4.1
+(https://issues.jenkins-ci.org/browse/JENKINS-8634[issue #8634])
+
+[[VirtualBoxPlugin-Version0.2.1(April27,2010)]]
+=== Version 0.2.1 (April 27, 2010)
+
+* Fixed critical bug, which prevented creation of node
+(https://issues.jenkins-ci.org/browse/JENKINS-6375[JENKINS-6375])
+
+[[VirtualBoxPlugin-Version0.2(April18,2010)]]
+=== Version 0.2 (April 18, 2010)
+
+* Used official virtualbox library, reimplemented launch process
+* Fixed delegation to user-specified launcher
+(https://issues.jenkins-ci.org/browse/JENKINS-6276[JENKINS-6276])
+* Added type of start - headless or vrdp
+(https://issues.jenkins-ci.org/browse/JENKINS-6279[JENKINS-6279])
+* VirtualBoxBuildWrapper disabled
+
+[[VirtualBoxPlugin-Version0.1(April12,2010)]]
+=== Version 0.1 (April 12, 2010)
+
+* Added VirtualBoxBuildWrapper
+* Added VirtualBoxSlave
+* Tested on VirtualBox 3.1.6 r59338, Jenkins 1.346, Java 1.6.0_19
+* First version published

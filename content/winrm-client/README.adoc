@@ -1,0 +1,205 @@
+This plugin's main goal is to provide WinRM Operations as Build Step.
+
+[[WinRMClientPlugin-About]]
+== About
+
+Following Operations implemented:
+
+{empty}1) Send-File Operation
+
+{empty}2) Invoke-Command Operation
+
+[[WinRMClientPlugin-JobDSL:]]
+== Job DSL:
+
+[source,syntaxhighlighter-pre]
+----
+ job {
+    steps {
+        winRMClient {
+            hostName(String hostName)
+            credentialsId(String credentialsId)
+            sendFile(String source, String destination, String configurationName)
+            invokeCommand(String command)
+        }
+    }
+ }
+
+ For example:
+
+ freeStyleJob('WinRMClientJob') {
+    steps {
+      winRMClient {
+        hostName('192.168.1.2')
+        credentialsId('44620c50-1589-4617-a677-7563985e46e1')
+        sendFile('C:\\test.txt','C:\\test', 'DataNoLimits')
+        invokeCommand('dir')
+      }
+    }
+ }
+----
+
+[[WinRMClientPlugin-JenkinsPipeline:]]
+== Jenkins Pipeline:
+
+[source,syntaxhighlighter-pre]
+----
+ winRMClient credentialsId: '549bdb9b-0d36-4c21-948a-ca0a9ef6575f', hostName: '192.168.1.7',
+ winRMOperations: [invokeCommand('dir'), sendFile(configurationName: 'DataNoLimits', destination: 'C:\\test', source: 'C:\\test.txt')]
+----
+
+[[WinRMClientPlugin-ConfigureWinRMtoUseHTTP]]
+== Configure WinRM to Use HTTP
+
+Configure the WinRM host to enable communication with the PowerShell
+plug-in through the HTTP protocol.
+
+Modify the WinRM configuration by running commands on the WinRM host
+machine. Can use the same machine as both the WinRM service and WinRM
+client.
+
+*Procedure:*
+
+* Run the following command to set the default WinRM configuration
+values.
+
+*_c:\> winrm quickconfig_*
+
+* (Optional) Run the following command to check whether a listener is
+running, and verify the default ports.
+
+**__c:\> winrm e winrm/config/listener__**
+
+The default ports are 5985 for HTTP, and 5986 for HTTPS.
+
+* Enable basic authentication on the WinRM service.
+
+Run the following command to check whether basic authentication is
+allowed.
+
+*_c:\> winrm get winrm/config_*
+
+Run the following command to enable basic authentication.
+
+*_c:\> winrm set winrm/config/service/auth @\{Basic="true"}_*
+
+* Run the following command to allow transfer of unencrypted data on the
+WinRM service.
+
+*_*_c:\> winrm set winrm/config/service @\{AllowUnencrypted="true"}_* +
+_*
+
+* Enable basic authentication on the WinRM client.
+
+Run the following command to check whether basic authentication is
+allowed.
+
+*_*_c:\> winrm get winrm/config_* +
+_*
+
+Run the following command to enable basic authentication.
+
+*_*_c:\> winrm set winrm/config/client/auth @\{Basic="true"}_* +
+_*
+
+* Run the following command to allow transfer of unencrypted data on the
+WinRM client.
+
+*_*_c:\> winrm set winrm/config/client @\{AllowUnencrypted="true"}_* +
+_*
+
+* If the WinRM host machine is in an external domain, run the following
+command to specify the trusted hosts.
+
+*_*_c:\> winrm set winrm/config/client @\{TrustedHosts="host1, host2,
+host3"}_* +
+_*
+
+* Run the following command to test the connection to the WinRM service.
+
+**__c:\> winrm identify
+-r:http://winrm_server:5985/[http://winrm_server:5985]
+-http://authbasic/[auth:basic] -u:user_name -p:password
+-http://encodingutf-8/[encoding:utf-8]__**
+
+[[WinRMClientPlugin-ConfigureWinRMtoUseHTTPS]]
+== Configure WinRM to Use HTTPS
+
+Configure the WinRM host to enable communication with the PowerShell
+plug-in through the HTTPS protocol.The WinRM host requires a certificate
+so that it can communicate through the HTTPS protocol. You can either
+obtain a certificate or generate one. For example, you can generate a
+self-signed certificate by using the Certificate Creation tool
+(makecert.exe) that is part of the .NET Framework SDK.
+
+*Procedure*:
+
+* Generate a self-signed certificate.
+
+The following command line contains example syntax for creating a
+certificate on the WinRM host by using makecert.exe.
+
+*_makecert.exe -r -pe -n "CN=host_name-3,O=organization_name" -e
+mm/dd/yyyy -eku 1.3.6.1.5.5.7.3.1 -ss my -sr localMachine -sky exchange
+-sp "Microsoft RSA SChannel Cryptographic Provider" -sy 12
+certificate_name.cer_*
+
+* Add the generated certificate by using the Microsoft Management
+Console.
+. Run mmc.exe.
+. Select File > Add/Remove Snap-in.
+. From the list of available snap-ins, select Certificates and click
+Add.
+. Select Computer account and click Next.
+. Click Finish.
+. Verify that the certificate is installed in Console Root >
+Certificates (Local Computer) > Personal > Certificates and Console Root
+> Certificates (Local Computer) > Trusted Root Certification Authorities
+> Certificates.
+
+If the certificate is not installed in the Trusted Root Certification
+Authorities and Personal folders, you must install it manually.
+
+* Create an HTTPS listener by using the correct thumbprint and host
+name.
+
+The following command line contains example syntax for creating an HTTPS
+listener.
+
+*_winrm create winrm/config/Listener?Address=*+Transport=HTTPS
+@\{Hostname="host_name";CertificateThumbprint="certificate_thumbprint"}_*
+
+* Test the connection.
+
+The following command line contains example syntax for testing the
+connection.
+
+*_winrs -r:https://host_nameport_number/[https://host_name:port_number]
+-u:user_name -p:password hostname"}_*
+
+[[WinRMClientPlugin-Increaseuploaddatasize]]
+== Increase upload data size
+
+* You need to create a new PSSessionConfiguration (this to not use the
+default one) in your remote computer:
+
+*_Register-PSSessionConfiguration -Name DataNoLimits_* #or the name you
+like.
+
+* Then configuring the parameter you want (in this case
+MaximumReceivedDataSizePerCommandMB and MaximumReceivedObjectSizeMB):
+
+*_Set-PSSessionConfiguration -Name DataNoLimits
+-MaximumReceivedDataSizePerCommandMB 500 -MaximumReceivedObjectSizeMB
+500_*
+
+* Then create the new session in your local Computer with the
+PSSessionConfiguration you need:
+
+*_$Session = New-PSSession -ComputerName MyRemoteComp -ConfigurationName
+DataNoLimits_*
+
+[[WinRMClientPlugin-Release1.0(04March2017)]]
+== Release 1.0 (04 March 2017)
+
+* First public release

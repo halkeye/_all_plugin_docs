@@ -1,0 +1,33 @@
+ +
+
+This plugin provides the runtime library for plugins written in Python.
+
+If you want to develop plugins in Python, see the
+https://github.com/jenkinsci/jenkins.py/wiki[GitHub wiki page].
+
+[[PythonWrapperPlugin-Changelog]]
+== Changelog
+
+[[PythonWrapperPlugin-Version1.0.3(May23,2014)]]
+=== Version 1.0.3 (May 23, 2014)
+
+* Bug fix release
+* This release fixes failures caused by classpaths with spaces. (%20 ->
+" ").
+
+[[PythonWrapperPlugin-Version1.0.2(March31,2014)]]
+=== Version 1.0.2 (March 31, 2014)
+
+* Critical bug fix release
+
+[[PythonWrapperPlugin-Version1.0.1(March30,2014)]]
+=== Version 1.0.1 (March 30, 2014)
+
+* Critical bug fix release
+
+[[PythonWrapperPlugin-Version1.0(March24,2014)]]
+=== Version 1.0 (March 24, 2014)
+
+* Initial release
+* Wrappers of this version covers extension points of the Jenkins
+version 1.509.4

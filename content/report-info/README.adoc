@@ -1,0 +1,36 @@
+ +
+
+This plugin allows you to see in a view some information from Surefire,
+PMD, Findbugs and Checkstyle reports.
+
+[[ReportInfoPlugin-Usage]]
+== Usage
+
+In the jobs you want in the report info view, add *Generated report
+info* Post-build action.
+
+[.confluence-embedded-file-wrapper]#image:https://github.com/gcolin/report-info/raw/master/config1.png[image]#
+
+'''''
+
+You can add some folders to exclude.
+
+[.confluence-embedded-file-wrapper]#image:https://github.com/gcolin/report-info/raw/master/config2.png[image]#
+
+'''''
+
+Create a new *ReportInfo* view
+
+[.confluence-embedded-file-wrapper]#image:https://github.com/gcolin/report-info/raw/master/config3.png[image]#
+
+'''''
+
+Add the projects you want to see in the view
+
+[.confluence-embedded-file-wrapper]#image:https://github.com/gcolin/report-info/raw/master/config4.png[image]#
+
+'''''
+
+Now you need the rebuild the job to see the report information.
+
+[.confluence-embedded-file-wrapper]#image:https://github.com/gcolin/report-info/raw/master/screen.png[image]#

@@ -1,0 +1,26 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2019-10-23/#SECURITY-1628[Webhook
+endpoint token stored in plain text]
+* https://jenkins.io/security/advisory/2019-02-19/#SECURITY-985[SSRF
+vulnerability]
+
+[.conf-macro .output-inline]#Allows users to send build notifications to
+a self-hosted http://www.mattermost.org/[Mattermost] installation#
+
+[[MattermostPlugin-Documentation]]
+== Documentation
+
+The project's home page is on
+https://github.com/jenkinsci/mattermost-plugin[Github].
+
+[[MattermostPlugin-Changelog]]
+== Changelog
+
+Also on
+https://github.com/jenkinsci/mattermost-plugin/blob/master/CHANGELOG.md[Github]

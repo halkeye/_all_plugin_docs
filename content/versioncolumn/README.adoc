@@ -1,0 +1,37 @@
+[.conf-macro .output-inline]#This plugin offers two Node Monitors: one
+for the version of the _Remoting_ library, and one for the JVM. This
+helps be aware and possibility automatically disconnect agents that
+don't comply to configuration and avoid issues.#
+
+*This plugin has changed its display name for 2.0, is now "Versions Node
+Monitors plugin", and was formerly known as "Version Column plugin".*
+
+*https://github.com/jenkinsci/versioncolumn-plugin/blob/master/README.adoc[See
+also the plugin's README for documentation.]*
+
+[[VersionColumnPlugin-VersionHistory]]
+== Version History
+
+[[VersionColumnPlugin-Version2.1(2019,January29th)]]
+=== Version 2.1 (2019, January 29th)
+
+*  https://issues.jenkins-ci.org/browse/JENKINS-53445[JENKINS-53445]:
+Add support for Java 11 and Java 12 runtimes
+
+[[VersionColumnPlugin-Version2.0(2017,June29th)]]
+=== Version 2.0 (2017, June 29th)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-41763[[JENKINS-41763] ]Add
+agent JVM version node monitor
+* Internal refactoring to share logic between the _historical_ monitor
+for the Remoting version and the newly introduced one.
+
+[[VersionColumnPlugin-Version0.2(2September,2011)]]
+=== Version 0.2 (2 September, 2011)
+
+* make a node offline if it uses old slave.jar.
+
+[[VersionColumnPlugin-Version0.1(19March,2011)]]
+=== Version 0.1 (19 March, 2011)
+
+* First release

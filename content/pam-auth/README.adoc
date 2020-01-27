@@ -1,0 +1,56 @@
+Adds Unix Pluggable Authentication Module (PAM) support to
+Jenkins.[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View PAM Authentication https://plugins.jenkins.io/pam-auth[on the
+plugin site] for more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2019-05-21/#SECURITY-1316[Missing
+permission check allowed obtaining limited information about system
+configuration]
+* https://jenkins.io/security/advisory/2018-09-25/#SECURITY-813[Improper
+user account validation]
+
+[[PAMAuthenticationPlugin-VersionHistory]]
+== Version History
+
+[[PAMAuthenticationPlugin-Version1.6(2019-10-08)]]
+=== Version 1.6 (2019-10-08)
+
+* Use HTTPS URLs in `+pom.xml+`
+* Replace use of libc native code bindings using
+https://github.com/java-native-access/jna[JNA] framework to instead use
+simpler https://github.com/jnr/jnr-posix[jnr-posix] library.
+* Various minor code cleanups to use Jenkins core changes up to version
+2.138.4.
+
+[[PAMAuthenticationPlugin-Version1.5.1(2019-05-21)]]
+=== Version 1.5.1 (2019-05-21)
+
+* https://jenkins.io/security/advisory/2019-05-21/#SECURITY-1316[Fix
+security issue]
+
+[[PAMAuthenticationPlugin-Version1.5(2019-04-05)]]
+=== Version 1.5 (2019-04-05)
+
+* No release notes recorded
+
+[[PAMAuthenticationPlugin-Version1.4.1(2019-05-21)]]
+=== Version 1.4.1 (2019-05-21)
+
+* https://jenkins.io/security/advisory/2019-05-21/#SECURITY-1316[Fix
+security issue] (backport)
+
+[[PAMAuthenticationPlugin-Version1.4(2018-08-22)]]
+=== Version 1.4 (2018-08-22)
+
+* https://github.com/jenkinsci/pam-auth-plugin/pull/7[PR 7] Upgrade
+libpam4j to version 1.11.

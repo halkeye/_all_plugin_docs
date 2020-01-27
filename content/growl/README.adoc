@@ -1,0 +1,8 @@
+[.conf-macro .output-inline]#Sends http://growl.info/[Growl]
+notification.#
+
+[[GrowlPlugin-ChangeLog]]
+== Change Log
+
+[[GrowlPlugin-Version1.0(Oct9,2010)]]
+=== Version 1.0 (Oct 9, 2010)

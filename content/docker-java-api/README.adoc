@@ -1,0 +1,9 @@
+....
+{jenkins-plugin-info:pluginId=docker-java-api-plugin}
+....
+
+ 
+
+A utility plugin to bundle
+https://github.com/docker-java/docker-java[docker-java] for other
+plugins.

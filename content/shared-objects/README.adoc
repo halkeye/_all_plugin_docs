@@ -1,0 +1,347 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2017-04-10/[Arbitrary code
+execution vulnerability in rare circumstances]
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]##
+
+*This plugin is up for adoption.* Want to help improve this plugin?
+https://wiki.jenkins-ci.org/display/JENKINS/Adopt+a+Plugin[Click here to
+learn more]!
+
+[.conf-macro .output-inline]#This plugin makes it possible to share
+objects (script file, source file, tool installation, ...) from an
+environment in Jenkins and manage dynamically these objects through
+environment variables with the
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] during the job build.#
+
+[[SharedObjectsPlugin-Features]]
+== Features
+
+* Exports Jenkins tool installations as environment variables
+* Extracts objects stored in a SCM as environment variables
+* Exports public file paths as environment variables
+* Exports public content as environment variables
+
+[[SharedObjectsPlugin-Usecases]]
+== Use cases
+
+* To export a public file path as an environment variable
+* To fetch a Clearcase shared object and use the virtual path of the
+file content a as an environment variable +
+For example, a shared script stored in Clearcase and accessible through
+a label, will be populated in the job by an environment variable to a
+fetch copy script path.
+
+[[SharedObjectsPlugin-Versions]]
+== Versions
+
+[[SharedObjectsPlugin-0.44]]
+=== 0.44
+
+* Rename 'URL properties file' to 'HTTP URL properties file' and an
+option for 'public file path to properties file'
+
+[[SharedObjectsPlugin-0.43]]
+=== 0.43
+
+* Fix https://issues.jenkins-ci.org/browse/JENKINS-16582[JENKINS-16582]
+- Add uberClassLoader to Shared Objects Groovy Scripts
+
+[[SharedObjectsPlugin-0.42]]
+=== 0.42
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.68 +
+* Reauire Jenkins 1.444+
+
+[[SharedObjectsPlugin-0.41]]
+=== 0.41
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.62
+
+[[SharedObjectsPlugin-0.40]]
+=== 0.40
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.60
+
+[[SharedObjectsPlugin-0.39]]
+=== 0.39
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.59
+
+[[SharedObjectsPlugin-0.38]]
+=== 0.38
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.58
+
+[[SharedObjectsPlugin-0.37]]
+=== 0.37
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.57
+
+[[SharedObjectsPlugin-0.36]]
+=== 0.36
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.56
+
+[[SharedObjectsPlugin-0.35]]
+=== 0.35
+
+* Fix https://issues.jenkins-ci.org/browse/JENKINS-14056[JENKINS-14056]
+- Run Groovy scripts from files and environment variables (Add a shared
+groovy script content)
+
+[[SharedObjectsPlugin-0.34]]
+=== 0.34
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.55
+
+[[SharedObjectsPlugin-0.33]]
+=== 0.33
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.54
+
+[[SharedObjectsPlugin-0.32]]
+=== 0.32
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.53
+
+[[SharedObjectsPlugin-0.31]]
+=== 0.31
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.52
+
+[[SharedObjectsPlugin-0.30]]
+=== 0.30
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.51
+
+[[SharedObjectsPlugin-0.29]]
+=== 0.29
+
+* Fix https://issues.jenkins-ci.org/browse/JENKINS-13673[JENKINS-13673]
+- Tool installations injected by SharedObjects plugin cannot be used by
+EnvInject
+
+[[SharedObjectsPlugin-0.28]]
+=== 0.28
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.50
+
+[[SharedObjectsPlugin-0.27]]
+=== 0.27
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.49
+
+[[SharedObjectsPlugin-0.26]]
+=== 0.26
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.48
+
+[[SharedObjectsPlugin-0.25]]
+=== 0.25
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.47
+
+[[SharedObjectsPlugin-0.24]]
+=== 0.24
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.46
+
+[[SharedObjectsPlugin-0.23]]
+=== 0.23
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.45
+
+[[SharedObjectsPlugin-0.22]]
+=== 0.22
+
+* Add variables resolution URLSharedObject
+
+[[SharedObjectsPlugin-0.21]]
+=== 0.21
+
+* Fix sharedObjects.xml creation
+
+[[SharedObjectsPlugin-0.20]]
+=== 0.20
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.44 +
+* Try to fix redirection on the save button (on a local reverse proxy
+infrastructure)
+
+[[SharedObjectsPlugin-0.19]]
+=== 0.19
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.42
+
+[[SharedObjectsPlugin-0.18]]
+=== 0.18
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.39
+
+[[SharedObjectsPlugin-0.17]]
+=== 0.17
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.38 +
+* Add the ability to export a properties file through an URL as
+environment variables
+
+[[SharedObjectsPlugin-0.16]]
+=== 0.16
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.37
+
+[[SharedObjectsPlugin-0.15]]
+=== 0.15
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.36
+
+[[SharedObjectsPlugin-0.14]]
+=== 0.14
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.35
+
+[[SharedObjectsPlugin-0.13]]
+=== 0.13
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.34
+
+[[SharedObjectsPlugin-0.12]]
+=== 0.12
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.33
+
+[[SharedObjectsPlugin-0.11]]
+=== 0.11
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.32
+
+[[SharedObjectsPlugin-0.10]]
+=== 0.10
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.31
+
+[[SharedObjectsPlugin-0.9]]
+=== 0.9
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.30
+
+[[SharedObjectsPlugin-0.8]]
+=== 0.8
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.29 +
+* Fix https://issues.jenkins-ci.org/browse/JENKINS-12879[JENKINS-12879]
+- Verion 1.27 of EnvInject does not work with Tool Environment plugin
+
+[[SharedObjectsPlugin-0.7]]
+=== 0.7
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.28
+
+[[SharedObjectsPlugin-0.6]]
+=== 0.6
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 1.27 with a build context
+
+[[SharedObjectsPlugin-0.5]]
+=== 0.5
+
+* Update to
+https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin[EnvInject
+Plugin] 0.5 +
+* Refactoring profiles usage
+
+[[SharedObjectsPlugin-0.4]]
+=== 0.4
+
+* Fix Clearcase share object +
+* Add a profile for each shared object
+
+[[SharedObjectsPlugin-0.3]]
+=== 0.3
+
+* Fix slave execution
+
+[[SharedObjectsPlugin-0.2]]
+=== 0.2
+
+* Add Clearcase shared objects +
+* Add Tool installations propagation
+
+[[SharedObjectsPlugin-0.1]]
+=== 0.1
+
+* Initial version

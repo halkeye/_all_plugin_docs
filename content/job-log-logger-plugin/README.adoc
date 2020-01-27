@@ -1,0 +1,29 @@
+[[JobLogLoggerPlugin-JobLogLoggerPlugin]]
+== Job Log Logger Plugin
+
+ +
+
+Write the job log to the underlying logging system.
+
+ +
+
+[cols="",options="header",]
+|===
+|Plugin Configuration and Exploitation
+|[.confluence-embedded-file-wrapper]#image:docs/images/screenshot-1.0.png[image]#
+|===
+
+ +
+
+'''''
+
+ +
+
+[[JobLogLoggerPlugin-Changelog]]
+=== Changelog
+
+[[JobLogLoggerPlugin-1.0(released2012-01-16)]]
+==== 1.0 (released 2012-01-16)
+
+* fully I18N
+* initial implementation

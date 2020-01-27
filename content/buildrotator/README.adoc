@@ -1,0 +1,4 @@
+Allows to perform rotation of build history with low memory pressure
+
+[[BuildRotatorPlugin-Alldocumentationcanbefoundhere->https://github.com/jenkinsci/buildrotator-plugin]]
+== All documentation can be found here -> https://github.com/jenkinsci/buildrotator-plugin

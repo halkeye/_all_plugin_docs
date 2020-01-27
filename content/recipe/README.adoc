@@ -1,0 +1,69 @@
+This plugin enables the community to share fragments of Jenkins
+configurations (such as jobs, views, plugins, and so on) with others
+through the mechanism similar to the plugin update center.
+
+Such recipes provide a great starting point for users to get up to
+speed, and it simplifies the transfer of knowledge from one Jenkins
+instance to another.
+
+[[RecipePlugin-Workflow]]
+== Workflow
+
+The basic workflow is as follows:
+
+. Joe exports a recipe
+. from the export UI, he chooses to publish it to the community
+(https://jenkins-ci.org/account/[jenkins-ci.org account] is necessary)
+. The recipe gets uploaded to
+https://github.com/jenkinsci/submitted-recipes[the repository]
+. The recipe gets published to http://updates.jenkins-ci.org/updates[the
+update center]
+. Alice will be able to install this recipe from her Jenkins through the
+import UI
+
+Since a recipe file is a plain old XML file, it can be also shared by
+other means, and the import wizard allows you to upload such recipes
+through a form submission.
+
+[[RecipePlugin-Screenshots]]
+== Screenshots
+
+These features are accessible from the "Manage Jenkins" page: +
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/wizard.png[image]#
+
+The export screen allows you to add the contents of the recipe and
+choose where to submit the recipe: +
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/export.png[image]#
+
+The import screen allows you to select from the community contributed
+recipes (or upload) +
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/select-recipe.png[image]#
+
+The recipe contains information about plugins used in the recipe, and
+the first step in the import process is to install missing plugins and
+update old ones. +
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/plugin-check.png[image]#
+
+Then the details of the recipe import process will appear. You can make
+some customizations in this stage: +
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/import-details.png[image]#
+
+[[RecipePlugin-Changelog]]
+== Changelog
+
+[[RecipePlugin-Version1.2(Jun3,2014)]]
+=== Version 1.2 (Jun 3, 2014)
+
+* Implemented a proper import/export of views
+
+[[RecipePlugin-Version1.1(Nov22,2013)]]
+=== Version 1.1 (Nov 22, 2013)
+
+* Allow an existing job to be updated
+(https://issues.jenkins-ci.org/browse/JENKINS-20727[JENKINS-20727])
+* Fixed broken icon
+
+[[RecipePlugin-Version1.0(Dec31,2012)]]
+=== Version 1.0 (Dec 31, 2012)
+
+* Initial version

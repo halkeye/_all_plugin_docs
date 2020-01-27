@@ -1,0 +1,11 @@
+[[LinkColumnPlugin-Description]]
+== Description
+
+This plugin shows a custom link column in list view.
+
+[[LinkColumnPlugin-ChangeLog]]
+== Change Log
+
+Version 1.0
+
+* init release

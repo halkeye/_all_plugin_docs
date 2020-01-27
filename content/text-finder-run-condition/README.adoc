@@ -1,0 +1,32 @@
+[[TextFinderRunConditionPlugin-Features]]
+== Features
+
+This plugin implements a text finder condition to be used by the
+https://wiki.jenkins-ci.org/display/JENKINS/Run+Condition+Plugin[Run
+Condition Plugin]. +
+This is a condition based on the
+https://wiki.jenkins-ci.org/display/JENKINS/Text-finder+Plugin[Text-finder
+Plugin] with some minor changes.
+
+* It always returns true on the first occurrence of the match,
+* The console log is checked before the files, if enabled.
+* If no files are found returns False.
+
+[[TextFinderRunConditionPlugin-Changelog]]
+== Change log
+
+[[TextFinderRunConditionPlugin-0.1(13/7/2012)]]
+=== 0.1 (13/7/2012)
+
+* Initial release
+
+Questions, Comments, Bugs and Feature Requests
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+Please post questions or comments about this plugin to the
+http://jenkins-ci.org/content/mailing-lists[Jenkins User mailing
+list]. +
+To report a bug or request an enhancement to this plugin please create a
+ticket in JIRA.

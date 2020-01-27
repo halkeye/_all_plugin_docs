@@ -1,0 +1,4 @@
+[.conf-macro .output-inline]#This plugin uses
+https://cloud.google.com/deployment-manager/[Google Cloud Deployment
+Manager] to create and delete https://cloud.google.com/[Google Cloud
+Platform] resources from within Jenkins jobs.#

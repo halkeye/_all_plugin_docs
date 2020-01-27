@@ -1,0 +1,18 @@
+Welcome to the jenkins-testswarm-plugin wiki! +
+Testswarm is used to run javascript tests in all browser. This plugin
+allows you to run testswarm tests and see results from jenkins.
+
+*TestSwarm Landing Page* +
+[.confluence-embedded-file-wrapper]#image:docs/images/TestSwarm.png[image]#
+
+*TestSwarm Job that was Launched from Jenkins* +
+[.confluence-embedded-file-wrapper]#image:docs/images/TestSwarmJob.png[image]#
+
+*Sample Jenkins Configuration* +
+[.confluence-embedded-file-wrapper]#image:docs/images/JenkinsConfig.png[image]#
+
+*Results in TestSwarm Results shown in Jenkins* +
+[.confluence-embedded-file-wrapper]#image:docs/images/TapChart.png[image]#
+
+*Details of TestSwarm Results in Jenkins* +
+[.confluence-embedded-file-wrapper]#image:docs/images/TapTable.png[image]#

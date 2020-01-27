@@ -1,0 +1,33 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View Sofy.AI https://plugins.jenkins.io/sofy-ai[on the plugin site] for
+more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-10-16/#SECURITY-1431[Credentials
+stored in plain text]
+
+ +
+
+ +
+[.conf-macro .output-inline]#This plugin allows you to conduct Tests for
+your Website and Mobile Application Builds, right from your Jenkins
+Pipelines, using your https://www.sofy.ai/[Sofy] account#
+
+[[Sofy.aiPlugin-Documentation]]
+== Documentation
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]#
+#
+
+For instructions on how to install and use this plugin, please visit the
+https://help.sofy.ai/integration/jenkins-integration[Sofy Jenkins Help
+page]

@@ -1,0 +1,8 @@
+[[SynopsysCoverityPlugin-Usage]]
+== Usage
+
+[[SynopsysCoverityPlugin-Documentation]]
+=== Documentation
+
+https://synopsys.atlassian.net/wiki/spaces/INTDOCS/pages/623018/Synopsys+Coverity+Jenkins[Synopsys
+Coverity plugin documentation]

@@ -1,0 +1,43 @@
+[.conf-macro .output-inline]#The Nerrvana Jenkins plugin allows you to
+automate functional and cross browser Selenium testing of your web
+applications in http://www.nerrvana.com/[Nerrvana cloud].#
+
+[[NerrvanaPlugin-Nerrvanapluginimplementsthefollowingfunctionality]]
+== Nerrvana plugin implements the following functionality
+
+* Creates a configuration file in the Nerrvana user interface;
+* Synchronizes tests extracted from the version control system with
+tests stored in the corresponding
+https://nerrvana.com/docs/get-started[Nerrvana space];
+* Adds Jenkins build number to the name of the generated test run;
+* Allows you to dynamically add information to the description of the
+created test run (for example, a committer name, revision number, or
+commit message);
+* If you use https://nerrvana.com/docs/using-messages[Nerrvana
+messages], the plug-in can analyse test results, set the status of a
+build, depending on the level of errors found and show Nerrvana error
+report in Jenkins.
+
+Check out our https://nerrvana.com/docs/jenkins-plugin[documentation]
+for details.
+
+[[NerrvanaPlugin-Requirements]]
+== Requirements
+
+The plugin uses http://en.wikipedia.org/wiki/Lftp[LFTP] to synchronize
+tests between Jenkins and Nerrvana. LFTP must be installed (_yum_
+_install_ _lftp_) on the same server running Jenkins.
+
+[[NerrvanaPlugin-Tip]]
+=== Tip
+
+We recommend that you run your tests from Nerrvana's UI and verify that
+Nerrvana can run them before proceeding. The process for running tests
+manually is described on the https://nerrvana.com/docs/get-started[Get
+Started] page.
+
+[[NerrvanaPlugin-Documentation]]
+== Documentation
+
+Detailed plugin documentation is available
+https://nerrvana.com/docs/jenkins-plugin[here]

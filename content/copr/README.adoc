@@ -1,0 +1,5 @@
+[[CoprPlugin-Coprplugin]]
+== Copr plugin
+
+This plugin allows users to build RPM packages in
+https://fedorahosted.org/copr/[Copr].

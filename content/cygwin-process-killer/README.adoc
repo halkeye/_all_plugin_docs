@@ -1,0 +1,119 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View Cygwin Process Killer
+https://plugins.jenkins.io/cygwin-process-killer[on the plugin site] for
+more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]##
+
+*This plugin is up for adoption.* Want to help improve this plugin?
+https://wiki.jenkins.io/display/JENKINS/Adopt+a+Plugin[Click here to
+learn more]!
+
+Plugin implements proper termination of Cygwin processes in Jenkins jobs
+
+[[CygwinProcessKillerPlugin-Aboutthisplugin]]
+== About this plugin
+
+By default, Jenkins don't terminate Cygwin process trees on timeouts and
+manual termination of builds on Windows platforms. This is caused by
+Cygwin architecture, but it is very painful in automation environments,
+because unterminated processes may modify files and even lock workspace
+for the future builds. This plugin implements proper termination of
+Cygwin process trees in Jenkins jobs. See
+https://issues.jenkins-ci.org/browse/JENKINS-13615[JENKINS-13615] for
+more info.
+
+[[CygwinProcessKillerPlugin-Usageguidelines]]
+== Usage guidelines
+
+Warning
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+Due to the current implementation of Jenkins core, this plugin version
+works only for processes, which are the children of the parent process
+being terminated by Jenkins.
+
+[[CygwinProcessKillerPlugin-Requirements]]
+=== Requirements
+
+. Jenkins Core should contain fix for invocation of Process Killers on
+Windows (see
+https://issues.jenkins-ci.org/browse/JENKINS-19156[JENKINS-19156] for
+more info)
+. You should use only one Cygwin installation on the host
+.. Due to Cygwin's architecture, ps commands discovers processes running
+within the same cygwin1.dll
+.. Other processes will be ignored
+
+[[CygwinProcessKillerPlugin-Initialconfiguration]]
+=== Initial configuration
+
+By default, plugin is disabled. After the installation, plugin should be
+configured via Jenkins global configuration page.
+
+[[CygwinProcessKillerPlugin-Approach1.Minimalconfiguration]]
+==== Approach 1. Minimal configuration
+
+Steps below allow to use Cygwin Process Killer, which relies on global
+environment variables during the process termination. Please note that
+this approach is not recommended due to possible conflicts with other
+utilities.
+
+. Go to "Cygwin process killer" section of the global configuration page
+. Click on "Enable killer" checkbox to enable the plugin
+
+[.confluence-embedded-file-wrapper]#image:docs/images/KillerConfiguration.png[image]#
+
+[[CygwinProcessKillerPlugin-Approach2.ConfiguretheplugintouseCygwintoolinstallations]]
+==== Approach 2. Configure the plugin to use Cygwin tool installations
+
+This section describes setup of Cygwin Killer for installations without
+configured Cygwin environment
+
+. Configure the "Cygwin Process Killer" installation
+.. Tool's home should point to CYGWIN_HOME (root folder with bin and lib
+folders)
+.. %CYGWIN_HOME%\bin must contain _uname.exe_ and _bash.exe_ utilities
+.. You can use any tool installer. You also can configure local
+installation via individual node configurations.
+. Save and reopen the configuration. Then, go to the "Cygwin process
+killer" section
+. Click on the "Use Cygwin from a tool installation" checkbox
+. Select a tool installation from the list
+. Optional
+.. You can customize process termination scripts. If you have a version
+for execution with "-ex" flags, please create a pull request ASAP :)
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/ToolInstallation.png[image,width=819,height=296]#
+
+[.confluence-embedded-file-wrapper]#image:docs/images/KillerConfiguration_Tool.png[image]#
+
+[[CygwinProcessKillerPlugin-Wishlist]]
+== Wishlist
+
+* Extended logging and support of various interpreters
+* Automatic definition of used cygwin1.dll
+* Support of a graceful process termination (the current version invokes
+"kill -9")
+* "Restore default" script button in the web interface
+
+[[CygwinProcessKillerPlugin-Versionhistory]]
+== Version history
+
+[[CygwinProcessKillerPlugin-Version0.2(Jan31,2018)]]
+=== Version 0.2 (Jan 31, 2018)
+
+* Require Jenkins Core 1.625.3 or above
+* Fix issues reported by FindBugs and injected tests
+
+[[CygwinProcessKillerPlugin-Version0.1(10/25/2013)]]
+=== Version 0.1 (10/25/2013)
+
+* Initial version of the plugin

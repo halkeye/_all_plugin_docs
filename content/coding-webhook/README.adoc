@@ -1,0 +1,24 @@
+[.conf-macro .output-inline]#This plugin
+integrates https://coding.net/[Coding] with Jenkins. It
+handles https://coding.net/help/doc/git/webhook.html[Webhook] request
+and triggers builds for push and merge/pull request events.# 
+
+[[CodingWebhookPlugin-Features]]
+== Features
+
+This plugin is a build trigger for Coding Webhook, it can:
+
+* Trigger builds for push events
+* Trigger builds for merge/pull request events
+* Report build result via comment
+* Webhook events filtering
+
+[[CodingWebhookPlugin-Usage]]
+== Usage
+
+See: https://open.coding.net/ci/jenkins/[https://open.coding.net/ci/jenkins]
+
+[[CodingWebhookPlugin-ChangeLog]]
+== ChangeLog
+
+See: https://github.com/jenkinsci/coding-webhook-plugin/releases

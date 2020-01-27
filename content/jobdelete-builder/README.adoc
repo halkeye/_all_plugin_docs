@@ -1,0 +1,45 @@
+ +
+This plugin to "delete jobs" in a build step.
+
+[[JobDeleteBuilderPlugin-Executeexample]]
+== Execute example
+
+[[JobDeleteBuilderPlugin-DeletefeatureAjobs]]
+=== Delete featureA jobs
+
+. before delete +
+[.confluence-embedded-file-wrapper]#image:docs/images/job-list1.png[image]#
+. Execute job +
+[.confluence-embedded-file-wrapper]#image:docs/images/param3.png[image]# +
+[.confluence-embedded-file-wrapper]#image:docs/images/console1.png[image]#
+. after delete +
+[.confluence-embedded-file-wrapper]#image:docs/images/job-list2.png[image]#
+
+[[JobDeleteBuilderPlugin-ConfigandUsage]]
+== Config and Usage
+
+[[JobDeleteBuilderPlugin-Simplebuild]]
+=== Simple build
+
+. Add "Delete Jobs" build step +
+[.confluence-embedded-file-wrapper]#image:docs/images/simple1.png[image]#
+. Set target job name with Regular Expression +
+[.confluence-embedded-file-wrapper]#image:docs/images/simple2.png[image]#
+
+[[JobDeleteBuilderPlugin-Buildwithparameters]]
+=== Build with parameters
+
+. Set parameters +
+[.confluence-embedded-file-wrapper]#image:docs/images/param1.png[image]#
+. Add a build step, and set environment value +
+[.confluence-embedded-file-wrapper]#image:docs/images/param2.png[image]#
+. Build and input parameters +
+[.confluence-embedded-file-wrapper]#image:docs/images/param3.png[image]#
+
+[[JobDeleteBuilderPlugin-ChangeLog]]
+== Change Log
+
+[[JobDeleteBuilderPlugin-Version1.0(Sep23,2015)]]
+=== Version 1.0 (Sep 23, 2015)
+
+Initial release

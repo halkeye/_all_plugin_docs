@@ -1,0 +1,87 @@
+[.conf-macro .output-inline]#This plugin generates the trend report for
+http://carbidehelp.nokia.com/help/index.jsp?topic=/com.nokia.carbide.cpp.codescanner/html/codescanner.htm[Codescanner],
+a tool which uses static analysis to look for bugs, hints and other
+useful information in Symbian C++ source code. #
+
+Installation Requirements
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+This plug-in requires the plugin "analysis-core" by Ullrich Hafner.
+Please ensure that the latest version of this plug-in is also installed.
+
+[[CodeScannerPlugin-Description]]
+== Description
+
+The Codescanner plug-in either runs the Codescanner tool or uses an
+existing result file to report a number of different information.
+
+The following features are provided by this plug-in:
+
+* https://wiki.jenkins-ci.org/display/JENKINS/Static+Code+Analysis+Plug-ins#StaticCodeAnalysisPlug-ins-summary[Build
+summary] showing the new and fixed warnings of a build
+* https://wiki.jenkins-ci.org/display/JENKINS/Static+Code+Analysis+Plug-ins#StaticCodeAnalysisPlug-ins-trend[Several
+trend reports] showing the number of warnings per build
+* https://wiki.jenkins-ci.org/display/JENKINS/Static+Code+Analysis+Plug-ins#StaticCodeAnalysisPlug-ins-overview[Overview]
+of the found warnings per module, package, category, or type
+* https://wiki.jenkins-ci.org/display/JENKINS/Static+Code+Analysis+Plug-ins#StaticCodeAnalysisPlug-ins-details[Detail
+reports] of the found warnings optionally filtered by severity (or new
+and fixed)
+** Short messages is read from the report file
+* https://wiki.jenkins-ci.org/display/JENKINS/Static+Code+Analysis+Plug-ins#StaticCodeAnalysisPlug-ins-source[Colored
+HTML display] of the corresponding source file and warning lines:
+** Direct link to the warning line
+** Highlighting of single lines as well as line ranges
+** Highlighting of multiple line ranges per warning (different color for
+primary range)
+** Tool tip describing the warning message
+* Failure threshold to mark a build as unstable
+* Configurable project health support
+* Localization available for: DE
+
+The current release is available in the
+https://hudson.dev.java.net/servlets/ProjectDocumentList?folderID=11980&expandFolder=11980&folderID=7826[download
+section]. This plug-in is developed and maintained by Maximilian
+Odendahl. Please use the comment fuctionaility, Hudson
+https://hudson.dev.java.net/servlets/ProjectMailingListList[mailing
+lists] or https://hudson.dev.java.net/issues/[issue tracker] to ask
+questions, create feature request or bug reports.
+
+[[CodeScannerPlugin-Changelog]]
+== Changelog
+
+Release 0.11 (Jan 3, 2011)
+
+* Update some links in help text
+(https://issues.jenkins-ci.org/browse/JENKINS-6862[JENKINS-6862])
+
+Release 0.10 (Mar 18, 2010)
+
+* New warnings computation is now based on the current build and the
+reference build (i.e., the last successful build, see
+https://issues.jenkins-ci.org/browse/JENKINS-5147[JENKINS-5147])
+* Visualized plug-in build status (based on the healthiness thresholds)
+* Added high scores for successful builds
+* Don't show project action if there are no warnings
+(https://issues.jenkins-ci.org/browse/JENKINS-5473[JENKINS-5473])
+* Don't show trend graph configuration on job creation
+(https://issues.jenkins-ci.org/browse/JENKINS-5294[JENKINS-5294])
+* Improved remote API, now the warning keys are also exposed
+(https://issues.jenkins-ci.org/browse/JENKINS-5195[JENKINS-5195])
+
+[[CodeScannerPlugin-HowToUse]]
+== How To Use
+
+* Install the plugin, using hudson: Manage Hudson> manage plugins
+>Available> CodeScanner
+* Restart app server/ Hudson
+* In post build actions, check the CodeScanner plugin and fill in the
+source code directory which you would like to scan
+* Either fill in the path to the CodeScanner.exe file or leave this
+texbox blank. If filled in, the tool will be called and run by the
+plugin and its output caught directly. Otherwise an existing output.txt
+file in the workspace directory will be used. This is useful if you
+already run codescanner inside another build script. You should run
+codescanner in this case similar to "codescanner.exe -o std src >
+workspacedirectory/output.txt"

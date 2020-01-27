@@ -1,0 +1,319 @@
+[[CompuwareTopazUtilitiesPlugin-Overview]]
+== Overview
+
+The Compuware Topaz Utilities plugin allows Jenkins users to access to
+various Compuware Topaz (R) utilities, such as submitting Jobs on the
+mainframe.
+
+[[CompuwareTopazUtilitiesPlugin-Prerequisites]]
+== Prerequisites
+
+The following are required to use this plugin:
+
+* Jenkins
+* Jenkins Credentials plugin
+* Topaz Workbench CLI version 19.02.01 or later. Refer to
+the http://frontline.compuware.com/Doc/KB/KB1802/PDF/Topaz_Workbench_Install_Guide.pdf[Topaz
+Workbench Install Guide] for instructions.
+* A valid Topaz for Program Analysis, Topaz for Enterprise Data or Topaz
+for Total Test license
+* Host Communications Interface
+
+[[CompuwareTopazUtilitiesPlugin-InstallinginaJenkinsInstance]]
+== Installing in a Jenkins Instance
+
+. Install the Compuware Topaz (R) Utilities plugin according to the
+Jenkins instructions for installing plugins. Dependent plugins will
+automatically be installed.
+. Install the Topaz Workbench CLI on the Jenkins instances that will
+execute the plugin. The Topaz Workbench CLI is available in the Topaz
+Workbench installation package. If you do not have the installation
+package, please visit http://go.compuware.com/[go.compuware.com]. For
+Topaz Workbench CLI installation instructions, please refer to
+the http://frontline.compuware.com/Doc/KB/KB1802/PDF/Topaz_Workbench_Install_Guide.pdf[Topaz
+Workbench Install Guide].
+
+[[CompuwareTopazUtilitiesPlugin-ConfiguringHostConnections]]
+== Configuring Host Connections
+
+. In the Jenkins system Jenkins/Manage Jenkins/Configure System screen,
+go to the *Compuware Configurations* section, do one of the following:
+* In the *Windows Topaz Workbench CLI home* field, point to the Windows
+installation location of the CLI. If necessary, change the default
+values given to match the correct installation location.
+* In the *Linux Topaz Workbench CLI home* field, point to the Linux
+installation location of the CLI. If necessary, change the default
+values given to match the correct installation location.
++
+*Note:* The Topaz Workbench CLI must be installed on the machine that is
+configured to run the job.
+. If no host connection appears in the *Host Connections* section,
+click **Add Host Connection **and add a host connection by entering the
+following information:
+* In the **Description **field, enter a description of the connection.
+* In the **Host:port **field, enter the z/OS host to connect to.
+* From the *Encryption protocol* list, select the desired encryption
+protocol to be used for this connection. The encryption protocol is used
+to encrypt data sent to and from the host. The default is 'None'.
+* From the *Code page* list, select the desired code page to be used for
+this connection. The code page is used to translate data sent to and
+from the host. The default is 1047.
+* In the *Read/write timeout (minutes)* field, enter the number of
+minutes for the plugin to wait for a response from the host before
+timing out.
++
+*Note:* Click *Delete Host Connection* to delete an existing connection.
+
+[[CompuwareTopazUtilitiesPlugin-ToSubmitJCLdatasetsormembersonthemainframe]]
+== To Submit JCL datasets or members on the mainframe
+
+. Install the Compuware Topaz (R) Utilities plugin according to the
+Jenkins instructions for installing plugins.
+. In the Jenkins system configuration page's *Compuware
+Configurations* section, do one of the following:
+* In the *Windows Topaz Workbench CLI home* field, point to the Windows
+installation location of the CLI. If necessary, change the default
+values given to match the correct installation location.
+* In the *Linux Topaz Workbench CLI home* field, point to the Linux
+installation location of the CLI. If necessary, change the default
+values given to match the correct installation location.
++
+*Note:* The Topaz Workbench CLI must be installed on the machine that is
+configured to run the job.
+. If no host connection appears in the *Host Connections* section,
+click *Add Host Connection* and add a host connection by entering the
+following information:
+* In the **Description **field, enter a description of the connection.
+* In the *Host:port* field, enter the z/OS host to connect to.
+* From the *Code page* list, select the desired code page to be used for
+this connection. The code page is used to translate data sent to and
+from the host. The default is 1047.
+* In the *Read/write timeout (minutes)* field, enter the number of
+minutes for the plugin to wait for a response from the host before
+timing out.
++
+*Note:* Click *Delete Host Connection* to delete an existing connection.
+. On the **Configuration **page of the job or project, in
+the **Build **section, from the *Add build step* list, select *Topaz
+submit JCL members*.
+. From the *Host connection* list, select the host connection to be used
+to connect to the z/OS host. Alternatively, to add a connection,
+click *Manage connections*. The *Host connections* section of the
+Jenkins configuration page appears so a connection can be added.
+. In the *Login credentials* field, select the stored credentials to use
+for logging onto the z/OS host. Alternatively, click **Add **to add
+credentials using the Credentials Plugin. Refer to the Jenkins
+documentation for the Credentials Plugin.
+. In the *Maximum condition code* field, enter the maximum condition
+code or keep the default value. The submitting of JCL jobs will
+terminate if any job's return code is greater than the maximum condition
+code.
+. In the *Dataset(member)* field, list JCL dataset / dataset(member)s,
+each on a separate line.
+. If desired, repeat the steps above to add more build steps.
+. Click *Save*.
+. Run the job.
+
+[[CompuwareTopazUtilitiesPlugin-ToSubmitfree-formJCLonthemainframe]]
+== To Submit free-form JCL on the mainframe
+
+. Install the Compuware Topaz (R) Utilities plugin according to the
+Jenkins instructions for installing plugins.
+. In the Jenkins system configuration page's *Compuware
+Configurations* section, do one of the following:
+* In the *Windows Topaz Workbench CLI home* field, point to the Windows
+installation location of the CLI. If necessary, change the default
+values given to match the correct installation location.
+* In the *Linux Topaz Workbench CLI home* field, point to the Linux
+installation location of the CLI. If necessary, change the default
+values given to match the correct installation location.
++
+*Note:* The Topaz Workbench CLI must be installed on the machine that is
+configured to run the job.
+. If no host connection appears in the *Host Connections* section,
+click *Add Host Connection* and add a host connection by entering the
+following information:
+* In the **Description **field, enter a description of the connection.
+* In the *Host:port* field, enter the z/OS host to connect to.
+* From the *Code page* list, select the desired code page to be used for
+this connection. The code page is used to translate data sent to and
+from the host. The default is 1047.
+* In the *Read/write timeout (minutes)* field, enter the number of
+minutes for the plugin to wait for a response from the host before
+timing out.
++
+*Note:* Click *Delete Host Connection* to delete an existing connection.
+. On the **Configuration **page of the job or project, in
+the **Build **section, from the *Add build step* list, select *Topaz
+submit free-form JCL*.
+. From the *Host connection* list, select the host connection to be used
+to connect to the z/OS host. Alternatively, to add a connection,
+click *Manage connections*. The *Host connections* section of the
+Jenkins configuration page appears so a connection can be added.
+. In the *Login credentials* field, select the stored credentials to use
+for logging onto the z/OS host. Alternatively, click **Add **to add
+credentials using the Credentials Plugin. Refer to the Jenkins
+documentation for the Credentials Plugin.
+. In the *Maximum condition code* field, enter the maximum condition
+code or keep the default value. The submitting of JCL jobs will
+terminate if any job's return code is greater than the maximum condition
+code.
+. In the *JCL* field, enter JCL.
+. If desired, repeat the steps above to add more build steps.
+. Click *Save*.
+. Run the job.
+
+[[CompuwareTopazUtilitiesPlugin-UsingPipelineSyntaxtoGeneratePipelineScript]]
+== Using Pipeline Syntax to Generate Pipeline Script
+
+. Do one of the following:
+* When working with an existing Pipeline job, click the *Pipeline
+Syntax* link in the left panel. The *Snippet Generator* appears.
+* When configuring a Pipeline job, click the *Pipeline Syntax* link at
+the bottom of the **Pipeline **configuration section. The *Snippet
+Generator* appears.
+. From the *Sample Step* pull down do one of the following:
+* Select *topazSubmitJclMembers: Topaz submit JCL
+members* or* topazSubmitFreeFormJcl: Topaz submit free-form JCL*.
+* Select *step: General Build Step*
+** From the** Build Step** pull down select either *Topaz submit JCL
+members* or *Topaz submit free-form JCL*.
+. Complete the remaining fields.
+. Click *Generate Pipeline Script*. The Groovy script to invoke the
+Compuware Topaz (R) Utilities plugin appears. The script can be added to
+the Pipeline section when configuring a Pipeline job. A sample script is
+shown below:
++
+[source,syntaxhighlighter-pre]
+----
+topazSubmitJclMembers connectionId: '0274970b-bade-48c1-b726-a95b84c4abbb', credentialsId: '0f6dbaa8-2cac-4968-a67b-fc97819ec413', jclMember: '''A.B.JCL1
+A.B.JCL2
+A.B.JCL3(MEMBER)''', maxConditionCode: '4'
+----
+
+[[CompuwareTopazUtilitiesPlugin-KnownLimitations]]
+== Known Limitations
+
+* The browser default header size may not be suitable when submitting
+large free-form JCL. This can be remedied by modifying the jenkins.xml
+file located at the root of where your Jenkins is installed. Update the
+jenkins.xml arguments as follows:
+** Modify the Jenkins service arguments, but adding, or changing if
+already present, argument: *requestHeaderSize*; a sample of the
+arguments is show below:
++
+[source,syntaxhighlighter-pre]
+----
+ <arguments>-Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar "%BASE%\jenkins.war" --httpPort=8080 --webroot="%BASE%\war" --requestHeaderSize=128000</arguments>
+----
+
+[[CompuwareTopazUtilitiesPlugin-ProductAssistance]]
+== Product Assistance
+
+Compuware provides assistance for customers with its documentation, the
+Compuware Support Center web site, and telephone customer support.
+
+[[CompuwareTopazUtilitiesPlugin-CompuwareSupportCenter]]
+=== Compuware Support Center
+
+You can access online information for Compuware products via our Support
+Center site at https://go.compuware.com/[https://go.compuware.com].
+Support Center provides access to critical information about your
+Compuware products. You can review frequently asked questions, read or
+download documentation, access product fixes, or e-mail your questions
+or comments. The first time you access Support Center, you must register
+and obtain a password. Registration is free.
+
+Compuware also offers User Communities, online forums to collaborate,
+network, and exchange best practices with other Compuware solution users
+worldwide. Go to http://groups.compuware.com/ to join.
+
+[[CompuwareTopazUtilitiesPlugin-ContactingCustomerSupport]]
+=== Contacting Customer Support
+
+At Compuware, we strive to make our products and documentation the best
+in the industry. Feedback from our customers helps us maintain our
+quality standards. If you need support services, please obtain the
+following information before calling Compuware's 24-hour telephone
+support:
+
+* The name, release number, and build number of your product. This
+information is displayed in the **About **dialog box.
+* Installation information including installed options, whether the
+product uses local or network databases, whether it is installed in the
+default directories, whether it is a standalone or network installation,
+and whether it is a client or server installation.
+* Environment information, such as the operating system and release on
+which the product is installed, memory, hardware and network
+specification, and the names and releases of other applications that
+were running when the problem occurred.
+* The location of the problem within the running application and the
+user actions taken before the problem occurred.
+* The exact application, licensing, or operating system error messages,
+if any.
+
+You can contact Compuware in one of the following ways:
+
+[[CompuwareTopazUtilitiesPlugin-Phone]]
+==== Phone
+
+* USA and Canada: 1-800-538-7822 or 1-313-227-5444.
+* All other countries: Contact your local Compuware office. Contact
+information is available
+at https://go.compuware.com/[https://go.compuware.com].
+
+[[CompuwareTopazUtilitiesPlugin-Web]]
+==== Web
+
+You can report issues via Compuware Support Center.
+
+Note: Please report all high-priority issues by phone.
+
+[[CompuwareTopazUtilitiesPlugin-Mail]]
+==== Mail
+
+Customer Support +
+Compuware Corporation +
+One Campus Martius +
+Detroit, MI 48226-5099
+
+[[CompuwareTopazUtilitiesPlugin-CorporateWebSite]]
+=== Corporate Web Site
+
+To access Compuware's site on the Web, go
+to https://www.compuware.com/[https://www.compuware.com]. The Compuware
+site provides a variety of product and support information.
+
+[[CompuwareTopazUtilitiesPlugin-ChangeLog]]
+== Change Log
+
+[[CompuwareTopazUtilitiesPlugin-Version1.0.6]]
+=== Version 1.0.6
+
+* Handle multi-threaded job submission. Create a unique TopazCLI
+workspace for each Topaz JCL Submit step. 
+
+[[CompuwareTopazUtilitiesPlugin-Version1.0.5]]
+=== Version 1.0.5
+
+* Updated
+referenced https://plugins.jenkins.io/compuware-common-configuration[Compuware
+Common Configuration] plugin version
+
+[[CompuwareTopazUtilitiesPlugin-Version1.0.4]]
+=== Version 1.0.4
+
+*This release requires Topaz Workbench CLI version 19.04.01 or higher.*
+
+* Added support for encryption protocol for a host connection.
+
+[[CompuwareTopazUtilitiesPlugin-Version1.0.3]]
+=== Version 1.0.3
+
+* Fixed the Topaz CLI workspace path that was causing a logging
+exception.
+
+[[CompuwareTopazUtilitiesPlugin-Version1.0.2]]
+=== Version 1.0.2
+
+* Added the ability to submit JCL on the mainframe.

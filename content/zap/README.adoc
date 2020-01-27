@@ -1,0 +1,370 @@
+ 
+
+https://github.com/jenkinsci/zap-plugin/releases[[.confluence-embedded-file-wrapper]#image:https://img.shields.io/github/release/jenkinsci/zap-plugin.svg[image]#]
+https://ci.jenkins.io/job/Plugins/job/zap-plugin/job/master/[[.confluence-embedded-file-wrapper]#image:https://ci.jenkins.io/job/Plugins/job/zap-plugin/job/master/badge/icon[image]#]
+https://scan.coverity.com/projects/jenkinsci-zap-plugin[[.confluence-embedded-file-wrapper]#image:https://scan.coverity.com/projects/10817/badge.svg[image]#]
+https://bestpractices.coreinfrastructure.org/projects/490[[.confluence-embedded-file-wrapper]#image:https://bestpractices.coreinfrastructure.org/projects/490/badge[image]#]
+https://github.com/jenkinsci/zap-plugin/blob/master/LICENSE[[.confluence-embedded-file-wrapper]#image:https://img.shields.io/badge/license-MIT-blue.svg[image]#]
+
+[[zapplugin-OfficialOWASPZedAttackProxyJenkinsPlugin]]
+== Official OWASP Zed Attack Proxy Jenkins Plugin
+
+The OWASP Zed Attack Proxy
+(*https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project[ZAP]*)
+is one of the world’s most popular free security tools and is actively
+maintained by hundreds of +
+international volunteers. It can help you automatically find security
+vulnerabilities in your web applications while you are developing and +
+testing your applications. It's also a great tool for experienced
+pen-testers to use for manual security testing.
+
+The *https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin[Official
+OWASP ZAP Jenkins Plugin]* extends the functionality of the
+*https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project[ZAP]*
+security tool into a CI Environment.
+
+* {blank}
+** Manage Sessions (Load or Persist)
+** Define Context (Name, Include URLs and Exclude URLs)
+** Attack Contexts (Spider Scan, AJAX Spider, Active Scan)
+
+You can also:
+
+* {blank}
+** Setup Authentication (Form Based or Script Based)
+** Run as Pre-Build as part of a *http://docs.seleniumhq.org/[Selenium]*
+Build
+** Generate Reports
+(**.xhtml**http://www.w3schools.com/html/html_xhtml.asp[[.confluence-embedded-file-wrapper]#image:docs/images/html.png[image]#],
+**.xml**http://www.w3schools.com/xml/default.asp[[.confluence-embedded-file-wrapper]#image:docs/images/xml.png[image]#],
+**.json**http://www.w3schools.com/js/js_json_intro.asp[[.confluence-embedded-file-wrapper]#image:docs/images/json.png[image]#])
+
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-1041[Credentials
+stored in plain text]
+
+[[zapplugin-TableofContents]]
+=== Table of Contents
+
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-ZAPasapartofaCIEnvironment[[.confluence-link]#ZAP
+as a part of a CI Environment#][.confluence-link]## ##
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-Tech[Tech]
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-Questions/Troubleshooting[Questions/Troubleshooting]
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-IssueTracking[Issue
+Tracking]
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-SecurityVulnerabilities[Security
+Vulnerabilities]
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-Installation[Installation]
+** https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-Jenkins[Jenkins]
+** https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-ZedAttackProxy%E2%80%93Documentation,howtoconfigureZAPcanbefoundhere[Zed
+Attack Proxy –  Documentation, how to configure *ZAP* can be found
+*here*]
+** https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-Firefox%E2%80%93Documentation,howtoconfigureFirefoxcanbefoundhere[Firefox
+–  Documentation, how to configure *Firefox* can be found *here*]
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-Usage[Usage]
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-Development[Development]
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-BuildingthePlugin[Building
+the Plugin]
+** https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-Prerequisites[Prerequisites]
+** https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-DevelopmentBuild[Development
+Build]
+** https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-ToInstall%3A[To
+Install]
+** https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-Pre-ProductionRelease[Pre-Production
+Release]
+** https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-ProductionRelease[Production
+Release]
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-DevelopmentRulesandGuidelines[Development
+Rules and Guidelines]
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-Contributors[Contributors]
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-VersionHistory[Version
+History]
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-Other[Other]
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-PreviousRelease(Deprecated)[Previous
+Release (Deprecated)]
+* https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-License[License]
+
+[[zapplugin-ZAPasapartofaCIEnvironment]]
+=== ZAP as a part of a CI Environment
+
+[.confluence-embedded-file-wrapper]#image:docs/images/ZAP_CI__SMALLER.png[image]#
+
+. A Jenkins CI Build step initializes ZAP
+. Traffic flows (Regression Pack) through ZAP (Web Proxy)
+. ZAP modifies requests to include Vulnerability Tests
+. Target Application/Server sends Response back through ZAP
+. ZAP sends reporting data back to Jenkins
+. Jenkins publishes and archives the report(s)
+. Jenkins creates JIRA tickets for the alerts
+
+[[zapplugin-Tech]]
+=== Tech
+
+ZAP Jenkins plugin uses a number of open source plugins to work
+properly:
+
+* {blank}
+** *https://github.com/zaproxy/zaproxy/wiki/ApiDetails[ZAP API]* –
+image:docs/images/information.svg[(info)]
+A REST API which allows you to interact with ZAP programmatically.
+
+And of course the Official ZAP Jenkins plugin is open source with a
+*https://github.com/jenkinsci/zap-plugin[public repository]* on GitHub
+
+[[zapplugin-Questions/Troubleshooting]]
+=== Questions/Troubleshooting
+
+Please use the
+*https://groups.google.com/forum/#%21forum/zaproxy-jenkins[Google
+Group]* for any questions about using the plugin.
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+*Notice:*
+
+* Include the following:
+** Java version
+** Jenkins version
+** ZAP version
+** ZAP Jenkins Plugin version
+** Firefox version (if running AJAX Spider or a Selenium build)
+** Selenium (if applicable)
+* Upload copies of the _zap.log_ files and a copy of the _console
+output_ of the Jenkins log to *https://pastebin.mozilla.org/[pastebin]*.
+* Jenkins is always running on a master, is ZAP running on the master as
+well or on a separate slave machine?
+* Relevant Jenkins Job Configurations sanitized screenshots.
+
+[[zapplugin-IssueTracking]]
+=== Issue Tracking
+
+* Issues can be created on the *Jenkins JIRA* for the component
+*https://issues.jenkins-ci.org/issues/?jql=project%20%3D%20JENKINS%20AND%20component%20%3D%20zap-plugin[zap-plugin]* +
+** *https://issues.jenkins-ci.org/issues/?jql=project%20%3D%20JENKINS%20AND%20component%20%3D%20zap-plugin[All]*
+*Issues*
+** Want to see what we need help with? See
+https://issues.jenkins-ci.org/browse/JENKINS-43384?jql=project%20%3D%20JENKINS%20AND%20status%20in%20%28Open%2C%20Reopened%2C%20Verified%29%20AND%20component%20%3D%20zap-plugin[*Open,
+Reopened and Verified*] *Issues*
+** Want to see what contributors are currently working on? See
+*https://issues.jenkins-ci.org/browse/JENKINS-43483?jql=project%20%3D%20JENKINS%20AND%20status%20in%20%28%22In%20Progress%22%2C%20%22In%20Review%22%29%20AND%20component%20%3D%20zap-plugin[In
+Progress and In Review]* *Issues*
+** Want to see what we've done so far? See
+*https://issues.jenkins-ci.org/browse/JENKINS-41069?jql=project%20%3D%20JENKINS%20AND%20status%20in%20%28Resolved%2C%20Closed%29%20AND%20component%20%3D%20zap-plugin[Closed
+and Resolved]* *Issues*
+* Before creating an Issue please read the
+*https://wiki.jenkins-ci.org/display/JENKINS/How+to+report+an+issue[JIRA
+guidelines]*.
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+*Notice:* GitHub Issues have been disabled.
+
+[[zapplugin-SecurityVulnerabilities]]
+=== Security Vulnerabilities
+
+If you find any security vulnerabilities or exploits caused by the
+plugin, please send a private
+email https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-PluginInformation[[.confluence-embedded-file-wrapper]#image:docs/images/mail.gif[image]#]
+to one of the
+*https://wiki.jenkins-ci.org/display/JENKINS/zap+plugin#zapplugin-PluginInformation[maintainer(s)]*.
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+*Notice:* These should be kept private until a fix is issued.
+
+[[zapplugin-Installation]]
+=== Installation
+
+[[zapplugin-Jenkins]]
+==== https://jenkins.io/[Jenkins]
+
+* {blank}
+** ZAP Jenkins plugin requires Jenkins 1.580.1+ to run.
+** Download and extract the
+*https://updates.jenkins-ci.org/download/war/[desired war release]*.
+
+[[zapplugin-ZedAttackProxy–Documentation,howtoconfigureZAPcanbefoundhere]]
+==== https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project[Zed Attack Proxy] – image:docs/images/information.svg[(info)] Documentation, how to configure *ZAP* can be found *https://wiki.jenkins-ci.org/display/JENKINS/ZAP+Settings[here]*
+
+* {blank}
+** ZAP Jenkins plugin requires
+*https://github.com/zaproxy/zaproxy/wiki/Downloads#zap-260-standard[ZAP
+2.6.0 Standard]* or later to run.
+*** *https://github.com/zaproxy/zaproxy/wiki/Downloads[Downloads]*
+*** *https://github.com/zaproxy/zaproxy/releases[Releases]*
+
+[[zapplugin-Firefox–Documentation,howtoconfigureFirefoxcanbefoundhere]]
+==== https://www.mozilla.org/en-US/firefox/products/[Firefox] – image:docs/images/information.svg[(info)] Documentation, how to configure *Firefox* can be found https://wiki.jenkins-ci.org/display/JENKINS/Firefox+Settings[*[.confluence-link]#here#*]**[.confluence-link]# #**
+
+* {blank}
+** ZAP supports one of the following
+*https://github.com/zaproxy/zap-core-help/wiki/HelpAddonsSeleniumIntro[versions]*
+of Firefox.
+** Download and install a
+*https://ftp.mozilla.org/pub/firefox/releases/[supported release]*.
+
+[[zapplugin-Usage]]
+=== Usage
+
+Detailed instructions on how to configure a Job from start to finish can
+be found
+*https://wiki.jenkins-ci.org/display/JENKINS/Configure+the+Job[here]*.
+
+* {blank}
+** Configure the Job to
+https://wiki.jenkins-ci.org/display/JENKINS/Configure+the+Job#ConfiguretheJob-ConfiguretheJobtoExecuteZAP[*Execute
+ZAP*]
+** Configure the Job to
+*https://wiki.jenkins-ci.org/display/JENKINS/Configure+the+Job#ConfiguretheJob-ConfiguretheJobtoExecuteZAPaspartofaSeleniumBuild[Execute
+ZAP as part of a Selenium Build]*
+
+[.aui-icon .aui-icon-small .aui-iconfont-approve .confluence-information-macro-icon]#
+#
+
+*Recommended:* for first time users, the plugin requires special
+instructions to setup for first run.
+
+[[zapplugin-Development]]
+=== Development
+
+The Official OWASP ZAP Jenkins plugin is a Maven Jelly Project.
+
+Start the local Jenkins instance: `+$ mvn hpi:run+`
+
+[[zapplugin-BuildingthePlugin]]
+=== Building the Plugin
+
+[.aui-icon .aui-icon-small .aui-iconfont-approve .confluence-information-macro-icon]#
+#
+
+*Requires:* JDK 8 to compile and JDK 7+ to run on Jenkins.
+
+[[zapplugin-Prerequisites]]
+==== Prerequisites
+
+. Ensure that your Maven Environment is setup and configured properly by
+following the
+*https://wiki.jenkins-ci.org/display/JENKINS/Plugin+tutorial[Plugin
+tutorial]*.
+. Ensure that your various hosting permissions are configured properly
+and additional project settings are configured properly by following the
+*https://wiki.jenkins-ci.org/display/JENKINS/Hosting+Plugins[Hosting
+Plugins]* tutorial.
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]#
+#
+
+*Warning:* Do *NOT* attempt to perform a production release until you
+have completed the Pre-Production Release steps below.
+
+[[zapplugin-DevelopmentBuild]]
+==== Development Build
+
+. Run `+$ mvn clean package -e+` to create the plugin `+.hpi+` file.
+
+[[zapplugin-ToInstall:]]
+==== To Install:
+
+* copy the resulting `+../target/zap.hpi+` file to the
+`+$JENKINS_HOME/plugins directory+`. _Restart Jenkins_.
+* or use the plugin management console
+`+127.0.0.1:8080/pluginManager/advanced+` to upload the `+.hpi+` file.
+_Restart Jenkins_.
+
+[[zapplugin-Pre-ProductionRelease]]
+==== Pre-Production Release
+
+. Validate and make sure that your ssh connection is working and
+configured properly with: `+$ ssh -T git@github.com+`
+. Validate and sure your Jenkins credentials are correctly recognized by
+Maven with: `+$ mvn deploy+`
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]#
+#
+
+*Warning:* If there are any SSL handshake issues, please see the
+following document on how to resolve them.
+
+[[zapplugin-ProductionRelease]]
+==== Production Release
+
+`+$ mvn release:prepare release:perform+`
+
+[[zapplugin-DevelopmentRulesandGuidelines]]
+=== Development Rules and Guidelines
+
+[.aui-icon .aui-icon-small .aui-iconfont-approve .confluence-information-macro-icon]#
+#
+
+*Required:* Only *ONE* Pull Request per JIRA Issue/Ticket.
+
+See
+https://wiki.jenkins-ci.org/display/JENKINS/Code+Style+Guidelines[*[.confluence-link]#Code
+Style Guidelines#*]**[.confluence-link]# #**
+
+[[zapplugin-Contributors]]
+=== Contributors
+
+See
+https://wiki.jenkins-ci.org/display/JENKINS/List+of+Contributors[*[.confluence-link]#Contributors#*]**[.confluence-link]# #**
+
+[[zapplugin-VersionHistory]]
+=== Version History
+
+See
+https://wiki.jenkins-ci.org/display/JENKINS/Version+History[*[.confluence-link]#History#*]**[.confluence-link]# #**
+
+[[zapplugin-Other]]
+=== Other
+
+*YouTube*: *https://www.youtube.com/watch?v=mmHZLSffCUg[ZAP Official
+Jenkins plugin walkthrough & demo]*
+
+[[zapplugin-PreviousRelease(Deprecated)]]
+=== Previous Release (Deprecated)
+
+See *https://wiki.jenkins-ci.org/display/JENKINS/ZAProxy+Plugin[Wiki
+Documentation]* +
+See *https://github.com/jenkinsci/zaproxy-plugin[Source Code]* +
+See
+*https://wiki.jenkins-ci.org/display/JENKINS/ZAProxy+Plugin+Contributors[Contributors]*
+
+[[zapplugin-License]]
+=== License
+
+[source,syntaxhighlighter-pre]
+----
+The MIT License (MIT)
+
+Copyright (c) Copyright (c) 2016 Goran Sarenkapa (JordanGS), and a number of other of contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+----
+
+See
+*https://github.com/jenkinsci/zap-plugin/blob/master/LICENSE[License]*

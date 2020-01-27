@@ -1,0 +1,5 @@
+[[LineNumbersPlugin-Plugindescription]]
+== Plugin description
+
+This plugin will decorate all console logs with bookmarkable line
+numbers.

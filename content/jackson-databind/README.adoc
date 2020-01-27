@@ -1,0 +1,32 @@
+[[JacksonDatabindPlugin-JacksonDatabindPlugin]]
+== Jackson Databind Plugin
+
+This plugin exposes the Jackson Databind library to other Jenkins
+plugins. See https://github.com/FasterXML/jackson-databind[FasterXML
+Jackson Databind GitHub repo] for more information.
+
+Warning!
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+This plugin should not be used anymore in new plugins. Use a dependency
+on https://wiki.jenkins.io/display/JENKINS/Jackson2+API+Plugin[Jackson2
+API Plugin] instead.
+
+[[JacksonDatabindPlugin-VersionHistory]]
+=== Version History
+
+[[JacksonDatabindPlugin-Version2.8.10.1(Dec13,2017)]]
+==== Version 2.8.10.1 (Dec 13, 2017)
+
+* Deprecate the plugin in the built-in documentation
+* Use https://wiki.jenkins.io/display/JENKINS/Jackson2+API+Plugin[Jackson2
+API Plugin] as a source of the libraries
+
+[[JacksonDatabindPlugin-Previousreleases]]
+==== Previous releases
+
+* See the
+https://github.com/jenkinsci/jackson-databind-plugin/commits/master[commit
+history]

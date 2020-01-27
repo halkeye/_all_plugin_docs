@@ -1,0 +1,89 @@
+[.conf-macro .output-inline]#Automatically installs and sets up the
+http://golang.org/[Go programming language] (golang) tools for a build.#
+
+[[GoPlugin-Whatitdoes]]
+== What it does
+
+During a build, this plugin can:
+
+* Install a pre-configured version of Go to the machine the build is
+running on
+** The correct package for the machine's operating system, CPU
+architecture and version will be automatically downloaded and installed,
+if required
+* Export the `+GOROOT+` environment, pointing to the installed Go tools
+* Add the path `+$GOROOT/bin+` to the `+PATH+`, so that the tools are
+available during the build
+
+[[GoPlugin-Setup]]
+== Setup
+
+[[GoPlugin-Globalconfiguration]]
+=== Global configuration
+
+. In the Jenkins global tool configuration settings (Manage Jenkins →
+Global Tool Configuration), find the "Go" section, click "Go
+Installations..." and "Add Go".
+. Enter a name, e.g. "Go 1.8" — the name itself has no significance, but
+will be displayed to users during job configuration
+. Either select "Install automatically" and select the desired Go
+version from the drop-down list or specify the installation directory
+manually
+
+[[GoPlugin-Per-jobconfiguration]]
+=== Per-job configuration
+
+[[GoPlugin-Freestyle]]
+==== Freestyle
+
+. In a job's configuration, find the "Build environment" section
+. Select the "Set up Go programming language tools" checkbox
+. Select the Go version you wish to be installed when this job is built
+
+[[GoPlugin-Pipeline]]
+==== Pipeline
+
+As with any other type of Tool Installer, you can use the `+tool+` step
+to install Go, using the `+go+` tool type. For example:
+
+[source,syntaxhighlighter-pre]
+----
+// Run on an agent where we want to use Go
+node {
+    // Install the desired Go version
+    def root = tool name: 'Go 1.8', type: 'go'
+
+    // Export environment variables pointing to the directory where Go was installed
+    withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+        sh 'go version'
+    }
+}
+----
+
+[[GoPlugin-Versionhistory]]
+== Version history
+
+[[GoPlugin-Version1.2(February25,2017)]]
+=== Version 1.2 (February 25, 2017)
+
+* Stopped breaking tool configuration page if the version metadata had
+not been fetched (see
+https://issues.jenkins-ci.org/browse/JENKINS-27499[JENKINS-27499])
+* Added `+go+` symbol, for use with the Pipeline `+tool+` step (see
+https://issues.jenkins-ci.org/browse/JENKINS-34345[JENKINS-34345])
+* Increased required Jenkins version to 1.642.3
+
+[[GoPlugin-Version1.1(June21,2014)]]
+=== Version 1.1 (June 21, 2014)
+
+* Worked around bug causing newer versions of Go to not install (see
+https://issues.jenkins-ci.org/browse/JENKINS-23509[JENKINS-23509])
+* Fixed bug where wrong package for OS X could be installed (see
+https://issues.jenkins-ci.org/browse/JENKINS-23505[JENKINS-23505])
+* Ensured "Install automatically" is checked by default when adding a Go
+installation
+
+[[GoPlugin-Version1.0(June18,2014)]]
+=== Version 1.0 (June 18, 2014)
+
+* Initial release

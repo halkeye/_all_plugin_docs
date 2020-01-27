@@ -1,0 +1,19 @@
+[.conf-macro .output-inline]#This plugin enables use of
+https://tester.mobileenerlytics.com/[Eagle Tester] for identifying,
+prioritising and managing app battery drain for every app release.#
+
+[[EagleTesterPlugin-Usingtheplugin]]
+== Using the plugin
+
+Most up-to date information can be found
+at http://tester.mobileenerlytics.com/instructions.html[tester.mobileenerlytics.com/instructions.html]http://tester.mobileenerlytics.com/eagle/instructions.html[]
+
+[[EagleTesterPlugin-VersionHistory]]
+== Version History
+
+[[EagleTesterPlugin-Version1.0.1(01/12/2018)]]
+=== Version 1.0.1 (01/12/2018)
+
+Initial release. Collects battery test runs output on connected phone
+and make them viewable at Eagle
+Tester.http://tester.mobileenerlytics.com/[]

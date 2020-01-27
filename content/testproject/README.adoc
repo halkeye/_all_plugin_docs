@@ -1,0 +1,78 @@
+ +
+
+This plugin provides an easy way to execute
+https://testproject.io/[TestProject] jobs. A detailed tutorial can be
+found in
+the** https://blog.testproject.io/2019/02/28/integrating-testproject-with-jenkins-ci/[TestProject
+blog post].**
+
+ +
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+This plugin supports both FreeStyle and Pipeline jobs
+
+[[TestProjectPlugin-]]
+== [.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:https://ci.jenkins.io/job/Plugins/job/testproject-plugin/job/master/badge/icon[image,height=20]#
+
+[[TestProjectPlugin-Prerequisites]]
+== Prerequisites
+
+. Have an active TestProject account which can be obtained for free at
+the https://testproject.io/[TestProject website].
+. At least one registered and running TestProject Agent.
+. A job (in your account) containing the tests that you wish to run.
+
+[[TestProjectPlugin-Step-by-stepguide]]
+== Step-by-step guide
+
+. Install the plugin.
+. Go to project Configure > TestProject.
+. Provide your TestProject API Key which can be
+obtained https://app.testproject.io/#/developers/api[here].
+
+[[TestProjectPlugin-Parameters]]
+=== Parameters
+
+In addition to the API key that needs to be provided once in global
+configuration when executing a job you will have to provide 3 additional
+parameters:
+
+* projectId - The ID of the project that contains the job you with to
+run.
+* jobId - The ID of the job that you with to run.
+* waitJobFinishSeconds - How many seconds should Jenkins build wait for
+the automation job to finish. If 0 is provided, Jenkins will not wait
+for TestProject to finish execution.
+
+____
+To get Project/Job IDs, use the context menu
+in https://app.testproject.io/[TestProject application]. +
+https://camo.githubusercontent.com/81d0ebc6a26d69b63f75a061b7af930c3011ef6f/68747470733a2f2f73746f726167652d7374617469632e7465737470726f6a6563742e696f2f6a656e6b696e732f636f70792d69642e706e67[[.confluence-embedded-file-wrapper]#image:https://camo.githubusercontent.com/81d0ebc6a26d69b63f75a061b7af930c3011ef6f/68747470733a2f2f73746f726167652d7374617469632e7465737470726f6a6563742e696f2f6a656e6b696e732f636f70792d69642e706e67[Copy
+ID]#]
+____
+
+ +
+
+Pipeline syntax
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+....
+runtpjob jobId: '<JOB_ID>', projectId: '<PROJECT_ID>', waitJobFinishSeconds: 180
+....
+
+[[TestProjectPlugin-Additionalinfo]]
+== Additional info
+
+Blog: https://blog.testproject.io/[https://blog.testproject.io]
+
+Forum: https://forum.testproject.io/[https://forum.testproject.io]
+
+YouTube: https://www.youtube.com/channel/UCEAPPxNvHT74Xj6Ixt28mNw
+
+ +
+
+ +

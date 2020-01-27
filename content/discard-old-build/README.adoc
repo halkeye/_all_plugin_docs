@@ -1,0 +1,100 @@
+[[DiscardOldBuildplugin-Developedby]]
+===== Developed by
+
+http://softwaretest.jp/labo/tech/labo-237/[[.confluence-embedded-file-wrapper]#image:docs/images/shift.png[image]#]
+
+This plugin provides a post-build step where you can discard old build
+results in detailed configuration (ex. keep only builds with specified
+status).
+
+[[DiscardOldBuildplugin-Summary]]
+== Summary
+
+* You can configure how to discard builds in more detail than the
+default 'Discard Old Build' function.
+** Other than # of builds and days, you can specify build status to
+discard/keep.
+** For older builds, you can configure interval to keep builds (once in
+a month, once in ten builds...).
+** You can also use logfile size to decide if delete a old build.
+
+[[DiscardOldBuildplugin-Usage]]
+== Usage
+
+[[DiscardOldBuildplugin-Basic]]
+=== Basic
+
+After installing this plugin, a new post-build step named 'Discard Old
+Builds' appears.
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/discardOldBuild_conf1.png[image]#
+
+'Days to keep builds' and 'Max # of builds to keep' work as same as
+Jenkins core function. +
+With checking statuses in 'Status to keep' section, Jenkins will keep
+the builds with selected statuses.
+
+* Last build / last stable build / last successful build are always
+kept.
+* If all the checkboxes are left unchecked, builds with any status are
+kept.
+
+[[DiscardOldBuildplugin-Advanced]]
+=== Advanced
+
+In advanced section, you can configure how to treat the builds which are
+older than the criteria specified in basic configuration. +
+For old builds, perhaps you don't want to keep all, but sometimes you
+want to keep some of them with less frequency.
+
+[[DiscardOldBuildplugin-Example1]]
+==== Example1
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/discardOldBuild_conf2.png[image]#
+
+This configuration shows:
+
+* Latest 10 builds are kept.
+* Except for the latest 10, one in 15 builds are kept(#1, #16, #31,...).
+
+[[DiscardOldBuildplugin-Example2]]
+==== Example2
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/discardOldBuild_conf3.png[image]#
+
+This configuration shows:
+
+* Builds within 30 days are kept.
+* For builds older than 30 days, only builds with unstable/failure are
+kept.
+
+[[DiscardOldBuildplugin-TODO]]
+== TODO
+
+* Add help text
+* Add dynamic adjust discard order of discard conditions
+
+[[DiscardOldBuildplugin-Changelog]]
+== Changelog
+
+[[DiscardOldBuildplugin-1.05(releasedJune27,2013)]]
+=== 1.05 (released June 27, 2013)
+
+* Add reg expression checker to discard build
+* Readjust the UI and code logic
+
+[[DiscardOldBuildplugin-1.04(releasedJune6,2013)]]
+=== 1.04 (released June 6, 2013)
+
+* Add logfile size checker to discard build
+
+[[DiscardOldBuildplugin-1.03(releasedApril12,2013)]]
+=== 1.03 (released April 12, 2013)
+
+* Fixed regression related with Jenkins 1.503
+(https://issues.jenkins-ci.org/browse/JENKINS-17528[JENKINS-17528])
+
+[[DiscardOldBuildplugin-1.0(releasedJanuary27,2013)]]
+=== 1.0 (released January 27, 2013)
+
+* Initial release.

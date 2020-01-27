@@ -1,0 +1,65 @@
+This plugin can be used for websocket connections only.
+
+For HTTP, TCP/UDP notification have a look at
+the https://wiki.jenkins.io/display/JENKINS/Notification+Plugin[Notification
+Plugin]
+
+[[Websocket.inNotificationPlugin-Description]]
+== Description
+
+The Websocket.in plugin sends the build status to a given websocket URL.
+It does this twice, once before and once after the build steps are
+performed. Even though the plugin is named Websocket.in, it should work
+with other websocket services just fine as well.
+
+[[Websocket.inNotificationPlugin-Configuration]]
+== Configuration
+
+There are 3 parameters which can be used to configure the Websocket.in
+plugin: Url, additional HTTP headers and an initial message.
+
+[[Websocket.inNotificationPlugin-URL(required)]]
+=== URL (required)
+
+The service https://www.websocket.in/[https://www.websocket.in] lets you
+define an own websocket URL which looks like: +
+wss://connect.websocket.in/*YOUR_CHANNEL_ID*?room_id=*YOUR_ROOM_ID*
+
+[[Websocket.inNotificationPlugin-AdditionalHttpheaders(optional)]]
+=== Additional Http headers (optional)
+
+This field allows to give additional http headers with the initial
+websocket request. This could be helpful for authentication. +
+The additional http headers must follow a format that is recognized by
+the class java.util.Properties.
+
+[[Websocket.inNotificationPlugin-Initialmessage(optional)]]
+=== Initial message (optional)
+
+If a value is given, it will be sent as the first message as soon as the
+websocket connection has been established. This could be helpful for
+authentication.
+
+[[Websocket.inNotificationPlugin-JobStatus]]
+== Job Status
+
+A compatible subset of the Notification Plugin in json format:
+
+[source,syntaxhighlighter-pre]
+----
+{
+    "name": "asgard",
+    "url": "job/asgard/",
+    "build": {
+        "full_url": "http://localhost:8080/job/asgard/18/",
+        "number": 18,
+        "phase": "COMPLETED",
+        "status": "SUCCESS",
+        "url": "job/asgard/18/",
+    }
+}
+----
+
+ +
+
+ +

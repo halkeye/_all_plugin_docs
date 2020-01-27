@@ -1,0 +1,189 @@
+The Seed project aims to help automating the generation and management
+of pipelines for branches of a project in Jenkins.
+
+[[SeedPlugin-Documentation]]
+== Documentation
+
+* Documentation is available on the
+https://github.com/jenkinsci/seed-plugin/wiki[Seed Wiki].
+* http://www.slideshare.net/DamienCoraboeuf/juc-2015-pipeline-scaling[JUC
+2015 London presentation]
+* http://www.slideshare.net/DamienCoraboeuf/brujug-jenkins-pipeline-scalability[BruJUG
+June 2016 presentation]
+
+[[SeedPlugin-Contributing]]
+== Contributing
+
+* Issues are managed in
+https://github.com/jenkinsci/seed-plugin/issues[GitHub]
+* Developing the Seed plug-in is documented in the
+https://github.com/jenkinsci/seed-plugin/wiki/Development[Wiki]
+
+[[SeedPlugin-Changelog]]
+== Change log
+
+[[SeedPlugin-2.1.4]]
+=== 2.1.4
+
+* https://github.com/jenkinsci/seed-plugin/issues/30[#30] Fix
+for Project seed job has null in Branch start name and Branch name
+
+[[SeedPlugin-2.1.3]]
+=== 2.1.3
+
+* https://github.com/jenkinsci/seed-plugin/issues/27[#27] -
+Customisation of path to the seed file
+* https://github.com/jenkinsci/seed-plugin/issues/29[#29] - Correction
+of regression
+
+[[SeedPlugin-1.1.0]]
+=== 1.1.0
+
+* Depends on Job DSL 1.50
+
+[[SeedPlugin-2.1.0]]
+=== 2.1.0
+
+* Depends on Job DSL 1.50
+
+[[SeedPlugin-2.0.0]]
+=== 2.0.0
+
+* Dropping the support for version 0.x
+* Version 1.x will be maintained until end of 2016
+
+[[SeedPlugin-1.0.0]]
+=== 1.0.0
+
+* Simpler, better documented - try the new Seed plug-in 1.0
+** https://github.com/jenkinsci/seed-plugin/wiki[Documentation]
+** https://github.com/jenkinsci/seed-plugin/wiki/Migration%20from%200.x[Migration
+from 0.x] (backward compatible)
+* Depends on Job DSL 1.46 or more recent
+* Depends on Jenkins 1.625.3 or more recent
+* Depends on Cloudbees Folder 5.11 or more recent
+* Depends
+on https://wiki.jenkins-ci.org/display/JENKINS/Matrix+Authorization+Strategy+Plugin[Matrix
+Authorization Strategy Plugin] 1.4 or more recent
+
+[[SeedPlugin-0.20.0]]
+=== 0.20.0
+
+* https://github.com/jenkinsci/seed-plugin/issues/23[#23] Ignoring tag
+related messages from BitBucket
+
+[[SeedPlugin-0.19.0]]
+=== 0.19.0
+
+* https://github.com/jenkinsci/seed-plugin/issues/18[#18] Delete
+workspaces in case of pipeline deletion
+* https://github.com/jenkinsci/seed-plugin/issues/20[#20] Branch Jobs
+generated incorrectly
+* https://github.com/jenkinsci/seed-plugin/issues/22[#22] Generation of
+a destructor job to delete branches
+
+[[SeedPlugin-0.18.0]]
+=== 0.18.0
+
+* https://github.com/jenkinsci/seed-plugin/issues/19[#19] Support for
+https://github.com/jenkinsci/seed-plugin/wiki/BitBucket[BitBucket Cloud
+web hooks] 
+
+[[SeedPlugin-0.17.0]]
+=== 0.17.0
+
+* https://github.com/jenkinsci/seed-plugin/issues/17[#17] Project
+configuration is now
+https://github.com/jenkinsci/seed-plugin/wiki/Configuration[cached]
+after generation - this allows to trigger events correctly when a
+project was generated with a class given as a parameter
+* *In order to benefit from the cache, a project and active branch seeds
+must be regenerated*
+
+[[SeedPlugin-0.16.0]]
+=== 0.16.0
+
+* Updated
+https://github.com/jenkinsci/seed-plugin/wiki/Configuration-parameters[documentation]
+of the configuration parameters
+* Introduced the *pipeline-start-auto* configuration parameter to
+disable the pipeline to start automatically upon pipeline generation
+
+[[SeedPlugin-0.15.0]]
+=== 0.15.0
+
+* https://github.com/jenkinsci/seed-plugin/issues/13[#13] Support
+credentials for the repository containing the pipeline libraries
+
+[[SeedPlugin-0.14.2&0.14.3]]
+=== 0.14.2 & 0.14.3
+
+* https://github.com/jenkinsci/seed-plugin/issues/14[#14] Webhook
+problem "Cannot find job in path with name"
+
+[[SeedPlugin-0.14.1]]
+=== 0.14.1
+
+* Added more traces in case of error like a job not being found
+
+[[SeedPlugin-0.14.0]]
+=== 0.14.0
+
+* https://github.com/jenkinsci/seed-plugin/issues/12[#12] - using a
+shell script instead of a Gradle step to launch to resolution of
+pipeline libraries
+
+[[SeedPlugin-0.13.0]]
+=== 0.13.0
+
+* https://github.com/jenkinsci/seed-plugin/issues/11[#11] - the computed
+SEED_BRANCH variable didn't escape the / character for custom naming
+strategies, causing issues with Git-based projects
+* https://github.com/jenkinsci/seed-plugin/issues/8[#8] - Auto refresh
+when using a version range for pipeline libraries
+
+[[SeedPlugin-0.12.0]]
+=== 0.12.0
+
+* https://github.com/jenkinsci/seed-plugin/issues/6[#6] - Github
+trigger: one seed definition change must trigger the seed event
+
+[[SeedPlugin-0.11.2]]
+=== 0.11.2
+
+* https://github.com/jenkinsci/seed-plugin/issues/4[#4] - Support
+for https://github.com/jenkinsci/seed-plugin/wiki/Branch-SCM-path[pipeline
+name different than branch path] - correction
+
+[[SeedPlugin-0.11.1]]
+=== 0.11.1
+
+* https://github.com/jenkinsci/seed-plugin/issues/2[#2] - Allow
+extensions on the project generator
+
+[[SeedPlugin-0.11.0]]
+=== 0.11.0
+
+* https://github.com/jenkinsci/seed-plugin/issues/4[#4] - Support for
+https://github.com/jenkinsci/seed-plugin/wiki/Branch-SCM-path[pipeline
+name different than branch path] - regression fixed in 0.11.2
+* https://github.com/jenkinsci/seed-plugin/issues/3[#3] - Support for
+https://github.com/jenkinsci/seed-plugin/wiki/Extensions[additional
+parameters]
+
+[[SeedPlugin-0.10.0]]
+=== 0.10.0
+
+* ﻿https://github.com/jenkinsci/seed-plugin/issues/1[#1] - correction
+for the declaration of dependencies
+
+[[SeedPlugin-0.9.0]]
+=== 0.9.0
+
+* Technical release to enable automated publication of the release from
+the https://jenkins.nemerosa.net/job/seed-plugin/[build]
+
+[[SeedPlugin-0.8.0]]
+=== 0.8.0
+
+* Initial published version

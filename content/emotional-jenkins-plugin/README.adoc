@@ -1,0 +1,20 @@
+This funny plugin changes the expression of Mr. Jenkins in the
+background when your builds fail.
+
+The plugin is maintained by http://d.hatena.ne.jp/masanobuimai/[Masanobu
+Imai].
+
+Once installed, you need to enable this on per-job basis.
+
+[[EmotionalJenkinsPlugin-Configuration]]
+== Configuration
+
+To enable this feature for a job, go to the job configuration page,
+click _Add post-build action_ and select _Emotional Jenkins_ from the
+list.
+
+[[EmotionalJenkinsPlugin-Screenshot]]
+== Screenshot
+
+[[EmotionalJenkinsPlugin-]]
+== [.confluence-embedded-file-wrapper]#image:docs/images/index.html.png[image]#

@@ -1,0 +1,152 @@
+[[ExportParametersPlugin-Description]]
+== Description
+
+This plugin can export Jenkins provided parameters to file with various
+formats.
+
+[[ExportParametersPlugin-Usage]]
+== Usage
+
+If you install this plugin, you can select *"Export parameters to file"*
+item from _Add build step_ dropdown list in job configuration.
+
+[cols=",",options="header",]
+|===
+|Field |Description
+|File path |The path of exported file.
+
+|Format |Exported file format. you can select one of them.
+
+|Keys |The list of parameter keys you want to export. they should be
+delimited by ",".
+
+|Use regexp |You can use regular expression as Keys if checked.
+|===
+
+[[ExportParametersPlugin-Contributedbuildparameters]]
+== Contributed build parameters
+
+[cols=",",options="header",]
+|===
+|Name |Description
+|EXPORT_PARAMS_FILE |The path to parameters file
+|EXPORT_PARAMS_FORMAT |The format of parameters file
+|===
+
+[[ExportParametersPlugin-Formats]]
+== Formats
+
+[cols=",",options="header",]
+|===
+|Name |Extension
+|http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Properties.html[Properties]
+|.properties
+
+|http://www.w3.org/XML/[XML] |.xml
+
+|http://www.json.org/[JSON] |.json
+
+|http://yaml.org/[YAML] |.yml
+|===
+
+[[ExportParametersPlugin-Exampleofexportedfile]]
+== Example of exported file
+
+[[ExportParametersPlugin-Parameters]]
+=== Parameters
+
+[width="100%",cols="50%,50%",options="header",]
+|===
+|Key |Value
+|PARAM_STRING |foobar
+|PARAM_BOOL |_checked_
+|PARAM_TEXT |orange +
+apple +
+grape
+|===
+
+[[ExportParametersPlugin-Properties]]
+=== Properties
+
+[source,syntaxhighlighter-pre]
+----
+#Mon Apr 03 23:00:00 JST 2014
+PARAM_TEXT=orange\napple\ngrape
+PARAM_BOOL=true
+PARAM_STRING=foobar
+----
+
+[[ExportParametersPlugin-XML]]
+=== XML
+
+[source,syntaxhighlighter-pre]
+----
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="PARAM_TEXT">orange
+apple
+grape</entry>
+<entry key="PARAM_BOOL">true</entry>
+<entry key="PARAM_STRING">foobar</entry>
+</properties>
+----
+
+[[ExportParametersPlugin-JSON]]
+=== JSON
+
+[source,syntaxhighlighter-pre]
+----
+[{"key":"PARAM_BOOL","value":"true"},{"key":"PARAM_STRING","value":"foobar"},{"key":"PARAM_TEXT","value":"orange\napple\ngrape"}]
+----
+
+[[ExportParametersPlugin-YAML]]
+=== YAML
+
+[source,syntaxhighlighter-pre]
+----
+- key: PARAM_BOOL
+  value: 'true'
+- key: PARAM_STRING
+  value: foobar
+- key: PARAM_TEXT
+  value: |-
+    orange
+    apple
+    grape
+----
+
+[[ExportParametersPlugin-License]]
+== License
+
+MIT License.
+
+[[ExportParametersPlugin-Versionhistory]]
+== Version history
+
+[[ExportParametersPlugin-Version1.9(10/13/2016)]]
+=== Version 1.9 (10/13/2016)
+
+* Fix JENKINS-38917: Version 1.8 stopped working with remote agents
+
+[[ExportParametersPlugin-Version1.8(07/26/2016)]]
+=== Version 1.8 (07/26/2016)
+
+* Contribute plugin specific parameters safely (Fix SECURITY-170)
+* Note that this plugin still exports safe parameters only.
+
+[[ExportParametersPlugin-Version1.5(07/29/2014)]]
+=== Version 1.5 (07/29/2014)
+
+* Fix JENKINS-23849: Relative path "/../" in "File path" are ignored
+* Ver. 1.2-1.4 was wrong release. Please ignore.
+
+[[ExportParametersPlugin-Version1.1(04/09/2014)]]
+=== Version 1.1 (04/09/2014)
+
+* Fix typo.
+
+[[ExportParametersPlugin-Version1.0(04/09/2014)]]
+=== Version 1.0 (04/09/2014)
+
+* First release.

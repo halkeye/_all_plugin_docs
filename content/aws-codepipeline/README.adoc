@@ -1,0 +1,297 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View AWS CodePipeline https://plugins.jenkins.io/aws-codepipeline[on
+the plugin site] for more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2018-06-25/#SECURITY-967[AWS
+Secret Key stored in plain text]
+
+[.conf-macro .output-inline]##https://aws.amazon.com/codepipeline/[AWS
+CodePipeline] is a continuous delivery service for fast and reliable
+application updates.##The AWS CodePipeline plugin for Jenkins provides a
+pre-build SCM and a post-build (publisher) step for your Jenkins
+project. It will poll for AWS CodePipeline jobs, and download input
+artifacts. When a build succeeds, it will compress the build artifacts
+and upload them to AWS CodePipeline.
+
+[[AWSCodePipelinePlugin-Setup]]
+== Set up
+
+Configure a build server running Jenkins. For your build server, it is
+recommended to create an Amazon EC2 instance running Jenkins. 
+
+*Note:* As a best practice, configure an EC2 instance profile rather
+than using AWS access and secret keys for your server applications. For
+more information,
+see https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-four-stage-pipeline.html#tutorials-four-stage-pipeline-prerequisites-jenkins-iam-role.
+
+[[AWSCodePipelinePlugin-Configurebuildproject]]
+=== Configure build project
+
+. Install the *AWS CodePipeline* plugin.
+. Open your project configuration, or create a new project.
+. In the *Source Code Management* section, select *AWS CodePipeline*.
+.. Fill out the required fields.
+. In the *Build Trigger* section, select *Poll SCM*.
+.. Define a schedule using cron syntax.
+. Configure your build step as you normally would.
+. In the *Post-build Actions* section, add *AWS CodePipeline Publisher*.
+.. Configure any output artifacts (see below).
+
+[[AWSCodePipelinePlugin-AWSCodePipelinePublisher]]
+=== AWS CodePipeline Publisher
+
+The publisher can upload zero to five output artifacts.
+
+If you don't need to upload output artifacts, don't add any output
+locations (but do add *AWS CodePipeline Publisher* as a Post-build
+action).
+
+To upload output artifacts, add an output location per artifact:
+
+* If the location is blank: the whole workspace will be compressed, and
+uploaded.
+* If the location is a directory: the directory will be compressed, and
+uploaded.
+* If the location is a normal file: the file will be uploaded as-is (no
+compression).
+
+[[AWSCodePipelinePlugin-Archiveformat]]
+==== Archive format
+
+For blank (workspace) or directory output locations, the plugin will use
+the same archive format used by the input artifacts. If the input
+archive type could not be determined, it will default to ZIP.
+
+Supported archive formats:
+
+* zip
+* tar
+* tar.gz
+
+[[AWSCodePipelinePlugin-License]]
+== License
+
+This plugin is licensed under Apache 2.0. See
+the https://github.com/awslabs/aws-codepipeline-plugin-for-jenkins/blob/master/LICENSE[LICENSE
+file] in the source repository for more information.
+
+[[AWSCodePipelinePlugin-BuildStatus]]
+== Build Status
+
+https://ci.jenkins.io/buildStatus/icon?job=Plugins/aws-codepipeline-plugin/master%20https://ci.jenkins.io/job/Plugins/job/aws-codepipeline-plugin/job/master/[[.confluence-embedded-file-wrapper]#image:https://jenkins.ci.cloudbees.com/buildStatus/icon?job=plugins/aws-codepipeline-plugin[image]#]
+
+[[AWSCodePipelinePlugin-Changelog]]
+== Changelog
+
+[[AWSCodePipelinePlugin-0.39(Sep132019)]]
+=== 0.39 (Sep 13 2019)
+
+* image:docs/images/add.svg[(plus)]
+Add eu-north-1 as supported region
+
+* image:docs/images/information.svg[(info)]
+Update AWS SDK to 1.11.631 +
+
+[[AWSCodePipelinePlugin-0.38(Jun272018)]]
+=== 0.38 (Jun 27 2018)
+
+* image:docs/images/error.svg[(error)]
+Update ZIP extraction validation code so that filenames starting with ./
+are not blocked +
+
+[[AWSCodePipelinePlugin-0.37(Jun252018)]]
+=== 0.37 (Jun 25 2018)
+
+* image:docs/images/error.svg[(error)] https://jenkins.io/security/advisory/2018-06-25/#SECURITY-967[SECURITY-967]
+- Use hudson.util.Secret to store secrets on config.xml
+* image:docs/images/information.svg[(info)]
+Update AWS SDK to 1.11.342
+
+[[AWSCodePipelinePlugin-0.36(Jun52018)]]
+=== 0.36 (Jun 5 2018)
+
+* image:docs/images/error.svg[(error)] Prevent
+input file from creating files outside work directory
+* image:docs/images/information.svg[(info)] Update
+commons-compress to 1.16.1
+
+[[AWSCodePipelinePlugin-0.35(Mar142018)]]
+=== 0.35 (Mar 14 2018)
+
+* image:docs/images/error.svg[(error)] Fix
+compatibility issue with Jenkins >= 2.110
+
+[[AWSCodePipelinePlugin-0.34(Feb212018)]]
+=== 0.34 (Feb 21 2018)
+
+* image:docs/images/add.svg[(plus)]   Add
+eu-west-3 as one of the supported regions
+* image:docs/images/information.svg[(info)] 
+ Dependency clean-up to reduce plugin size
+* image:docs/images/information.svg[(info)] 
+ Better distribution of parallel requests to aoid throttling issues
+* image:docs/images/information.svg[(info)] 
+ Update AWS SDK to 1.11.273
+
+[[AWSCodePipelinePlugin-0.33(Jul282017)]]
+=== 0.33 (Jul 28 2017)
+
+* image:docs/images/add.svg[(plus)] 
+ Add ap-northeast-2 and ap-south-1 as supported regions
+
+[[AWSCodePipelinePlugin-0.32(Jul132017)]]
+=== 0.32 (Jul 13 2017)
+
+* image:docs/images/add.svg[(plus)]  
+Fix backward incompatible issue of version 0.29
+
+[[AWSCodePipelinePlugin-0.31(Jul132017)]]
+=== 0.31 (Jul 13 2017)
+
+* image:docs/images/add.svg[(plus)]  
+ Fix failed tests on Windows and change LoggingHelper to handle null
+message. +
+
+[[AWSCodePipelinePlugin-0.29(Jul72017)]]
+=== 0.29 (Jul 7 2017)
+
+* image:docs/images/add.svg[(plus)] 
+ Add support to input artifact names for locations in publisher.
+
+[[AWSCodePipelinePlugin-0.28(Jun302017)]]
+=== 0.28 (Jun 30 2017)
+
+* image:docs/images/add.svg[(plus)] 
+ Add us-west-1/eu-west-2/ca-central-1 as supported new regions.
+
+[[AWSCodePipelinePlugin-0.27(Feb062017)]]
+=== 0.27 (Feb 06 2017)
+
+* image:docs/images/information.svg[(info)]
+  Improve validation error messages.
+
+[[AWSCodePipelinePlugin-0.26(Jan262017)]]
+=== 0.26 (Jan 26 2017)
+
+* image:docs/images/information.svg[(info)]
+  Increase max supported project name length to 50 characters.
+
+[[AWSCodePipelinePlugin-0.23(Dec082016)]]
+=== 0.23 (Dec 08 2016)
+
+* image:docs/images/add.svg[(plus)]
+  Add sa-east-1 as one of the supported regions.
+
+[[AWSCodePipelinePlugin-0.22(Dec012016)]]
+=== 0.22 (Dec 01 2016)
+
+* image:docs/images/add.svg[(plus)]
+ Add eu-central-1 as one of the supported regions.
+
+[[AWSCodePipelinePlugin-0.21(Nov072016)]]
+=== 0.21 (Nov 07 2016)
+
+* image:docs/images/error.svg[(error)]
+Fix a bug with initializing s3 client with proxy settings.
+
+[[AWSCodePipelinePlugin-0.20(Oct262016)]]
+=== 0.20 (Oct 26 2016)
+
+* image:docs/images/add.svg[(plus)]
+Add ap-southeast-2 as one of the supported regions.
+
+[[AWSCodePipelinePlugin-0.19(Oct252016)]]
+=== 0.19 (Oct 25 2016)
+
+* image:docs/images/information.svg[(info)]
+ Updating the Jenkins repository URL.
+* image:docs/images/information.svg[(info)]
+ Upgrade AWS Java SDK to 1.11.44.
+* image:docs/images/add.svg[(plus)]
+ Add us-east-2 as one of the supported regions
+* image:docs/images/add.svg[(plus)]
+ Add ap-southeast-1 as one of the supported regions
+* image:docs/images/error.svg[(error)]
+ Moving acknowledgeJob call to checkout method.
+
+[[AWSCodePipelinePlugin-0.17(Aug102016)]]
+=== 0.17 (Aug 10 2016)
+
+* image:docs/images/error.svg[(error)]
+Upgrade AWS Java SDK to 1.11.24 (resolves memory leak in version
+1.11.3).
+
+[[AWSCodePipelinePlugin-0.16(Jul212016)]]
+=== 0.16 (Jul 21 2016)
+
+* image:docs/images/add.svg[(plus)]
+Add support for large output artifacts.
+* image:docs/images/add.svg[(plus)]
+Cleanup temporary files after use.
+* image:docs/images/error.svg[(error)]
+Fail AWS CodePipeline jobs when the upload of output artifacts fails.
+
+[[AWSCodePipelinePlugin-0.15(Jul52016)]]
+=== 0.15 (Jul 5 2016)
+
+* image:docs/images/error.svg[(error)]
+Fix no @DataBoundConstructor issue.
+* image:docs/images/add.svg[(plus)]
+Upload normal files as-is (no compression).
+* image:docs/images/add.svg[(plus)]
+Include plugin version in User-Agent header.
+
+[[AWSCodePipelinePlugin-0.14(Jun232016)]]
+=== 0.14 (Jun 23 2016)
+
+* image:docs/images/add.svg[(plus)]
+Add support for EU-WEST-1.
+* image:docs/images/information.svg[(info)]
+Upgrade AWS Java SDK to 1.11.3.
+
+[[AWSCodePipelinePlugin-0.13(May172016)]]
+=== 0.13 (May 17 2016)
+
+* image:docs/images/add.svg[(plus)]
+Add jitter to PollForJobs calls to reduce chances of being throttled.
+* image:docs/images/add.svg[(plus)]
+Turn on Jelly's XSS prevention.
+* image:docs/images/error.svg[(error)]
+Fix expired token error for builds that get queued for a while.
+* image:docs/images/error.svg[(error)]
+Fix backslashes getting duplicated when saving job configuration.
+
+[[AWSCodePipelinePlugin-0.12(Mar252016)]]
+=== 0.12 (Mar 25 2016)
+
+* image:docs/images/information.svg[(info)]
+Update the AWS CodePipeline Publisher schema, to make it easier to use
+with the Job DSL plugin.
+
+[[AWSCodePipelinePlugin-0.11(Nov232015)]]
+=== 0.11 (Nov 23 2015)
+
+* image:docs/images/information.svg[(info)]
+Follow symbolic links when compressing outputs.
+
+[[AWSCodePipelinePlugin-0.10(Nov62015)]]
+=== 0.10 (Nov 6 2015)
+
+* image:docs/images/information.svg[(info)]
+Update the plugin's wiki page link.
+
+[[AWSCodePipelinePlugin-0.9(Nov52015)]]
+=== 0.9 (Nov 5 2015)
+
+* image:docs/images/information.svg[(info)]
+Prepare plugin to be hosted in Jenkins Update Center.

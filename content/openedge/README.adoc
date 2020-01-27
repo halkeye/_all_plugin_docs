@@ -1,0 +1,81 @@
+Configure https://www.progress.com/openedge[OpenEdge ABL] tools location
+on Jenkins nodes.
+
+[[OpenEdgePlugin-Whatitdoes]]
+== What it does
+
+During a build, this plugin will:
+
+* Export the DLC environment variable, pointing to the installed
+OpenEdge tool
+* Add the path `+$DLC/bin+` to the `+PATH+`, so that the tools are
+available during the build
+
+[[OpenEdgePlugin-Setup]]
+== Setup
+
+[[OpenEdgePlugin-Globalconfiguration]]
+=== Global configuration
+
+. In the tools settings (Manage Jenkins → Global Tool Configuration),
+find the "OpenEdge Installations" section and click "Add OpenEdge".
+. Enter a name, e.g. "OpenEdge 12.0" — the name itself has no
+significance, but will be displayed to users during job configuration
+. Type the installation directory (or leave it blank if OpenEdge is not
+installed on the master server)
+
+[[OpenEdgePlugin-Nodeconfiguration]]
+=== Node configuration
+
+. In the node settings (select node → Configuration), check "Tools
+location" (if unchecked)
+. Each OpenEdge installation configured globally can be overridden in
+the slave
+
+[[OpenEdgePlugin-Per-jobconfiguration]]
+=== Per-job configuration
+
+[[OpenEdgePlugin-Freestyle]]
+==== Freestyle
+
+. In a job's configuration, find the "Build environment" section
+. Select the "Set up OpenEdge" checkbox
+. Select the OpenEdge version you want to use when this job is built
+
+[[OpenEdgePlugin-Pipeline]]
+==== Pipeline
+
+As with any other type of Tool Installer, you can use the `+tool+` step
+to inject the DLC variable. For example:
+
+[cols="<",]
+|===
+|`+// Run on an agent where we want to use OpenEdge+` +
+`+node {+` +
+`+    +``+// Define variable with OpenEdge 12.0 install location+` +
+`+    +``+def root = tool name: +``+'OpenEdge 12.0'+``+, type: +``+'openedge'+` +
+  +
+`+    +``+// Or export DLC variable pointing to the directory where OE is installed+` +
+`+    +``+withEnv(["DLC=${tool name: 'OpenEdge-12.0', type: 'openedge'}"+``+]) {+` +
+`+        +``+sh +``+'echo $DLC'+` +
+`+    +``+}+` +
+`+}+`
+|===
+
+[[OpenEdgePlugin-Versionhistory]]
+== Version history
+
+[[OpenEdgePlugin-Version0.9(June6th,2019)]]
+=== Version 0.9 (June 6th, 2019)
+
+* Just code cleanup
+
+[[OpenEdgePlugin-Version0.8(June6th,2019)]]
+=== Version 0.8 (June 6th, 2019)
+
+* First release available in update center
+
+[[OpenEdgePlugin-Version0.5(circa2014)]]
+=== Version 0.5 (circa 2014)
+
+* Initial release

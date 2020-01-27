@@ -1,0 +1,54 @@
+This plugin allows you to output a simple banner during the build.
+
+[[Figletplugin-Configuration]]
+== Configuration
+
+[[Figletplugin-Projectconfiguration]]
+=== Project configuration
+
+Add a Figlet Buildstep to your list of build steps and fill in the
+message you want printed.
+
+[[Figletplugin-OpenIssues]]
+==== Open Issues
+
+[[refresh-module--1341398033]]
+[[refresh--1341398033]][[jira-issues--1341398033]]
+T
+
+Key
+
+Summary
+
+Assignee
+
+Reporter
+
+P
+
+Status
+
+Resolution
+
+Created
+
+Updated
+
+Due
+
+[.refresh-action-group]# #
+
+[[refresh-issues-loading--1341398033]]
+[.aui-icon .aui-icon-wait]#Loading...#
+
+[#refresh-issues-button--1341398033]##
+[#refresh-issues-link--1341398033]#Refresh#
+[#error-message--1341398033 .error-message .hidden]# #
+
+[[Figletplugin-VersionHistory]]
+== Version History
+
+[[Figletplugin-0.1(April5,2014)]]
+=== 0.1 (April 5, 2014)
+
+* Initial release

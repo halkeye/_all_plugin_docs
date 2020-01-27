@@ -1,0 +1,70 @@
+This plugin allows SCM and Build integration for GeneXus projects 
+
+Offers support for https://genexus.com/[GeneXus] projects:
+
+* Register GeneXus installations (for varied versions and
+configurations)
+* Use http://gxserver.com/[GeneXus Server] as SCM (checkout, poll for
+changes and update local knowledge base)
+* Build GeneXus Knowledge Bases (using eithe generic MSBuild steps, or
+GeneXus-specific build steps)
+
+[[GeneXusPlugin-Usage]]
+== Usage
+
+[[GeneXusPlugin-GeneXusInstallations]]
+=== GeneXus Installations
+
+After installing GeneXus Plugin, go to "Manage Jenkins" / "Global Tool
+Configuration", look for the "GeneXus" section and register the GeneXus
+installations you want.
+
+For example, you may want to register a GeneXus installation at
+"C:\Program Files (x86)\GeneXus\GeneXus15", naming it as "GeneXus v15":
+
+ 
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/GXinst.png[image,width=823,height=399]#
+
+ 
+
+Click"Add GeneXus" if you want to register multiple installations (eg:
+for other GeneXus versions).
+
+Many GeneXus-related operations make use of the MSBuild engine (eg:
+checkout, update, build). Clicking on "Advanced Options" you may select
+the MSBuild installation you want to use with a particular GeneXus
+installation.
+
+[[GeneXusPlugin-SourceCodeManagement(SCM)]]
+=== Source Code Management (SCM)
+
+While creating or editing the configuration for a Jenkins project, on
+the Source Code Management section you may select "GeneXus Server" and
+fill the configuration options and properties. You may click the help
+icons for further help on each of these options.
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/GXscm.png[image,width=950,height=416]#
+
+[[GeneXusPlugin-BuildSteps]]
+=== Build Steps
+
+At the Build section, the "Add build step" button will offer a "Build
+GeneXus KB" options.
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/GXaddstep.png[image,width=957,height=192]#
+
+After selecting that option, you may configure the build options. Once
+again, the help icons provide additional info on each field.
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/GXbuildstep.png[image,width=950,height=369]#
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 

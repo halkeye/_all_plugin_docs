@@ -1,0 +1,19 @@
+[[VSTeamServicesContinuousDeploymentPlugin-Summary]]
+== Summary
+
+The use of this plugin is now *deprecated*. The functionality of this
+plugin has been moved to
+https://wiki.jenkins-ci.org/display/JENKINS/Team+Foundation+Server+Plugin[TFS
+plugin] with enhanced functionality. 
+
+ +
+
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-962[VS Team
+Services Continuous Deployment Plugin stores credentials in plain text]

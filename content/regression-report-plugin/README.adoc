@@ -1,0 +1,17 @@
+[[RegressionReportPlugin-RegressionReportPlugin]]
+== Regression Report Plugin
+
+This plugin sends a mail if your test cases find regression (new
+failure).
+
+[[RegressionReportPlugin-ScreenShot]]
+=== Screen Shot
+
+[.confluence-embedded-file-wrapper]#image:https://raw.github.com/jenkinsci/regression-report-plugin/master/screenshot.png[image]#
+
+[[RegressionReportPlugin-History]]
+=== *History*
+
+See
+https://github.com/jenkinsci/regression-report-plugin#changelog[README.md]
+for detail.

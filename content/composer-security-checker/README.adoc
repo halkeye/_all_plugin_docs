@@ -1,0 +1,30 @@
+[.confluence-embedded-file-wrapper]#image:docs/images/Capture_d’écran_2014-03-25_à_21.06.06.png[image]#
+
+[[ComposerSecurityCheckerPlugin-forsetupproxy:]]
+== for setup proxy :
+
+-> http://127.0.0.1:8080/manage[Administrer Jenkins]
+
+-> http://127.0.0.1:8080/configure[Configurer le système] 
+
+[.confluence-embedded-file-wrapper]#image:docs/images/Capture_d’écran_2014-03-25_à_21.05.35.png[image]#
+
+[[ComposerSecurityCheckerPlugin-consoleout:]]
+== *console out :*
+
+============================================================
+
+Composer Security Check :
+
+composer file: /var/lib/jenkins/jobs/test
+Project/workspace/composer.lock +
+Security Report +
+===============
+
+No known* vulnerabilities detected.
+
+* Disclaimer: This checker can only detect vulnerabilities that are
+referenced +
+in the SensioLabs security advisories database.
+
+============================================================

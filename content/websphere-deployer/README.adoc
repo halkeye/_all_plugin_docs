@@ -1,0 +1,275 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View WebSphere Deployer
+https://plugins.jenkins.io/websphere-deployer[on the plugin site] for
+more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-12-17/#SECURITY-1581[SSL/TLS
+certificate validation globally and unconditionally disabled]
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-956[Credentials
+stored in plain text]
+* https://jenkins.io/security/advisory/2019-12-17/#SECURITY-1371[CSRF
+vulnerability and missing permission checks]
+* https://jenkins.io/security/advisory/2020-01-29/#SECURITY-1719[XXE
+vulnerability]
+
+This is a collection of two separate plugins that provide deployment
+functionality to most versions of IBM WebSphere Application Server, IBM
+WebSphere Portal and IBM WebSphere Liberty Profile.Please add comments
+if your issues are addressed on your version of WebSphere, note the
+fixes proposed in the Change Log below.
+
+[[WebSphereDeployerPlugin-PluginFeatures]]
+== Plugin Features
+
+* Deployment to a running remote or local instance of WebSphere 7.0.x -
+9.0.x 
+** Note: WebSphere 6.0.x - WebSphere 8.0.x (4/30/2018) is no longer
+supported by IBM
+* Deployment to a running remote or local instance of WebSphere Liberty
+Edition 8.x.x
+* Support for deployments when SSL is activated on WebSphere (Global
+Security)
+* Support for most versions of WebSphere (Portal,Liberty,ND,Extreme
+Scale, Express, Standard, etc...)
+* Support for updating JSR286/JSR186 Portlets
+* Support for deploying to different WebSphere instances/types per build
+* Support for cluster, node, cell, and server level deployments
+* Support for pre-compiling JSPs on WebSphere during deployment (When
+stress testing as part of build process)
+* Support for disabling JSP reloading (When stress testing as part of
+build process)
+* Support for not starting application after deployment
+* Support for updating an existing application (to prevent losing
+application settings after redeployment)
+* Supports fully stopping, uninstalling, installing and starting an
+application during deployment process
+* Support for using a single deployment manager across multiple clusters
+or servers
+* Support for virtual hosts when deploying EAR files
+* Smart detection of existing deployed application state (to prevent
+failures when a system admin stops your application without you knowing)
+
+[[WebSphereDeployerPlugin-FrequentlyAskedQuestions(FAQs)]]
+== Frequently Asked Questions (FAQs)
+
+See the
+most https://wiki.jenkins.io/display/JENKINS/Frequently+Asked+Questions[frequently
+asked questions] and issues
+
+[[WebSphereDeployerPlugin-CommonConfigurations]]
+== *Common Configurations*
+
+Scenario 1: Single instance of WebSphere
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/image2018-5-4_21:43:14.png[image,width=300]#
+
+Scenario 2: A clustered deployment on WebSphere ND
+
+** Note: Same application with the same context root can be +
+deployed using the same deployment manager as long as +
+you use different application names in the job configuration **
+
+[.confluence-embedded-file-wrapper .confluence-embedded-manual-size]#image:docs/images/image2018-5-4_21:36:48.png[image,width=300]#
+
+ +
+
+Deploying portlets to IBM WebSphere Portal (Updates existing deployed
+portlets, themes and skins are not supported) +
+Deploying to
+http://wiki.jenkins-ci.org/display/JENKINS/IBM+WebSphere+Configuration[IBM
+WebSphere Application Server] +
+Deploying to
+https://wiki.jenkins-ci.org/display/JENKINS/IBM+WebSphere+Liberty+Configuration[IBM
+WebSphere Liberty Server]
+
+[[WebSphereDeployerPlugin-RequiredLibrariesForDeploymentsToIBMWebSphereApplicationServer]]
+=== Required Libraries For Deployments To IBM WebSphere Application Server
+
+[cols=",,,",options="header",]
+|===
+|Jar File |Source Location |Destination |Required
+|com.ibm.ws.admin.client_*.jar |$WAS_INSTALL_ROOT/runtimes
+|$USER_HOME/.jenkins/plugins/websphere-deployer/WEB-INF/lib |Yes
+
+|com.ibm.ws.orb_*.jar |$WAS_INSTALL_ROOT/runtimes
+|$USER_HOME/.jenkins/plugins/websphere-deployer/WEB-INF/lib |Yes
+(otherwise 'No' if running under IBM J9 JRE, WAS v7 doesn't need it
+either)
+
+|com.ibm.ws.security.crypto.jar |$WAS_INSTALL_ROOT/plugins
+|$USER_HOME/.jenkins/plugins/websphere-deployer/WEB-INF/lib |Yes (for
+v1.6.0+ of this plugin)
+
+|com.ibm.ws.webservices.thinclient_*.jar |$WAS_INSTALL_ROOT/runtimes
+|$USER_HOME/.jenkins/plugins/websphere-deployer/WEB-INF/lib |Maybe
+(Depends if application uses web services)
+|===
+
+[[WebSphereDeployerPlugin-RequiredLibrariesForDeploymentsToIBMWebSphereLibertyProfile]]
+=== Required Libraries For Deployments To IBM WebSphere Liberty Profile
+
+[cols=",,,",options="header",]
+|===
+|Jar File |Source Location |Destination |Required
+|com.ibm.websphere.appserver.api.basics_*.jar
+|$LIBERTY_INSTALL_ROOT/dev/api/ibm
+|$USER_HOME/.jenkins/plugins/websphere-deployer/WEB-INF/lib |Yes
+
+|com.ibm.websphere.appserver.api.endpoint_*.jar
+|$LIBERTY_INSTALL_ROOT/dev/api/ibm
+|$USER_HOME/.jenkins/plugins/websphere-deployer/WEB-INF/lib |Yes
+
+|com.ibm.websphere.appserver.api.restConnector_*.jar
+|$LIBERTY_INSTALL_ROOT/dev/api/ibm
+|$USER_HOME/.jenkins/plugins/websphere-deployer/WEB-INF/lib |Yes
+
+|restConnector.jar |$LIBERTY_INSTALL_ROOT/clients
+|$USER_HOME/.jenkins/plugins/websphere-deployer/WEB-INF/lib |Yes
+|===
+
+[[WebSphereDeployerPlugin-IssuesorFeatureRequests]]
+====  +
+Issues or Feature Requests
+
+[.static-jira-issues_count .conf-macro .output-block]#
+[.aui-icon .aui-icon-wait .issue-placeholder]# # Getting issues... #
+
+[[WebSphereDeployerPlugin-Roadmap]]
+==== Roadmap
+
+* Add Pipeline Support
+* Add support for Jenkins slaves
+* [line-through]*Add rollback support for install/update failures to
+prevent breaking applications for QA/UAT team +
+*
+* [line-through]*Add promotion support for other environments
+(QA,STAGE,PRE-PROD, etc.) without repackaging EAR/WAR*
+* [line-through]*Add support for multiple target deployments*
+* Fix path issue when locating artifacts to deploy
+* Provide support for Liberty Profile (support confirmed, will be
+available soon)
+* Provide support for EAR/WAR/WAB/OSGI deployments to Liberty Profile
+(support confirmed, will be available soon)
+* Remove external dependency on client jars for each configuration (to
+simplify initial configuration) (not possible)
+* Send notifications when application fails to start (outside of build
+process)
+* Add cluster support (release v1.3)
+* Support for WAR deployments on WebSphere Application Servers (Full
+Profile)
+
+[[WebSphereDeployerPlugin-ChangeLog]]
+==== Change Log
+
+[[WebSphereDeployerPlugin-Version1.6.0(release)]]
+===== Version 1.6.0 (release)   
+
+Added support for earlier versions of Jenkins (version 1.608)  +
+Added support for listing server targets +
+Fixes for multithreading to speed up deployments +
+Includes all beta changes listed below
+
+[[WebSphereDeployerPlugin-Version1.4.8(beta)-WASFullProfileUpdates]]
+===== Version 1.4.8 (beta) - WAS Full Profile Updates 
+
+Option to trust SSL certificates and hostnames (fix for PKIX issues) +
+Attempt to allow for deployment across multiple environments
+
+[[WebSphereDeployerPlugin-Version1.4.4(beta)-WASFullProfileUpdates]]
+===== Version 1.4.4 (beta) - WAS Full Profile Updates
+
+Fix for virtual host configuration when deploying EAR artifacts +
+Added support for SharedLib when deploying EAR artifacts
+
+[[WebSphereDeployerPlugin-Version1.4.3(beta)-WASFullProfileUpdates]]
+===== Version 1.4.3 (beta) - WAS Full Profile Updates
+
+Added support for virtual host configuration when deploying EAR
+artifacts
+
+[[WebSphereDeployerPlugin-Version1.4.1(beta)-WASFullProfileUpdates]]
+===== Version 1.4.1 (beta) - WAS Full Profile Updates
+
+Fix for those of us who don't use global security +
+Attempt to fix ObjectName issue (Appears to be 2 classloaders loading
+the ObjectName, who knows why this is happening on some machines) +
+Support for deployments when build is unstable
+
+[[WebSphereDeployerPlugin-Version1.4.0(beta)-WASFullProfileUpdates]]
+===== Version 1.4.0 (beta) - WAS Full Profile Updates
+
+Added reloading support +
+Fixed JSP reloading issue +
+Fixed classloader order bug +
+Added classloader policy suppoort +
+Added context override for generated EARs +
+Added support for multiple target deployments (cluster or multiple
+nodes) +
+Changed UI layout
+
+[[WebSphereDeployerPlugin-Version1.3.4(release)-WASFullProfileUpdates]]
+===== Version 1.3.4 (release) - WAS Full Profile Updates
+
+Several bug fixes and enhancements (see details below) +
+Added "operations" to allow for either updating or complete
+re-installation of artifacts +
+Added support for path variables (contribution) +
+Tested support for updating Portlets on a remote WebSphere Portal
+Instance
+
+[[WebSphereDeployerPlugin-Version1.3.3(beta)-WASFullProfileUpdates]]
+===== Version 1.3.3 (beta) - WAS Full Profile Updates
+
+Disabled host verification for complex deployment environments. +
+Provided option for verbose logging.
+
+[[WebSphereDeployerPlugin-Version1.3.2(beta)-WASFullProfileUpdates]]
+===== Version 1.3.2 (beta) - WAS Full Profile Updates
+
+Added more connector options. +
+Fixed SSL caching so multiple deployments to different servers should
+work.
+
+[[WebSphereDeployerPlugin-Version1.3.1(beta)-WASFullProfileUpdates]]
+===== Version 1.3.1 (beta) - WAS Full Profile Updates
+
+Added support for updating applications instead of complete
+reinstallation of artifacts.
+
+[[WebSphereDeployerPlugin-Version1.3(beta)-WASFullProfileUpdates]]
+===== Version 1.3 (beta) - WAS Full Profile Updates
+
+Fix for generated EARs +
+Java EE7 support +
+Timeout parameter for large EAR deployments (contribution) +
+Classloader policy support +
+Context fix for generated EAR (contribution) +
+WebSphere ND support when deploying through Deployment Manager +
+Cluster support (experimental)
+
+[[WebSphereDeployerPlugin-Version1.2-Liberty/WASFullProfileUpdates]]
+===== Version 1.2 - Liberty / WAS Full Profile Updates
+
+Support for WebSphere Liberty Profile +
+Fixed path issues with WebSphere Application Server (full profile)
+
+[[WebSphereDeployerPlugin-Version1.1]]
+===== Version 1.1
+
+Initial release performed
+
+[[WebSphereDeployerPlugin-Version1.0]]
+===== Version 1.0
+
+Beta Testing Passed for WebSphere v8.5.5 for both remote and local
+deployments

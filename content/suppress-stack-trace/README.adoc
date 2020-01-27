@@ -1,0 +1,51 @@
+This plugin prevents the stack trace reported by Jenkins when a
+processing fails unexpectedly. This allows security sensitive
+deployments of Jenkins to minimize the information revealed to
+unprivileged/anonymous users.
+
+With this plugin installed, the error message sent to the browser will
+only include the UUID generated for each error and no stack trace
+(unless the user is already an administrator, in which case the stack
+trace will be shown like Jenkins normally does.) The actual stack trace
+gets sent to the `+java.util.logging+` loggers, which normally gets
+printed to the stderr of the Jenkins master JVM, as well as the `+/log+`
+in the Jenkins web UI. Administrator can look up this UUID in these logs
+to determine the exact stack trace.
+
+[[SuppressStackTracePlugin-Changelog]]
+== Changelog
+
+[[SuppressStackTracePlugin-Version1.5(July6,2016)]]
+=== Version 1.5 (July 6, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-36301[JENKINS-36301]
+Update to the new Parent POM
+
+[[SuppressStackTracePlugin-Version1.4(Aug11,2015)]]
+=== Version 1.4 (Aug 11, 2015)
+
+* Parameters in log message were accidentally reversed.
+
+[[SuppressStackTracePlugin-Version1.3(Oct20,2014)]]
+=== Version 1.3 (Oct 20, 2014)
+
+* Newer Jenkins baseline.
+* Better logging.
+
+[[SuppressStackTracePlugin-Version1.2(Aug27,2013)]]
+=== Version 1.2 (Aug 27, 2013)
+
+* suppress socket disconnection errors, as new versions of Jenkins will
+also do
+(https://issues.jenkins-ci.org/browse/JENKINS-10524[JENKINS-10524])
+
+[[SuppressStackTracePlugin-Version1.1(Apr30,2013)]]
+=== Version 1.1 (Apr 30, 2013)
+
+* unwrapped `+AccessDeniedException+` (i.e. “need to log in”) was not
+correctly handled
+
+[[SuppressStackTracePlugin-Version1.0(Apr29,2013)]]
+=== Version 1.0 (Apr 29, 2013)
+
+* Initial version

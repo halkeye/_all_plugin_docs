@@ -1,0 +1,5 @@
+Contribute slave labels from environment variable available on slave.
+
+Check _Contribute labels from environment variable_ on slave config page
+to add content of `+JENKINS_SLAVE_LABELS+` variable as additional label
+atoms.

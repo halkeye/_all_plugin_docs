@@ -1,0 +1,26 @@
+This plugin makes it easy to upgrade downstream projects when you
+release a new version via
+https://github.com/fabric8-updatebot/updatebot[UpdateBot]
+
+[[UpdateBotPlugin-Background]]
+== Background
+
+The aim of the UpdateBot plugin is to automatically raise Pull Requests
+on downstream projects whenever you perform a new release of a Jenkins
+plugin, maven artefact, npm package or go based library or microservice.
+
+[[UpdateBotPlugin-Configuration]]
+== Configuration
+
+Refer to
+the https://github.com/jenkinsci/updatebot-plugin/blob/master/readme.md[README] in
+the plugin repository or the
+https://github.com/fabric8-updatebot/updatebot#configuration[UpdateBot
+configuration guide]
+
+[[UpdateBotPlugin-Releases]]
+=== Releases
+
+Refer to
+the https://github.com/jenkinsci/updatebot-plugin/blob/master/CHANGELOG.md[CHANGELOG] in
+the plugin repository

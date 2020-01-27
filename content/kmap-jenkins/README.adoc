@@ -1,0 +1,69 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-1055[CSRF
+vulnerability and missing permission check allow SSRF]
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-1056[Credentials
+stored in plain text]
+
+Publish mobile applications to your Keivox KMAP Private Mobile App Store
+http://www.keivox.com/[http://www.keivox.com]
+
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-1055[CSRF
+vulnerability and missing permission check allow SSRF]
+* https://jenkins.io/security/advisory/2019-04-03/#SECURITY-1056[Credentials
+stored in plain text]
+
+[[KeivoxKMAPPrivateMobileAppStorePlugin-InstallingtheKeivoxKMAPplugin]]
+== Installing the Keivox KMAP plugin
+
+You can install the plugin either through the Jenkins plugin
+administration or manually.
+
+[[KeivoxKMAPPrivateMobileAppStorePlugin-ConfiguringtheGlobalSettings]]
+== *Configuring the Global Settings*
+
+Go to _Manage Jenkins_, _Configure System_.
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/configure_system.png[image]#
+
+If the plugin has been installed properly, you should see a section
+called _Kmap Plugin_.
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/kmap_section.png[image]#
+
+To avoid configuring the URL and credentials of your KMAP Private Mobile
+App Store in every job, you may configure them in the global settings.
+They will be automatically pre-configured in every job when you add the
+step to use the Keivox KMAP Plugin.
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/kmap_global_settings.png[image]#
+
+[[KeivoxKMAPPrivateMobileAppStorePlugin-ConfiguringaBuildtousetheKeivoxKMAPPlugin]]
+== Configuring a Build to use the Keivox KMAP Plugin
+
+Create a new build, give it a job name, and select the type of build and
+click OK. +
+If the plugin has been installed, you will be able to add an step called
+_Kmap Plugin_.
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/step_kmap_plugin.png[image]#
+
+Once added, you can configure the different parameters to be used with
+your KMAP Private Mobile App Store. Check the help buttons to get
+specific information and format for every field. Before saving the job,
+we recommend that you use the option _Test Connection_ to verify the
+connectivity with your KMAP Private Mobile App Store.
+
+[.confluence-embedded-file-wrapper .image-center-wrapper]#image:docs/images/build_settings_kmap_plugin.png[image]#

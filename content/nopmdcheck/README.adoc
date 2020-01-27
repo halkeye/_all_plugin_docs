@@ -1,0 +1,13 @@
+This plugin checks the keyword 'NOPMD' in your codes.
+
+'NOPMD' is a evil word to throw off PMD's checking(detail:
+http://pmd.sourceforge.net/suppressing.html#NOPMD). +
+If using this plugin with
+https://wiki.jenkins-ci.org/display/JENKINS/PMD+Plugin[PMD Plugin], you
+can 'double-check' sources.
+
+[[nopmdcheckPlugin-VersionHistory]]
+== Version History
+
+[[nopmdcheckPlugin-Version0.9(Oct26,2012)]]
+=== Version 0.9 (Oct 26, 2012)

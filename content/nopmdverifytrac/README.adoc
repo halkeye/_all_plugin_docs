@@ -1,0 +1,36 @@
+When you use Trac to tracking issues, this plugin makes a report about
+whether 'NOPMD' in your codes are right.
+
+[[nopmdverifytracPlugin-Howtousethisplugin?]]
+== How to use this plugin ?
+
+. You should install XML-RPC to your Trac, see
+http://trac-hacks.org/wiki/XmlRpcPlugin.
+. A member in your project should write Trac's ticket-id at the same
+line including 'NOPMD'.
++
+*Foo.java*
+
+[source,syntaxhighlighter-pre]
+----
+public void hoge(){
+    something.wrongMethod(); //NOPMD #251
+}
+----
+. And he or she writes "why using 'NOPMD' " into this ticket(i.e. 251 in
+the above example).
+. This plugin scans him or her code. And it connects to Tracand checks
+that the ticket is closed. If this plugin finds 'NOPMD' without
+ticket-id or finds ticket-id but this ticket isn't closed, this plugin
+report that this 'NOPMD' is illegal.
+
+[[nopmdverifytracPlugin-ScreenShot]]
+=== Screen Shot
+
+[.confluence-embedded-file-wrapper]#image:docs/images/capture01.png[image]#
+
+[[nopmdverifytracPlugin-VersionHistory]]
+== Version History
+
+[[nopmdverifytracPlugin-Version0.9(Oct26,2012)]]
+=== Version 0.9 (Oct 26, 2012)

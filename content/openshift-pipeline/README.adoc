@@ -1,0 +1,12 @@
+ +
+[.conf-macro .output-inline]##
+
+Allows users to create jobs, pipelines, and workflows that operate with
+a Kubernetes based OpenShift server.
+https://github.com/openshift/jenkins-plugin[Source Code]
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+This plugin currently requires JDK 1.8 based on its maven dependencies
+requirement of 1.8.

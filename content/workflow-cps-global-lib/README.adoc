@@ -1,0 +1,253 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2019-07-31/#SECURITY-1422[Missing
+permission check]
+
+[.conf-macro .output-inline]#Provides capability to extend pipeline
+scripts using shared libraries.#
+
+When you have multiple Pipeline jobs, you often want to share common
+parts of the Pipeline scripts to keep them DRY. A typical use case is
+that you have many projects that are built in the similar way.
+
+This plugin adds that functionality by allowing you to create “shared
+library script” SCM repositories. It can be used in two modes:
+
+* A legacy mode in which there is a single Git repository hosted by
+Jenkins itself, to which you may push changes;
+* A more general mode in which you may define libraries hosted by any
+SCM in a location of your choice.
+
+Comprehensive user documentation can be found
+https://jenkins.io/doc/book/pipeline/shared-libraries/[in the Pipeline
+chapter of the User Handbook].
+
+A component of
+https://wiki.jenkins.io/display/JENKINS/Pipeline+Plugin[Pipeline
+Plugin].
+
+https://github.com/jenkinsci/workflow-cps-global-lib-plugin/blob/master/README.md[Source
+code README.md]
+
+[[PipelineSharedGroovyLibrariesPlugin-ConfigurepluginviaGroovyscript]]
+== *Configure plugin via Groovy script*
+
+Either automatically
+upon https://wiki.jenkins.io/display/JENKINS/Post-initialization+script[Jenkins
+post-initialization] or
+through https://wiki.jenkins.io/display/JENKINS/Jenkins+Script+Console[Jenkins
+script console], example:
+
+[source,syntaxhighlighter-pre]
+----
+#!groovy
+
+// imports
+import hudson.scm.SCM
+import jenkins.model.Jenkins
+import jenkins.plugins.git.GitSCMSource
+import org.jenkinsci.plugins.workflow.libs.*
+import org.jenkinsci.plugins.workflow.libs.LibraryConfiguration
+import org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever
+
+// parameters
+def globalLibrariesParameters = [
+  branch:               "master",
+  credentialId:         "global-shared-library-key",
+  implicit:             false,
+  name:                 "Your Global Shared Library name here",
+  repository:           "git@bitbucket.org:your-company/your-repo.git"
+]
+
+// define global library
+GitSCMSource gitSCMSource = new GitSCMSource(
+  "global-shared-library",
+  globalLibrariesParameters.repository,
+  globalLibrariesParameters.credentialId,
+  "*",
+  "",
+  false
+)
+
+// define retriever
+SCMSourceRetriever sCMSourceRetriever = new SCMSourceRetriever(gitSCMSource)
+
+// get Jenkins instance
+Jenkins jenkins = Jenkins.getInstance()
+
+// get Jenkins Global Libraries
+def globalLibraries = jenkins.getDescriptor("org.jenkinsci.plugins.workflow.libs.GlobalLibraries")
+
+// define new library configuration
+LibraryConfiguration libraryConfiguration = new LibraryConfiguration(globalLibrariesParameters.name, sCMSourceRetriever)
+libraryConfiguration.setDefaultVersion(globalLibrariesParameters.branch)
+libraryConfiguration.setImplicit(globalLibrariesParameters.implicit)
+
+// set new Jenkins Global Library
+globalLibraries.get().setLibraries([libraryConfiguration])
+
+// save current Jenkins state to disk
+jenkins.save()
+----
+
+'''''
+
+ +
+
+[[PipelineSharedGroovyLibrariesPlugin-Changelog]]
+== Changelog
+
+[[PipelineSharedGroovyLibrariesPlugin-2.14(Jul11,2019)]]
+=== 2.14 (Jul 11, 2019)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-43802[JENKINS-43802] -
+Make folder-scoped credentials work correctly with shared libraries.
+* https://issues.jenkins-ci.org/browse/JENKINS-44892[JENKINS-44892] - Do
+not add a UUID parameter when constructing the `+library+` step on the
+Pipeline Syntax page.
+* Fix:
+(https://github.com/jenkinsci/workflow-cps-global-lib-plugin/pull/63[PR
+63]) - Support for SCM retry count did not retry the checkout attempt
+for certain kinds of errors when it should have. 
+* Internal:
+(https://github.com/jenkinsci/workflow-cps-global-lib-plugin/pull/66[PR
+66]) - Do not add nullability annotations to primitive types.
+* Internal:
+(https://github.com/jenkinsci/workflow-cps-global-lib-plugin/pull/67[PR
+67], https://github.com/jenkinsci/workflow-cps-global-lib-plugin/pull/70[PR
+70], https://github.com/jenkinsci/workflow-cps-global-lib-plugin/pull/73[PR
+73]) - Dependency and test updates, new integration tests for issues
+fixed in upstream plugins.
+
+[[PipelineSharedGroovyLibrariesPlugin-2.13(Feb1,2019)]]
+=== 2.13 (Feb 1, 2019)
+
+* Fix:
+(https://github.com/jenkinsci/workflow-cps-global-lib-plugin/pull/59[PR
+59]) - Support for SCM retry count added in 2.12 did not apply to some
+SCM operations.
+* Internal: (https://github.com/jenkinsci/workflow-cps-global-lib-plugin/pull/57[PR
+57]) - Avoid use of deprecated APIs.
+* Internal:
+(https://github.com/jenkinsci/workflow-cps-global-lib-plugin/pull/44[PR
+44],
+https://github.com/jenkinsci/workflow-cps-global-lib-plugin/pull/56[PR
+56]) - Add additional tests and update tests to run correctly on Windows
+
+[[PipelineSharedGroovyLibrariesPlugin-2.12(Oct2,2018)]]
+=== 2.12 (Oct 2, 2018)
+
+* Fix: https://issues.jenkins-ci.org/browse/JENKINS-40109[JENKINS-40109]
+- Make compilation errors in shared libraries serializable so that the
+actual compilation error is reported instead of
+a `+NotSerializableException+` in some cases.
+* Improvement: Implement support for SCM retry count.
+
+[[PipelineSharedGroovyLibrariesPlugin-2.11(Sep8,2018)]]
+=== 2.11 (Sep 8, 2018)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-53485[JENKINS-53485] -
+Fix a file leak introduced in version 2.10 of this plugin affecting all
+uses of the `+libraryResource+` step.
+
+[[PipelineSharedGroovyLibrariesPlugin-2.10(Aug21,2018)]]
+=== 2.10 (Aug 21, 2018)
+
+* *Important: As of this release, the plugin requires Java 8 and Jenkins
+2.60.3 or newer.*
+* https://issues.jenkins-ci.org/browse/JENKINS-52313[JENKINS-52313] -
+Add an optional encoding argument to the `+libraryResource+`
+step. `+Base64+` is a supported encoding, and will cause the resource to
+be loaded as a Base64-encoded string, which is useful for copying binary
+resources such as images when combined with Pipeline: Basic Steps 2.8.1
+or higher.
+
+[[PipelineSharedGroovyLibrariesPlugin-2.9(Sept13,2017)]]
+=== 2.9 (Sept 13, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-41497[JENKINS-41497] -
+allow excluding shared libraries from changelogs (and therefore from SCM
+polling as well) via global configuration option
+and/or `+@Library(value="some-lib@master", changelog=false)+`.
+
+[[PipelineSharedGroovyLibrariesPlugin-2.8(Apr24,2017)]]
+=== 2.8 (Apr 24, 2017)
+
+* Fixing some bugs affecting Windows-based masters (agent platform
+irrelevant):
+** improper handling of CRNL in `+*.txt+` global variable help files
+** incorrect display of class names in *Replay* when using class
+libraries
+** failure of class library access from `+library+` step depending on
+filesystem canonicalization
+
+[[PipelineSharedGroovyLibrariesPlugin-2.7(Mar03,2017)]]
+=== 2.7 (Mar 03, 2017)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-39450[JENKINS-39450]
+Added a `+library+` step as a dynamic alternative to `+@Library+` used
+since 2.3.
+
+[[PipelineSharedGroovyLibrariesPlugin-2.6(Feb10,2016)]]
+=== 2.6 (Feb 10, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-40408[JENKINS-40408] Race
+condition introduced in 2.5.
+
+[[PipelineSharedGroovyLibrariesPlugin-2.5(Nov21,2016)]]
+=== 2.5 (Nov 21, 2016)
+
+* Related to
+https://issues.jenkins-ci.org/browse/JENKINS-38517[JENKINS-38517],
+checking out distinct libraries each into their own local workspaces,
+and improving parallelism in the case of concurrent builds.
+
+[[PipelineSharedGroovyLibrariesPlugin-2.4(Oct05,2016)]]
+=== 2.4 (Oct 05, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-38550[JENKINS-38550] The
+*Modern SCM* option should not be shown unless some matching plugin is
+actually installed.
+* https://issues.jenkins-ci.org/browse/JENKINS-38712[JENKINS-38712]
+Library configuration screens used deep horizontal indentation.
+* https://issues.jenkins-ci.org/browse/JENKINS-38048[JENKINS-38048]
+Obsolete query parameter caused a warning in the JavaScript console.
+
+[[PipelineSharedGroovyLibrariesPlugin-2.3(Sep07,2016)]]
+=== 2.3 (Sep 07, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-31155[JENKINS-31155] New
+system of external shared libraries.
+* https://issues.jenkins-ci.org/browse/JENKINS-26192[JENKINS-26192]
+Supporting Grape (the `+@Grab+` annotation) from global shared libraries
+(internal or external).
+
+[[PipelineSharedGroovyLibrariesPlugin-2.2(Aug09,2016)]]
+=== 2.2 (Aug 09, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-34650[JENKINS-34650]
+Global library code now runs without the Groovy sandbox, so may provide
+safe encapsulations of privileged operations such as Jenkins API
+accesses. (Pushes to the library always required Overall/RunScripts
+anyway.)
+* https://issues.jenkins-ci.org/browse/JENKINS-34008[JENKINS-34008] API
+allowing plugins to be notified of changes to the library.
+
+[[PipelineSharedGroovyLibrariesPlugin-2.1(Jun30,2016)]]
+=== 2.1 (Jun 30, 2016)
+
+* https://issues.jenkins-ci.org/browse/JENKINS-34517[JENKINS-34517] Use
+of global variables from the shared library would result in errors when
+resuming a build.
+
+[[PipelineSharedGroovyLibrariesPlugin-2.0(Apr05,2016)]]
+=== 2.0 (Apr 05, 2016)
+
+* First release under per-plugin versioning scheme. See
+https://github.com/jenkinsci/workflow-plugin/blob/82e7defa37c05c5f004f1ba01c93df61ea7868a5/CHANGES.md[1.x
+changelog] for earlier releases.

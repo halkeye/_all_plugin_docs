@@ -1,0 +1,25 @@
+[[JCaptchaPlugin-JCaptchaPlugin]]
+== JCaptcha Plugin
+
+ +
+
+JCaptcha provider of Jenkins' CaptchaSupport extension point.
+
+ +
+
+'''''
+
+ +
+
+[[JCaptchaPlugin-Changelog]]
+=== Changelog
+
+[[JCaptchaPlugin-1.1(released2011-07-22)]]
+==== 1.1 (released 2011-07-22)
+
+* fix a dependency on a -SNAPSHOT Jenkins' core version
+
+[[JCaptchaPlugin-1.0(released2011-06-08)]]
+==== 1.0 (released 2011-06-08)
+
+* initial implementation

@@ -1,0 +1,592 @@
+[.conf-macro .output-inline]# #
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]##
+
+Older versions of this plugin may not be safe to use. Please review the
+following warnings before using an older version:
+
+* https://jenkins.io/security/advisory/2017-10-11/[Swarm Plugin client
+bundles commons-httpclient library vulnerable to man-in-the-middle
+attacks]
+* https://jenkins.io/security/advisory/2019-04-30/#SECURITY-1252[XXE
+vulnerability via UDP broadcast response in Swarm client]
+
+This plugin enables slaves to auto-discover nearby Jenkins master and
+join it automatically, thereby forming an ad-hoc cluster. +
+This plugin consists of two pieces:
+
+. A self-contained CLI client that discovers a nearby Jenkins (via a UDP
+broadcast) and joins it
+. A plugin that needs to be installed on Jenkins master to accept swarm
+clients
+
+The primary use case of this came from the idea of a "Jenkins slave
+appliance" — a virtual machine pre-packaged with the swarm client CLI —
+that someone can just grab and run.
+
+With the swarm client, a person who's willing to contribute some of his
+computing power to the cluster just needs to run this virtual machine,
+and the cluster automatically gets additional resources. Because it's
+packaged as a VM, there is no need to worry about the builds/tests
+interfering with the host system or altering its settings unexpectedly.
+
+[[SwarmPlugin-Usage]]
+== Usage
+
+. Install the swarm plugin from the Update Center
+. Download
+https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/[the
+CLI agent from here].
+. Run the CLI agent with `+java -jar path/to/swarm-client.jar+`. There
+are no required command-line options; run with the `+-help+` option to
+see the available options.
+
+[[SwarmPlugin-Documentation]]
+== Documentation
+
+* https://github.com/jenkinsci/swarm-plugin/blob/master/docs/proxy.md[Proxy
+Configuration]
+* https://github.com/jenkinsci/swarm-plugin/blob/master/docs/logging.md[Logging]
+
+[[SwarmPlugin-AvailableOptions]]
+== Available Options
+
+....
+$ java -jar swarm-client.jar --help
+ -autoDiscoveryAddress VAL              : Use this address for UDP-based
+                                          auto-discovery (default
+                                          255.255.255.255)
+ -candidateTag VAL                      : Show swarm candidate with tag only
+ -deleteExistingClients                 : Deletes any existing slave with the
+                                          same name.
+ -description VAL                       : Description to be put on the slave
+ -disableClientsUniqueId                : Disables client's unique ID.
+ -disableSslVerification                : Disables SSL verification in the
+                                          HttpClient.
+ -executors N                           : Number of executors
+ -fsroot FILE                           : Directory where Jenkins places files
+ -help (--help)                         : Show the help screen
+ -labels VAL                            : Whitespace-separated list of labels
+                                          to be assigned for this slave.
+                                          Multiple options are allowed.
+ -labelsFile VAL                        : File location with space delimited
+                                          list of labels.  If the file changes,
+                                          the client is restarted.
+ -master VAL                            : The complete target Jenkins URL like
+                                          'http://server:8080/jenkins/'. If
+                                          this option is specified,
+                                          auto-discovery will be skipped
+ -maxRetryInterval N                    : Max time to wait before retry in
+                                          seconds. Default is 60 seconds.
+ -mode MODE                             : The mode controlling how Jenkins
+                                          allocates jobs to slaves. Can be
+                                          either 'normal' (utilize this slave
+                                          as much as possible) or 'exclusive'
+                                          (leave this machine for tied jobs
+                                          only). Default is 'normal'.
+ -name VAL                              : Name of the slave
+ -noRetryAfterConnected                 : Do not retry if a successful
+                                          connection gets closed.
+ -password VAL                          : The Jenkins user password
+ -passwordEnvVariable VAL               : Environment variable that the
+                                          password is stored in
+ -passwordFile VAL                      : File containing the Jenkins user
+                                          password
+ -pidFile VAL                           : File to write PID to
+ -retry N                               : Number of retries before giving up.
+                                          Unlimited if not specified.
+ -retryBackOffStrategy RETRY_BACK_OFF_S : The mode controlling retry wait time.
+ TRATEGY                                  Can be either 'none' (use same
+                                          interval between retries) or 'linear'
+                                          (increase wait time before each retry
+                                          up to maxRetryInterval) or
+                                          'exponential' (double wait interval
+                                          on each retry up to maxRetryInterval).
+                                          Default is 'none'.
+ -retryInterval N                       : Time to wait before retry in seconds.
+                                          Default is 10 seconds.
+ -showHostName (--showHostName)         : Show hostname instead of IP address
+ -sslFingerprints VAL                   : Whitespace-separated list of accepted
+                                          certificate fingerprints
+                                          (SHA-256/Hex), otherwise system
+                                          truststore will be used. No
+                                          revocation, expiration or not yet
+                                          valid check will be performed for
+                                          custom fingerprints! Multiple options
+                                          are allowed.
+ -t (--toolLocation)                    : A tool location to be defined on this
+                                          slave. It is specified as
+                                          'toolName=location'
+ -tunnel VAL                            : Connect to the specified host and
+                                          port, instead of connecting directly
+                                          to Jenkins. Useful when connection to
+                                          Jenkins needs to be tunneled. Can be
+                                          also HOST: or :PORT, in which case
+                                          the missing portion will be
+                                          auto-configured like the default
+                                          behavior
+ -username VAL                          : The Jenkins username for
+                                          authentication
+....
+
+[[SwarmPlugin-FAQ]]
+== FAQ
+
+[[SwarmPlugin-Errorconfiguration:"xxx.xxx.xxx.xxxdoesn'thavetheURLconfigurationyet"]]
+=== Error configuration : "xxx.xxx.xxx.xxx doesn't have the URL configuration yet"
+
+This error indicates that the Jenkins master running at the given URL
+has never configured, and therefore the swarm client cannot determine
+its HTTP URL. To fix this problem, please go to the system configuration
+screen of this Jenkins, and click "submit".
+
+[[SwarmPlugin-Changelog]]
+== Changelog
+
+[[SwarmPlugin-Version3.17(June2,2019)]]
+=== Version 3.17 (June 2, 2019)
+
+* Swarm Plugin
+** Add integration test framework
+(https://github.com/jenkinsci/swarm-plugin/pull/81[#81])
+** Add test for
+https://issues.jenkins-ci.org/browse/JENKINS-39443[JENKINS-39443]
+(https://github.com/jenkinsci/swarm-plugin/pull/100[#100])
+** Miscellaneous code cleanup
+(https://github.com/jenkinsci/swarm-plugin/pull/86[#86],
+https://github.com/jenkinsci/swarm-plugin/pull/91[#91],
+https://github.com/jenkinsci/swarm-plugin/pull/92[#92],
+https://github.com/jenkinsci/swarm-plugin/pull/93[#93],
+https://github.com/jenkinsci/swarm-plugin/pull/94[#94],
+https://github.com/jenkinsci/swarm-plugin/pull/97[#97],
+https://github.com/jenkinsci/swarm-plugin/pull/101[#101],
+https://github.com/jenkinsci/swarm-plugin/pull/108[#108],
+https://github.com/jenkinsci/swarm-plugin/pull/109[#109])
+* Swarm Client
+** Fix
+https://jenkins.io/security/advisory/2019-04-30/#SECURITY-1252[SECURITY-1252]
+[.st]##XML External Entity (##XXE) vulnerability
+(https://github.com/jenkinsci/swarm-plugin/pull/84[#84],
+https://github.com/jenkinsci/swarm-plugin/pull/90[#90],
+https://github.com/jenkinsci/swarm-plugin/pull/96[#96])
+** Rework logging of command-line arguments
+(https://github.com/jenkinsci/swarm-plugin/pull/95[#95])
+** Fix
+https://issues.jenkins-ci.org/browse/JENKINS-42930[JENKINS-42930] Use
+System proxy when available and migrate from
+https://hc.apache.org/httpclient-3.x/[Commons HttpClient 3.x] to
+https://hc.apache.org/httpcomponents-client-ga/index.html[HttpComponents
+Client 4.x] (https://github.com/jenkinsci/swarm-plugin/pull/105[#105],
+https://github.com/jenkinsci/swarm-plugin/blob/master/docs/proxy.md[Documentation])
+** Fix https://issues.jenkins-ci.org/browse/JENKINS-45295[JENKINS-45295]
+Swarm Client should update labels on the fly when labels file changes
+(https://github.com/jenkinsci/swarm-plugin/pull/104[#104],
+https://github.com/jenkinsci/swarm-plugin/pull/110[#110])
+** Fix https://issues.jenkins-ci.org/browse/JENKINS-50970[JENKINS-50970]
+SLF4J logging not working in Swarm client
+(https://github.com/jenkinsci/swarm-plugin/pull/98[#98])
+** Clean up logging subsystem
+(https://github.com/jenkinsci/swarm-plugin/pull/99[#99],
+https://github.com/jenkinsci/swarm-plugin/pull/102[#102],
+https://github.com/jenkinsci/swarm-plugin/pull/106[#106],
+https://github.com/jenkinsci/swarm-plugin/blob/master/docs/logging.md[Documentation])
+** Fix invalid exit code
+(https://github.com/jenkinsci/swarm-plugin/pull/103[#103])
+** Remove deprecated `+-logFile+` parameter
+(https://github.com/jenkinsci/swarm-plugin/pull/107[#107])
+
+[[SwarmPlugin-Version3.16(May21,2019)]]
+=== Version 3.16 (May 21, 2019)
+
+* Swarm Plugin +
+** Update minimum Jenkins core requirement to 2.60.3
+(https://github.com/jenkinsci/swarm-plugin/pull/87[#87])
+** Remove unnecessary field
+(https://github.com/jenkinsci/swarm-plugin/pull/85[#85])
+* Swarm Plugin Client
+** Disable DTDs completely in all XML parsers to prevent XML External
+Entity (XXE) attacks
+(https://github.com/jenkinsci/swarm-plugin/pull/84[#84])
+** Update Jenkins Remoting version from 3.28 to 3.30
+(https://github.com/jenkinsci/swarm-plugin/pull/78[#78],
+https://github.com/jenkinsci/remoting/blob/master/CHANGELOG.md[full
+changelog])
+
+[[SwarmPlugin-Version3.15(2018Dec12)]]
+=== Version 3.15 (2018 Dec 12)
+
+* Swarm Plugin
+** https://github.com/jenkinsci/swarm-plugin/pull/75[PR #75] - Fix the
+label removal in the "removeLabels" endpoint
+* Swarm Plugin Client
+** Update Jenkins Remoting version from 3.26 to 3.28 to pick up new
+stability fixes
+(https://github.com/jenkinsci/remoting/blob/master/CHANGELOG.md[full
+changelog])
+
+[[SwarmPlugin-Version3.14(2018Sep04)]]
+=== Version 3.14 (2018 Sep 04)
+
+* Swarm Plugin Client
+** Update Remoting from 3.21 to 3.26 in order to pick new stability
+fixes
+(https://github.com/jenkinsci/remoting/blob/master/CHANGELOG.md[full
+changelog])
+* Swarm Plugin +
+** Update Swarm Plugin Client to 3.26
+
+[[SwarmPlugin-Version3.13(2018Jun08)]]
+=== Version 3.13 (2018 Jun 08)
+
+* Swarm Plugin
+** Update minimal Jenkins Core requirement to 2.60.1
+* Swarm Plugin Client
+** Update Remoting to 3.21 to pick logging and "no_proxy" handling
+fixes +
+*** https://github.com/jenkinsci/remoting/blob/master/CHANGELOG.md#321[Full
+changelog]
+
+[[SwarmPlugin-Version3.12(2018Mar22)]]
+=== Version 3.12 (2018 Mar 22)
+
+* Swarm Plugin
+** No changes
+* Swarm Plugin Client
+** https://issues.jenkins-ci.org/browse/JENKINS-50237[JENKINS-50237] -
+Update Remoting from 3.18 to 3.19 to pick up the exception propagation
+fix
+*** https://github.com/jenkinsci/remoting/blob/master/CHANGELOG.md#319[Full
+changelog]
+
+[[SwarmPlugin-Version3.11(2018Mar19)]]
+=== Version 3.11 (2018 Mar 19)
+
+* Swarm Plugin
+** No changes
+* Swarm Plugin Client
+** https://issues.jenkins-ci.org/browse/JENKINS-50252[JENKINS-50252] -
+Update Remoting from 3.16 to 3.18 to pick up bug fixes and serialization
+diagnosability improvements +
+*** https://github.com/jenkinsci/remoting/blob/master/CHANGELOG.md[Remoting
+Changelog]
+** https://github.com/jenkinsci/swarm-plugin/pull/68[PR #68] - The
+plugin now trims input strings for password files specified in
+"-passwordFile"
+
+[[SwarmPlugin-Version3.10(2018Feb21)]]
+=== Version 3.10 (2018 Feb 21)
+
+* Swarm Plugin +
+** https://github.com/jenkinsci/swarm-plugin/pull/62[PR #62] - Add
+ability to download the client directory from the plugin installed in
+Jenkins
+*** URL: $\{JENKINS_URL}/swarm/swarm-client.jar
+* Swarm Plugin Client
+** No changes
+
+[[SwarmPlugin-Version3.9(2018Feb07)]]
+=== Version 3.9 (2018 Feb 07)
+
+* Swarm Plugin
+** https://issues.jenkins-ci.org/browse/JENKINS-49292[JENKINS-49292] -
+Reduce log level from ALL to INFO in sample logging.properties to reduce
+log spam
+* Swarm Plugin Client
+** https://github.com/jenkinsci/swarm-plugin/pull/66[PR #66] - Add
+support of the "–passwordFile" option
+
+[[SwarmPlugin-Version3.8(2018Jan10)]]
+=== Version 3.8 (2018 Jan 10)
+
+* Swarm Plugin:
+** No changes
+* Swarm Plugin Client:  +
+** https://github.com/jenkinsci/swarm-plugin/pull/65[PR #65] - Update
+Remoting from 3.15 to 3.16
+** {blank}
+*** https://github.com/jenkinsci/remoting/blob/master/CHANGELOG.md[Remoting
+Changelog]
+
+[[SwarmPlugin-Version3.7(2017Dec22)]]
+=== Version 3.7 (2017 Dec 22)
+
+* Swarm Plugin:
+** No changes
+* Swarm Plugin Client: 
+** https://github.com/jenkinsci/swarm-plugin/pull/63[PR #63] - Require
+Java 8 (client-side only)
+** https://github.com/jenkinsci/swarm-plugin/pull/63[PR #63] - Update
+Remoting from 3.10.2 to 3.15
+** {blank}
+*** https://github.com/jenkinsci/remoting/blob/master/CHANGELOG.md[Remoting
+Changelog]
+** https://github.com/jenkinsci/swarm-plugin/pull/61[PR #61] - Prevent
+the infinite reconnect cycle in Remoting Launcher, use the client's
+failover logic instead
+
+[[SwarmPlugin-Version3.6(2017Oct18)]]
+=== Version 3.6 (2017 Oct 18)
+
+* Update Remoting in Swarm Client from 3.4.1 to 3.10.2 +
+** https://github.com/jenkinsci/remoting/blob/master/CHANGELOG.md[Remoting
+Changelog]
+* https://github.com/jenkinsci/swarm-plugin/pull/55[PR #55] - Introduce
+the "-pidFile" option, which creates a file with the process PID
+** Errata: The current implementation may cause File descriptor leaks in
+edge cases
+* https://issues.jenkins-ci.org/browse/JENKINS-43674[JENKINS-43674] -
+Prevent NullPointerException in Swarm client in HTTPS mode without
+*-disableSslVerification* or *-sslFingerprints*
+* https://issues.jenkins-ci.org/browse/JENKINS-42098[JENKINS-42098] -
+Prevent LinkageError when building a Maven project on a swarm node with
+new Maven versions
+
+[[SwarmPlugin-Version3.5(2017Oct11)]]
+=== Version 3.5 (2017 Oct 11)
+
+* https://jenkins.io/security/advisory/2017-10-11/#swarm-plugin-client-bundled-vulnerable-version-of-the-commons-httpclient-library[SECURITY-597]
+- Swarm Plugin Client bundled version of the commons-httpclient library,
+which was vulnerable to MiTM
+
+[[SwarmPlugin-Version3.4(2017Apr10)]]
+=== Version 3.4 (2017 Apr 10)
+
+* Add option -sslFingerprints providing a possibility to add custom SSL
+trust anchors without adding them to the system store.
+
+[[SwarmPlugin-Version3.3(2017Feb10)]]
+=== Version 3.3 (2017 Feb 10)
+
+* Finally a release!
+* Added -logFile and -labelsFile options. Now supports dynamic labels
+* Added support for very large numbers of dynamic labels when using
+-labelsFile
+* Remove consecutive slashes in plugin urls
+* docker-compose configuration updates
+* Add retry backoff strategy
+* Bumped remoting library to same as Jenkins LTS at the moment
+* Updates to make build and testing pass with new Jenkins plugin parent
+pom work
+
+[[SwarmPlugin-Version3.2(2017Feb8)]]
+=== Version 3.2 (2017 Feb 8)
+
+* Failed to release due to INFRA-588
+
+[[SwarmPlugin-Version3.1(2017Feb8)]]
+=== Version 3.1 (2017 Feb 8)
+
+* Failed to release due to INFRA-588
+
+[[SwarmPlugin-Version3.0(2016Dec27)]]
+=== Version 3.0 (2016 Dec 27)
+
+* Failed to release due to INFRA-588
+
+[[SwarmPlugin-Version2.3(2016Nov28)]]
+=== Version 2.3 (2016 Nov 28)
+
+* Failed to release due to INFRA-588
+
+[[SwarmPlugin-Version2.2(2016July26)]]
+=== Version 2.2 (2016 July 26)
+
+* Failed to release due to INFRA-588
+
+[[SwarmPlugin-Version2.1(2016May20)]]
+=== Version 2.1 (2016 May 20)
+
+* Implement https://issues.jenkins-ci.org/browse/JENKINS-28917[#28917] -  Update
+remoting to one supported by latest LTS
+* MESOS_TASK_ID used as Jenkins slave ID if available as environment
+variable (for Mesos/Marathon integration).
+* Updating jenkins remoting dependency. Swarm client now matches the
+jenkins-remoting version in Jenkins-1.625.3 LTS
+* Implement
+https://issues.jenkins-ci.org/browse/JENKINS-34593[#34593] -  add an
+option to delete existing clients
+* Add integration test environment based upon Docker compose
+
+[[SwarmPlugin-Version2.0(2015Aug3)]]
+=== Version 2.0 (2015 Aug 3)
+
+* Implement https://issues.jenkins-ci.org/browse/JENKINS-29232[#28148] - Whitespaces
+in toolLocations, (breaking change,
+https://github.com/jenkinsci/swarm-plugin/pull/28[see pull request 28])
+* Add ability to disable unique ID for Clients.
+(https://github.com/jenkinsci/swarm-plugin/pull/33[see pull request 33])
+* Remove unused code and reformat source files.
+
+[[SwarmPlugin-Version1.26(2015Jul21)]]
+=== Version 1.26 (2015 Jul 21)
+
+* Re-release of 1.25, some artefacts was not properly deployed. 
+
+[[SwarmPlugin-Version1.25(2015Jul21)]]
+=== Version 1.25 (2015 Jul 21)
+
+* Correct https://issues.jenkins-ci.org/browse/JENKINS-29232[#29232] -
+Set the HTTP Connection:close header to ensure the underlying socket is
+closed (https://github.com/jenkinsci/swarm-plugin/pull/29[see pull
+request 29])
+* Add a markdown formatted README to better describe the project for
+Github viewers
+* Improve end user reporting of hostname lookup
+errors (https://github.com/jenkinsci/swarm-plugin/pull/30[see pull
+request 30])
+* Make javadoc compile with JDK 8
+
+[[SwarmPlugin-Version1.24(2015Apr28)]]
+=== Version 1.24 (2015 Apr 28)
+
+* Correct https://issues.jenkins-ci.org/browse/JENKINS-26558[#26558] -
+Clients should provide a unique ID to be used for name collision
+avoidance (https://github.com/jenkinsci/swarm-plugin/pull/26[see pull
+request 26])
+* Improve printout when Jenkins master is not configured with a URL
+(https://github.com/jenkinsci/swarm-plugin/pull/27[see pull request 27])
+
+[[SwarmPlugin-Version1.23(2015Apr27)]]
+=== Version 1.23 (2015 Apr 27)
+
+* Add the tunnel option to pass it to the Jenkins engine
+(https://github.com/jenkinsci/swarm-plugin/pull/22[see pull request 22])
+* Minor enhancements to make the swarm client usable for mere detection
+of Jenkins instances.
+(https://github.com/jenkinsci/swarm-plugin/pull/22[see pull request 23])
+* Correct https://issues.jenkins-ci.org/browse/JENKINS-24149[#24149] -
+LogConfigurationException
+(https://github.com/jenkinsci/swarm-plugin/pull/24[see pull request 24])
+* Computer.toNode() can return null
+(https://github.com/jenkinsci/swarm-plugin/pull/25[see pull request 25])
+
+[[SwarmPlugin-Version1.22(2014Nov28)]]
+=== Version 1.22 (2014 Nov 28)
+
+* added new option 'passwordEnvVariable'
+(https://github.com/jenkinsci/swarm-plugin/pull/21[see pull request 21])
+
+[[SwarmPlugin-Version1.21(2014Nov6)]]
+=== Version 1.21 (2014 Nov 6)
+
+* Instead of constructing the tool location key, just use the existing
+descriptor (https://issues.jenkins-ci.org/browse/JENKINS-25064[#25064],
+see https://github.com/jenkinsci/swarm-plugin/pull/20[pull request 20])
+* Use latest Jenkins LTS remoting library (1.580.1 Jenkins LTS version)
+
+[[SwarmPlugin-Version1.20(2014Oct8)]]
+=== Version 1.20 (2014 Oct 8)
+
+* Fixup on handling of tool locations on Windows
+(https://issues.jenkins-ci.org/browse/JENKINS-25002[#25002],
+see https://github.com/jenkinsci/swarm-plugin/pull/19[pull request 19])
+
+[[SwarmPlugin-Version1.19(2014Oct6)]]
+=== Version 1.19 (2014 Oct 6)
+
+* Correct bug introduced by 1.18 where the client did not work _unless_
+you set tool locations
+(https://issues.jenkins-ci.org/browse/JENKINS-24995[#24995],
+see https://github.com/jenkinsci/swarm-plugin/pull/18[pull request 18])
+
+[[SwarmPlugin-Version1.18(2014Oct2)]]
+=== Version 1.18 (2014 Oct 2)
+
+* Set tool locations from Swarm plugin CLI,
+(https://issues.jenkins-ci.org/browse/JENKINS-7543[#7543], see
+https://github.com/jenkinsci/swarm-plugin/pull/17[pull request 17])
+
+[[SwarmPlugin-Version1.17(2014Sep30)]]
+=== Version 1.17 (2014 Sep 30)
+
+* Add -noRetryAfterConnected and -retry options. These provide optional
+exit strategies for the default unlimited retry loop.
+* Require a well-formed master URL, ensuring trailing slash
+* [FIXED
+https://issues.jenkins-ci.org/browse/JENKINS-21892[JENKINS-21892]]
+Update swarm client to send CSRF token
+* Use latest releases of commons-codec, args4j, and remoting
+
+[[SwarmPlugin-Version1.16(2014Jul1)]]
+=== Version 1.16 (2014 Jul 1)
+
+* Bump remoting to match Jenkins LTS
+(https://issues.jenkins-ci.org/browse/JENKINS-22730[issue #22730],
+see https://github.com/jenkinsci/swarm-plugin/pull/14[pull request 14])
+
+[[SwarmPlugin-Version1.15]]
+=== Version 1.15
+
+* _undocumented, or maybe a typo of 1.12?_
+
+[[SwarmPlugin-Version1.12,1.11(2014Jan15)]]
+=== Version 1.12, 1.11 (2014 Jan 15)
+
+* Use compatible version of commons codec
+(https://issues.jenkins-ci.org/browse/JENKINS-21155[JENKINS-21155], see
+https://github.com/jenkinsci/swarm-plugin/pull/7[pull request 7] and
+https://github.com/jenkinsci/swarm-plugin/pull/8[pull request 8]).
+
+[[SwarmPlugin-Version1.10(2013Oct21)]]
+=== Version 1.10 (2013 Oct 21)
+
+* swarm 1.9 can't connect to current LTS as slave.jar too old
+(https://issues.jenkins-ci.org/browse/JENKINS-20138[JENKINS-20138]).
+
+[[SwarmPlugin-Version1.9(2013May18))]]
+=== Version 1.9 (2013 May 18))
+
+* Add option for specifying
+Node.Mode(https://github.com/jenkinsci/swarm-plugin/pull/3[pull #3]).
+
+[[SwarmPlugin-Version1.8(2012Nov21)]]
+=== Version 1.8 (2012 Nov 21)
+
+* Changing broadcast to send a UDP packet payload of 128 bytes instead
+of 0
+* Allow slave connection without requiring UDP
+* Adds disableSslVerification option
+
+[[SwarmPlugin-Version1.6(2012Mar18)]]
+=== Version 1.6 (2012 Mar 18)
+
+* fixed references from Hudson to Jenkins.
+* Swarm Client fails to connect to Jenkins when Authentication is
+enabled but Authorization is diabled
+(https://issues.jenkins-ci.org/browse/JENKINS-11663[JENKINS-11663]).
+* support remoting 2.12.
+
+[[SwarmPlugin-Version1.5(2011Aug11)]]
+=== Version 1.5 (2011 Aug 11)
+
+* check whether user has SlaveComputer.CREATE permission.
+* allow authentication in swarm plugin
+(https://issues.jenkins-ci.org/browse/JENKINS-5504[JENKINS-5504]).
+
+[[SwarmPlugin-Version1.4(2010Aug14)]]
+=== Version 1.4 (2010 Aug 14)
+
+* Fixed broken help links.
+* Node properties save correctly.
+* Added Japanese localization.
+
+[[SwarmPlugin-Version1.3(2010Jan14)]]
+=== Version 1.3 (2010 Jan 14)
+
+* Fixed a packaging problem in the client jar
+(https://issues.jenkins-ci.org/browse/JENKINS-5275[JENKINS-5275])
+
+[[SwarmPlugin-Version1.2(2009Dec30)]]
+=== Version 1.2 (2009 Dec 30)
+
+* Minor text correction
+
+[[SwarmPlugin-Version1.1(2009Jul15)]]
+=== Version 1.1 (2009 Jul 15)
+
+* Added the `+-master+` option.
+
+[[SwarmPlugin-Version1.0(2009May23)]]
+=== Version 1.0 (2009 May 23)
+
+* Initial release

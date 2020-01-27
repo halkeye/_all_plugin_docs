@@ -1,0 +1,20 @@
+[.conf-macro .output-inline]#This plugin allows to run
+https://github.com/radargun/radargun[RadarGun] benchmark as a Jenkins
+build step.# +
+https://github.com/radargun/radargun[RadarGun] is a data grid and
+distributed cache benchmarking framework built to test
+http://www.infinispan.org/[Infinispan] and other distributed data grid
+platforms.
+
+Configuration and usage manual is
+https://github.com/jenkinsci/radargun-plugin/blob/master/README.adoc[available
+on GitHub].
+
+[[RadarGunplugin-Changelog]]
+== Changelog
+
+Please see
+https://github.com/jenkinsci/radargun-plugin/blob/master/CHANGELOG.adoc[changelog
+on github].
+
+ 

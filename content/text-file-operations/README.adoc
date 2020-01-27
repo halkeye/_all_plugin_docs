@@ -1,0 +1,62 @@
+[.conf-macro .output-inline]#Provides a build step to create or update
+text file with specified content.#
+
+Common use cases: Create readme, build details, batch files or any
+scripts which can be executed later.
+
+[[TextFileOperationsPlugin-Features:]]
+== Features:
+
+* Create a new text file or overwrite existing file
+* Update existing files
+
+[[TextFileOperationsPlugin-Howtouse?]]
+== How to use?
+
+[.confluence-embedded-file-wrapper]#image:docs/images/Capture.PNG[image]#
+
+File Path: Path to create text file (variables can be used here).
+
+Create at Workspace: Enable this to create the file at workspace
+directory else full path must be specified.
+
+Text File Content: The content of the file (variables can be used here).
+
+File Options: You may overwrite, append to end or insert at start of a
+file. To create a new file use Overwrite option.
+
+[[TextFileOperationsPlugin-VersionHistory:]]
+== Version History:
+
+[[TextFileOperationsPlugin-V1.3.2(April08,2016):]]
+=== V1.3.2 (April 08, 2016):
+
+* Fixed
+https://issues.jenkins-ci.org/browse/JENKINS-32694[JENKINS-32694] &
+https://issues.jenkins-ci.org/browse/JENKINS-33899[JENKINS-33899] :
+Exception during logging.
+
+[[TextFileOperationsPlugin-V1.3.1(March26,2016):]]
+=== V1.3.1 (March 26, 2016):
+
+* Fixed
+https://issues.jenkins-ci.org/browse/JENKINS-32694[JENKINS-32694] :
+Directory or path separator fixed for *nix systems.
+
+[[TextFileOperationsPlugin-V1.3.0(March20,2016):]]
+=== V1.3.0 (March 20, 2016):
+
+* Fixed
+https://issues.jenkins-ci.org/browse/JENKINS-32694[JENKINS-32694] :
+Introduced "Create at Workspace" checkbox, if enabled then  the file
+will be created at workspace directory.
+* Fixed
+https://issues.jenkins-ci.org/browse/JENKINS-33221[JENKINS-33221] :
+Added logging
+* Fixed issue with adding multiple end of lines when appending to end of
+file or insert at start.
+
+[[TextFileOperationsPlugin-V1.2.1(December23,2015):]]
+=== V1.2.1 (December 23, 2015):
+
+* First release of plugin

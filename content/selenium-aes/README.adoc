@@ -1,0 +1,24 @@
+[.conf-macro .output-inline]#This plugin is for continuous regression
+test by
+http://www.enjoyxstudy.com/selenium/autoexec/index.en.html[Selenium Auto
+Exec Server (AES)].# +
+http://www.enjoyxstudy.com/selenium/autoexec/index.en.html[Selenium AES]
+is an extended http://selenium-rc.seleniumhq.org/[Selenium RC].
+
+[[SeleniumAESPlugin-ChangeLog]]
+== Change Log
+
+[[SeleniumAESPlugin-Version0.5(Jan03,2011)]]
+=== Version 0.5 (Jan 03, 2011)
+
+* Fixed can not have different multiple entry
+(http://issues.jenkins-ci.org/browse/JENKINS-3025[#JENKINS-3025])
+
+[[SeleniumAESPlugin-Version0.3(Feb5,2010)]]
+=== Version 0.3 (Feb 5, 2010)
+
+* Fixed one help link when context-root in non-empty
+* Updated code for more recent Hudson
+
+[[SeleniumAESPlugin-Version0.2(Dec16,2008)]]
+=== Version 0.2 (Dec 16, 2008)

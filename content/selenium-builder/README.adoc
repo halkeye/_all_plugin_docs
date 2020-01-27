@@ -1,0 +1,46 @@
+ +
+
+[.conf-macro .output-inline]#Invokes
+http://sebuilder.github.com/se-builder/[Selenium Builder] scripts from a
+Jenkins build#
+
+[[SeleniumBuilderPlugin-Configuration]]
+== Configuration
+
+Once the plugin has been installed, it can be configured via the Job
+Configuration page. Click the 'Add Build Step' button and select 'Invoke
+Selenium Builder script'.
+
+Enter the location of the Selenium Builder JSON file that you wish to be
+invoked by your build.
+
+[[SeleniumBuilderPlugin-IssueTracking]]
+== Issue Tracking
+
+[[SeleniumBuilderPlugin-Changelog]]
+== Changelog
+
+[[SeleniumBuilderPlugin-Version1.7]]
+=== Version 1.7
+
+* Added support for running Selenium Builder suite files
+
+[[SeleniumBuilderPlugin-Version1.6]]
+=== Version 1.6
+
+* Ensure that Windows 8 is handled correctly
+
+[[SeleniumBuilderPlugin-Version1.5]]
+=== Version 1.5
+
+* Set default timeout to 30 seconds
+
+[[SeleniumBuilderPlugin-Version1.4]]
+=== Version 1.4
+
+* Referenced latest ci-sauce dependency
+
+[[SeleniumBuilderPlugin-Version1.1]]
+=== Version 1.1
+
+* Initial version of plugin

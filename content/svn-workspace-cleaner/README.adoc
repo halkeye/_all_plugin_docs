@@ -1,0 +1,25 @@
+Automatically removes SVN modules from workspaces when the modules are
+removed from the job's SVN configuration.
+
+Actually, any folder in the workspace root which is _not_ configured as
+an SVN module but contains a `+.svn+` folder will be removed.
+
+[[SVNWorkspaceCleaner-Configuration]]
+== Configuration
+
+To enable for a job, check "Clean up unused Subversion modules" under
+Build Environment.
+
+[[SVNWorkspaceCleaner-Changelog]]
+== Change log
+
+[[SVNWorkspaceCleaner-1.1(August26,2014)]]
+=== 1.1 (August 26, 2014)
+
+* Added support for removing unused Subversion modules in subdirectories
+of the build workspace.
+
+[[SVNWorkspaceCleaner-1.0(May11,2012)]]
+=== 1.0 (May 11, 2012)
+
+* First public release.

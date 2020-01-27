@@ -1,0 +1,14 @@
+[[JenkinsRubyMotionPlugin-Description]]
+== Description
+
+This plugin integrates RubyMotion with Jenkins. +
+
+[[JenkinsRubyMotionPlugin-Sourcecode]]
+== Source code
+
+https://github.com/RubyMotionJP/jenkins-rubymotion-plugin
+
+[[JenkinsRubyMotionPlugin-ScreenShot]]
+== ScreenShot
+
+[.confluence-embedded-file-wrapper]#image:https://raw.github.com/RubyMotionJP/jenkins-rubymotion-plugin/master/screenshot/rubymotion-plugin.png[image]#

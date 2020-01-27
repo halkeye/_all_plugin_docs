@@ -1,0 +1,26 @@
+ +
+
+Jenkins plugin built for integrating automated tests
+with https://marketplace.atlassian.com/apps/1213259/tm4j-test-management-for-jira[Test
+Management for Jira (TM4J)] on any Jira deployment (Cloud, Server and
+DataCenter).
+
+Test Management for Jira (TM4J) is the enterprise test management app to
+plan, manage, and measure your entire testing life-cycle inside Jira for
+both agile and waterfall methodologies. By using TM4J you'll empower
+agile teams with BDD at scale with Cucumber or your chosen gherkin
+compatible tool for collaboration between developers, testers and domain
+experts. With our powerful FREE REST API, easily integrate CI/CD
+servers, DevOps and test automation tools and frameworks you already use
+(including Selenium, JUnit, Nunit, Robot, Behave, Calabash) to save time
+and effort. TM4J is used by more than 3.000 clients worldwide and is the
+top rated QA and Testing app for Jira.
+
+The plugin introduces two new configuration steps for Jenkins jobs:
+
+. A build step to export Gherkin feature files (BDD) from TM4J
+. A post-build step to import the test results back to TM4J
+
+These two configuration steps depends on a global configuration (Manage
+Jenkins > Configure System) where the user can add/configure different
+Jira instances to be used on each build step.

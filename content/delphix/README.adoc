@@ -1,0 +1,211 @@
+[.conf-macro .output-inline]##
+
+[cols="",options="header",]
+|===
+|Plugin Information
+|View Delphix https://plugins.jenkins.io/delphix[on the plugin site] for
+more information.
+|===
+
+[.aui-icon .aui-icon-small .aui-iconfont-error .confluence-information-macro-icon]##
+
+The current version of this plugin may not be safe to use. Please review
+the following warnings before use:
+
+* https://jenkins.io/security/advisory/2019-10-16/#SECURITY-1450[Credentials
+stored in plain text]
+
+https://ci.jenkins.io/job/Plugins/job/delphix-plugin/[ +
+[.confluence-embedded-file-wrapper]#image:https://ci.jenkins.io/buildStatus/icon?job=Plugins/delphix-plugin/master[Build
+Status]#]
+https://plugins.jenkins.io/delphix[[.confluence-embedded-file-wrapper]#image:https://img.shields.io/jenkins/plugin/v/delphix.svg[Jenkins
+Plugins]#]
+https://wiki.jenkins.io/LICENSE[[.confluence-embedded-file-wrapper]#image:https://img.shields.io/github/license/jenkinsci/delphix-plugin.svg[License]#]
+
+The Delphix Plugin allows Jenkins to connect to multiple Delphix Engines
+and execute operations on Self Service Containers and Self Service
+Bookmarks.
+
+[[DelphixPlugin-TableofContents]]
+== Table of Contents
+
+. https://wiki.jenkins-ci.org/display/JENKINS/Delphix+Plugin#description[Description]
+. https://wiki.jenkins-ci.org/display/JENKINS/Delphix+Plugin#installation[Installation]
+. https://wiki.jenkins-ci.org/display/JENKINS/Delphix+Plugin#requirements[Delphix
+Engine Requirements]
+. https://wiki.jenkins-ci.org/display/JENKINS/Delphix+Plugin#usage[Usage]
+. https://wiki.jenkins-ci.org/display/JENKINS/Delphix+Plugin#links[Links]
+. https://wiki.jenkins-ci.org/display/JENKINS/Delphix+Plugin#contribute[Contribute]
+* https://wiki.jenkins-ci.org/display/JENKINS/Delphix+Plugin#code-of-conduct[Code
+of conduct]
+* https://wiki.jenkins-ci.org/display/JENKINS/Delphix+Plugin#community-guidelines[Community
+Guidelines]
+* https://wiki.jenkins-ci.org/display/JENKINS/Delphix+Plugin#contributor-agreement[Contributor
+Agreement]
+. https://wiki.jenkins-ci.org/display/JENKINS/Delphix+Plugin#reporting-issues[Reporting
+Issues]
+. https://wiki.jenkins-ci.org/display/JENKINS/Delphix+Plugin#statement-of-support[Statement
+of Support]
+. https://wiki.jenkins-ci.org/display/JENKINS/Delphix+Plugin#license[License]
+
+[[DelphixPlugin-Description]]
+== Description
+
+This plugin is designed to automate routine and/or triggered jobs with
+Delphix Self Service Containers and Bookmarks. An example automation
+would be during a build phase, if some automated tests failed while
+running in a database, that Self Service Container could have it's
+current state bookmarked, and that bookmark could be shared with the
+rest of the team. It might also be required to refresh a development
+database from the production source during deployment. These are just a
+few examples of possible automations.
+
+[[DelphixPlugin-Installation]]
+== Installation
+
+Install through Jenkins Plugin Manager or download
+https://plugins.jenkins.io/delphix[here].
+
+[[DelphixPlugin-DelphixEngineRequirements]]
+== Delphix Engine Requirements
+
+Delphix Engine v5.0.0 or higher.
+
+[[DelphixPlugin-Usage]]
+== Usage
+
+[[DelphixPlugin-GlobalConfiguration]]
+=== Global Configuration
+
+After the plugin has been installed, Delphix engines will need to be
+connected. Go to System Configuration page, scroll down to the Delphix
+section. Enter your Engine Address, Username, and password, then click
+"Test Connection". If Jenkins is able to reach the engine and log in,
+you will see a "Login Successful" reply message. If you wish to add
+multiple engines, click the "Add Engine" button for each engine you wish
+to connect to Jenkins.
+
+[[DelphixPlugin-SelfServiceContainer]]
+=== Self Service Container
+
+To interact with Self Service Containers, select "Delphix - Self Service
+Container" from the "Add Build Step" drop down in the Build phase
+section. Select an engine that was configured in the global
+configuration, select one of the operations listed below. Depending on
+the operation selected, it will either depend on a specified Self
+Service Container or a Bookmark. Read more about
+https://docs.delphix.com/docs/delphix-self-service/delphix-self-service-admin-guide/understanding-data-containers[Delphix
+Self Service Containers].
+
+Available Operations:
+
+* refresh
+* restore
+* reset
+* enable
+* disable
+* recover
+* undo
+* lock
+* unlock
+
+[[DelphixPlugin-SelfServiceBookmark]]
+=== Self Service Bookmark
+
+To interact with Self Service Bookmarks, select "Delphix - Self Service
+Bookmark" from the "Add Build Step" drop down in the Build phase
+section. Select an engine that was configured in the global
+configuration, select one of the operations listed below. Depending on
+the operation selected, it will either depend on a specified Self
+Service Container or a Bookmark. Read more about
+https://docs.delphix.com/docs/delphix-self-service/delphix-self-service-admin-guide/understanding-bookmarks[Delphix
+Self Service Bookmarks].
+
+Available Operations:
+
+* create
+* delete
+* share
+* unshare
+
+[[DelphixPlugin-AdvancedSettings]]
+=== Advanced Settings
+
+It is possible to share assets created between build steps. For
+instance, if you wanted to create a bookmark from a container and then
+restore a different container with the newly created bookmark. The
+create operation for both Self Service Containers and Bookmarks will
+have their output saved if the "Save to Properties" box is checked. The
+Self Service Container operation "restore" requires a Bookmark for
+reference. This Bookmark can be loaded a previous build step when "Load
+Bookmark from Properties" is checked. Likewise, the referenced Self
+Service Container in the Bookmark build step can be loaded from the
+properties file.
+
+[[DelphixPlugin-Links]]
+== Links
+
+* https://wiki.jenkins.io/display/JENKINS/Delphix+Plugin[Delphix Plugin
+Jenkins Wiki Page]
+* https://plugins.jenkins.io/delphix[Jenkins Plugin Delphix Page]
+
+[[DelphixPlugin-Contribute]]
+== Contribute
+
+. Fork the project.
+. Make your bug fix or new feature.
+. Add tests for your code.
+. Send a pull request.
+
+Contributions must be signed as `+User Name <user@email.com>+`. Make
+sure to
+https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup[set
+up Git with user name and email address]. Bug fixes should branch from
+the current stable branch. New features should be based on the
+`+master+` branch.
+
+[[DelphixPlugin-CodeofConduct]]
+=== Code of Conduct
+
+This project operates under the
+https://delphix.github.io/code-of-conduct.html[Delphix Code of Conduct].
+By participating in this project you agree to abide by its terms.
+
+[[DelphixPlugin-ContributorAgreement]]
+=== Contributor Agreement
+
+All contributors are required to sign the Delphix Contributor agreement
+prior to contributing code to an open source repository. This process is
+handled automatically by https://cla-assistant.io/[cla-assistant].
+Simply open a pull request and a bot will automatically check to see if
+you have signed the latest agreement. If not, you will be prompted to do
+so as part of the pull request process. Read the full
+https://delphix.github.io/contributor-agreement.html[Delphix Contributor
+License Agreement].
+
+[[DelphixPlugin-ReportingIssues]]
+== Reporting Issues
+
+Please submit bug reports, suggestions and pull requests to the
+https://github.com/jenkinsci/delphix-plugin/issues[GitHub issue
+tracker].
+
+[[DelphixPlugin-StatementofSupport]]
+== Statement of Support
+
+This software is provided as-is, without warranty of any kind or
+commercial support through Delphix. See the associated license for
+additional details. Questions, issues, feature requests, and
+contributions should be directed to the community as outlined in the
+https://delphix.github.io/community-guidelines.html[Delphix Community
+Guidelines].
+
+[[DelphixPlugin-License]]
+== License
+
+This is code is licensed under the Apache License 2.0. Full license is
+available https://wiki.jenkins.io/LICENSE[here].
+
+ 
+
+ 

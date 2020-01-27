@@ -1,0 +1,7 @@
+jenkins-plugin-info:radargun-reporting
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+Reporting performance tests, which were executed by the framework
+RadarGun, in Jenkins.

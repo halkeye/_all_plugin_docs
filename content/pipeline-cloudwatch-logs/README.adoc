@@ -1,0 +1,5 @@
+A Jenkins plugin to send Pipeline build logs to CloudWatch Logs and
+display them directly from the cloud service.
+
+See https://github.com/jenkinsci/pipeline-cloudwatch-logs-plugin/blob/master/README.md[GitHub]
+for all information.

@@ -1,0 +1,88 @@
+[.conf-macro .output-inline]#A suite of plugins that lets you
+orchestrate automation, simple or complex. See
+https://jenkins.io/doc/book/pipeline/[the Jenkins website] for more
+details and documentation.# +
+Documentation on the Jenkins site:
+
+* https://jenkins.io/doc/pipeline/tour/hello-world/[How do I start with
+Pipeline?]
+* https://jenkins.io/doc/book/pipeline/syntax/[Pipeline Syntax
+Reference]
+* https://jenkins.io/doc/pipeline/steps[Pipeline Steps Reference]
+* https://jenkins.io/doc/book/pipeline/shared-libraries/[Extending
+Pipeline with Shared Libraries]
+
+Other information about Pipeline is
+https://github.com/jenkinsci/pipeline-plugin[available in GitHub]. Quick
+links:
+
+* https://github.com/jenkinsci/pipeline-plugin/blob/master/DEVGUIDE.md[Developing
+plugins for Pipeline]
+* https://github.com/jenkinsci/workflow-cps-plugin[Pipeline CPS Engine]
+* https://github.com/jenkinsci/workflow-scm-step-plugin/blob/master/README.md[SCM
+step]
+* https://github.com/jenkinsci/workflow-aggregator-plugin/blob/master/demo/README.md[Pipeline
+demo Docker image]
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+Formerly known as the Workflow plugin. Originally inspired by the
+https://wiki.jenkins-ci.org/display/JENKINS/Build+Flow+Plugin[Build Flow
+Plugin].
+
+[[PipelinePlugin-Changelog]]
+== Changelog
+
+[[PipelinePlugin-2.6(Oct3,2018)]]
+=== 2.6 (Oct 3, 2018)
+
+* Updated dependencies.
+
+[[PipelinePlugin-2.5(Feb01,2017)]]
+=== 2.5 (Feb 01, 2017)
+
+* Updated dependencies, and added
+https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Model+Definition+Plugin[Pipeline
+Model Definition Plugin].
+
+[[PipelinePlugin-2.4(Sep21,2016)]]
+=== 2.4 (Sep 21, 2016)
+
+* Updated dependencies, and added
+https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Milestone+Step+Plugin[Pipeline
+Milestone Step Plugin].
+
+[[PipelinePlugin-2.3(Aug31,2016)]]
+=== 2.3 (Aug 31, 2016)
+
+* Updated dependencies.
+
+[[PipelinePlugin-2.2(Jun22,2016)]]
+=== 2.2 (Jun 22, 2016)
+
+* Updated dependencies.
+
+[[PipelinePlugin-2.1(May03,2016)]]
+=== 2.1 (May 03, 2016)
+
+* Now depends on
+https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Stage+View+Plugin[Pipeline
+Stage View Plugin].
+
+[[PipelinePlugin-2.0(Apr05,2016)]]
+=== 2.0 (Apr 05, 2016)
+
+* First release under per-plugin versioning scheme. See
+https://github.com/jenkinsci/pipeline-plugin/blob/82e7defa37c05c5f004f1ba01c93df61ea7868a5/CHANGES.md[1.x
+changelog] for earlier releases.
+* Jenkins core requirement increased to 1.642.3.
+* Now depends on
+https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Multibranch+Plugin[Pipeline
+Multibranch Plugin], and moves some steps into new
+https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Build+Step+Plugin[Pipeline
+Build Step Plugin],
+https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Input+Step+Plugin[Pipeline
+Input Step Plugin], and
+https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Stage+Step+Plugin[Pipeline
+Stage Step Plugin].

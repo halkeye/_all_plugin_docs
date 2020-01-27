@@ -1,0 +1,107 @@
+This plugin gives every user, also non administrative one the
+possibility to create his own view and to use a pseudo tree-view where
+every user can administer it's own delimiter which is used as path
+delimiter
+
+[[HudsonPersonalView-HudsonPersonalViewPlugin]]
+== Hudson Personal View Plugin
+
+[[HudsonPersonalView-intention]]
+=== intention
+
+to provide a possibility for every user to have it's own filter of
+hudson-jobs +
+(we have in our hudson nearly 1000 jobs and the list is very long)
+
+[[HudsonPersonalView-download]]
+=== download
+
+http://download.jenkins-ci.org/plugins/hudson-pview-plugin/
+
+[[HudsonPersonalView-usagesamples]]
+=== usage samples
+
+[[HudsonPersonalView-configuration]]
+==== configuration
+
+[.confluence-embedded-file-wrapper]#image:docs/images/s1.png[image]#
+
+[[HudsonPersonalView-usageasfilteredview]]
+==== usage as filtered view
+
+[.confluence-embedded-file-wrapper]#image:docs/images/s2.png[image]#
+
+[[HudsonPersonalView-usageasStepinTree]]
+==== usage as Step in Tree
+
+[.confluence-embedded-file-wrapper]#image:docs/images/s3.png[image]# +
+[.confluence-embedded-file-wrapper]#image:docs/images/s4.png[image]#
+
+[[HudsonPersonalView-changelog]]
+=== changelog
+
+[[HudsonPersonalView-V1.8(Jan3,2011)]]
+==== V 1.8 (Jan 3, 2011)
+
+* Translation updates
+* Fix one little typo
+
+[[HudsonPersonalView-V1.7(Jan12,2010)]]
+==== V 1.7 (Jan 12, 2010)
+
+. *FIXED*
+.. filter works now also at the root of the "step in view"
+
+[[HudsonPersonalView-V1.6]]
+==== V 1.6
+
+. *FIXED*
+.. RSS feed are now working on all views
+. *Extended*
+.. Step In view is now on the fly filterable by everyone
+.. Filtered view is now on the fly filterable by everyone
+.. default value for path delimiter is global configurable
+.. default regexp for filtered view is global configurable
+
+[[HudsonPersonalView-V1.5]]
+==== V 1.5
+
+. *FIXED* +
+default value of shown projects in the step in view is now set from 0 to
+30
+
+[[HudsonPersonalView-V1.4]]
+==== V 1.4
+
+. *FIXED* +
+if I run hudson at / instead of /hudson it works.\ +
+I think it might be line 116 of PViewLinkAction which checks for\ +
+req.getOriginalRequestURI().startsWith(URL_PVIEW_SI_VIEW)...\ +
+If hudson is run with any prefix then this check probably fails.
+. *Extended* +
+a new option per server up to how many jobs the jobs in the stepin-view
+will be shown
+
+[[HudsonPersonalView-V1.2]]
+==== V 1.2
+
+fixes empty user configuration
+
+[[HudsonPersonalView-V1.1]]
+==== V 1.1
+
+extension of the personal view
+
+. every user has possibility to decide which columns will be shown
+
+additional tree view
+
+. every user has the possibility to decide where the tree should be
+located
+. every user can administer it's own delimiter which is used as path
+delimiter
+
+[[HudsonPersonalView-V1.0]]
+==== V 1.0
+
+initial release

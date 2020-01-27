@@ -1,0 +1,8 @@
+Analyzes the historical console output of a Job with the goal of
+determining which steps are taking the most time.
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+The documentation, issues, and release notes will be stored in the
+https://github.com/jenkinsci/build-time-blame-plugin[GitHub repository].

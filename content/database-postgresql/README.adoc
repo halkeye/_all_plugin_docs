@@ -1,0 +1,12 @@
+[.conf-macro .output-inline]#This is a driver plugin for
+https://wiki.jenkins-ci.org/display/JENKINS/Database+Plugin[Database
+plugin] that adds http://www.postgresql.org/[PostgreSQL database]
+driver#.
+
+[[PostgreSQLDatabasePlugin-Changelog]]
+== Changelog
+
+[[PostgreSQLDatabasePlugin-Version1.0(Dec14,2012)]]
+=== Version 1.0 (Dec 14, 2012)
+
+* Initial version

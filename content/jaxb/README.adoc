@@ -1,0 +1,31 @@
+This plugin is an API plugin aimed at easing the transition for plugins
+to run correctly in Jenkins running in Java 11. 
+
+*As an end user, you should generally never have to install this plugin
+yourself. It is designed to be automatically installed as a dependency
+for plugins needing to access the JAXB API that has been removed from
+the JDK in Java 9+.*
+
+[[JAXBPlugin-Fordevelopers]]
+== For developers
+
+If you are a developer and your plugin is using JAXB and you cannot
+remove the dependency:
+
+* If your minimum baseline is < 2.164, you should consider adding an
+explicitly dependency against it. 
+* if your minimum baseline is >= 2.164, you *must* add the dependency
+against this plugin so your plugin doesn't crash while running on a JRE
+11.
+
+Additional reading:
+
+* https://wiki.jenkins-ci.org/display/JENKINS/Java+11+Developer+Guidelines[Java
+11 Developer Guidelines]. 
+* https://wiki.jenkins-ci.org/display/JENKINS/Known+Java+11+Compatibility+issues[Known
+Java 11 Compatibility issues] 
+* https://jenkins.io/doc/administration/requirements/jenkins-on-java-11/
+* https://jenkins.io/blog/2019/03/11/let-s-celebrate-java-11-support/[Java
+11 Support for Jenkins is General Availability]
+
+ +

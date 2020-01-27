@@ -1,0 +1,23 @@
+[.conf-macro .output-inline]#This plugin lets you run load tests for web
+application projects with help of
+http://www.loadtestingtool.com/help/Jenkins.shtml[WAPT Pro]. During the
+test you can monitor the process through the Jenkins console. Test
+results are combined with other integration jobs in the dashboard.#
+
+[[WAPTProPlugin-Versionhistory]]
+== Version history
+
+[[WAPTProPlugin-Version1.6]]
+=== Version 1.6
+
+* Pipeline support
+
+[[WAPTProPlugin-Version1.1]]
+=== Version 1.1
+
+* Version info fixed
+
+[[WAPTProPlugin-Version1.0]]
+=== Version 1.0
+
+* Initial release

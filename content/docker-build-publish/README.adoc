@@ -1,0 +1,85 @@
+This https://github.com/jenkinsci/docker-build-publish-plugin[plugin]
+provides the ability to build projects with a Dockerfile, and publish
+the resultant tagged image (repo) to the docker registry. 
+https://github.com/jenkinsci/docker-build-publish-plugin/blob/master/README.md[Docs
+are here].
+
+If you want to build and push your Docker based project to the docker
+registry (including private repos), then you are in luck!
+
+This is an early version - build @michaelneale of @cloudbees  - ask me
+if you have questions.
+
+[[CloudBeesDockerBuildandPublishplugin-Features:]]
+== Features:
+
+* Only a Dockerfile needed to build your project
+* Publish to docker index/registry - INCLUDING PRIVATE REPOS/IMAGES
+* nocache option (for rebuild of all Dockerfile steps)
+* publish option
+* manage registry credentials for private and public repos
+* tag the image built - use any Jenkins env. variables.
+
+[[CloudBeesDockerBuildandPublishplugin-Dockerfileasbuildfile]]
+== Dockerfile as buildfile
+
+A Dockerfile is a convenient way to express build instructions. This
+plugin will use the Dockerfile in the workspace (possibly previously
+checked out from git) and will invoke docker build to create the Docker
+image. The result can be automatically uploaded to the Docker Registry
+or a private registry.
+
+As the Beatles song, all you need is Dockerfile, and love. If you have a
+Dockerfile in the root of your project, then no further configuration is
+needed.
+
+[[CloudBeesDockerBuildandPublishplugin-Howtouse]]
+== How to use
+
+[.aui-icon .aui-icon-small .aui-iconfont-warning .confluence-information-macro-icon]#
+#
+
+**_Warning_**__: the instructions below seem to cover the 0.x version of
+the plugin. Current documentation is__
+_https://go.cloudbees.com/docs/cloudbees-documentation/cje-user-guide/chapter-docker-build-publish.html[here]._
+
+Firstly, ensure you have docker running (if you are running with a
+slave, ensure the slave can run docker) - and that Jenkins can run
+docker commands.
+
+Setup a build of any type - with a CloudBees Docker Build and Publish
+build step. You can use the example under src/test/example to build a
+very simple busybox based image, and push it to
+jenkinsci/docker-build-and-publish-example. +
+[.confluence-embedded-file-wrapper]#image:https://raw.githubusercontent.com/jenkinsci/docker-build-publish-plugin/master/build-config.png[image]#
+
+The usual Docker build caching mechanism applies - and you can choose to
+publish, or not, the resultant image, configured under Advanced options.
+
+Builds will be decorated with the repository name (and tag) of the build
+images: +
+[.confluence-embedded-file-wrapper]#image:https://raw.githubusercontent.com/jenkinsci/docker-build-publish-plugin/master/build-label.png[image]#
+
+You can supply multiple tags for an image separated by commas. The
+latest tag is automatically applied to image - if you do not want this
+check the Do not tag this build as latest checkbox.
+
+[[CloudBeesDockerBuildandPublishplugin-WhyuseaDockerfile]]
+== Why use a Dockerfile
+
+Defining your build as a Dockerfile means that it will run in a
+consistent linux environment, no matter where the build is run. You also
+end up with an image (in a repository, possibly pushed to a registry)
+that can then be deployed - the exact same image you built.
+
+Dockerfiles can also help speed up builds. If there has been no change
+relative to a build instruction in the Dockerfile - then a cached
+version of that portion of the build can be used (this is a fundamental
+feature of docker)
+
+[[CloudBeesDockerBuildandPublishplugin-Moreinfo]]
+== More info
+
+See more on the GitHub readme:
+
+[.widget-link]#github.com#

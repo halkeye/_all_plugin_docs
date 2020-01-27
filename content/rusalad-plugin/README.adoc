@@ -1,0 +1,26 @@
+This plugin enables Jenkins to load test output
+from https://code.google.com/p/russian-salad/[Russian Salad] test suite.
+
+ +
+The plugin provides historical trend and other detailed views of the
+test result.
+
+[[RussianSaladTestReportPlugin-ChangeLog]]
+== Change Log
+
+[[RussianSaladTestReportPlugin-1.0.8]]
+=== 1.0.8
+
+Screenshots are now provided for each cucumber step.
+
+[[RussianSaladTestReportPlugin-Versionspriorto1.0.7]]
+=== Versions prior to 1.0.7
+
+See release notes at Google Code:
+
+* https://code.google.com/p/russian-salad/wiki/ReleaseNotes106[1.0.6]
+* https://code.google.com/p/russian-salad/wiki/ReleaseNotes105[1.0.5]
+* https://code.google.com/p/russian-salad/wiki/ReleaseNotes104[1.0.4]
+* https://code.google.com/p/russian-salad/wiki/ReleaseNotes103[1.0.3]
+* https://code.google.com/p/russian-salad/wiki/ReleaseNotes102[1.0.2]
+* https://code.google.com/p/russian-salad/wiki/ReleaseNotes101[1.0.1]

@@ -1,0 +1,42 @@
+[[git-notesPlugin-Overview]]
+== Overview
+
+This is a https://github.com/cowboyd/jenkins.rb[pure Ruby Jenkins
+plugin] which annotates git commits with Jenkins build information using
+the awesome http://man.github.com/git/git-notes.html[git-notes]
+functionality.
+
+[cols=",",]
+|===
+|[.confluence-embedded-file-wrapper]#image:https://github.com/swipely/jenkins-git-notes-plugin/raw/master/.README/publish-box.png[image]#
+|[.confluence-embedded-file-wrapper]#image:https://github.com/swipely/jenkins-git-notes-plugin/raw/master/.README/github-view.png[image]#
+|===
+
+For more information, see the
+https://github.com/swipely/jenkins-git-notes-plugin[project page on
+GitHub].
+
+[[git-notesPlugin-VersionHistory]]
+== Version History
+
+[[git-notesPlugin-0.0.4(2012.04.20)]]
+=== 0.0.4 (2012.04.20)
+
+* Fixed: can't fetch refs/notes/jenkins before it exists
+
+[[git-notesPlugin-0.0.3(notreleased)]]
+=== 0.0.3 (not released)
+
+* Fixed: force pushed notes lose history
+
+[[git-notesPlugin-0.0.2(2012.03.30)]]
+=== 0.0.2 (2012.03.30)
+
+* Fixed:
+https://github.com/swipely/jenkins-git-notes-plugin/issues/2[does not
+work on slave nodes]
+
+[[git-notesPlugin-0.0.1(2012.03.29)]]
+=== 0.0.1 (2012.03.29)
+
+* Initial release

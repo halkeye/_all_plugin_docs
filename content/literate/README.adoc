@@ -1,0 +1,207 @@
+[[LiteratePlugin-LiteratePlugin]]
+== Literate Plugin
+
+The plugin provides support for the literate-style multi-branch project
+type.
+
+[[LiteratePlugin-Whatisaliterate-styleproject]]
+=== What is a literate-style project
+
+A Literate-style project is a project where the instructions on how to
+build the project are part of the actual project themselves. At its
+simplest, if the project has a README.md file that contains a build
+section with a literate code block containing the build instructions,
+that is a literate style project.
+
+[[LiteratePlugin-Examples]]
+==== Examples
+
+[[LiteratePlugin-Simplebuild]]
+===== Simple build
+
+....
+Hello world literate project
+============================
+
+
+Build
+-----
+
+
+Let's say hello
+
+
+    echo "Hello world"
+....
+
+Your typical GNU native code project might use something like
+
+....
+# Standard GNU project
+
+
+# Build with autoconf/automake
+
+
+    ./configure
+    make
+....
+
+[[LiteratePlugin-Simplebuildwithenvironment]]
+===== Simple build with environment
+
+ANT projects may do something like
+
+....
+Environments
+===========
+
+
+Notice how we specify the environment to build with by providing Jenkins node
+labels or tool installer names in code snippet sections attached to bullet points
+in an "environment" section?
+
+
+* `ant-1.8`, `java-1.7`
+
+
+Build
+=====
+
+
+    ant clean dist
+....
+
+[[LiteratePlugin-Severalenvironments,buildcommandsdependingontheenvironment]]
+===== Several environments, build commands depending on the environment
+
+We could have a more complex project, e.g.
+
+....
+Complex project
+===============
+
+
+Environments
+===========
+
+
+We have two different environments that the build must be run on:
+
+
+* `linux`, `gcc-4.2`, `ant-1.8`, `maven-3.0.5`, `java-1.7`
+* `windows`, `vs-pro-2012`, `ant-1.8`, `maven-3.0.5`, `java-1.7`
+
+
+Build
+=====
+
+
+We have two different sets of build instructions, one for building with visual studio and
+the other for building with GCC
+
+
+* On `gcc-4.2`, we start by building the native code
+
+
+        ./configure
+        make
+
+
+    Now we do the Maven based build
+
+
+        mvn clean verify
+
+
+    Finally we use ANT to do the final steps
+
+
+        ant dist-publish
+
+
+* On `vs-pro-2012`, we have a batch file to do the native steps
+
+
+        call build-native.bat
+
+
+    It's always fun the way Windows invokes batch files, so we need to call them every time
+
+
+        call mvn.bat clean verify
+
+
+    And again for ANT
+
+
+        call ant.bat dist-publish
+....
+
+The literate style lets us intersperse comments around the actual build
+steps to assist in documenting the build instructions.
+
+[[LiteratePlugin-Promotion]]
+=== Promotion
+
+The plugin includes some facilities to support lightweight promotions
+using manual approval.
+
+You can define the command associated with a promotion just like a build
+command, in a specific question. But you are free to choose the name of
+the section. This name will need to be provided to the job
+configuration.
+
+[source,syntaxhighlighter-pre]
+----
+Release
+=======
+
+To release the project:
+
+    mvn release:prepare release:perform -B
+----
+
+Of course, the release process doesn't make sense for all branches. It
+will usually be valid only for master branch. The literate plugin allows
+you to specify such a restriction.
+
+[[LiteratePlugin-Whatisamulti-branchproject]]
+=== What is a multi-branch project
+
+A multi-branch project is a project that automagically creates a
+sub-project for every branch in your source control. When the branch is
+deleted (assuming you configure the project to auto prune dead branches)
+then the sub-project will be removed. Branches are cheap and easy to
+create in Source Control. They should be just as easy to create in
+Jenkins... with a literate-style multi-branch project they are trivial
+to create.
+
+The advantage that literate-style projects bring to multi-branch
+projects is that you can even change the build system in your branch
+without breaking the job for your branch.
+
+[[LiteratePlugin-Howtoinstall]]
+=== How to install
+
+This plugin is currently in beta version. It means it is available from
+the jenkins
+http://jenkins-ci.org/content/experimental-plugins-update-center[experimental
+update center]. Once you have configured your Jenkins instance to target
+the experimental update center, you can install the literate plugin as
+any other plugin.
+
+This plugin is no longer in beta version. You can install the literate
+plugin as any other plugin, without having to use the experimental
+update center.
+
+[[LiteratePlugin-VersionHistory]]
+=== Version History
+
+[[LiteratePlugin-1.0(2015-12-03)]]
+==== 1.0 (2015-12-03)
+
+* Screw it, let's cut an official release... while there are some things
+I think should be done first, given that workflow enables the same
+problems and doesn't provide a solution we may as well just ship it!
+* The plugin is now available in the official update center.

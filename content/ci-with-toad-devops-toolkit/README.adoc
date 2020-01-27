@@ -1,0 +1,70 @@
+[[ContinuousIntegrationwithToadDevOpsToolkitPlugin-Compatibility]]
+== Compatibility
+
+[cols=",",options="header",]
+|===
+|Plugin Version |Toad DevOps Toolkit
+|1.3 |1.0, 1.1, 1.2
+|1.2 |1.0, 1.1, 1.2
+|1.1 |1.0, 1.1
+|1.0 |1.0, 1.1
+|===
+
+ +
+
+[[ContinuousIntegrationwithToadDevOpsToolkitPlugin-Introduction]]
+== Introduction
+
+The Continuous Integration with Toad DevOps Toolkit Plugin enables
+Oracle users to automate various DevOps tasks including:
+
+* Performing PL/SQL code analysis
+* Running advanced PL/SQL unit tests
+* Executing PL/SQL scripts
+
+[[ContinuousIntegrationwithToadDevOpsToolkitPlugin-Install]]
+== Install
+
+Installing the Continuous Integration with Toad DevOps Toolkit Jenkins
+Plugin
+
+. Once logged into your Jenkins server click "Manage Jenkins".
+. From within the "Manage Jenkins" page click "Manage Plugins".
+. Near the top of the "Plugin Manager" page click the "Available" tab.
+. Filter the results by typing "Continuous Integration with Toad DevOps
+Toolkit".
+. Check "Continuous Integration with Toad DevOps Toolkit" and click
+either "Install without restart" or "Download now and install after
+restart" at the bottom of the page.
+
+The Toad DevOps Toolkit Jenkins Plugin requires Toad DevOps Toolkit to
+be installed. An installation guide for Toad DevOps Toolkit can be found
+https://support.quest.com/technical-documents/toad-devops-toolkit/1.0/installation-guide/[here].
+
+[[ContinuousIntegrationwithToadDevOpsToolkitPlugin-Documentation]]
+== Documentation
+
+Documentation for the latest version of Toad DevOps Toolkit can be found
+https://support.quest.com/toad-devops-toolkit[here].
+
+[[ContinuousIntegrationwithToadDevOpsToolkitPlugin-Changelog]]
+== Changelog
+
+[[ContinuousIntegrationwithToadDevOpsToolkitPlugin-VERSION1.3(January29th,2019)]]
+=== VERSION 1.3 (January 29th, 2019)
+
+* Fix: Fix to allow execution on any Windows machine, master or slave.
+
+[[ContinuousIntegrationwithToadDevOpsToolkitPlugin-VERSION1.2(January2nd,2019)]]
+=== VERSION 1.2 (January 2nd, 2019)
+
+* Fix: Code Analysis rule violations would never fail when using Toad
+DevOps Toolkit 1.2
+
+[[ContinuousIntegrationwithToadDevOpsToolkitPlugin-VERSION1.1(May14th,2018)]]
+=== VERSION 1.1 (May 14th, 2018)
+
+* Feature: Code analysis allows setting failure conditions
+* Fix: Successful unit test build steps were failing
+
+ +

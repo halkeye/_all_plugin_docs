@@ -1,0 +1,38 @@
+ +
+
+This plugin visualizes the results of selenium tests.
+
+[[seleniumhtmlreportPlugin-Description]]
+== Description
+
+The seleniumhtmlreport plugin scans the selenium test results directory
+for html files created by selenium tests and creates an overview of the
+executed tests.
+
+All html result files will be copied into the subdirectory
+"seleniumReports" of the build root directory.
+
+All results will be read from the html result files. In the overview is
+for each html result file a link to it.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/seleniumhtmlreport_overview.jpg[image]#
+
+[[seleniumhtmlreportPlugin-Configuration]]
+=== Configuration
+
+If you activate the Post-Build-Action "Publish Selenium Html Report" you
+can insert the location of your selenium test results into the text
+input box with the label "Selenium tests results location". Insert a
+location relative to your workspace.
+
+[.confluence-embedded-file-wrapper]#image:docs/images/seleniumhtmlreport_config.jpg[image]#
+
+[[seleniumhtmlreportPlugin-Feedback]]
+== Feedback
+
+This plugin is developed and maintained by Marco Machmer with kind
+support from http://www.abas.de/[Abas Software AG]. Please feel free to
+contact me for feedback. If you have suggestions for new features or
+you've found a bug, please use the
+http://issues.jenkins-ci.org/browse/JENKINS/component/15781[issue
+tracker].

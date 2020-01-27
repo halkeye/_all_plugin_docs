@@ -1,0 +1,3 @@
+This plugin allows to notify build succeeded to
+https://deadmanssnitch.com/[Dead Man's Snitch] +
+[.confluence-embedded-file-wrapper]#image:docs/images/スクリーンショット_2016-06-12_0.51.44_のコピー.png[image]#

@@ -1,0 +1,22 @@
+This plugin makes it possible to promote composite baselines or latest
+baselines to RELEASED promotion level for Clearcase UCM. +
+The plugins extends the
+https://wiki.jenkins-ci.org/display/JENKINS/ClearCase+Plugin[Clearcase
+plugin]. +
+You can use a custom promotion level. +
+The promotion operations are exposed with
+https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI[Jenkins CLI].
+
+[[ClearCaseReleasePlugin-Changelog]]
+== Changelog
+
+[[ClearCaseReleasePlugin-Version0.3(Feb17,2011)]]
+=== Version 0.3 (Feb 17, 2011)
+
+* Add ability to promote automatically the composite and latest
+baselines to the RELEASE status.
+
+[[ClearCaseReleasePlugin-Version0.1(Dec7,2009)]]
+=== Version 0.1 (Dec 7, 2009)
+
+* Initial release

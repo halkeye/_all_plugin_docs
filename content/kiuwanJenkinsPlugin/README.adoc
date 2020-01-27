@@ -1,0 +1,7 @@
+[.conf-macro .output-inline]# #
+
+This plugin allows you to Run http://kiuwan.com/[Kiuwan] static analysis
+of your code as part of your continuous integration process with
+Jenkins. You can
+
+update your code quality information in Kiuwan automatically.

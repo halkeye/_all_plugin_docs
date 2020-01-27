@@ -1,0 +1,2 @@
+This plugin installs jenkins plugins suggested by
+http://jenkins-php.org/ for PHP developers

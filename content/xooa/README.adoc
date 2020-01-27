@@ -1,0 +1,42 @@
+\{jenkins-plugin-info:xooa-plugin}
+
+[.aui-icon .aui-icon-small .aui-iconfont-info .confluence-information-macro-icon]#
+#
+
+Xooa plugin allows user to automatically upgrade a blockchain
+application deployed on Xooa Platform. It can be added as a build
+pipeline step. The plugin supports apps deployed on both Hyperledger
+fabric and Ethereum networks.
+
+ +
+
+Steps to get started with:
+
+. Install plugin 
+.. Go to "Manage Jenkins" section. 
+.. Click on "Manage Plugins".
+.. Search for "Xooa" and install the plugin.
+. Add Xooa deployment token 
+.. Go to "Manage Jenkins" section. 
+.. Click on "Configure System".
+.. Under "Xooa Configuration" section, paste deployment token obtained
+from Xooa dashboard.
+.. Click "Save".
+. Use Xooa plugin in a project 
+.. Create new "Freestyle project" or go to existing one.
+.. Scroll to "Build" section.
+.. Click on "Add build step" dropdown and select "Upgrade Xooa app".
+.. Enter "Smart contract folder name" which contains smart contract(s)
+within Jenkins' workspace.
+.. Enter "App Id" which should be upgraded.
+.. Click "Save".
+
+On next successful build, given application will  be upgraded
+automatically.
+
+Console output can be monitored during application upgrade.
+
+View upgrade information in the "App Upgrade Info" section of a
+particular build.
+
+ +

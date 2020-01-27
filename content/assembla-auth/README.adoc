@@ -1,0 +1,78 @@
+[[AssemblaAuthPlugin-PluginInformation]]
+== Plugin Information
+
+[width="100%",cols="25%,25%,25%,25%",]
+|===
+|Plugin ID |assembla-auth |Changes
+|https://app.assembla.com/spaces/assembla-oss/git/compare/assembla-oss.jenkins-auth:assembla-auth-1.11...assembla-oss.jenkins-auth:assembla-auth-1.09[In
+Latest Release] +
+https://app.assembla.com/spaces/assembla-oss/git/compare/assembla-oss.jenkins-auth:master...assembla-oss.jenkins-auth:assembla-auth-1.11[Since
+Latest Release]
+
+|Latest Release  +
+Latest Release Date  +
+Required Core  +
+Dependencies |1.11    +
+Aug 23, 2016    +
+1.622 |Source Code  +
+Issue Tracking  +
+Maintainer(s)
+|https://www.assembla.com/code/assembla-oss/git/nodes[Assembla.git] +
+https://www.assembla.com/spaces/assembla-oss/support/tickets[Open
+Issues] +
+https://www.assembla.com/[Assembla]
+|===
+
+[[AssemblaAuthPlugin-AssemblaAuthPlugin]]
+== Assembla Auth Plugin
+
+[[AssemblaAuthPlugin-Overview]]
+=== Overview
+
+[.conf-macro .output-inline]#This plugin enables OAuth (see
+http://oauth.net/[http://oauth.net]) authentication for
+https://www.assembla.com/[Assembla] users to Jenkins instance using
+their Assembla credentials and delegate the authorization to an Assembla
+space permissions.#
+
+[[AssemblaAuthPlugin-AssemblaSecurityRealm(authentication):]]
+=== Assembla Security Realm (authentication):
+
+Handles the authentication and acquisition of the Assembla OAuth token
+for the connecting user. Takes the client id (Application identifier)
+and client secret (Application secret) from the application registration
+here:https://www.assembla.com/user/edit/manage_clients
+
+The entry should look like this:Assembla API uri:
+https://api.assembla.com/[https://api.assembla.com] +
+Main url: http://127.0.0.1:8080/[http://127.0.0.1:8080] +
+Callback url: http://127.0.0.1:8080/securityRealm/finishLogin +
+Space url name: assembla_space_name +
+Assembla API uri: by default
+is https://api.assembla.com/[https://api.assembla.com]. Do not change if
+you are not running a private install of Assembla.
+
+Main url and Callback url: use the url of your jenkins instance instead
+of http://127.0.0.1:8080/[http://127.0.0.1:8080]
+
+Space url name: has to be set for authorization purposes, replace
+assembla_space_name with your space's url name
+(http://www.assembla.com/spaces/[www.assembla.com/spaces/])
+
+[[AssemblaAuthPlugin-AssemblaAuthorizationStrategy(authorization):]]
+=== Assembla Authorization Strategy (authorization):
+
+Jenkins user permissions are based on Assembla permission:
+
+* Assembla user with ALL permission for space has Jenkins ADMIN access.
+* Assembla user with EDIT permission for space has Jenkins EDIT access.
+* Assembla user with VIEW permission for space has Jenkins READ access.
+* Assembla user with NONE permission for space has NO Jenkins access.
+
+"Admin usernames" field accepts a list of comma separated usernames.
+These users will:
+
+* have Jenkins ADMIN access
+* have external access (access to Jenkins API via basic http auth) using
+their username and API key defined in Jenkins People
+section: http://127.0.0.1:8080/user/configure

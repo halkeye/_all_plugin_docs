@@ -1,0 +1,58 @@
+Allows users to display build status ona Raspberry Pi via a multi-colour
+LED https://www.piborg.org/ledborg[LedBorg]
+
+[[RPiBuildStatusPlugin-Description]]
+== Description
+
+This project is for a Jenkins plugin to control the
+https://www.piborg.org/ledborg[LedBorg] module for the Raspberry Pi. +
+It uses the http://pi4j.com/[pi4j] / http://wiringpi.com/[wiringpi]
+libraries to drive the GPIO pins.
+
+[[RPiBuildStatusPlugin-Features]]
+== Features
+
+* Reflect all build states using an LED display attached to the GPIO
+pins
+* Custom colour to state mapping
+
+[[RPiBuildStatusPlugin-Potentialupcomingfeatures]]
+== Potential upcoming features
+
+* Custom GPIO pin to result mapping
+* Support for other SBC'supported by the pi4j library
+
+[[RPiBuildStatusPlugin-Requirements]]
+== Requirements
+
+Jenkins version 1.658 or newer is required.
+
+[[RPiBuildStatusPlugin-SpecialRequirements]]
+== Special Requirements
+
+I have found various issues with the GPIO pins being addressable. These
+have been isolated down to which interfaces are enabled on the RPI. The
+minimum set appears to be:
+
+* SPI
+* I2C
+* 1-Wire
+
+If you are having problems, make sure these are enabled (Preferences ->
+Raspberry Pi Configuartion)
+
+This is correct as of raspbian_jessie_all_rpi_2017.01.11
+
+[[RPiBuildStatusPlugin-Setup]]
+== Setup
+
+To configure Jenkins for the RPI, see the following
+https://github.com/jenkinsci/rpi-build-status-plugin/blob/master/README.md[README]
+
+[[RPiBuildStatusPlugin-Versionhistory]]
+== Version history
+
+[[RPiBuildStatusPlugin-Version0.4(27-Feb-17)]]
+=== Version 0.4 (27-Feb-17)
+
+* First generally available release
